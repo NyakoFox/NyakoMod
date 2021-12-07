@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D D",
+    "DDD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:dripstone_block"
+    }
+  },
+  "result": {
+    "item": "nyakomod:drip_jacket",
+    "count": 1
+  }
+}

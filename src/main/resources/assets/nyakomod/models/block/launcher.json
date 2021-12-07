@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "nyakomod:block/launcher_top",
+    "bottom": "nyakomod:block/launcher_bottom",
+    "side": "nyakomod:block/launcher_side"
+  }
+}

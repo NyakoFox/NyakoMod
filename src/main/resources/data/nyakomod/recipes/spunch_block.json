@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VSV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "minecraft:vine"
+    },
+    "S": {
+      "item": "minecraft:sponge"
+    }
+  },
+  "result": {
+    "item": "nyakomod:spunch_block",
+    "count": 1
+  }
+}
