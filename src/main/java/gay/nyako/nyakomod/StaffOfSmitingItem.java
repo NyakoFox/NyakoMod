@@ -20,6 +20,7 @@ public class StaffOfSmitingItem extends Item {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         LightningEntity lightningBolt = new LightningEntity(EntityType.LIGHTNING_BOLT, target.world);
+        lightningBolt.setCosmetic(true);
         lightningBolt.setPos(target.getX(), target.getY(), target.getZ());
         target.world.spawnEntity(lightningBolt);
         target.addVelocity(0d, 5d, 0d);

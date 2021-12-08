@@ -4,5 +4,11 @@
         "sounds": [
             "nyakomod:vine_boom"
         ]
+    },
+    "coin_collect": {
+        "subtitle": "subtitles.nyakomod.coin_collect",
+        "sounds": [
+            "nyakomod:coin_collect"
+        ]
     }
 }
