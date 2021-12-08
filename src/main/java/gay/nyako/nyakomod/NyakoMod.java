@@ -8,10 +8,16 @@ import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
+import net.minecraft.loot.function.ConditionalLootFunction;
+import net.minecraft.loot.function.LootingEnchantLootFunction;
+import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -24,6 +30,9 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NyakoMod implements ModInitializer {
 	// Killbinding
@@ -91,12 +100,55 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "netherite_coin"), NETHERITE_COIN_ITEM);
 		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
 
-		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-					.rolls(ConstantLootNumberProvider.create(1))
-					.with(ItemEntry.builder(Items.EGG));
-			supplier.withPool(poolBuilder.build());
-		});
+		registerCoinLootTables();
 
+	}
+	public void registerCoinLootTables() {
+
+		Map<net.minecraft.util.Identifier, Integer> map = new HashMap<>();
+		registerCoinAmount(map, EntityType.ZOMBIE, 60, 0, 0, 0,0);
+		registerCoinAmount(map, EntityType.SKELETON, 99, 0, 0, 0,0);
+		registerCoinAmount(map, EntityType.CREEPER, 50, 1, 0, 0,0);
+		registerCoinAmount(map, EntityType.ENDERMAN, 50, 2, 0, 0,0);
+
+
+		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
+
+			Integer value = map.get(id);
+			if (value == null) return;
+
+			int copper =    value % 1000;
+			int gold =      value / 1000;
+			int emerald =   value / (int) Math.pow(1000, 2);
+			int diamond =   value / (int) Math.pow(1000, 3);
+			int netherite = value / (int) Math.pow(1000, 4);
+
+			LootPool lootCopper = createCoinPool(copper, NyakoMod.COPPER_COIN_ITEM);
+			LootPool lootGold = createCoinPool(gold, NyakoMod.GOLD_COIN_ITEM);
+			LootPool lootEmerald = createCoinPool(emerald, NyakoMod.EMERALD_COIN_ITEM);
+			LootPool lootDiamond = createCoinPool(diamond, NyakoMod.DIAMOND_COIN_ITEM);
+			LootPool lootNetherite = createCoinPool(netherite, NyakoMod.NETHERITE_COIN_ITEM);
+
+			supplier.withPool(lootCopper)
+					.withPool(lootGold)
+					.withPool(lootEmerald)
+					.withPool(lootDiamond)
+					.withPool(lootNetherite);
+		});
+	}
+
+	public LootPool createCoinPool(int amount, Item item) {
+		return FabricLootPoolBuilder.builder()
+				.with(ItemEntry.builder(item))
+				.rolls(UniformLootNumberProvider.create(amount / 2, amount)).build();
+	};
+
+	public void registerCoinAmount(Map map, EntityType type, int copper, int gold, int emerald, int diamond, int netherite) {
+		int total = copper
+				+ (gold * 1000)
+				+ (int) (emerald * Math.pow(1000, 2))
+				+ (int) (diamond * Math.pow(1000, 3))
+				+ (int) (netherite * Math.pow(1000, 4));
+		map.put(type.getLootTableId(), total);
 	}
 }
