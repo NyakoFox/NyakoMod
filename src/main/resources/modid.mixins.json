@@ -7,7 +7,8 @@
   ],
   "client": [
     "PlayerInventoryMixin",
-    "ClientPlayNetworkHandlerMixin"
+    "ClientPlayNetworkHandlerMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
