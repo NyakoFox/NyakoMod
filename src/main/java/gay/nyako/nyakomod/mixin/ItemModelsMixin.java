@@ -35,7 +35,7 @@ public abstract class ItemModelsMixin {
       if (nbt.contains("nyakomod:modelId")) {
         var modelId = nbt.getString("nyakomod:modelId");
         var identifier = new ModelIdentifier(modelId);
-        cir.setReturnValue(getBakedModel(identifier)));
+        cir.setReturnValue(getBakedModel(identifier));
       }
     }
   }
