@@ -40,18 +40,18 @@ public abstract class ItemModelsMixin {
     }
   }
 
-BakedModel getBakedModel(ModelIdentifier identifier) {
-  var model = getModelManager().getModel(identifier);
-  if (model != getModelManager().getMissingModel()) {
-    return model;
-  }
-
-  for (Map.Entry entry : this.modelIds.entrySet()) {
-    if (((ModelIdentifier)entry.getValue()).compareTo(identifier) == 0) {
-      return this.models.get((Integer)entry.getKey());
+  BakedModel getBakedModel(ModelIdentifier identifier) {
+    var model = getModelManager().getModel(identifier);
+    if (model != getModelManager().getMissingModel()) {
+      return model;
     }
-  }
 
-  return getModelManager().getMissingModel();
-}
+    for (Map.Entry entry : this.modelIds.entrySet()) {
+      if (((ModelIdentifier)entry.getValue()).compareTo(identifier) == 0) {
+        return this.models.get((Integer)entry.getKey());
+      }
+    }
+
+    return getModelManager().getMissingModel();
+  }
 }
