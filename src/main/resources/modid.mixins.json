@@ -9,7 +9,9 @@
     "PlayerInventoryMixin",
     "ClientPlayNetworkHandlerMixin",
     "LivingEntityMixin",
-    "ItemModelsMixin"
+    "ItemModelsMixin",
+    "ItemStackMixin",
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
