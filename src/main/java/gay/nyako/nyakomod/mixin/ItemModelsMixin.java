@@ -28,12 +28,12 @@ public abstract class ItemModelsMixin {
   @Shadow
   public abstract BakedModelManager getModelManager();
 
-  @Inject(at = @At("HEAD"), method = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", cancellable=true)
+  @Inject(at = @At("HEAD"), method = "getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", cancellable=true)
   public void getModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
     var nbt = stack.getNbt();
     if (nbt != null) {
-      if (nbt.contains("nyakomod:modelId")) {
-        var modelId = nbt.getString("nyakomod:modelId");
+      if (nbt.contains("modelId")) {
+        var modelId = nbt.getString("modelId");
         var identifier = new ModelIdentifier(modelId);
         cir.setReturnValue(getBakedModel(identifier));
       }
