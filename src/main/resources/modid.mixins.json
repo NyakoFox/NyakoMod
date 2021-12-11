@@ -4,11 +4,11 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LivingEntityMixin",
+    "PlayerInventoryMixin"
   ],
   "client": [
-    "PlayerInventoryMixin",
     "ClientPlayNetworkHandlerMixin",
-    "LivingEntityMixin",
     "ItemModelsMixin",
     "ItemStackMixin",
     "InGameHudMixin"
