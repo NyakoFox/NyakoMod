@@ -5,6 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.PacketByteBuf;
@@ -25,5 +26,10 @@ public class NyakoClientMod implements ClientModInitializer {
 				ClientSidePacketRegistry.INSTANCE.sendToServer(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
+
+		ClientSidePacketRegistry.INSTANCE.register(NyakoMod.PLAYER_SMITE_PACKET_ID,
+				(packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
+					MinecraftClient.getInstance().player.addVelocity(0D, 5D, 0D);
+				}));
 	}
 }

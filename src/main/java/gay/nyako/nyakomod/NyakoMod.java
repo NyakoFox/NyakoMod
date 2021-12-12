@@ -77,6 +77,8 @@ public class NyakoMod implements ModInitializer {
 
 	public static Map<EntityType<?>, Integer> coinMap = new HashMap<>();
 
+	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+
 	@Override
 	public void onInitialize() {
 		System.out.println("owo");
