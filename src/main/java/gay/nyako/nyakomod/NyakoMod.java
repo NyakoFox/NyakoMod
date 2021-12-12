@@ -1,5 +1,7 @@
 package gay.nyako.nyakomod;
 
+import com.mojang.brigadier.arguments.StringArgumentType;
+import eu.pb4.placeholders.TextParser;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -19,9 +21,19 @@ import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootingEnchantLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -67,9 +79,94 @@ public class NyakoMod implements ModInitializer {
 
 	public static Map<EntityType<?>, Integer> coinMap = new HashMap<>();
 
+	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+
 	@Override
 	public void onInitialize() {
 		System.out.println("owo");
+
+		// Register commands
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			dispatcher.register(CommandManager.literal("rename")
+				.executes(context -> {
+					ServerCommandSource source = context.getSource();
+					PlayerEntity player = source.getPlayer();
+					ItemStack heldStack = player.getMainHandStack();
+					if (heldStack.isEmpty()) {
+						context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
+					} else {
+						heldStack.removeCustomName();
+						context.getSource().sendFeedback(new LiteralText("Your item's name has been cleared."), false);
+					}
+					return 1;
+				})
+				.then(CommandManager.argument("name", StringArgumentType.greedyString())
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayer();
+						ItemStack heldStack = player.getMainHandStack();
+						Text newName = TextParser.parse(context.getArgument("name", String.class));
+						if (heldStack.isEmpty()) {
+							context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
+						} else {
+							heldStack.setCustomName(newName);
+							context.getSource().sendFeedback(new TranslatableText("Your item has been renamed to \"%s\".", newName), false);
+						}
+						return 1;
+					})
+				)
+			);
+
+			dispatcher.register(CommandManager.literal("lore")
+				.then(CommandManager.literal("clear")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayer();
+						ItemStack heldStack = player.getMainHandStack();
+						if (heldStack.isEmpty()) {
+							context.getSource().sendError(new LiteralText("You can't clear the lore of nothing!").formatted(Formatting.RED));
+						} else {
+							NbtCompound nbt = heldStack.getOrCreateNbt();
+							NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
+							NbtList nbtLore = new NbtList();
+
+							nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
+							nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
+							heldStack.setNbt(nbt);
+							context.getSource().sendFeedback(new LiteralText("Lore cleared."), false);
+						}
+						return 1;
+					})
+				)
+				.then(CommandManager.literal("add")
+					.then(CommandManager.argument("text", StringArgumentType.greedyString())
+						.executes(context -> {
+							ServerCommandSource source = context.getSource();
+							PlayerEntity player = source.getPlayer();
+							ItemStack heldStack = player.getMainHandStack();
+							Text newText = TextParser.parse(context.getArgument("text", String.class));
+							if (heldStack.isEmpty()) {
+								context.getSource().sendError(new LiteralText("You can't add lore to nothing!").formatted(Formatting.RED));
+							} else {
+								NbtCompound nbt = heldStack.getOrCreateNbt();
+								NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
+								NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
+
+								nbtLore.add(NbtString.of(Text.Serializer.toJson(newText)));
+
+								nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
+								nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
+								heldStack.setNbt(nbt);
+								context.getSource().sendFeedback(new LiteralText("Lore applied."), false);
+							}
+							return 1;
+						})
+					)
+				)
+			);
+		});
+
+
 
 		// Killbind
 		ServerSidePacketRegistry.INSTANCE.register(KILL_PLAYER_PACKET_ID, (packetContext, attachedData) -> {

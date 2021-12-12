@@ -5,13 +5,16 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ServerPlayNetworkHandlerMixin",
-    "ServerPlayerEntityAccessor"
+    "ServerPlayerEntityAccessor",
+    "LivingEntityMixin",
+    "PlayerInventoryMixin",
+    "ZombieEntityMixin"
   ],
   "client": [
-    "PlayerInventoryMixin",
     "ClientPlayNetworkHandlerMixin",
-    "LivingEntityMixin",
-    "ItemModelsMixin"
+    "ItemModelsMixin",
+    "ItemStackMixin",
+    "InGameHudMixin"
   ],
   "server": [
 

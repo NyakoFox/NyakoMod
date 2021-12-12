@@ -10,5 +10,7 @@
     "item.nyakomod.diamond_coin": "§bDiamond CunkCoin™",
     "item.nyakomod.netherite_coin": "§8Netherite CunkCoin™",
     "subtitles.nyakomod.vine_boom": "Vine boom",
-    "subtitles.nyakomod.coin_collect": "Coins collected"
+    "subtitles.nyakomod.coin_collect": "Coins collected",
+    "key.nyakomod.killbind": "Kill player",
+    "category.nyakomod.binds": "NyakoMod"
 }
