@@ -48,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gay.nyako.nyakomod.command.BackCommand;
+
 public class NyakoMod implements ModInitializer {
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
@@ -207,6 +209,13 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), BAG_OF_COINS_ITEM);
 
 		registerCoinAmounts();
+		registerCommands();
+	}
+
+	public static void registerCommands() {
+		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
+			BackCommand.register(dispatch);
+		});
 	}
 
 	public static int getCoinValue(EntityType<?> entity) {

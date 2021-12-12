@@ -4,6 +4,8 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ServerPlayerEntityMixin",
+    "EntityAccessor",
     "LivingEntityMixin",
     "PlayerInventoryMixin",
     "ZombieEntityMixin"
@@ -13,6 +15,9 @@
     "ItemModelsMixin",
     "ItemStackMixin",
     "InGameHudMixin"
+  ],
+  "server": [
+
   ],
   "injectors": {
     "defaultRequire": 1
