@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:netherite_coin"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:diamond_coin",
+    "count": 100
+  }
+}
