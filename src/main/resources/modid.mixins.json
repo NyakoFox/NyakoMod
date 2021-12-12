@@ -4,12 +4,17 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ServerPlayNetworkHandlerMixin",
+    "ServerPlayerEntityAccessor"
   ],
   "client": [
     "PlayerInventoryMixin",
     "ClientPlayNetworkHandlerMixin",
     "LivingEntityMixin",
     "ItemModelsMixin"
+  ],
+  "server": [
+
   ],
   "injectors": {
     "defaultRequire": 1

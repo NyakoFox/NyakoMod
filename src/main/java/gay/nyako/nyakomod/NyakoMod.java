@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
@@ -34,6 +35,8 @@ import net.minecraft.loot.entry.LootPoolEntry;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import gay.nyako.nyakomod.command.BackCommand;
 
 public class NyakoMod implements ModInitializer {
 	// Killbinding
@@ -103,6 +106,13 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
 
 		registerCoinAmounts();
+		registerCommands();
+	}
+
+	public static void registerCommands() {
+		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
+			BackCommand.register(dispatch);
+		});
 	}
 
 	public static int getCoinValue(EntityType<?> entity) {
