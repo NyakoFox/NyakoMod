@@ -38,7 +38,12 @@ public abstract class PlayerInventoryMixin {
 			stack.isOf(NyakoMod.DIAMOND_COIN_ITEM)) {
 			ItemStack itemStack = getStack(slot);
 			if ((itemStack.getCount() + stack.getCount()) >= stack.getMaxCount()) {
-				int left = (stack.getCount() + itemStack.getCount()) - stack.getMaxCount();
+				int stackCount = itemStack.getCount() + stack.getCount();
+				int toAdd = 0;
+				while ((itemStack.getCount() + stackCount) >= stack.getMaxCount()) {
+					stackCount -= stack.getMaxCount();
+					toAdd++;
+				}
 
 				Item type = NyakoMod.COPPER_COIN_ITEM;
 				if (stack.isOf(NyakoMod.COPPER_COIN_ITEM)) {
@@ -54,11 +59,11 @@ public abstract class PlayerInventoryMixin {
 				setStack(slot, ItemStack.EMPTY);
 
 				ItemStack newStack = new ItemStack(type);
-				newStack.setCount(1);
+				newStack.setCount(toAdd);
 				addStack(newStack);
 
-				if (left > 0) {
-					stack.setCount(left);
+				if (stackCount > 0) {
+					stack.setCount(stackCount);
 					addStack(stack);
 				}
 
