@@ -3,10 +3,10 @@ package gay.nyako.nyakomod.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.Entity;
 
-@Mixin(ServerPlayerEntity.class)
-public interface ServerPlayerEntityAccessor {
+@Mixin(Entity.class)
+public interface EntityAccessor {
   @Accessor("inNetherPortal")
 	boolean isInNetherPortal();
 }

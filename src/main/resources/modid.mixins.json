@@ -4,8 +4,8 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ServerPlayNetworkHandlerMixin",
-    "ServerPlayerEntityAccessor",
+    "ServerPlayerEntityMixin",
+    "EntityAccessor",
     "LivingEntityMixin",
     "PlayerInventoryMixin",
     "ZombieEntityMixin"
