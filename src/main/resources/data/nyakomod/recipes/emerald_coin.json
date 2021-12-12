@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:diamond_coin"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:emerald_coin",
+    "count": 100
+  }
+}

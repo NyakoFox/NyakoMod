@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:gold_coin"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:copper_coin",
+    "count": 100
+  }
+}
