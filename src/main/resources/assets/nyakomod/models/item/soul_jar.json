@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "nyakomod:item/soul_jar"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nyakomod:has_entity": 1
+      },
+      "model": "nyakomod:item/soul_jar_filled"
+    }
+  ]
+}
