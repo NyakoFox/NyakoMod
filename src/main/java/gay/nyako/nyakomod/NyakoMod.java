@@ -9,10 +9,12 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -36,6 +38,10 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPointer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import net.minecraft.item.Items;
@@ -46,11 +52,13 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
+import net.minecraft.world.World;
 
 public class NyakoMod implements ModInitializer {
 	// Killbinding
@@ -86,8 +94,19 @@ public class NyakoMod implements ModInitializer {
 	// Bag of coins
 	public static final Item BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item HUNGRY_BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	// Time in a bottle
+	public static final TimeInABottleItem TIME_IN_A_BOTTLE = new TimeInABottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	// Soul jar
+	public static final SoulJarItem SOUL_JAR = new SoulJarItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
+	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+
+	public static final EntityType<TickerEntity> TICKER = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("nyakomod", "ticker"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MISC, TickerEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build()
+	);
 
 	@Override
 	public void onInitialize() {
@@ -213,6 +232,41 @@ public class NyakoMod implements ModInitializer {
 		// Bag of coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), BAG_OF_COINS_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "hungry_bag_of_coins"), HUNGRY_BAG_OF_COINS_ITEM);
+
+		// TIAB
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "time_in_a_bottle"), TIME_IN_A_BOTTLE);
+
+		// Soul jar
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "soul_jar"), SOUL_JAR);
+		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				Direction direction = (Direction)pointer.getBlockState().get(DispenserBlock.FACING);
+				BlockPos pos = pointer.getPos(); // getBlockPos?
+				World world = pointer.getWorld();
+				if (!stack.getOrCreateNbt().contains("entity")) {
+					BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+					List<Entity> list = pointer.getWorld().getEntitiesByClass(Entity.class, new Box(blockPos), (Entityx) -> {
+						return Entityx.isAlive();
+					});
+					Iterator var5 = list.iterator();
+
+					Entity entity;
+					ItemStack newStack;
+					do {
+						if (!var5.hasNext()) {
+							return super.dispenseSilently(pointer, stack);
+						}
+
+						entity = (Entity)var5.next();
+						newStack = ((SoulJarItem)stack.getItem()).captureEntity(stack,null,(LivingEntity) entity);
+					} while(newStack == null);
+
+					return newStack;
+				}
+				((SoulJarItem) stack.getItem()).spawnEntity(pos,direction,world,stack);
+				return stack;
+			}
+		});
 
 		registerCoinAmounts();
 		registerCommands();
