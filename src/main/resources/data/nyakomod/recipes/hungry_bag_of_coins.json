@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " SL",
+    "LES",
+    "LL "
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:rabbit_hide"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "nyakomod:bag_of_coins",
+    "count": 1
+  }
+}

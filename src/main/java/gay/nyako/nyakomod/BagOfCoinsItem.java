@@ -67,6 +67,8 @@ public class BagOfCoinsItem extends Item {
                 tag.putInt("emerald", emerald);
                 tag.putInt("diamond", diamond);
                 tag.putInt("netherite", netherite);
+
+                rebalance(stack);
                 return true;
             }
         }
@@ -81,6 +83,7 @@ public class BagOfCoinsItem extends Item {
         int emerald = tag.getInt("emerald");
         int diamond = tag.getInt("diamond");
         int netherite = tag.getInt("netherite");
+        tag.putBoolean("using", true);
 
         if ((copper + gold + emerald + diamond + netherite) <= 0) {
             return super.use(world, user, hand);
@@ -114,8 +117,29 @@ public class BagOfCoinsItem extends Item {
         tag.putInt("emerald", 0);
         tag.putInt("diamond", 0);
         tag.putInt("netherite", 0);
+        tag.putBoolean("using", false);
 
         return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, user.getStackInHand(hand));
+    }
+
+    public void rebalance(ItemStack stack) {
+        NbtCompound tag = stack.getOrCreateNbt();
+        rebalanceCoin(tag, "copper", "gold");
+        rebalanceCoin(tag, "gold", "emerald");
+        rebalanceCoin(tag, "emerald", "diamond");
+        rebalanceCoin(tag, "diamond", "netherite");
+    }
+
+    public void rebalanceCoin(NbtCompound tag, String key, String nextKey) {
+        int value = tag.getInt(key);
+        int nextValue = tag.getInt(nextKey);
+        while (value >= 100) {
+            value -= 100;
+            nextValue += 1;
+        }
+
+        tag.putInt(key, value);
+        tag.putInt(nextKey, nextValue);
     }
 
     @Override
