@@ -45,5 +45,17 @@ public class NyakoClientMod implements ClientModInitializer {
 
 			return 0;
 		});
+
+		ClientSidePacketRegistry.INSTANCE.register(NyakoMod.IMAGE_DOWNLOAD_PACKET_ID,
+				(packetContext, attachedData) -> {
+					// Read data inside of the networking thread
+					String url = attachedData.readString();
+					Identifier identifier = attachedData.readIdentifier();
+
+					packetContext.getTaskQueue().execute(() -> {
+						// Run code in the client thread
+						NyakoMod.downloadSprite(url, identifier);
+					});
+				});
 	}
 }

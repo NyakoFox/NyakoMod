@@ -2,6 +2,9 @@ package gay.nyako.nyakomod;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.TextParser;
+import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
+import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -14,6 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,8 +33,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -50,6 +60,11 @@ import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,6 +72,8 @@ import java.util.Map;
 
 import gay.nyako.nyakomod.command.BackCommand;
 import net.minecraft.world.World;
+
+import javax.imageio.ImageIO;
 
 public class NyakoMod implements ModInitializer {
 	// Killbinding
@@ -97,6 +114,9 @@ public class NyakoMod implements ModInitializer {
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
 
+	// Image download packet
+	public static final Identifier IMAGE_DOWNLOAD_PACKET_ID = new Identifier("nyakomod", "image_download");
+
 	public static final EntityType<TickerEntity> TICKER = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier("nyakomod", "ticker"),
@@ -109,6 +129,67 @@ public class NyakoMod implements ModInitializer {
 
 		// Register commands
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+
+
+			dispatcher.register(CommandManager.literal("test")
+					.then(CommandManager.argument("name", StringArgumentType.string())
+						.then(CommandManager.argument("url", StringArgumentType.greedyString())
+								.executes(context -> {
+									ServerCommandSource source = context.getSource();
+									PlayerEntity player = source.getPlayer();
+									ItemStack heldStack = player.getMainHandStack();
+									String inputName = context.getArgument("name", String.class);
+									String input = context.getArgument("url", String.class);
+
+									BufferedImage image = null;
+									URL url = null;
+
+									try {
+										url = new URL(input);
+										URLConnection connection = url.openConnection();
+										connection.setRequestProperty("User-Agent", "NyakoMod");
+										connection.connect();
+										image = ImageIO.read(connection.getInputStream());
+									} catch (Exception e) {
+										url = null;
+										image = null;
+									}
+
+									if (image == null) {
+										context.getSource().sendError(new LiteralText("Cringe URL").formatted(Formatting.RED));
+										return 1;
+									}
+
+									// Our checks passed (valid URL and valid image) so let's send it to the client
+
+									// Actually first we'll set the custom model id
+									NbtCompound nbt = heldStack.getOrCreateNbt();
+									nbt.putString("modelId", "nyakomod:custom_" + inputName);
+
+									// Build the packet
+
+									PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
+									passedData.writeString(input);
+									passedData.writeIdentifier(new Identifier("nyakomod", "custom_" + inputName));
+
+									// Then we'll send the packet to all the players
+									MinecraftServer server = source.getServer();
+									PlayerManager playerManager = server.getPlayerManager();
+									List<ServerPlayerEntity> playerList = playerManager.getPlayerList();
+
+									playerList.forEach(currentPlayer ->
+											ServerSidePacketRegistry.INSTANCE.sendToPlayer(currentPlayer,IMAGE_DOWNLOAD_PACKET_ID,passedData));
+
+									return 1;
+								})
+						)
+					)
+			);
+
+
+
+
+
 			dispatcher.register(CommandManager.literal("rename")
 				.executes(context -> {
 					ServerCommandSource source = context.getSource();
@@ -406,6 +487,76 @@ public class NyakoMod implements ModInitializer {
 		splitMap.put(CoinValue.DIAMOND,   total / (int) Math.pow(100, 3));
 		splitMap.put(CoinValue.NETHERITE, total / (int) Math.pow(100, 4));
 		return splitMap;
+	}
+
+	public static boolean downloadSprite(String urlPath, Identifier identifier) {
+		BufferedImage image = null;
+		URL url = null;
+
+		System.out.println("downloading " + urlPath);
+
+		try {
+			url = new URL(urlPath);
+			URLConnection connection = url.openConnection();
+			connection.setRequestProperty("User-Agent", "NyakoMod");
+			connection.connect();
+			image = ImageIO.read(connection.getInputStream());
+		} catch (Exception e) {
+			url = null;
+			image = null;
+			e.printStackTrace();
+		}
+
+		if (image == null) {
+			// ?? we just did this server side but client side it failed so whatever
+			System.out.print("failed to dl...?");
+			return false;
+		}
+
+		// get the NativeImage
+		NativeImage nativeImage = null;
+		try {
+			nativeImage = getFromBuffered(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		NativeImageBackedTexture nativeImageBackedTexture = new NativeImageBackedTexture(nativeImage);
+
+		MinecraftClient client = MinecraftClient.getInstance();
+		client.getTextureManager().registerTexture(identifier, nativeImageBackedTexture);
+		System.out.println("finished downloading");
+
+		return true;
+	}
+
+	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
+		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
+			ImageIO.write(image, "PNG", outputStream);
+			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
+		}
+	}
+
+	public static String createItemModelJson(String id, String type) {
+		if ("generated".equals(type) || "handheld".equals(type)) {
+			//The two types of items. "handheld" is used mostly for tools and the like, while "generated" is used for everything else.
+			return "{\n" +
+					"  \"parent\": \"item/" + type + "\",\n" +
+					"  \"textures\": {\n" +
+					"    \"layer0\": \"nyakomod:" + id + "\"\n" +
+					"  }\n" +
+					"}";
+		} else if ("block".equals(type)) {
+			//However, if the item is a block-item, it will have a different model json than the previous two.
+			return "{\n" +
+					"  \"parent\": \"nyakomod:" + id + "\"\n" +
+					"}";
+		}
+		else {
+			//If the type is invalid, return an empty json string.
+			return "";
+		}
 	}
 
 	public enum CoinValue {
