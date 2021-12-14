@@ -8,9 +8,7 @@ import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -18,6 +16,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.entity.*;
@@ -164,13 +164,13 @@ public class NyakoMod implements ModInitializer {
 
 									// Actually first we'll set the custom model id
 									NbtCompound nbt = heldStack.getOrCreateNbt();
-									nbt.putString("modelId", "nyakomod:custom_" + inputName);
+									nbt.putString("modelId", "nyakomod_custom:" + inputName);
 
 									// Build the packet
 
 									PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
 									passedData.writeString(input);
-									passedData.writeIdentifier(new Identifier("nyakomod", "custom_" + inputName));
+									passedData.writeIdentifier(new Identifier("nyakomod_custom", inputName));
 
 									// Then we'll send the packet to all the players
 									MinecraftServer server = source.getServer();
@@ -178,7 +178,7 @@ public class NyakoMod implements ModInitializer {
 									List<ServerPlayerEntity> playerList = playerManager.getPlayerList();
 
 									playerList.forEach(currentPlayer ->
-											ServerSidePacketRegistry.INSTANCE.sendToPlayer(currentPlayer,IMAGE_DOWNLOAD_PACKET_ID,passedData));
+										ServerPlayNetworking.send(currentPlayer, IMAGE_DOWNLOAD_PACKET_ID, passedData));
 
 									return 1;
 								})
@@ -272,9 +272,8 @@ public class NyakoMod implements ModInitializer {
 
 
 		// Killbind
-		ServerSidePacketRegistry.INSTANCE.register(KILL_PLAYER_PACKET_ID, (packetContext, attachedData) -> {
-			packetContext.getTaskQueue().execute(() -> {
-				PlayerEntity player = packetContext.getPlayer();
+		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID, (server, player, packetContext, attachedData, packetSender) -> {
+			server.execute(() -> {
 				player.damage(DamageSource.MAGIC, 3.4028235E38F);
 			});
 		});
@@ -528,7 +527,29 @@ public class NyakoMod implements ModInitializer {
 		client.getTextureManager().registerTexture(identifier, nativeImageBackedTexture);
 		System.out.println("finished downloading");
 
+		createModel(identifier);
+
 		return true;
+	}
+
+	public static JsonUnbakedModel createModel(Identifier identifier) {
+		System.out.println("making model for " + identifier);
+
+		var json = String.format("""
+		{
+			\"parent\": \"item/generated\",
+			\"textures\": {
+				\"layer0\": \"minecraft:item/diamond\"
+			}
+		}
+		""");
+		System.out.println(json);
+		var model = JsonUnbakedModel.deserialize(json);
+		model.id = identifier.getNamespace() + ":" + identifier.getPath();
+
+		// model.bake(loader, textureGetter, rotationContainer, modelId)
+
+		return model;
 	}
 
 	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
@@ -544,13 +565,13 @@ public class NyakoMod implements ModInitializer {
 			return "{\n" +
 					"  \"parent\": \"item/" + type + "\",\n" +
 					"  \"textures\": {\n" +
-					"    \"layer0\": \"nyakomod:" + id + "\"\n" +
+					"    \"layer0\": \"" + id + "\"\n" +
 					"  }\n" +
 					"}";
 		} else if ("block".equals(type)) {
 			//However, if the item is a block-item, it will have a different model json than the previous two.
 			return "{\n" +
-					"  \"parent\": \"nyakomod:" + id + "\"\n" +
+					"  \"parent\": \"" + id + "\"\n" +
 					"}";
 		}
 		else {

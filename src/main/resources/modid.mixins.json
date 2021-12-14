@@ -15,7 +15,11 @@
     "ClientPlayNetworkHandlerMixin",
     "ItemModelsMixin",
     "ItemStackMixin",
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "BakedModelManagerMixin",
+    "ModelLoaderMixin",
+    "ModelLoaderAccessor",
+    "BakedQuadMixin"
   ],
   "server": [
 

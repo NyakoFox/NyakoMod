@@ -52,6 +52,11 @@ public abstract class ItemModelsMixin {
       }
     }
 
+    // var newModel = ((BakedModelManagerMixin)(Object)getModelManager()).getBakedModel(identifier);
+    // if (model != null) {
+    //   return newModel;
+    // }
+
     return getModelManager().getMissingModel();
   }
 }
