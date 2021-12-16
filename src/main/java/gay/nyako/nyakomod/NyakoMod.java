@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -106,6 +107,12 @@ public class NyakoMod implements ModInitializer {
 			Registry.ENTITY_TYPE,
 			new Identifier("nyakomod", "ticker"),
 			FabricEntityTypeBuilder.create(SpawnGroup.MISC, TickerEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build()
+	);
+
+	public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(
+			Registry.ENCHANTMENT,
+			new Identifier("nyakomod", "cunkless_curse"),
+			new CunkCurseEnchantment()
 	);
 
 	@Override
