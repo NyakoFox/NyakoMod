@@ -54,20 +54,18 @@ public abstract class LivingEntityMixin extends Entity {
 		if (source.isMagic()) coinAmount *= 1.05; // give a 5% bonus if magic is used
 		if (source.isProjectile()) coinAmount *= 1.02; // give a 2% bonus if a projectile is used
 
-		// get items in both hands
-		Iterable<ItemStack> items = attackingPlayer.getItemsHand();
+		// get item in main hand
+		ItemStack handStack = attackingPlayer.getMainHandStack();
 
-		for (ItemStack stack: items) {
-			double bonus = 1;
-			// 10% bonus for looting
-			bonus += (0.10 * EnchantmentHelper.getLevel(Enchantments.LOOTING, stack));
-			// 2% bonus for fire aspect
-			bonus += (0.02 * EnchantmentHelper.getLevel(Enchantments.FIRE_ASPECT, stack));
-			// 2% bonus for flame
-			bonus += (0.02 * EnchantmentHelper.getLevel(Enchantments.FLAME, stack));
+		double bonus = 1;
+		// 10% bonus for looting
+		bonus += (0.10 * EnchantmentHelper.getLevel(Enchantments.LOOTING, handStack));
+		// 2% bonus for fire aspect
+		bonus += (0.02 * EnchantmentHelper.getLevel(Enchantments.FIRE_ASPECT, handStack));
+		// 2% bonus for flame
+		bonus += (0.02 * EnchantmentHelper.getLevel(Enchantments.FLAME, handStack));
 
-			coinAmount *= bonus;
-		}
+		coinAmount *= bonus;
 
 		// if the player has luck, increase it by their luck level.
 		// the luck status effect gives you +1 luck, so this should be 20% more coins if you have it...
@@ -86,6 +84,11 @@ public abstract class LivingEntityMixin extends Entity {
 
 		float localDifficulty = world.getLocalDifficulty(getBlockPos()).getLocalDifficulty();
 		coinAmount += coinAmount * (0.12 * (localDifficulty / 6.75));
+
+		// drop less if the player has the curse of cunkless enchant
+		if (EnchantmentHelper.getLevel(NyakoMod.CUNKLESS_CURSE_ENCHANTMENT, handStack) > 0) {
+			coinAmount *= 0.8;
+		}
 
 		// split the coin value we have into individual coin values
 		Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) coinAmount);
