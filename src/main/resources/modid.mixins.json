@@ -10,7 +10,9 @@
     "PlayerInventoryMixin",
     "ZombieEntityMixin",
     "ScoreboardCriterionMixin",
-    "VillagerEntityMixin"
+    "VillagerEntityMixin",
+    "MobSpawnerLogicMixin",
+    "EntityMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",

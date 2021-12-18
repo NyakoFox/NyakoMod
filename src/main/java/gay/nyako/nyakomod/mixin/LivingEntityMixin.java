@@ -1,29 +1,22 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.access.EntityAccess;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Locale;
 import java.util.Map;
 
 @Mixin(LivingEntity.class)
@@ -88,6 +81,10 @@ public abstract class LivingEntityMixin extends Entity {
 		// drop less if the player has the curse of cunkless enchant
 		if (EnchantmentHelper.getLevel(NyakoMod.CUNKLESS_CURSE_ENCHANTMENT, handStack) > 0) {
 			coinAmount *= 0.8;
+		}
+
+		if (((EntityAccess)this).isFromSpawner()) {
+			coinAmount *= 0.05; // Harshly drop if the entity was spawned from a spawner
 		}
 
 		// split the coin value we have into individual coin values
