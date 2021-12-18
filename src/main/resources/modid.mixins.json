@@ -9,7 +9,8 @@
     "LivingEntityMixin",
     "PlayerInventoryMixin",
     "ZombieEntityMixin",
-    "ScoreboardCriterionMixin"
+    "ScoreboardCriterionMixin",
+    "VillagerEntityMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
