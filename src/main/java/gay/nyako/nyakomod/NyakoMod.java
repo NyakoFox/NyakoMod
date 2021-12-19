@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 import gay.nyako.nyakomod.command.BackCommand;
+import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
@@ -283,6 +284,7 @@ public class NyakoMod implements ModInitializer {
 	public static void registerCommands() {
 		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
 			BackCommand.register(dispatch);
+			XpCommand.register(dispatch);
 		});
 	}
 

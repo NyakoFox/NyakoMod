@@ -9,6 +9,7 @@ import gay.nyako.nyakomod.BagOfCoinsItem;
 import gay.nyako.nyakomod.CoinItem;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.command.BackCommand;
+import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
@@ -23,6 +24,14 @@ public abstract class ServerPlayerEntityMixin {
     var p = (ServerPlayerEntity) (Object) this;
 
     BackCommand.registerPreviousLocation(p);
+  }
+
+  @Inject(at = @At("RETURN"), method = "Lnet/minecraft/server/network/ServerPlayerEntity;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
+  public void requestTeleportReturn(ServerWorld world, double x1, double y1, double z1, float yaw1, float pitch1,
+      CallbackInfo ci) {
+    var p = (ServerPlayerEntity) (Object) this;
+
+    XpCommand.refreshLevels(p);
   }
 
   @Inject(at = @At("TAIL"), method = "Lnet/minecraft/server/network/ServerPlayerEntity;playerTick()V", cancellable = false)
