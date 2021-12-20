@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BWB",
+    "WWW",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:black_concrete"
+    },
+    "W": {
+      "item": "minecraft:white_concrete"
+    }
+  },
+  "result": {
+    "item": "nyakomod:music_disc_mask",
+    "count": 1
+  }
+}

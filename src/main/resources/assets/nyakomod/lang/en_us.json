@@ -15,6 +15,8 @@
     "item.nyakomod.time_in_a_bottle.tooltip": "%d H §7§o|§r %d M §7§o|§r %d S",
     "item.nyakomod.soul_jar": "Soul Jar",
     "item.nyakomod.soul_jar.tooltip": "§7Current entity: §r%s",
+    "item.nyakomod.music_disc_mask": "§bMusic Disc",
+    "item.nyakomod.music_disc_mask.desc": "Dream - Mask",
     "subtitles.nyakomod.vine_boom": "Vine boom",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "key.nyakomod.killbind": "Kill player",
