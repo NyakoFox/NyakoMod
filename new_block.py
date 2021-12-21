@@ -77,7 +77,7 @@ def main():
 
     with open(f"src/main/java/gay/nyako/{MODID}/block/{block_class}.java", "x") as file:
         file.write(
-f"""package gay.nyako.nyakomod;
+f"""package gay.nyako.nyakomod.block;
 
 import net.minecraft.block.Block;
 
