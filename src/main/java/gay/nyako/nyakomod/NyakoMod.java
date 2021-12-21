@@ -2,6 +2,8 @@ package gay.nyako.nyakomod;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.TextParser;
+import gay.nyako.nyakomod.entity.MonitorEntity;
+import gay.nyako.nyakomod.item.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -68,13 +70,6 @@ import gay.nyako.nyakomod.block.CustomWallBlock;
 import gay.nyako.nyakomod.block.LauncherBlock;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
-import gay.nyako.nyakomod.item.BagOfCoinsItem;
-import gay.nyako.nyakomod.item.CoinItem;
-import gay.nyako.nyakomod.item.CustomDiscItem;
-import gay.nyako.nyakomod.item.SoulJarItem;
-import gay.nyako.nyakomod.item.StaffOfSmitingItem;
-import gay.nyako.nyakomod.item.StaffOfVorbulationItem;
-import gay.nyako.nyakomod.item.TimeInABottleItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
@@ -142,6 +137,13 @@ public class NyakoMod implements ModInitializer {
 			Registry.ENCHANTMENT,
 			new Identifier("nyakomod", "cunkless_curse"),
 			new CunkCurseEnchantment()
+	);
+
+	public static final Item MONITOR = new MonitorItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(64));
+	public static final EntityType<MonitorEntity> MONITOR_ENTITY = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("nyakomod", "monitor"),
+			FabricEntityTypeBuilder.<MonitorEntity>create(SpawnGroup.MISC, MonitorEntity::new).dimensions(EntityDimensions.fixed(1f, 1f)).build()
 	);
 
 	@Override
@@ -288,6 +290,9 @@ public class NyakoMod implements ModInitializer {
 		// Discs
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_mask"), MUSIC_DISC_MASK);
 		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_MASK_SOUND, MUSIC_DISC_MASK_SOUND_EVENT);
+
+		// Monitor
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "monitor"), MONITOR);
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
