@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;

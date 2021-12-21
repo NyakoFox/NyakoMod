@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:brickus"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bricks",
+    "count": 1
+  }
+}

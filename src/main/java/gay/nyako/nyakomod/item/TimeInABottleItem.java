@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -25,6 +25,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Optional;
+
+import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.TickerEntity;
 
 public class TimeInABottleItem extends Item {
 

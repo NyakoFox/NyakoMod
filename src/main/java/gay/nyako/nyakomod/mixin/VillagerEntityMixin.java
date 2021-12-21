@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.SoulJarItem;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import gay.nyako.nyakomod.item.SoulJarItem;
 
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin {

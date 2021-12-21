@@ -1,22 +1,16 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.BagOfCoinsItem;
-import gay.nyako.nyakomod.CoinItem;
+import gay.nyako.nyakomod.item.BagOfCoinsItem;
+import gay.nyako.nyakomod.item.CoinItem;
 import gay.nyako.nyakomod.NyakoMod;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.scoreboard.ScoreboardPlayerScore;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerInventory.class)

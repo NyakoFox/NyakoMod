@@ -1,5 +1,6 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoMod;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.EntityType;

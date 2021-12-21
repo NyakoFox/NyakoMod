@@ -10,9 +10,13 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.Material;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
@@ -58,8 +62,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import gay.nyako.nyakomod.block.CustomSlabBlock;
+import gay.nyako.nyakomod.block.CustomStairsBlock;
+import gay.nyako.nyakomod.block.CustomWallBlock;
+import gay.nyako.nyakomod.block.LauncherBlock;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
+import gay.nyako.nyakomod.item.BagOfCoinsItem;
+import gay.nyako.nyakomod.item.CoinItem;
+import gay.nyako.nyakomod.item.CustomDiscItem;
+import gay.nyako.nyakomod.item.SoulJarItem;
+import gay.nyako.nyakomod.item.StaffOfSmitingItem;
+import gay.nyako.nyakomod.item.StaffOfVorbulationItem;
+import gay.nyako.nyakomod.item.TimeInABottleItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
@@ -110,6 +125,12 @@ public class NyakoMod implements ModInitializer {
 
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+
+	// Bricks
+	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
+	public static final Block BRICKUS_STAIRS = new CustomStairsBlock(BRICKUS.getDefaultState(), AbstractBlock.Settings.copy(BRICKUS));
+	public static final Block BRICKUS_SLAB = new CustomSlabBlock(AbstractBlock.Settings.copy(BRICKUS));
+	public static final Block BRICKUS_WALL = new CustomWallBlock(AbstractBlock.Settings.copy(BRICKUS));
 
 	public static final EntityType<TickerEntity> TICKER = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -229,6 +250,16 @@ public class NyakoMod implements ModInitializer {
 		// Launcher
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "launcher"), LAUNCHER_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "launcher"), new BlockItem(LAUNCHER_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Brickus
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus"), BRICKUS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_stairs"), BRICKUS_STAIRS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_slab"), BRICKUS_SLAB);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_wall"), BRICKUS_WALL);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus"), new BlockItem(BRICKUS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_stairs"), new BlockItem(BRICKUS_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_slab"), new BlockItem(BRICKUS_SLAB, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_wall"), new BlockItem(BRICKUS_WALL, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		// Staff of Vorbulation
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), STAFF_OF_VORBULATION_ITEM);

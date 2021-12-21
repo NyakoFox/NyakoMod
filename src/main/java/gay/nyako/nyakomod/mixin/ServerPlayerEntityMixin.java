@@ -5,11 +5,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import gay.nyako.nyakomod.BagOfCoinsItem;
-import gay.nyako.nyakomod.CoinItem;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
+import gay.nyako.nyakomod.item.BagOfCoinsItem;
+import gay.nyako.nyakomod.item.CoinItem;
 import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;

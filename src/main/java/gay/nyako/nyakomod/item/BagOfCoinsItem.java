@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Map;
+
+import gay.nyako.nyakomod.NyakoMod;
 
 public class BagOfCoinsItem extends Item {
 

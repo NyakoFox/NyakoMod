@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
