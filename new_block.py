@@ -75,7 +75,7 @@ def main():
 
     print(f"src/main/resources/data/{MODID}/loot_tables/blocks/{block_id}.json")
 
-    with open(f"src/main/java/gay/nyako/{MODID}/{block_class}.java", "x") as file:
+    with open(f"src/main/java/gay/nyako/{MODID}/block/{block_class}.java", "x") as file:
         file.write(
 f"""package gay.nyako.nyakomod;
 
