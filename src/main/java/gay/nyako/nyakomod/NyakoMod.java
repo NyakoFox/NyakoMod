@@ -545,62 +545,13 @@ public class NyakoMod implements ModInitializer {
 		client.getTextureManager().registerTexture(identifier, nativeImageBackedTexture);
 		System.out.println("finished downloading");
 
-		// RESOURCE_PACK.addTexture(identifier, image);
-		// JModel model = JModel.model("item/generated").textures(new JTextures().layer0("minecraft:item/diamond"));
-		// RESOURCE_PACK.addModel(model, identifier);
-
-		// RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-		
-		// createModel(identifier);
-
 		return true;
-	}
-
-	public static JsonUnbakedModel createModel(Identifier identifier) {
-		System.out.println("making model for " + identifier);
-
-		var json = String.format("""
-		{
-			\"parent\": \"item/generated\",
-			\"textures\": {
-				\"layer0\": \"minecraft:item/diamond\"
-			}
-		}
-		""");
-		System.out.println(json);
-		var model = JsonUnbakedModel.deserialize(json);
-		model.id = identifier.getNamespace() + ":" + identifier.getPath();
-
-		// model.bake(loader, textureGetter, rotationContainer, modelId)
-
-		return model;
 	}
 
 	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
 		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
 			ImageIO.write(image, "PNG", outputStream);
 			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
-		}
-	}
-
-	public static String createItemModelJson(String id, String type) {
-		if ("generated".equals(type) || "handheld".equals(type)) {
-			//The two types of items. "handheld" is used mostly for tools and the like, while "generated" is used for everything else.
-			return "{\n" +
-					"  \"parent\": \"item/" + type + "\",\n" +
-					"  \"textures\": {\n" +
-					"    \"layer0\": \"" + id + "\"\n" +
-					"  }\n" +
-					"}";
-		} else if ("block".equals(type)) {
-			//However, if the item is a block-item, it will have a different model json than the previous two.
-			return "{\n" +
-					"  \"parent\": \"" + id + "\"\n" +
-					"}";
-		}
-		else {
-			//If the type is invalid, return an empty json string.
-			return "";
 		}
 	}
 
