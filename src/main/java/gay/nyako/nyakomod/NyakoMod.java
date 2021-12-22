@@ -4,7 +4,10 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.TextParser;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import gay.nyako.nyakomod.item.*;
+import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
+import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -20,9 +23,13 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
@@ -59,6 +66,10 @@ import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -72,6 +83,8 @@ import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
+
+import javax.imageio.ImageIO;
 
 public class NyakoMod implements ModInitializer {
 	// Killbinding
@@ -478,5 +491,54 @@ public class NyakoMod implements ModInitializer {
 		EMERALD,
 		DIAMOND,
 		NETHERITE
+	}
+
+	public static boolean downloadSprite(String urlPath, Identifier identifier) {
+		BufferedImage image = null;
+		URL url = null;
+
+		System.out.println("downloading " + urlPath);
+
+		try {
+			url = new URL(urlPath);
+			URLConnection connection = url.openConnection();
+			connection.setRequestProperty("User-Agent", "NyakoMod");
+			connection.connect();
+			image = ImageIO.read(connection.getInputStream());
+		} catch (Exception e) {
+			url = null;
+			image = null;
+			e.printStackTrace();
+		}
+
+		if (image == null) {
+			// ?? we just did this server side but client side it failed so whatever
+			System.out.print("failed to dl...?");
+			return false;
+		}
+
+		// get the NativeImage
+		NativeImage nativeImage = null;
+		try {
+			nativeImage = getFromBuffered(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		NativeImageBackedTexture nativeImageBackedTexture = new NativeImageBackedTexture(nativeImage);
+
+		MinecraftClient client = MinecraftClient.getInstance();
+		client.getTextureManager().registerTexture(identifier, nativeImageBackedTexture);
+		System.out.println("finished downloading");
+
+		return true;
+	}
+
+	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
+		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
+			ImageIO.write(image, "PNG", outputStream);
+			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
+		}
 	}
 }
