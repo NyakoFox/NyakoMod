@@ -11,11 +11,11 @@ import net.minecraft.client.texture.Sprite;
 
 @Mixin(BakedQuad.class)
 public class BakedQuadMixin {
-  @Shadow
-  public Sprite sprite;
+  // @Shadow
+  // public Sprite sprite;
 
-  @Inject(at = @At("HEAD"), method = "getSprite()Lnet/minecraft/client/texture/Sprite;", cancellable=true)
-  public void getSprite(CallbackInfoReturnable<Sprite> cir) {
-    System.out.println("Getting sprite " + this.sprite.getId());
-  }
+  // @Inject(at = @At("HEAD"), method = "getSprite()Lnet/minecraft/client/texture/Sprite;", cancellable=true)
+  // public void getSprite(CallbackInfoReturnable<Sprite> cir) {
+  //   System.out.println("Getting sprite " + this.sprite.getId());
+  // }
 }

@@ -5,8 +5,14 @@ import eu.pb4.placeholders.TextParser;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
+import net.devtech.arrp.json.blockstate.JState;
+import net.devtech.arrp.json.models.JModel;
+import net.devtech.arrp.json.models.JTextures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.registry.RegistryIdRemapCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -76,6 +82,8 @@ import net.minecraft.world.World;
 import javax.imageio.ImageIO;
 
 public class NyakoMod implements ModInitializer {
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:test");
+
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
 	// Spunch block
@@ -344,6 +352,8 @@ public class NyakoMod implements ModInitializer {
 
 		registerCoinAmounts();
 		registerCommands();
+
+		RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
 	}
 
 	public static void registerCommands() {
@@ -488,7 +498,7 @@ public class NyakoMod implements ModInitializer {
 		return splitMap;
 	}
 
-	public static boolean downloadSprite(String urlPath, Identifier identifier) {
+	public static NativeImage downloadImage(String urlPath) {
 		BufferedImage image = null;
 		URL url = null;
 
@@ -509,15 +519,23 @@ public class NyakoMod implements ModInitializer {
 		if (image == null) {
 			// ?? we just did this server side but client side it failed so whatever
 			System.out.print("failed to dl...?");
-			return false;
+			return null;
 		}
 
 		// get the NativeImage
 		NativeImage nativeImage = null;
 		try {
-			nativeImage = getFromBuffered(image);
+			return getFromBuffered(image);
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static boolean downloadSprite(String urlPath, Identifier identifier) {
+		// get the NativeImage
+		NativeImage nativeImage = downloadImage(urlPath);
+		if (nativeImage == null) {
 			return false;
 		}
 
@@ -527,7 +545,13 @@ public class NyakoMod implements ModInitializer {
 		client.getTextureManager().registerTexture(identifier, nativeImageBackedTexture);
 		System.out.println("finished downloading");
 
-		createModel(identifier);
+		// RESOURCE_PACK.addTexture(identifier, image);
+		// JModel model = JModel.model("item/generated").textures(new JTextures().layer0("minecraft:item/diamond"));
+		// RESOURCE_PACK.addModel(model, identifier);
+
+		// RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		
+		// createModel(identifier);
 
 		return true;
 	}
