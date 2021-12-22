@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "nyakomod:block/bricks",
+        "top": "nyakomod:block/bricks",
+        "side": "nyakomod:block/bricks"
+    }
+}

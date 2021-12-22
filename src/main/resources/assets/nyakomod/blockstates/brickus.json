@@ -1,0 +1,34 @@
+{
+    "variants": {
+        "": [
+            {
+                "model": "nyakomod:block/bricks",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks1",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks2",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks3",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks4",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks5",
+                "weight": 6
+            },
+            {
+                "model": "nyakomod:block/bricks6",
+                "weight": 1
+            }
+        ]
+    }
+}

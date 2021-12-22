@@ -10,5 +10,13 @@
         "sounds": [
             "nyakomod:coin_collect"
         ]
+    },
+    "music_disc.mask": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/mask",
+                "stream": true
+            }
+        ]
     }
 }

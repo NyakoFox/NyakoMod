@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "nyakomod:brickus"
+  },
+  "result": "nyakomod:brickus_slab",
+  "count": 2
+}

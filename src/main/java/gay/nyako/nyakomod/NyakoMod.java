@@ -17,15 +17,20 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.Material;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,6 +47,7 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
+import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -53,6 +59,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -76,7 +83,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import gay.nyako.nyakomod.block.CustomSlabBlock;
+import gay.nyako.nyakomod.block.CustomStairsBlock;
+import gay.nyako.nyakomod.block.CustomWallBlock;
+import gay.nyako.nyakomod.block.LauncherBlock;
 import gay.nyako.nyakomod.command.BackCommand;
+import gay.nyako.nyakomod.command.XpCommand;
+import gay.nyako.nyakomod.item.BagOfCoinsItem;
+import gay.nyako.nyakomod.item.CoinItem;
+import gay.nyako.nyakomod.item.CustomDiscItem;
+import gay.nyako.nyakomod.item.SoulJarItem;
+import gay.nyako.nyakomod.item.StaffOfSmitingItem;
+import gay.nyako.nyakomod.item.StaffOfVorbulationItem;
+import gay.nyako.nyakomod.item.TimeInABottleItem;
+import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
 import javax.imageio.ImageIO;
@@ -101,19 +121,28 @@ public class NyakoMod implements ModInitializer {
 	// Staff of Smiting
 	public static final Item STAFF_OF_SMITING_ITEM = new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
 
+	// Music Discs
+	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
+	public static SoundEvent MUSIC_DISC_MASK_SOUND_EVENT = new SoundEvent(MUSIC_DISC_MASK_SOUND);
+	public static final Item MUSIC_DISC_MASK = new CustomDiscItem(1, MUSIC_DISC_MASK_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
+
+
 	// Coins
 	public static final Item COPPER_COIN_ITEM    = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item GOLD_COIN_ITEM      = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item EMERALD_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item DIAMOND_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item NETHERITE_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof());
+	public static final Item GOLD_COIN_ITEM      = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "gold", 100);
+	public static final Item EMERALD_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "emerald", 10000);
+	public static final Item DIAMOND_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "diamond", 1000000);
+	public static final Item NETHERITE_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), "netherite", 100000000);
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
 
 	public static Map<EntityType<?>, Integer> coinMap = new HashMap<>();
 
+	public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
+
 	// Bag of coins
 	public static final Item BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item HUNGRY_BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 	// Time in a bottle
 	public static final TimeInABottleItem TIME_IN_A_BOTTLE = new TimeInABottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 	// Soul jar
@@ -124,11 +153,22 @@ public class NyakoMod implements ModInitializer {
 
 	// Image download packet
 	public static final Identifier IMAGE_DOWNLOAD_PACKET_ID = new Identifier("nyakomod", "image_download");
+	// Bricks
+	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
+	public static final Block BRICKUS_STAIRS = new CustomStairsBlock(BRICKUS.getDefaultState(), AbstractBlock.Settings.copy(BRICKUS));
+	public static final Block BRICKUS_SLAB = new CustomSlabBlock(AbstractBlock.Settings.copy(BRICKUS));
+	public static final Block BRICKUS_WALL = new CustomWallBlock(AbstractBlock.Settings.copy(BRICKUS));
 
 	public static final EntityType<TickerEntity> TICKER = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier("nyakomod", "ticker"),
 			FabricEntityTypeBuilder.create(SpawnGroup.MISC, TickerEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).build()
+	);
+
+	public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(
+			Registry.ENCHANTMENT,
+			new Identifier("nyakomod", "cunkless_curse"),
+			new CunkCurseEnchantment()
 	);
 
 	@Override
@@ -298,6 +338,16 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "launcher"), LAUNCHER_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "launcher"), new BlockItem(LAUNCHER_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
+		// Brickus
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus"), BRICKUS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_stairs"), BRICKUS_STAIRS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_slab"), BRICKUS_SLAB);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_wall"), BRICKUS_WALL);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus"), new BlockItem(BRICKUS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_stairs"), new BlockItem(BRICKUS_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_slab"), new BlockItem(BRICKUS_SLAB, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_wall"), new BlockItem(BRICKUS_WALL, new FabricItemSettings().group(ItemGroup.MISC)));
+
 		// Staff of Vorbulation
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), STAFF_OF_VORBULATION_ITEM);
 
@@ -314,12 +364,18 @@ public class NyakoMod implements ModInitializer {
 
 		// Bag of coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), BAG_OF_COINS_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "hungry_bag_of_coins"), HUNGRY_BAG_OF_COINS_ITEM);
 
 		// TIAB
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "time_in_a_bottle"), TIME_IN_A_BOTTLE);
 
 		// Soul jar
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "soul_jar"), SOUL_JAR);
+
+		// Discs
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_mask"), MUSIC_DISC_MASK);
+		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_MASK_SOUND, MUSIC_DISC_MASK_SOUND_EVENT);
+
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				Direction direction = (Direction)pointer.getBlockState().get(DispenserBlock.FACING);
@@ -352,13 +408,12 @@ public class NyakoMod implements ModInitializer {
 
 		registerCoinAmounts();
 		registerCommands();
-
-		RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
 	}
 
 	public static void registerCommands() {
 		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
 			BackCommand.register(dispatch);
+			XpCommand.register(dispatch);
 		});
 	}
 

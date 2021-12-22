@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nyakomod:block/brick_slab"
+    },
+    "type=double": {
+      "model": "nyakomod:block/bricks"
+    },
+    "type=top": {
+      "model": "nyakomod:block/brick_slab_top"
+    }
+  }
+}
