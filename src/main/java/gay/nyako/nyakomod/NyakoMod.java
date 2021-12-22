@@ -88,6 +88,8 @@ import gay.nyako.nyakomod.block.CustomStairsBlock;
 import gay.nyako.nyakomod.block.CustomWallBlock;
 import gay.nyako.nyakomod.block.LauncherBlock;
 import gay.nyako.nyakomod.command.BackCommand;
+import gay.nyako.nyakomod.command.LoreCommand;
+import gay.nyako.nyakomod.command.RenameCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
 import gay.nyako.nyakomod.item.CoinItem;
@@ -125,7 +127,6 @@ public class NyakoMod implements ModInitializer {
 	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
 	public static SoundEvent MUSIC_DISC_MASK_SOUND_EVENT = new SoundEvent(MUSIC_DISC_MASK_SOUND);
 	public static final Item MUSIC_DISC_MASK = new CustomDiscItem(1, MUSIC_DISC_MASK_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
-
 
 	// Coins
 	public static final Item COPPER_COIN_ITEM    = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
@@ -174,148 +175,6 @@ public class NyakoMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("owo");
-
-		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-
-
-			dispatcher.register(CommandManager.literal("test")
-					.then(CommandManager.argument("name", StringArgumentType.string())
-						.then(CommandManager.argument("url", StringArgumentType.greedyString())
-								.executes(context -> {
-									ServerCommandSource source = context.getSource();
-									PlayerEntity player = source.getPlayer();
-									ItemStack heldStack = player.getMainHandStack();
-									String inputName = context.getArgument("name", String.class);
-									String input = context.getArgument("url", String.class);
-
-									BufferedImage image = null;
-									URL url = null;
-
-									try {
-										url = new URL(input);
-										URLConnection connection = url.openConnection();
-										connection.setRequestProperty("User-Agent", "NyakoMod");
-										connection.connect();
-										image = ImageIO.read(connection.getInputStream());
-									} catch (Exception e) {
-										url = null;
-										image = null;
-									}
-
-									if (image == null) {
-										context.getSource().sendError(new LiteralText("Cringe URL").formatted(Formatting.RED));
-										return 1;
-									}
-
-									// Our checks passed (valid URL and valid image) so let's send it to the client
-
-									// Actually first we'll set the custom model id
-									NbtCompound nbt = heldStack.getOrCreateNbt();
-									nbt.putString("modelId", "nyakomod_custom:" + inputName);
-
-									// Build the packet
-
-									PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-									passedData.writeString(input);
-									passedData.writeIdentifier(new Identifier("nyakomod_custom", inputName));
-
-									// Then we'll send the packet to all the players
-									MinecraftServer server = source.getServer();
-									PlayerManager playerManager = server.getPlayerManager();
-									List<ServerPlayerEntity> playerList = playerManager.getPlayerList();
-
-									playerList.forEach(currentPlayer ->
-										ServerPlayNetworking.send(currentPlayer, IMAGE_DOWNLOAD_PACKET_ID, passedData));
-
-									return 1;
-								})
-						)
-					)
-			);
-
-
-
-
-
-			dispatcher.register(CommandManager.literal("rename")
-				.executes(context -> {
-					ServerCommandSource source = context.getSource();
-					PlayerEntity player = source.getPlayer();
-					ItemStack heldStack = player.getMainHandStack();
-					if (heldStack.isEmpty()) {
-						context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
-					} else {
-						heldStack.removeCustomName();
-						context.getSource().sendFeedback(new LiteralText("Your item's name has been cleared."), false);
-					}
-					return 1;
-				})
-				.then(CommandManager.argument("name", StringArgumentType.greedyString())
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayer();
-						ItemStack heldStack = player.getMainHandStack();
-						Text newName = TextParser.parse(context.getArgument("name", String.class));
-						if (heldStack.isEmpty()) {
-							context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
-						} else {
-							heldStack.setCustomName(newName);
-							context.getSource().sendFeedback(new TranslatableText("Your item has been renamed to \"%s\".", newName), false);
-						}
-						return 1;
-					})
-				)
-			);
-
-			dispatcher.register(CommandManager.literal("lore")
-				.then(CommandManager.literal("clear")
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayer();
-						ItemStack heldStack = player.getMainHandStack();
-						if (heldStack.isEmpty()) {
-							context.getSource().sendError(new LiteralText("You can't clear the lore of nothing!").formatted(Formatting.RED));
-						} else {
-							NbtCompound nbt = heldStack.getOrCreateNbt();
-							NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
-							NbtList nbtLore = new NbtList();
-
-							nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
-							nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
-							heldStack.setNbt(nbt);
-							context.getSource().sendFeedback(new LiteralText("Lore cleared."), false);
-						}
-						return 1;
-					})
-				)
-				.then(CommandManager.literal("add")
-					.then(CommandManager.argument("text", StringArgumentType.greedyString())
-						.executes(context -> {
-							ServerCommandSource source = context.getSource();
-							PlayerEntity player = source.getPlayer();
-							ItemStack heldStack = player.getMainHandStack();
-							Text newText = TextParser.parse(context.getArgument("text", String.class));
-							if (heldStack.isEmpty()) {
-								context.getSource().sendError(new LiteralText("You can't add lore to nothing!").formatted(Formatting.RED));
-							} else {
-								NbtCompound nbt = heldStack.getOrCreateNbt();
-								NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
-								NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
-
-								nbtLore.add(NbtString.of(Text.Serializer.toJson(newText)));
-
-								nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
-								nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
-								heldStack.setNbt(nbt);
-								context.getSource().sendFeedback(new LiteralText("Lore applied."), false);
-							}
-							return 1;
-						})
-					)
-				)
-			);
-		});
 
 
 
@@ -406,7 +265,7 @@ public class NyakoMod implements ModInitializer {
 			}
 		});
 
-		registerCoinAmounts();
+		Coins.registerCoinAmounts();
 		registerCommands();
 	}
 
@@ -414,143 +273,9 @@ public class NyakoMod implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
 			BackCommand.register(dispatch);
 			XpCommand.register(dispatch);
+			LoreCommand.register(dispatch);
+			RenameCommand.register(dispatch);
 		});
-	}
-
-	public static int getCoinValue(EntityType<?> entity) {
-		Integer value = coinMap.get(entity);
-		if (value == null) {
-			System.out.println("Not in map, returning 0");
-			return 0;
-		}
-
-		System.out.println("In map, returning " + value);
-		return value;
-	}
-
-	public static void registerCoinAmounts() {
-		// Basic hostile mobs
-		registerCoinAmount(EntityType.SKELETON, 80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.STRAY,    0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.CREEPER,  50, 1, 0, 0,0);
-
-		// Zombies
-		registerCoinAmount(EntityType.ZOMBIE,          60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.DROWNED,         90,  0, 0, 0,0);
-		registerCoinAmount(EntityType.ZOMBIE_VILLAGER, 90, 0, 0, 0,0);
-
-		// "Medium difficulty" hostile mobs
-		registerCoinAmount(EntityType.WITHER_SKELETON, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.WITCH,           0, 1, 0, 0,0);
-		// Endermen only get 25 copper because of farms
-		registerCoinAmount(EntityType.ENDERMAN,    25, 0, 0, 0,0);
-		registerCoinAmount(EntityType.BLAZE,       50, 3, 0, 0,0);
-		registerCoinAmount(EntityType.SPIDER,      80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.CAVE_SPIDER, 0,  1, 0, 0,0);
-		registerCoinAmount(EntityType.ENDERMITE,   50, 0, 0, 0,0);
-
-		// Hard hostile mobs
-		registerCoinAmount(EntityType.HOGLIN,     0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.ZOGLIN,     0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.GHAST,      0, 3, 0, 0,0);
-		registerCoinAmount(EntityType.GUARDIAN,   0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.MAGMA_CUBE, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.PHANTOM,    0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.PIGLIN,     0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.PIGLIN_BRUTE, 0, 6, 0, 0,0);
-		registerCoinAmount(EntityType.PILLAGER, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.RAVAGER, 0, 6, 0, 0,0);
-		registerCoinAmount(EntityType.SLIME, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.VINDICATOR, 0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.VEX, 50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SHULKER, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.SILVERFISH, 20, 0, 0, 0,0);
-
-		registerCoinAmount(EntityType.ILLUSIONER, 0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.EVOKER, 0, 2, 0, 0,0);
-
-		// Minibosses
-		registerCoinAmount(EntityType.IRON_GOLEM, 0, 50, 0, 0, 0);
-
-		// Bosses
-		registerCoinAmount(EntityType.WITHER,         0, 0,  4,  0,0);
-		registerCoinAmount(EntityType.ENDER_DRAGON,   0, 0,  4, 0,0);
-		registerCoinAmount(EntityType.ELDER_GUARDIAN, 0, 50, 0,  0,0);
-
-		// Passive mobs you'd normally kill
-		registerCoinAmount(EntityType.CHICKEN,   40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PIG,       60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SHEEP,     60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.RABBIT,    80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.COW,       80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.MOOSHROOM, 50, 2, 0, 0,0);
-
-		registerCoinAmount(EntityType.SALMON,        20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.COD,           20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.TROPICAL_FISH, 20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PUFFERFISH,    20, 0, 0, 0,0);
-
-		registerCoinAmount(EntityType.SQUID, 20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.GLOW_SQUID, 40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.GIANT, 0, 50, 0, 0,0);
-
-
-		// Horses and horse-likes
-		registerCoinAmount(EntityType.HORSE,   40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.DONKEY,  40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.MULE,    40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SKELETON_HORSE, 80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.ZOMBIE_HORSE,   80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.LLAMA,        40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.TRADER_LLAMA, 40, 0, 0, 0,0);
-
-
-		// Passive mobs you wouldn't normally kill
-		registerCoinAmount(EntityType.AXOLOTL, 50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.BAT,     0,  4, 0, 0,0);
-		registerCoinAmount(EntityType.BEE,     50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.CAT,     50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.DOLPHIN, 50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.FOX,     50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.GOAT,    50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.OCELOT,  50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PANDA,   50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PARROT,  50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.POLAR_BEAR, 50, 1, 0, 0,0);
-		registerCoinAmount(EntityType.SNOW_GOLEM, 50, 0, 0, 0,0);
-
-		registerCoinAmount(EntityType.STRIDER, 60, 0, 0, 0,0);
-
-		registerCoinAmount(EntityType.TURTLE, 40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.VILLAGER, 60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.WANDERING_TRADER, 60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.WOLF, 0, 1, 0, 0,0);
-
-		registerCoinAmount(EntityType.ZOMBIFIED_PIGLIN, 50, 1, 0, 0,0);
-	}
-
-	public static void registerCoinAmount(EntityType<?> type, int copper, int gold, int emerald, int diamond, int netherite) {
-		int total = splitToValue(copper, gold, emerald, diamond, netherite);
-		coinMap.put(type, total);
-	}
-
-	public static int splitToValue(int copper, int gold, int emerald, int diamond, int netherite) {
-		int total = copper
-				+ (gold * 100)
-				+ (int) (emerald * Math.pow(100, 2))
-				+ (int) (diamond * Math.pow(100, 3))
-				+ (int) (netherite * Math.pow(100, 4));
-		return total;
-	}
-
-	public static Map<CoinValue, Integer> valueToSplit(int total) {
-		Map<CoinValue, Integer> splitMap = new HashMap<>();
-		splitMap.put(CoinValue.COPPER,    total % 100);
-		splitMap.put(CoinValue.GOLD,      total / 100);
-		splitMap.put(CoinValue.EMERALD,   total / (int) Math.pow(100, 2));
-		splitMap.put(CoinValue.DIAMOND,   total / (int) Math.pow(100, 3));
-		splitMap.put(CoinValue.NETHERITE, total / (int) Math.pow(100, 4));
-		return splitMap;
 	}
 
 	public static NativeImage downloadImage(String urlPath) {

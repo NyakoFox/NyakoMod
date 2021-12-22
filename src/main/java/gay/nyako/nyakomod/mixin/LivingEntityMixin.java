@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.Coins;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.EntityAccess;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,7 +37,7 @@ public abstract class LivingEntityMixin extends Entity {
 		EntityType<?> type = this.getType();
 
 		// get the amount of coins to give based off of the entity type
-		int baseCoinAmount = NyakoMod.getCoinValue(type);
+		int baseCoinAmount = Coins.getCoinValue(type);
 
 		// pick a random number between 0.8 and 1.2
 		double randomRange = ((Math.random() * (1.2 - 0.8)) + 0.8);
@@ -88,7 +89,7 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 
 		// split the coin value we have into individual coin values
-		Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) coinAmount);
+		Map<NyakoMod.CoinValue, Integer> map = Coins.valueToSplit((int) coinAmount);
 
 		Integer copper = map.get(NyakoMod.CoinValue.COPPER);
 		Integer gold = map.get(NyakoMod.CoinValue.GOLD);
