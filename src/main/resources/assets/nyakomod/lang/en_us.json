@@ -20,9 +20,12 @@
     "item.nyakomod.soul_jar": "Soul Jar",
     "item.nyakomod.soul_jar.tooltip": "§7Current entity: §r%s",
     "item.nyakomod.music_disc_mask": "§bMusic Disc",
+    "item.nyakomod.music_disc_wolves": "§bMusic Disc",
     "item.nyakomod.music_disc_mask.desc": "Dream - Mask",
+    "item.nyakomod.music_disc_wolves.desc": "Kanye West - Wolves",
     "subtitles.nyakomod.vine_boom": "Vine boom",
     "subtitles.nyakomod.coin_collect": "Coins collected",
+    "subtitles.nyakomod.wolves": "Kanye West - Wolves",
     "key.nyakomod.killbind": "Kill player",
     "category.nyakomod.binds": "NyakoMod",
     "enchantment.nyakomod.cunkless_curse": "Curse of Cunkless"

@@ -101,6 +101,10 @@ public class NyakoMod implements ModInitializer {
 	public static SoundEvent MUSIC_DISC_MASK_SOUND_EVENT = new SoundEvent(MUSIC_DISC_MASK_SOUND);
 	public static final Item MUSIC_DISC_MASK = new CustomDiscItem(1, MUSIC_DISC_MASK_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
 
+	public static final Identifier MUSIC_DISC_WOLVES_SOUND = new Identifier("nyakomod:music_disc.wolves");
+	public static SoundEvent MUSIC_DISC_WOLVES_SOUND_EVENT = new SoundEvent(MUSIC_DISC_WOLVES_SOUND);
+	public static final Item MUSIC_DISC_WOLVES = new CustomDiscItem(2, MUSIC_DISC_WOLVES_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
+
 
 	// Coins
 	public static final Item COPPER_COIN_ITEM    = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
@@ -143,6 +147,9 @@ public class NyakoMod implements ModInitializer {
 			new Identifier("nyakomod", "cunkless_curse"),
 			new CunkCurseEnchantment()
 	);
+
+	public static final Identifier WOLVES_SOUND = new Identifier("nyakomod:wolves");
+	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
 
 	@Override
 	public void onInitialize() {
@@ -289,6 +296,12 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_mask"), MUSIC_DISC_MASK);
 		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_MASK_SOUND, MUSIC_DISC_MASK_SOUND_EVENT);
 
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_wolves"), MUSIC_DISC_WOLVES);
+		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_WOLVES_SOUND, MUSIC_DISC_WOLVES_SOUND_EVENT);
+
+		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
+
+
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				Direction direction = (Direction)pointer.getBlockState().get(DispenserBlock.FACING);
@@ -388,8 +401,9 @@ public class NyakoMod implements ModInitializer {
 
 		// Bosses
 		registerCoinAmount(EntityType.WITHER,         0, 0,  4,  0,0);
-		registerCoinAmount(EntityType.ENDER_DRAGON,   0, 0,  4, 0,0);
 		registerCoinAmount(EntityType.ELDER_GUARDIAN, 0, 50, 0,  0,0);
+		// She spawns coins herself, so don't register
+		//registerCoinAmount(EntityType.ENDER_DRAGON,   0, 0,  4, 0,0);
 
 		// Passive mobs you'd normally kill
 		registerCoinAmount(EntityType.CHICKEN,   40, 0, 0, 0,0);

@@ -11,10 +11,24 @@
             "nyakomod:coin_collect"
         ]
     },
+    "wolves": {
+        "subtitle": "subtitles.nyakomod.wolves",
+        "sounds": [
+            "nyakomod:wolves"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {
                 "name": "nyakomod:music_disc/mask",
+                "stream": true
+            }
+        ]
+    },
+    "music_disc.wolves": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/wolves",
                 "stream": true
             }
         ]
