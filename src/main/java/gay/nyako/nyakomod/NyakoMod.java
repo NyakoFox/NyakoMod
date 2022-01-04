@@ -2,6 +2,7 @@ package gay.nyako.nyakomod;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.TextParser;
+import gay.nyako.nyakomod.block.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -22,6 +23,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.*;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
 import net.minecraft.loot.function.ConditionalLootFunction;
@@ -62,10 +64,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import gay.nyako.nyakomod.block.CustomSlabBlock;
-import gay.nyako.nyakomod.block.CustomStairsBlock;
-import gay.nyako.nyakomod.block.CustomWallBlock;
-import gay.nyako.nyakomod.block.LauncherBlock;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
@@ -150,6 +148,11 @@ public class NyakoMod implements ModInitializer {
 
 	public static final Identifier WOLVES_SOUND = new Identifier("nyakomod:wolves");
 	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
+
+
+	// Gacha-related stuff starts here
+
+	public static final Block MATTER_VORTEX_BLOCK = new MatterVortexBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
 
 	@Override
 	public void onInitialize() {
@@ -301,6 +304,9 @@ public class NyakoMod implements ModInitializer {
 
 		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
 
+		// Gacha-related
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -479,6 +485,121 @@ public class NyakoMod implements ModInitializer {
 		splitMap.put(CoinValue.DIAMOND,   total / (int) Math.pow(100, 3));
 		splitMap.put(CoinValue.NETHERITE, total / (int) Math.pow(100, 4));
 		return splitMap;
+	}
+
+	public static void giveCoins(PlayerEntity player, long amount) {
+		System.out.println("Giving " + amount + "coins");
+		Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) amount);
+
+		Integer copper = map.get(NyakoMod.CoinValue.COPPER);
+		Integer gold = map.get(NyakoMod.CoinValue.GOLD);
+		Integer emerald = map.get(NyakoMod.CoinValue.EMERALD);
+		Integer diamond = map.get(NyakoMod.CoinValue.DIAMOND);
+		Integer netherite = map.get(NyakoMod.CoinValue.NETHERITE);
+
+		if (copper > 0) {
+			ItemStack stack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
+			stack.setCount(copper);
+			System.out.println("Giving " + copper + " copper");
+			player.giveItemStack(stack);
+		}
+		if (gold > 0) {
+			ItemStack stack = new ItemStack(NyakoMod.GOLD_COIN_ITEM);
+			stack.setCount(gold);
+			System.out.println("Giving " + gold + " copper");
+			player.giveItemStack(stack);
+		}
+		if (emerald > 0) {
+			ItemStack stack = new ItemStack(NyakoMod.EMERALD_COIN_ITEM);
+			stack.setCount(emerald);
+			System.out.println("Giving " + emerald + " copper");
+			player.giveItemStack(stack);
+		}
+		if (diamond > 0) {
+			ItemStack stack = new ItemStack(NyakoMod.DIAMOND_COIN_ITEM);
+			stack.setCount(diamond);
+			System.out.println("Giving " + diamond + " copper");
+			player.giveItemStack(stack);
+		}
+		if (netherite > 0) {
+			ItemStack stack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
+			stack.setCount(netherite);
+			System.out.println("Giving " + netherite + " copper");
+			player.giveItemStack(stack);
+		}
+	}
+
+	public static void removeCoins(PlayerEntity player, long amount) {
+		long removed = 0;
+
+		for (int i = 0; i < player.getInventory().size(); ++i) {
+			var stack = player.getInventory().getStack(i);
+			var item = stack.getItem();
+
+			if (item instanceof CoinItem) {
+				while (removed < amount) {
+					removed += ((CoinItem) item).getCoinValue();
+					stack.decrement(1);
+					if (stack.getCount() == 0) break;
+				}
+			} else if (item instanceof BagOfCoinsItem) {
+				NbtCompound tag = stack.getOrCreateNbt();
+				long bagAmount = 0;
+				bagAmount += tag.getInt("copper");
+				bagAmount += tag.getInt("gold") * 100L;
+				bagAmount += tag.getInt("emerald") * 10000L;
+				bagAmount += tag.getInt("diamond") * 1000000L;
+				bagAmount += tag.getInt("netherite") * 100000000L;
+
+				long toRemove = amount - removed;
+				if ((bagAmount - toRemove) < 0) {
+					removed += bagAmount;
+					bagAmount = 0;
+				} else {
+					removed += toRemove;
+					bagAmount -= toRemove;
+				}
+
+				Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) bagAmount);
+
+				tag.putInt("copper",    map.get(NyakoMod.CoinValue.COPPER));
+				tag.putInt("gold",      map.get(NyakoMod.CoinValue.GOLD));
+				tag.putInt("emerald",   map.get(NyakoMod.CoinValue.EMERALD));
+				tag.putInt("diamond",   map.get(NyakoMod.CoinValue.DIAMOND));
+				tag.putInt("netherite", map.get(NyakoMod.CoinValue.NETHERITE));
+
+				stack.setNbt(tag);
+			}
+
+			if (removed > amount) {
+				giveCoins(player, removed - amount);
+				removed = amount;
+			}
+			if (removed >= amount) {
+				return;
+			}
+		}
+	}
+
+	public static int countInventoryCoins(Inventory inventory) {
+		int total = 0;
+		for (int i = 0; i < inventory.size(); ++i) {
+			var stack = inventory.getStack(i);
+			var item = stack.getItem();
+
+			if (item instanceof CoinItem) {
+				total += stack.getCount() * ((CoinItem) item).getCoinValue();
+			} else if (item instanceof BagOfCoinsItem) {
+				NbtCompound tag = stack.getOrCreateNbt();
+				total += tag.getInt("copper");
+				total += tag.getInt("gold") * 100;
+				total += tag.getInt("emerald") * 10000;
+				total += tag.getInt("diamond") * 1000000;
+				total += tag.getInt("netherite") * 100000000;
+			}
+		}
+
+		return total;
 	}
 
 	public enum CoinValue {

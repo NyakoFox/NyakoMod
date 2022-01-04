@@ -12,12 +12,12 @@ def main():
     block_class = input(f"{color('37;1;4')}Enter the class name of the block (ex. DiamondLauncherBlock):\n{color('31;1')}> {color('0')}")
     print(f"{color('37;1;4;6')}Nice block")
 
-    with open(f"src/main/resources/assets/{MODID}/lang/en_us.json") as f:
+    with open(f"src/main/resources/assets/{MODID}/lang/en_us.json", encoding="utf-8") as f:
         data = json.load(f)
 
     data[f"block.{MODID}.{block_id}"] = block_name
 
-    with open(f"src/main/resources/assets/{MODID}/lang/en_us.json", "w") as write_file:
+    with open(f"src/main/resources/assets/{MODID}/lang/en_us.json", "w", encoding="utf-8") as write_file:
         json.dump(data, write_file, sort_keys=True, indent=4)
 
 

@@ -38,29 +38,8 @@ public abstract class ServerPlayerEntityMixin {
   public void playerTick(CallbackInfo info) {
     var player = ((ServerPlayerEntity) (Object) this);
 
-    var count = countInventoryCoins(player.getInventory()) + countInventoryCoins(player.getEnderChestInventory());
+    var count = NyakoMod.countInventoryCoins(player.getInventory()) + NyakoMod.countInventoryCoins(player.getEnderChestInventory());
 
     player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
-  }
-
-  public int countInventoryCoins(Inventory inventory) {
-    int total = 0;
-    for (int i = 0; i < inventory.size(); ++i) {
-      var stack = inventory.getStack(i);
-      var item = stack.getItem();
-
-      if (item instanceof CoinItem) {
-        total += stack.getCount() * ((CoinItem) item).getCoinValue();
-      } else if (item instanceof BagOfCoinsItem) {
-        NbtCompound tag = stack.getOrCreateNbt();
-        total += tag.getInt("copper");
-        total += tag.getInt("gold") * 100;
-        total += tag.getInt("emerald") * 10000;
-        total += tag.getInt("diamond") * 1000000;
-        total += tag.getInt("netherite") * 100000000;
-      }
-    }
-
-    return total;
   }
 }
