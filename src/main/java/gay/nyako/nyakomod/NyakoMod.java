@@ -3,11 +3,12 @@ package gay.nyako.nyakomod;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.TextParser;
 import gay.nyako.nyakomod.block.*;
+import gay.nyako.nyakomod.item.*;
+import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
+import gay.nyako.nyakomod.item.gacha.GachaItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -17,23 +18,21 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.StairsBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.*;
-import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
-import net.minecraft.loot.function.ConditionalLootFunction;
-import net.minecraft.loot.function.LootingEnchantLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -41,6 +40,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -53,26 +53,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import net.minecraft.item.Items;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
-import gay.nyako.nyakomod.item.BagOfCoinsItem;
-import gay.nyako.nyakomod.item.CoinItem;
-import gay.nyako.nyakomod.item.CustomDiscItem;
-import gay.nyako.nyakomod.item.SoulJarItem;
-import gay.nyako.nyakomod.item.StaffOfSmitingItem;
-import gay.nyako.nyakomod.item.StaffOfVorbulationItem;
-import gay.nyako.nyakomod.item.TimeInABottleItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
@@ -89,10 +74,10 @@ public class NyakoMod implements ModInitializer {
 	public static final Item DRIP_JACKET = new ArmorItem(customArmorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof());
 	// Launcher
 	public static final Block LAUNCHER_BLOCK = new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
-	// Staff of Vorbulation
-	public static final Item STAFF_OF_VORBULATION_ITEM = new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
 	// Staff of Smiting
 	public static final Item STAFF_OF_SMITING_ITEM = new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
+	// Present
+	public static final Item PRESENT_ITEM = new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
 	// Music Discs
 	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
@@ -153,6 +138,185 @@ public class NyakoMod implements ModInitializer {
 	// Gacha-related stuff starts here
 
 	public static final Block MATTER_VORTEX_BLOCK = new MatterVortexBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
+
+
+	// Gacha items
+
+	public static final Item DIAMOND_GACHA_ITEM = new GachaItem(
+			new FabricItemSettings().group(ItemGroup.MISC).food(FoodComponents.GOLDEN_CARROT),
+			2,
+			Arrays.asList(
+				(MutableText) Text.of("You can't make tools out of these,"),
+				(MutableText) Text.of("but at least they're healthy!")
+			)
+	);
+
+	public static final Item MARIO_GACHA_ITEM = new GachaItem(
+			new FabricItemSettings().group(ItemGroup.MISC),
+			4,
+			(MutableText) Text.of("The lovable plumber!")
+	);
+
+	public static final Item LUIGI_GACHA_ITEM = new GachaItem(
+			new FabricItemSettings().group(ItemGroup.MISC),
+			4,
+			(MutableText) Text.of("The lovable plumber's brother!")
+	);
+
+	public static final Item DISCORD_GACHA_ITEM = new DiscordGachaItem(new FabricItemSettings().group(ItemGroup.MISC));
+
+	// Staff of Vorbulation
+	public static final Item STAFF_OF_VORBULATION_ITEM = new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
+
+	public record GachaEntry (
+			Text name,
+			ItemStack itemStack,
+			int rarity,
+			double weight
+	) {}
+
+	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
+
+	public static final Identifier DISCORD_SOUND = new Identifier("nyakomod:discord");
+	public static SoundEvent DISCORD_SOUND_EVENT = new SoundEvent(DISCORD_SOUND);
+	public void registerGachaItems() {
+		/* REGISTRY */
+		// Items
+		// Squishy Diamond
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_gacha"), DIAMOND_GACHA_ITEM);
+		// Discord Logo
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "discord_gacha"), DISCORD_GACHA_ITEM);
+		// Staff of Vorbulation
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), STAFF_OF_VORBULATION_ITEM);
+
+		// Mario
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "mario_gacha"), MARIO_GACHA_ITEM);
+		// Luigi
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
+
+		// Sounds
+		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);
+
+		/* 1 STAR */
+		// 1 Gold CunkCoin
+		registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(GOLD_COIN_ITEM), 1);
+		registerGachaItem(Text.of("64 §6Dirt"), Items.DIRT, 64, 1);
+		registerGachaItem(Text.of("16 §6Oak Logs"), Items.OAK_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §6Dark Oak Logs"), Items.DARK_OAK_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §6Spruce Logs"), Items.SPRUCE_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §6Acacia Logs"), Items.ACACIA_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §6Birch Logs"), Items.BIRCH_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §6Jungle Logs"), Items.JUNGLE_LOG, 16, 1);
+		registerGachaItem(Text.of("16 §cCrimson Stems"), Items.CRIMSON_STEM, 16, 1);
+		registerGachaItem(Text.of("16 §bWarped Stems"), Items.WARPED_STEM, 16, 1);
+
+		// Bow
+		registerGachaItem(Text.of("a §7Bow"), Items.BOW, 1, 1);
+
+		/* 2 STAR */
+		registerGachaItem(Text.of("an §5Uncraftable Potion...?"), new ItemStack(Items.POTION), 2);
+		// wolves
+		registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(MUSIC_DISC_WOLVES), 2);
+		registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) DIAMOND_GACHA_ITEM, 16);
+		registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
+
+		registerGachaItem(Text.of("16 §aOak Leaves"), Items.OAK_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §aDark Oak Leaves"), Items.DARK_OAK_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §aSpruce Leaves"), Items.SPRUCE_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §aAcacia Leaves"), Items.ACACIA_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §a§aBirch Leaves"), Items.BIRCH_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §aJungle Leaves"), Items.JUNGLE_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §cNether Wart Blocks"), Items.NETHER_WART_BLOCK, 16, 2);
+		registerGachaItem(Text.of("16 §bWarped Wart Blocks"), Items.WARPED_WART_BLOCK, 16, 2);
+		registerGachaItem(Text.of("16 §aAzalea Leaves"), Items.AZALEA_LEAVES, 16, 2);
+		registerGachaItem(Text.of("16 §aFlowering Azalea Leaves"), Items.AZALEA_LEAVES_FLOWERS, 16, 2);
+
+		registerGachaItem(Text.of("32 §7Sticks"), Items.STICK, 32, 2);
+		registerGachaItem(Text.of("a §7Fishing Rod"), Items.FISHING_ROD, 1, 2);
+		registerGachaItem(Text.of("2 §dCow Spawn Eggs"), Items.COW_SPAWN_EGG, 2, 2);
+		registerGachaItem(Text.of("2 §dPig Spawn Eggs"), Items.PIG_SPAWN_EGG, 2, 2);
+		registerGachaItem(Text.of("2 §dSheep Spawn Eggs"), Items.SHEEP_SPAWN_EGG, 2, 2);
+		registerGachaItem(Text.of("2 §dRabbit Spawn Eggs"), Items.RABBIT_SPAWN_EGG, 2, 2);
+		registerGachaItem(Text.of("2 §dChicken Spawn Eggs"), Items.CHICKEN_SPAWN_EGG, 2, 2);
+
+		/* 3 STAR */
+		registerGachaItem(Text.of("the §9Discord Logo"), (GachaItem) DISCORD_GACHA_ITEM);
+		registerGachaItem(Text.of("a §2Potion of Luck"), PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LUCK), 3);
+		registerGachaItem(Text.of("5 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 5, 3);
+		registerGachaItem(Text.of("64 §7Cobblestone"), Items.COBBLESTONE, 64, 3);
+		registerGachaItem(Text.of("64 §cTorches"), Items.TORCH, 64, 3);
+		registerGachaItem(Text.of("16 §7Iron Ingots"), Items.IRON_INGOT, 16, 3);
+		registerGachaItem(Text.of("16 §aExperience Bottles"), Items.EXPERIENCE_BOTTLE, 16, 3);
+		registerGachaItem(Text.of("16 §dItem Frames"), Items.ITEM_FRAME, 16, 3);
+		registerGachaItem(Text.of("16 §7Arrows"), Items.ARROW, 16, 3);
+
+		// Mario and Luigi
+		ItemStack brotherStack = new ItemStack(PRESENT_ITEM);
+		PresentItem.addToPresent(brotherStack, new ItemStack(MARIO_GACHA_ITEM));
+		PresentItem.addToPresent(brotherStack, new ItemStack(LUIGI_GACHA_ITEM));
+		brotherStack.setCustomName(Text.of("Present (Brothers)"));
+		registerGachaItem(Text.of("§cThe §4Brothers"), brotherStack, 3);
+
+		/* 4 STAR */
+		registerGachaItem(Text.of("10 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 10, 4);
+		registerGachaItem(Text.of("the §5Staff of Vorbulation"), (GachaItem) STAFF_OF_VORBULATION_ITEM);
+		registerGachaItem(Text.of("32 §aExperience Bottles"), Items.EXPERIENCE_BOTTLE, 32, 4);
+		registerGachaItem(Text.of("16 §eGlowing Item Frames"), Items.GLOW_ITEM_FRAME, 16, 4);
+		registerGachaItem(Text.of("16 §eSpectral Arrows"), Items.SPECTRAL_ARROW, 16, 4);
+		registerGachaItem(Text.of("32 §bGlass"), Items.GLASS, 32, 4);
+		registerGachaItem(Text.of("1 §dVillager Spawn Egg"), Items.VILLAGER_SPAWN_EGG, 1, 4);
+		registerGachaItem(Text.of("4 §dWandering Trader Spawn Eggs"), Items.WANDERING_TRADER_SPAWN_EGG, 4, 4);
+		registerGachaItem(Text.of("16 §cTNT"), Items.TNT, 16, 4);
+		registerGachaItem(Text.of("16 §5Dragon's Breath"), Items.DRAGON_BREATH, 16, 4);
+
+		/* 5 STAR */
+		registerGachaItem(Text.of("a §dDragon §5Egg"), Items.DRAGON_EGG, 1, 5);
+		registerGachaItem(Text.of("20 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 20, 5);
+		registerGachaItem(Text.of("1 §4Ancient Debris"), Items.ANCIENT_DEBRIS, 1, 5);
+		registerGachaItem(Text.of("8 §bDiamonds"), Items.DIAMOND, 8, 5);
+		// Diamond tool kit
+		ItemStack toolStack = new ItemStack(PRESENT_ITEM);
+		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_PICKAXE));
+		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_SWORD));
+		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_AXE));
+		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_SHOVEL));
+		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_HOE));
+		toolStack.setCustomName(Text.of("Present (Diamond Tool Kit)"));
+		registerGachaItem(Text.of("a Diamond Tool Kit"), toolStack, 5);
+		// Diamond armor kit
+		ItemStack armorStack = new ItemStack(PRESENT_ITEM);
+		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_HELMET));
+		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_CHESTPLATE));
+		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_LEGGINGS));
+		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_BOOTS));
+		armorStack.setCustomName(Text.of("Present (Diamond Armor Kit)"));
+		registerGachaItem(Text.of("a Diamond Armor Kit"), armorStack, 5);
+	}
+
+	public void registerGachaItem(Text name, GachaItem item) {
+		registerGachaItem(name, item, 1);
+	}
+
+	public void registerGachaItem(Text name, GachaItem item, int amount) {
+		int rarity = item.getRarity();
+		ItemStack itemStack = new ItemStack(item);
+		itemStack.setCount(amount);
+		registerGachaItem(name, itemStack, rarity);
+	}
+
+	public void registerGachaItem(Text name, Item item, int amount, int rarity) {
+		ItemStack itemStack = new ItemStack(item);
+		itemStack.setCount(amount);
+		registerGachaItem(name, itemStack, rarity);
+	}
+
+	public void registerGachaItem(Text name, ItemStack itemStack, int rarity) {
+		GachaEntry gachaEntry = new GachaEntry(
+				name, itemStack, rarity, (1d / (rarity * 2d))
+		);
+		gachaEntryList.add(gachaEntry);
+	}
+
 
 	@Override
 	public void onInitialize() {
@@ -271,11 +435,11 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_slab"), new BlockItem(BRICKUS_SLAB, new FabricItemSettings().group(ItemGroup.MISC)));
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_wall"), new BlockItem(BRICKUS_WALL, new FabricItemSettings().group(ItemGroup.MISC)));
 
-		// Staff of Vorbulation
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), STAFF_OF_VORBULATION_ITEM);
-
 		// Staff of Smiting
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_smiting"), STAFF_OF_SMITING_ITEM);
+
+		// Present
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
 
 		// Coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"),    COPPER_COIN_ITEM);
@@ -307,6 +471,8 @@ public class NyakoMod implements ModInitializer {
 		// Gacha-related
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		registerGachaItems();
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -480,15 +646,19 @@ public class NyakoMod implements ModInitializer {
 	public static Map<CoinValue, Integer> valueToSplit(int total) {
 		Map<CoinValue, Integer> splitMap = new HashMap<>();
 		splitMap.put(CoinValue.COPPER,    total % 100);
-		splitMap.put(CoinValue.GOLD,      total / 100);
-		splitMap.put(CoinValue.EMERALD,   total / (int) Math.pow(100, 2));
-		splitMap.put(CoinValue.DIAMOND,   total / (int) Math.pow(100, 3));
-		splitMap.put(CoinValue.NETHERITE, total / (int) Math.pow(100, 4));
+		splitMap.put(CoinValue.GOLD,      (total / 100) % 100);
+		splitMap.put(CoinValue.EMERALD,   (total / (int) Math.pow(100, 2)) % 100);
+		splitMap.put(CoinValue.DIAMOND,   (total / (int) Math.pow(100, 3)) % 100);
+		splitMap.put(CoinValue.NETHERITE, (total / (int) Math.pow(100, 4)));
 		return splitMap;
 	}
 
 	public static void giveCoins(PlayerEntity player, long amount) {
-		System.out.println("Giving " + amount + "coins");
+		giveCoins(player.getInventory(), amount);
+	}
+
+	public static void giveCoins(Inventory inventory, long amount) {
+		System.out.println("Giving " + amount + " coins");
 		Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) amount);
 
 		Integer copper = map.get(NyakoMod.CoinValue.COPPER);
@@ -501,39 +671,64 @@ public class NyakoMod implements ModInitializer {
 			ItemStack stack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
 			stack.setCount(copper);
 			System.out.println("Giving " + copper + " copper");
-			player.giveItemStack(stack);
+			if (inventory instanceof SimpleInventory) {
+				((SimpleInventory) inventory).addStack(stack);
+			} else if (inventory instanceof PlayerInventory) {
+				((PlayerInventory) inventory).insertStack(stack);
+			}
 		}
 		if (gold > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.GOLD_COIN_ITEM);
 			stack.setCount(gold);
-			System.out.println("Giving " + gold + " copper");
-			player.giveItemStack(stack);
+			System.out.println("Giving " + gold + " gold");
+			if (inventory instanceof SimpleInventory) {
+				((SimpleInventory) inventory).addStack(stack);
+			} else if (inventory instanceof PlayerInventory) {
+				((PlayerInventory) inventory).insertStack(stack);
+			}
 		}
 		if (emerald > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.EMERALD_COIN_ITEM);
 			stack.setCount(emerald);
-			System.out.println("Giving " + emerald + " copper");
-			player.giveItemStack(stack);
+			System.out.println("Giving " + emerald + " emerald");
+			if (inventory instanceof SimpleInventory) {
+				((SimpleInventory) inventory).addStack(stack);
+			} else if (inventory instanceof PlayerInventory) {
+				((PlayerInventory) inventory).insertStack(stack);
+			}
 		}
 		if (diamond > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.DIAMOND_COIN_ITEM);
 			stack.setCount(diamond);
-			System.out.println("Giving " + diamond + " copper");
-			player.giveItemStack(stack);
+			System.out.println("Giving " + diamond + " diamond");
+			if (inventory instanceof SimpleInventory) {
+				((SimpleInventory) inventory).addStack(stack);
+			} else if (inventory instanceof PlayerInventory) {
+				((PlayerInventory) inventory).insertStack(stack);
+			}
 		}
 		if (netherite > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
 			stack.setCount(netherite);
-			System.out.println("Giving " + netherite + " copper");
-			player.giveItemStack(stack);
+			System.out.println("Giving " + netherite + " netherite");
+			if (inventory instanceof SimpleInventory) {
+				((SimpleInventory) inventory).addStack(stack);
+			} else if (inventory instanceof PlayerInventory) {
+				((PlayerInventory) inventory).insertStack(stack);
+			}
 		}
 	}
 
 	public static void removeCoins(PlayerEntity player, long amount) {
 		long removed = 0;
 
-		for (int i = 0; i < player.getInventory().size(); ++i) {
-			var stack = player.getInventory().getStack(i);
+		removed += removeCoinsFromInventory(player.getInventory(), amount, removed);
+		removed += removeCoinsFromInventory(player.getEnderChestInventory(), amount, removed);
+	}
+
+	public static long removeCoinsFromInventory(Inventory inventory, long amount, long removed) {
+		for (int i = 0; i < inventory.size(); ++i) {
+			var stack = inventory.getStack(i);
 			var item = stack.getItem();
 
 			if (item instanceof CoinItem) {
@@ -572,13 +767,14 @@ public class NyakoMod implements ModInitializer {
 			}
 
 			if (removed > amount) {
-				giveCoins(player, removed - amount);
+				giveCoins(inventory, removed - amount);
 				removed = amount;
 			}
 			if (removed >= amount) {
-				return;
+				return removed;
 			}
 		}
+		return removed;
 	}
 
 	public static int countInventoryCoins(Inventory inventory) {

@@ -26,8 +26,14 @@
     "item.nyakomod.staff_of_vorbulation": "Staff of Vorbulation",
     "item.nyakomod.time_in_a_bottle": "Time In A Bottle",
     "item.nyakomod.time_in_a_bottle.tooltip": "%d H §7§o|§r %d M §7§o|§r %d S",
+    "item.nyakomod.diamond_gacha": "Squishy Diamond",
+    "item.nyakomod.discord_gacha": "Discord Logo",
+    "item.nyakomod.mario_gacha": "§cMario",
+    "item.nyakomod.luigi_gacha": "§aLuigi",
+    "item.nyakomod.present": "Present",
     "key.nyakomod.killbind": "Kill player",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
-    "subtitles.nyakomod.wolves": "Kanye West - Wolves"
+    "subtitles.nyakomod.wolves": "Kanye West - Wolves",
+    "subtitles.nyakomod.discord": "Discord notification"
 }

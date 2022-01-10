@@ -92,9 +92,6 @@ public abstract class PlayerInventoryMixin {
 
 				if (left > 0) {
 					stack.setCount(left);
-					System.out.println("The rest SHOULD be " + left);
-					System.out.println("Just to make sure, the stack count is now: " + stack.getCount());
-					System.out.println("Plus, the max count is: " + stack.getMaxCount());
 					addStack(stack);
 				}
 

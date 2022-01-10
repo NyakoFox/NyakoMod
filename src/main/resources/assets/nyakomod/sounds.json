@@ -17,6 +17,12 @@
             "nyakomod:wolves"
         ]
     },
+    "discord": {
+        "subtitle": "subtitles.nyakomod.discord",
+        "sounds": [
+            "nyakomod:discord"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {
