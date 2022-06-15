@@ -15,7 +15,7 @@ import gay.nyako.nyakomod.item.SoulJarItem;
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin {
 
-	@Inject(at = @At("HEAD"), method = "Lnet/minecraft/entity/passive/VillagerEntity;interactMob(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "interactMob(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;", cancellable = true)
 	public void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.getItem() instanceof SoulJarItem) {

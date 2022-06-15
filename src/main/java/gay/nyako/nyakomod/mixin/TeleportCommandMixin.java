@@ -20,8 +20,8 @@ import net.minecraft.server.world.ServerWorld;
 
 @Mixin(TeleportCommand.class)
 public class TeleportCommandMixin {
-  @Inject(at = @At("HEAD"), method = "Lnet/minecraft/server/command/TeleportCommand;teleport(Lnet/minecraft/server/command/ServerCommandSource;Lnet/minecraft/entity/Entity;Lnet/minecraft/server/world/ServerWorld;DDDLjava/util/Set;FFLnet/minecraft/server/command/TeleportCommand$LookTarget;)V", cancellable=true)
-  public static void teleport(ServerCommandSource source, Entity target, ServerWorld world, double x, double y, double z, Set<PlayerPositionLookS2CPacket.Flag> movementFlags, float yaw, float pitch, @Nullable LookTarget facingLocation, CallbackInfo info) {
+  @Inject(at = @At("HEAD"), method = "teleport(Lnet/minecraft/server/command/ServerCommandSource;Lnet/minecraft/entity/Entity;Lnet/minecraft/server/world/ServerWorld;DDDLjava/util/Set;FFLnet/minecraft/server/command/TeleportCommand$LookTarget;)V", cancellable=true)
+  private static void teleport(ServerCommandSource source, Entity target, ServerWorld world, double x, double y, double z, Set<PlayerPositionLookS2CPacket.Flag> movementFlags, float yaw, float pitch, TeleportCommand.LookTarget facingLocation, CallbackInfo ci) {
     if (target instanceof ServerPlayerEntity) {
       BackCommand.registerPreviousLocation((ServerPlayerEntity)target);
     }

@@ -16,6 +16,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 
 @Mixin(ItemModels.class)
 public abstract class ItemModelsMixin {

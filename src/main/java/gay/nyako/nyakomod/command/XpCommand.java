@@ -27,7 +27,7 @@ public final class XpCommand implements Command<ServerCommandSource> {
   @Override
   public int run(CommandContext<ServerCommandSource> ctx) {
     try {
-      var player = ctx.getSource().getPlayer();
+      var player = ctx.getSource().getPlayerOrThrow();
       XpCommand.refreshLevels(player);
     } catch (CommandSyntaxException e) {
       ctx.getSource().sendFeedback(Text.of("Only players can use this command >:("), false);

@@ -4,8 +4,8 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
@@ -26,16 +26,16 @@ public class NyakoClientMod implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-				ClientSidePacketRegistry.INSTANCE.sendToServer(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
+				ClientPlayNetworking.send(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
 
-		ClientSidePacketRegistry.INSTANCE.register(NyakoMod.PLAYER_SMITE_PACKET_ID,
-				(packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
+		ClientPlayNetworking.registerGlobalReceiver(NyakoMod.PLAYER_SMITE_PACKET_ID,
+				(client, handler, buffer, sender) -> client.execute(() -> {
 					MinecraftClient.getInstance().player.addVelocity(0D, 5D, 0D);
 				}));
 
-		EntityRendererRegistry.INSTANCE.register(NyakoMod.TICKER, TickerEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoMod.TICKER, TickerEntityRenderer::new);
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
 		{

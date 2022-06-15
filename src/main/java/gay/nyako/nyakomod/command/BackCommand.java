@@ -51,7 +51,7 @@ public final class BackCommand implements Command<ServerCommandSource> {
   public int run(CommandContext<ServerCommandSource> ctx) {
     var source = ctx.getSource();
     try {
-      var p = source.getPlayer();
+      var p = source.getPlayerOrThrow();
       var id = p.getId();
 
       var previousLocation = previousLocations.get(id);

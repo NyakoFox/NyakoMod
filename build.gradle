@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -9,6 +9,10 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+loom {
+	accessWidenerPath = file("src/main/resources/nyakomod.accesswidener")
+}
 
 repositories {
 	maven {
@@ -32,15 +36,18 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	// TODO: use new networking api instead lol
+	//modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
 	modImplementation 'me.lucko:fabric-permissions-api:0.1-SNAPSHOT'
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-	include "net.devtech:Stacc:1.3.1"
-	modRuntime(include("net.devtech:Stacc:1.3.1"))
+	include "net.devtech:Stacc:1.3.3"
+	modRuntimeOnly(include("net.devtech:Stacc:1.3.3"))
 
-	modImplementation include("eu.pb4:placeholder-api:1.1.3+1.17.1")
+	modImplementation include("eu.pb4:placeholder-api:2.0.0-beta.5+1.19")
 }
 
 processResources {

@@ -8,9 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
@@ -155,13 +154,13 @@ public class BagOfCoinsItem extends Item {
         int netherite = tag.getInt("netherite");
 
         if ((copper + gold + emerald + diamond + netherite) <= 0) {
-            tooltip.add(new LiteralText("§7§oThis bag is empty."));
+            tooltip.add(Text.literal("§7§oThis bag is empty."));
         } else {
-            tooltip.add(new LiteralText("Copper: §6" + copper));
-            tooltip.add(new LiteralText("Gold: §e" + gold));
-            tooltip.add(new LiteralText("Emerald: §2" + emerald));
-            tooltip.add(new LiteralText("Diamond: §b" + diamond));
-            tooltip.add(new LiteralText("Netherite: §8" + netherite));
+            tooltip.add(Text.literal("Copper: §6" + copper));
+            tooltip.add(Text.literal("Gold: §e" + gold));
+            tooltip.add(Text.literal("Emerald: §2" + emerald));
+            tooltip.add(Text.literal("Diamond: §b" + diamond));
+            tooltip.add(Text.literal("Netherite: §8" + netherite));
         }
     }
 }

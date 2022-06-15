@@ -1,0 +1,4 @@
+accessWidener	v1  named
+
+# For TeleportCommandMixin
+accessible  class   net/minecraft/server/command/TeleportCommand$LookTarget

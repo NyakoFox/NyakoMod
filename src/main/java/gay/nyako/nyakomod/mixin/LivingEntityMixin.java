@@ -32,6 +32,7 @@ public abstract class LivingEntityMixin extends Entity {
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		if (!causedByPlayer) return;
 		if (attackingPlayer == null) return;
+		if (true) return;
 
 		EntityType<?> type = this.getType();
 

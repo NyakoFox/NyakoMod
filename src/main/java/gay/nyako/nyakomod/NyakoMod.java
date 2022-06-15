@@ -1,15 +1,15 @@
 package gay.nyako.nyakomod;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import eu.pb4.placeholders.TextParser;
+import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
@@ -19,6 +19,7 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -39,10 +40,10 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -51,9 +52,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-
-import net.minecraft.item.Items;
-
 import java.util.*;
 
 import gay.nyako.nyakomod.command.BackCommand;
@@ -229,7 +227,7 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("16 §cNether Wart Blocks"), Items.NETHER_WART_BLOCK, 16, 2);
 		registerGachaItem(Text.of("16 §bWarped Wart Blocks"), Items.WARPED_WART_BLOCK, 16, 2);
 		registerGachaItem(Text.of("16 §aAzalea Leaves"), Items.AZALEA_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aFlowering Azalea Leaves"), Items.AZALEA_LEAVES_FLOWERS, 16, 2);
+		registerGachaItem(Text.of("16 §aFlowering Azalea Leaves"), Items.FLOWERING_AZALEA_LEAVES, 16, 2);
 
 		registerGachaItem(Text.of("32 §7Sticks"), Items.STICK, 32, 2);
 		registerGachaItem(Text.of("a §7Fishing Rod"), Items.FISHING_ROD, 1, 2);
@@ -323,31 +321,32 @@ public class NyakoMod implements ModInitializer {
 		System.out.println("owo");
 
 		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("rename")
 				.executes(context -> {
 					ServerCommandSource source = context.getSource();
-					PlayerEntity player = source.getPlayer();
+					PlayerEntity player = source.getPlayerOrThrow();
 					ItemStack heldStack = player.getMainHandStack();
 					if (heldStack.isEmpty()) {
-						context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
+						context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
 					} else {
 						heldStack.removeCustomName();
-						context.getSource().sendFeedback(new LiteralText("Your item's name has been cleared."), false);
+						context.getSource().sendFeedback(Text.literal("Your item's name has been cleared."), false);
 					}
 					return 1;
 				})
 				.then(CommandManager.argument("name", StringArgumentType.greedyString())
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayer();
+						PlayerEntity player = source.getPlayerOrThrow();
 						ItemStack heldStack = player.getMainHandStack();
-						Text newName = TextParser.parse(context.getArgument("name", String.class));
+						String string = context.getArgument("name", String.class);
+						Text newName = TextParserUtils.formatText(string);
 						if (heldStack.isEmpty()) {
-							context.getSource().sendError(new LiteralText("You can't rename nothing!").formatted(Formatting.RED));
+							context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
 						} else {
 							heldStack.setCustomName(newName);
-							context.getSource().sendFeedback(new TranslatableText("Your item has been renamed to \"%s\".", newName), false);
+							context.getSource().sendFeedback(Text.translatable("Your item has been renamed to \"%s\".", newName), false);
 						}
 						return 1;
 					})
@@ -358,10 +357,10 @@ public class NyakoMod implements ModInitializer {
 				.then(CommandManager.literal("clear")
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayer();
+						PlayerEntity player = source.getPlayerOrThrow();
 						ItemStack heldStack = player.getMainHandStack();
 						if (heldStack.isEmpty()) {
-							context.getSource().sendError(new LiteralText("You can't clear the lore of nothing!").formatted(Formatting.RED));
+							context.getSource().sendError(Text.literal("You can't clear the lore of nothing!").formatted(Formatting.RED));
 						} else {
 							NbtCompound nbt = heldStack.getOrCreateNbt();
 							NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
@@ -370,7 +369,7 @@ public class NyakoMod implements ModInitializer {
 							nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
 							nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
 							heldStack.setNbt(nbt);
-							context.getSource().sendFeedback(new LiteralText("Lore cleared."), false);
+							context.getSource().sendFeedback(Text.literal("Lore cleared."), false);
 						}
 						return 1;
 					})
@@ -379,11 +378,11 @@ public class NyakoMod implements ModInitializer {
 					.then(CommandManager.argument("text", StringArgumentType.greedyString())
 						.executes(context -> {
 							ServerCommandSource source = context.getSource();
-							PlayerEntity player = source.getPlayer();
+							PlayerEntity player = source.getPlayerOrThrow();
 							ItemStack heldStack = player.getMainHandStack();
-							Text newText = TextParser.parse(context.getArgument("text", String.class));
+							Text newText = TextParserUtils.formatText(context.getArgument("text", String.class));
 							if (heldStack.isEmpty()) {
-								context.getSource().sendError(new LiteralText("You can't add lore to nothing!").formatted(Formatting.RED));
+								context.getSource().sendError(Text.literal("You can't add lore to nothing!").formatted(Formatting.RED));
 							} else {
 								NbtCompound nbt = heldStack.getOrCreateNbt();
 								NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
@@ -394,7 +393,7 @@ public class NyakoMod implements ModInitializer {
 								nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
 								nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
 								heldStack.setNbt(nbt);
-								context.getSource().sendFeedback(new LiteralText("Lore applied."), false);
+								context.getSource().sendFeedback(Text.literal("Lore applied."), false);
 							}
 							return 1;
 						})
@@ -406,12 +405,11 @@ public class NyakoMod implements ModInitializer {
 
 
 		// Killbind
-		ServerSidePacketRegistry.INSTANCE.register(KILL_PLAYER_PACKET_ID, (packetContext, attachedData) -> {
-			packetContext.getTaskQueue().execute(() -> {
-				PlayerEntity player = packetContext.getPlayer();
-				player.damage(DamageSource.MAGIC, 3.4028235E38F);
-			});
-		});
+		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
+				(server, player, handler, buffer, sender) -> server.execute(() -> {
+					player.damage(DamageSource.MAGIC, 3.4028235E38F);
+					MinecraftClient.getInstance().player.addVelocity(0D, 5D, 0D);
+				}));
 
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
@@ -510,9 +508,9 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static void registerCommands() {
-		CommandRegistrationCallback.EVENT.register((dispatch, dedicated) -> {
-			BackCommand.register(dispatch);
-			XpCommand.register(dispatch);
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			BackCommand.register(dispatcher);
+			XpCommand.register(dispatcher);
 		});
 	}
 

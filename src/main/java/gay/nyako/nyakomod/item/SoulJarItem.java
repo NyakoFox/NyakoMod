@@ -13,7 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -106,7 +106,7 @@ public class SoulJarItem extends Item {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         NbtCompound tag = itemStack.getOrCreateNbt();
         if (itemStack.getOrCreateNbt().contains("entity")) {
-            tooltip.add(new TranslatableText("item.nyakomod.soul_jar.tooltip", tag.getString("entityName")));
+            tooltip.add(Text.translatable("item.nyakomod.soul_jar.tooltip", tag.getString("entityName")));
         }
     }
 
