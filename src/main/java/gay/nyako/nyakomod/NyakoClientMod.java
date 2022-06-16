@@ -23,6 +23,7 @@ public class NyakoClientMod implements ClientModInitializer {
 				GLFW.GLFW_KEY_G, // The keycode of the key
 				"category.nyakomod.binds" // The translation key of the keybinding's category.
 		));
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());

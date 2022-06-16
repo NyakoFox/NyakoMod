@@ -408,7 +408,6 @@ public class NyakoMod implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
 				(server, player, handler, buffer, sender) -> server.execute(() -> {
 					player.damage(DamageSource.MAGIC, 3.4028235E38F);
-					MinecraftClient.getInstance().player.addVelocity(0D, 5D, 0D);
 				}));
 
 		// Spunch block
