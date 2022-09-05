@@ -198,15 +198,15 @@ public class NyakoMod implements ModInitializer {
 		/* 1 STAR */
 		// 1 Gold CunkCoin
 		registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(GOLD_COIN_ITEM), 1);
-		registerGachaItem(Text.of("64 §6Dirt"), Items.DIRT, 64, 1);
-		registerGachaItem(Text.of("16 §6Oak Logs"), Items.OAK_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §6Dark Oak Logs"), Items.DARK_OAK_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §6Spruce Logs"), Items.SPRUCE_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §6Acacia Logs"), Items.ACACIA_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §6Birch Logs"), Items.BIRCH_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §6Jungle Logs"), Items.JUNGLE_LOG, 16, 1);
-		registerGachaItem(Text.of("16 §cCrimson Stems"), Items.CRIMSON_STEM, 16, 1);
-		registerGachaItem(Text.of("16 §bWarped Stems"), Items.WARPED_STEM, 16, 1);
+		registerGachaItem(Text.of("16 §6Dirt"), Items.DIRT, 16, 1);
+		registerGachaItem(Text.of("8 §6Oak Saplings"), Items.OAK_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Dark Oak Saplings"), Items.DARK_OAK_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Spruce Saplings"), Items.SPRUCE_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Acacia Saplings"), Items.ACACIA_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Birch Saplings"), Items.BIRCH_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Jungle Saplings"), Items.JUNGLE_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §cCrimson Fungi"), Items.CRIMSON_FUNGUS, 8, 1);
+		registerGachaItem(Text.of("8 §bWarped Fungi"), Items.WARPED_FUNGUS, 8, 1);
 
 		// Bow
 		registerGachaItem(Text.of("a §7Bow"), Items.BOW, 1, 1);
@@ -217,17 +217,6 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(MUSIC_DISC_WOLVES), 2);
 		registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) DIAMOND_GACHA_ITEM, 16);
 		registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
-
-		registerGachaItem(Text.of("16 §aOak Leaves"), Items.OAK_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aDark Oak Leaves"), Items.DARK_OAK_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aSpruce Leaves"), Items.SPRUCE_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aAcacia Leaves"), Items.ACACIA_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §a§aBirch Leaves"), Items.BIRCH_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aJungle Leaves"), Items.JUNGLE_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §cNether Wart Blocks"), Items.NETHER_WART_BLOCK, 16, 2);
-		registerGachaItem(Text.of("16 §bWarped Wart Blocks"), Items.WARPED_WART_BLOCK, 16, 2);
-		registerGachaItem(Text.of("16 §aAzalea Leaves"), Items.AZALEA_LEAVES, 16, 2);
-		registerGachaItem(Text.of("16 §aFlowering Azalea Leaves"), Items.FLOWERING_AZALEA_LEAVES, 16, 2);
 
 		registerGachaItem(Text.of("32 §7Sticks"), Items.STICK, 32, 2);
 		registerGachaItem(Text.of("a §7Fishing Rod"), Items.FISHING_ROD, 1, 2);
@@ -258,7 +247,7 @@ public class NyakoMod implements ModInitializer {
 		/* 4 STAR */
 		registerGachaItem(Text.of("10 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 10, 4);
 		registerGachaItem(Text.of("the §5Staff of Vorbulation"), (GachaItem) STAFF_OF_VORBULATION_ITEM);
-		registerGachaItem(Text.of("32 §aExperience Bottles"), Items.EXPERIENCE_BOTTLE, 32, 4);
+		registerGachaItem(Text.of("16 §aExperience Bottles"), Items.EXPERIENCE_BOTTLE, 16, 4);
 		registerGachaItem(Text.of("16 §eGlowing Item Frames"), Items.GLOW_ITEM_FRAME, 16, 4);
 		registerGachaItem(Text.of("16 §eSpectral Arrows"), Items.SPECTRAL_ARROW, 16, 4);
 		registerGachaItem(Text.of("32 §bGlass"), Items.GLASS, 32, 4);
@@ -272,7 +261,8 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("20 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 20, 5);
 		registerGachaItem(Text.of("1 §4Ancient Debris"), Items.ANCIENT_DEBRIS, 1, 5);
 		registerGachaItem(Text.of("8 §bDiamonds"), Items.DIAMOND, 8, 5);
-		// Diamond tool kit
+
+		/*// Diamond tool kit
 		ItemStack toolStack = new ItemStack(PRESENT_ITEM);
 		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_PICKAXE));
 		PresentItem.addToPresent(toolStack, new ItemStack(Items.DIAMOND_SWORD));
@@ -288,7 +278,7 @@ public class NyakoMod implements ModInitializer {
 		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_LEGGINGS));
 		PresentItem.addToPresent(armorStack, new ItemStack(Items.DIAMOND_BOOTS));
 		armorStack.setCustomName(Text.of("Present (Diamond Armor Kit)"));
-		registerGachaItem(Text.of("a Diamond Armor Kit"), armorStack, 5);
+		registerGachaItem(Text.of("a Diamond Armor Kit"), armorStack, 5);*/
 	}
 
 	public void registerGachaItem(Text name, GachaItem item) {
@@ -516,11 +506,9 @@ public class NyakoMod implements ModInitializer {
 	public static int getCoinValue(EntityType<?> entity) {
 		Integer value = coinMap.get(entity);
 		if (value == null) {
-			System.out.println("Not in map, returning 0");
 			return 0;
 		}
 
-		System.out.println("In map, returning " + value);
 		return value;
 	}
 
@@ -546,24 +534,24 @@ public class NyakoMod implements ModInitializer {
 		registerCoinAmount(EntityType.ENDERMITE,   50, 0, 0, 0,0);
 
 		// Hard hostile mobs
-		registerCoinAmount(EntityType.HOGLIN,     0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.ZOGLIN,     0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.GHAST,      0, 3, 0, 0,0);
-		registerCoinAmount(EntityType.GUARDIAN,   0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.MAGMA_CUBE, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.PHANTOM,    0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.PIGLIN,     0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.HOGLIN,       0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.ZOGLIN,       0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.GHAST,        0, 3, 0, 0,0);
+		registerCoinAmount(EntityType.GUARDIAN,     0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.MAGMA_CUBE,   0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.PHANTOM,      0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.PIGLIN,       0, 1, 0, 0,0);
 		registerCoinAmount(EntityType.PIGLIN_BRUTE, 0, 6, 0, 0,0);
-		registerCoinAmount(EntityType.PILLAGER, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.RAVAGER, 0, 6, 0, 0,0);
-		registerCoinAmount(EntityType.SLIME, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.VINDICATOR, 0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.VEX, 50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SHULKER, 0, 1, 0, 0,0);
-		registerCoinAmount(EntityType.SILVERFISH, 20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.PILLAGER,     0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.RAVAGER, 	    0, 6, 0, 0,0);
+		registerCoinAmount(EntityType.SLIME,        0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.VINDICATOR,   0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.VEX,          50, 0, 0, 0,0);
+		registerCoinAmount(EntityType.SHULKER,      0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.SILVERFISH,   20, 0, 0, 0,0);
 
 		registerCoinAmount(EntityType.ILLUSIONER, 0, 2, 0, 0,0);
-		registerCoinAmount(EntityType.EVOKER, 0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.EVOKER,     0, 2, 0, 0,0);
 
 		// Minibosses
 		registerCoinAmount(EntityType.IRON_GOLEM, 0, 50, 0, 0, 0);
@@ -575,53 +563,52 @@ public class NyakoMod implements ModInitializer {
 		//registerCoinAmount(EntityType.ENDER_DRAGON,   0, 0,  4, 0,0);
 
 		// Passive mobs you'd normally kill
-		registerCoinAmount(EntityType.CHICKEN,   40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PIG,       60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SHEEP,     60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.RABBIT,    80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.COW,       80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.MOOSHROOM, 50, 2, 0, 0,0);
+		registerCoinAmount(EntityType.CHICKEN,   20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.PIG,       30, 0, 0, 0,0);
+		registerCoinAmount(EntityType.SHEEP,     30, 0, 0, 0,0);
+		registerCoinAmount(EntityType.RABBIT,    40, 0, 0, 0,0);
+		registerCoinAmount(EntityType.COW,       40, 0, 0, 0,0);
+		registerCoinAmount(EntityType.MOOSHROOM, 40, 0, 0, 0,0);
 
-		registerCoinAmount(EntityType.SALMON,        20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.COD,           20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.TROPICAL_FISH, 20, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PUFFERFISH,    20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.SALMON,        5, 0, 0, 0,0);
+		registerCoinAmount(EntityType.COD,           5, 0, 0, 0,0);
+		registerCoinAmount(EntityType.TROPICAL_FISH, 5, 0, 0, 0,0);
+		registerCoinAmount(EntityType.PUFFERFISH,    5, 0, 0, 0,0);
 
 		registerCoinAmount(EntityType.SQUID, 20, 0, 0, 0,0);
 		registerCoinAmount(EntityType.GLOW_SQUID, 40, 0, 0, 0,0);
 		registerCoinAmount(EntityType.GIANT, 0, 50, 0, 0,0);
 
-
 		// Horses and horse-likes
-		registerCoinAmount(EntityType.HORSE,   40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.DONKEY,  40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.MULE,    40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.SKELETON_HORSE, 80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.ZOMBIE_HORSE,   80, 0, 0, 0,0);
-		registerCoinAmount(EntityType.LLAMA,        40, 0, 0, 0,0);
-		registerCoinAmount(EntityType.TRADER_LLAMA, 40, 0, 0, 0,0);
+		registerCoinAmount(EntityType.HORSE,   20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.DONKEY,  20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.MULE,    20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.SKELETON_HORSE, 0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.ZOMBIE_HORSE,   0, 2, 0, 0,0);
+		registerCoinAmount(EntityType.LLAMA,        20, 0, 0, 0,0);
+		registerCoinAmount(EntityType.TRADER_LLAMA, 20, 0, 0, 0,0);
 
 
 		// Passive mobs you wouldn't normally kill
-		registerCoinAmount(EntityType.AXOLOTL, 50, 0, 0, 0,0);
+		registerCoinAmount(EntityType.AXOLOTL, 25, 0, 0, 0,0);
 		registerCoinAmount(EntityType.BAT,     0,  4, 0, 0,0);
 		registerCoinAmount(EntityType.BEE,     50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.CAT,     50, 0, 0, 0,0);
+		registerCoinAmount(EntityType.CAT,     25, 0, 0, 0,0);
 		registerCoinAmount(EntityType.DOLPHIN, 50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.FOX,     50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.GOAT,    50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.OCELOT,  50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PANDA,   50, 0, 0, 0,0);
-		registerCoinAmount(EntityType.PARROT,  50, 0, 0, 0,0);
+		registerCoinAmount(EntityType.FOX,     25, 0, 0, 0,0);
+		registerCoinAmount(EntityType.GOAT,    25, 0, 0, 0,0);
+		registerCoinAmount(EntityType.OCELOT,  25, 0, 0, 0,0);
+		registerCoinAmount(EntityType.PANDA,   25, 0, 0, 0,0);
+		registerCoinAmount(EntityType.PARROT,  25, 0, 0, 0,0);
 		registerCoinAmount(EntityType.POLAR_BEAR, 50, 1, 0, 0,0);
-		registerCoinAmount(EntityType.SNOW_GOLEM, 50, 0, 0, 0,0);
+		registerCoinAmount(EntityType.SNOW_GOLEM, 25, 0, 0, 0,0);
 
 		registerCoinAmount(EntityType.STRIDER, 60, 0, 0, 0,0);
 
 		registerCoinAmount(EntityType.TURTLE, 40, 0, 0, 0,0);
 		registerCoinAmount(EntityType.VILLAGER, 60, 0, 0, 0,0);
 		registerCoinAmount(EntityType.WANDERING_TRADER, 60, 0, 0, 0,0);
-		registerCoinAmount(EntityType.WOLF, 0, 1, 0, 0,0);
+		registerCoinAmount(EntityType.WOLF, 25, 0, 0, 0,0);
 
 		registerCoinAmount(EntityType.ZOMBIFIED_PIGLIN, 50, 1, 0, 0,0);
 	}
@@ -655,7 +642,6 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static void giveCoins(Inventory inventory, long amount) {
-		System.out.println("Giving " + amount + " coins");
 		Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit((int) amount);
 
 		Integer copper = map.get(NyakoMod.CoinValue.COPPER);
@@ -667,7 +653,6 @@ public class NyakoMod implements ModInitializer {
 		if (copper > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
 			stack.setCount(copper);
-			System.out.println("Giving " + copper + " copper");
 			if (inventory instanceof SimpleInventory) {
 				((SimpleInventory) inventory).addStack(stack);
 			} else if (inventory instanceof PlayerInventory) {
@@ -677,7 +662,6 @@ public class NyakoMod implements ModInitializer {
 		if (gold > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.GOLD_COIN_ITEM);
 			stack.setCount(gold);
-			System.out.println("Giving " + gold + " gold");
 			if (inventory instanceof SimpleInventory) {
 				((SimpleInventory) inventory).addStack(stack);
 			} else if (inventory instanceof PlayerInventory) {
@@ -687,7 +671,6 @@ public class NyakoMod implements ModInitializer {
 		if (emerald > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.EMERALD_COIN_ITEM);
 			stack.setCount(emerald);
-			System.out.println("Giving " + emerald + " emerald");
 			if (inventory instanceof SimpleInventory) {
 				((SimpleInventory) inventory).addStack(stack);
 			} else if (inventory instanceof PlayerInventory) {
@@ -697,7 +680,6 @@ public class NyakoMod implements ModInitializer {
 		if (diamond > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.DIAMOND_COIN_ITEM);
 			stack.setCount(diamond);
-			System.out.println("Giving " + diamond + " diamond");
 			if (inventory instanceof SimpleInventory) {
 				((SimpleInventory) inventory).addStack(stack);
 			} else if (inventory instanceof PlayerInventory) {
@@ -707,7 +689,6 @@ public class NyakoMod implements ModInitializer {
 		if (netherite > 0) {
 			ItemStack stack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
 			stack.setCount(netherite);
-			System.out.println("Giving " + netherite + " netherite");
 			if (inventory instanceof SimpleInventory) {
 				((SimpleInventory) inventory).addStack(stack);
 			} else if (inventory instanceof PlayerInventory) {
