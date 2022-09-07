@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,10 +32,10 @@ public class MatterVortexBlock extends Block {
             return ActionResult.SUCCESS;
         }
 
-        var count = NyakoMod.countInventoryCoins(player.getInventory()) + NyakoMod.countInventoryCoins(player.getEnderChestInventory());
+        var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
         if (count < USAGE_PRICE) return ActionResult.SUCCESS;
 
-        NyakoMod.removeCoins(player, USAGE_PRICE);
+        CunkCoinUtils.removeCoins(player, USAGE_PRICE);
 
         // Compute the total weight of all items together.
         double totalWeight = 0.0;

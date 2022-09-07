@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
@@ -17,7 +16,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Map;
 
 import gay.nyako.nyakomod.NyakoMod;
 
@@ -84,11 +82,12 @@ public class BagOfCoinsItem extends Item {
         int emerald = tag.getInt("emerald");
         int diamond = tag.getInt("diamond");
         int netherite = tag.getInt("netherite");
-        tag.putBoolean("using", true);
 
         if ((copper + gold + emerald + diamond + netherite) <= 0) {
             return super.use(world, user, hand);
         }
+
+        tag.putBoolean("using", true);
 
         ItemStack copperStack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
         copperStack.setCount(copper);
@@ -105,19 +104,19 @@ public class BagOfCoinsItem extends Item {
         ItemStack netheriteStack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
         netheriteStack.setCount(netherite);
 
-        if (copper    > 0) user.getInventory().insertStack(copperStack);
-        if (gold      > 0) user.getInventory().insertStack(goldStack);
-        if (emerald   > 0) user.getInventory().insertStack(emeraldStack);
-        if (diamond   > 0) user.getInventory().insertStack(diamondStack);
-        if (netherite > 0) user.getInventory().insertStack(netheriteStack);
+        if (copper    > 0) copper    = user.getInventory().addStack(copperStack);
+        if (gold      > 0) gold      = user.getInventory().addStack(goldStack);
+        if (emerald   > 0) emerald   = user.getInventory().addStack(emeraldStack);
+        if (diamond   > 0) diamond   = user.getInventory().addStack(diamondStack);
+        if (netherite > 0) netherite = user.getInventory().addStack(netheriteStack);
 
         user.playSound(NyakoMod.COIN_COLLECT_SOUND_EVENT, SoundCategory.MASTER, 0.7f, 1f);
 
-        tag.putInt("copper", 0);
-        tag.putInt("gold", 0);
-        tag.putInt("emerald", 0);
-        tag.putInt("diamond", 0);
-        tag.putInt("netherite", 0);
+        tag.putInt("copper", copper);
+        tag.putInt("gold", gold);
+        tag.putInt("emerald", emerald);
+        tag.putInt("diamond", diamond);
+        tag.putInt("netherite", netherite);
         tag.putBoolean("using", false);
 
         return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, user.getStackInHand(hand));

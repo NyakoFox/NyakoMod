@@ -12,6 +12,19 @@ group = project.maven_group
 
 loom {
 	accessWidenerPath = file("src/main/resources/nyakomod.accesswidener")
+
+	runs {
+		// This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
+		datagenClient {
+			inherit client
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+			//vmArg "-Dfabric-api.datagen.strict-validation"
+
+			runDir "build/datagen"
+		}
+	}
 }
 
 repositories {
@@ -20,6 +33,14 @@ repositories {
 		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 	}
 	maven { url "https://maven.nucleoid.xyz/" }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+	maven {
+		name = "Ladysnake Libs"
+		url = "https://ladysnake.jfrog.io/artifactory/mods"
+	}
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -36,9 +57,6 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// TODO: use new networking api instead lol
-	//modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
-
 	modImplementation 'me.lucko:fabric-permissions-api:0.1-SNAPSHOT'
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
@@ -48,6 +66,10 @@ dependencies {
 	modRuntimeOnly(include("net.devtech:Stacc:1.3.3"))
 
 	modImplementation include("eu.pb4:placeholder-api:2.0.0-beta.5+1.19")
+
+	modImplementation "dev.emi:trinkets:${trinkets_version}"
+
+	modRuntimeOnly(include("com.terraformersmc:modmenu:4.0.6"))
 }
 
 processResources {
@@ -55,6 +77,16 @@ processResources {
 
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
+	}
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+					'src/main/generated'
+			]
+		}
 	}
 }
 

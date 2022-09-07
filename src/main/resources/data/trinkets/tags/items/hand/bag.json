@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "nyakomod:bag_of_coins",
+    "nyakomod:hungry_bag_of_coins",
+    "minecraft:bundle"
+  ]
+}

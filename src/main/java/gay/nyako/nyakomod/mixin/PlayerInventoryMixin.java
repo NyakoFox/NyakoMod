@@ -1,12 +1,16 @@
 package gay.nyako.nyakomod.mixin;
 
+import dev.emi.trinkets.api.TrinketsApi;
+import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
 import gay.nyako.nyakomod.item.CoinItem;
 import gay.nyako.nyakomod.NyakoMod;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,26 +32,13 @@ public abstract class PlayerInventoryMixin {
 	@Shadow
 	public abstract void setStack(int slot, ItemStack stack);
 
-	public ItemStack getHungryBag() {
-		var inventory = (PlayerInventory) (Object) this;
-		for (int i = 0; i < inventory.size(); ++i) {
-			var stack = inventory.getStack(i);
-			if (stack.isOf(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM)) {
-        NbtCompound tag = stack.getOrCreateNbt();
-				if (!tag.getBoolean("using")) {
-					return stack;
-				}
-			}
-		}
-
-		return null;
-	}
+	@Shadow @Final public PlayerEntity player;
 
 	@Inject(at = @At("HEAD"), method = "insertStack(ILnet/minecraft/item/ItemStack;)Z", cancellable = true)
 	private void insertStack(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
 		var item = stack.getItem();
 		if (item instanceof CoinItem) {
-			var hungryBag = getHungryBag();
+			var hungryBag = CunkCoinUtils.getHungryBag(player);
 
 			if (hungryBag != null) {
 				NbtCompound tag = hungryBag.getOrCreateNbt();

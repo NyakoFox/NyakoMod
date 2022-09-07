@@ -23,6 +23,9 @@
     ],
     "client": [
       "gay.nyako.nyakomod.NyakoClientMod"
+    ],
+    "fabric-datagen": [
+      "gay.nyako.nyakomod.NyakoModDatagen"
     ]
   },
   "mixins": [

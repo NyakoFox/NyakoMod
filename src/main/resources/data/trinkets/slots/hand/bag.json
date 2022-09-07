@@ -1,0 +1,5 @@
+{
+  "amount": 1,
+  "icon": "nyakomod:gui/slots/bag",
+  "drop_rule": "keep"
+}

@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.CunkCoinUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -7,11 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
-import gay.nyako.nyakomod.item.BagOfCoinsItem;
-import gay.nyako.nyakomod.item.CoinItem;
-import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
@@ -37,7 +33,7 @@ public abstract class ServerPlayerEntityMixin {
   public void playerTick(CallbackInfo info) {
     var player = ((ServerPlayerEntity) (Object) this);
 
-    var count = NyakoMod.countInventoryCoins(player.getInventory()) + NyakoMod.countInventoryCoins(player.getEnderChestInventory());
+    var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
 
     player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
   }

@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -26,13 +27,13 @@ public abstract class EnderDragonEntityMixin extends LivingEntity {
     @Redirect(method= "updatePostDeath()V", at=@At(value="INVOKE", target="Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
     public void redirect(ServerWorld world, Vec3d pos, int amount) {
         ExperienceOrbEntity.spawn(world, pos, amount);
-        Map<NyakoMod.CoinValue, Integer> map = NyakoMod.valueToSplit(MathHelper.ceil(amount * 0.5));
+        Map<CunkCoinUtils.CoinValue, Integer> map = CunkCoinUtils.valueToSplit(MathHelper.ceil(amount * 0.5));
 
-        Integer copper = map.get(NyakoMod.CoinValue.COPPER);
-        Integer gold = map.get(NyakoMod.CoinValue.GOLD);
-        Integer emerald = map.get(NyakoMod.CoinValue.EMERALD);
-        Integer diamond = map.get(NyakoMod.CoinValue.DIAMOND);
-        Integer netherite = map.get(NyakoMod.CoinValue.NETHERITE);
+        Integer copper = map.get(CunkCoinUtils.CoinValue.COPPER);
+        Integer gold = map.get(CunkCoinUtils.CoinValue.GOLD);
+        Integer emerald = map.get(CunkCoinUtils.CoinValue.EMERALD);
+        Integer diamond = map.get(CunkCoinUtils.CoinValue.DIAMOND);
+        Integer netherite = map.get(CunkCoinUtils.CoinValue.NETHERITE);
 
         if (copper > 0) {
             ItemStack itemStack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);

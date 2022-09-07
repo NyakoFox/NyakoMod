@@ -1,4 +1,5 @@
 accessWidener	v1  named
 
 # For TeleportCommandMixin
-accessible  class   net/minecraft/server/command/TeleportCommand$LookTarget
+accessible    class     net/minecraft/server/command/TeleportCommand$LookTarget
+accessible    method    net/minecraft/entity/player/PlayerInventory   addStack   (Lnet/minecraft/item/ItemStack;)I
