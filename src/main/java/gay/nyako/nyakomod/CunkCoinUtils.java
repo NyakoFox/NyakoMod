@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import dev.emi.trinkets.api.TrinketsApi;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
 import gay.nyako.nyakomod.item.CoinItem;
+import gay.nyako.nyakomod.mixin.PlayerInventoryInvoker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,6 +14,7 @@ import net.minecraft.nbt.NbtCompound;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class CunkCoinUtils {
 
@@ -216,7 +218,46 @@ public class CunkCoinUtils {
         long removed = 0;
 
         removed += removeCoinsFromInventory(player.getInventory(), amount, removed);
+        removed  = removeCoinsFromTrinketBag(player, amount, removed);
         removed += removeCoinsFromInventory(player.getEnderChestInventory(), amount, removed);
+    }
+
+    public static long removeCoinsFromTrinketBag(PlayerEntity player, long amount, long removed) {
+        var trinketBag = getTrinketCoinBag(player);
+        if (trinketBag != null) {
+            removed = removeCoinsFromBag(trinketBag, amount, removed);
+        }
+        return removed;
+    }
+
+    public static long removeCoinsFromBag(ItemStack stack, long amount, long removed) {
+        NbtCompound tag = stack.getOrCreateNbt();
+        long bagAmount = 0;
+        bagAmount += tag.getInt("copper");
+        bagAmount += tag.getInt("gold") * 100L;
+        bagAmount += tag.getInt("emerald") * 10000L;
+        bagAmount += tag.getInt("diamond") * 1000000L;
+        bagAmount += tag.getInt("netherite") * 100000000L;
+
+        long toRemove = amount - removed;
+        if ((bagAmount - toRemove) < 0) {
+            removed += bagAmount;
+            bagAmount = 0;
+        } else {
+            removed += toRemove;
+            bagAmount -= toRemove;
+        }
+
+        Map<CoinValue, Integer> map = valueToSplit((int) bagAmount);
+
+        tag.putInt("copper",    map.get(CoinValue.COPPER));
+        tag.putInt("gold",      map.get(CoinValue.GOLD));
+        tag.putInt("emerald",   map.get(CoinValue.EMERALD));
+        tag.putInt("diamond",   map.get(CoinValue.DIAMOND));
+        tag.putInt("netherite", map.get(CoinValue.NETHERITE));
+
+        stack.setNbt(tag);
+        return removed;
     }
 
     public static long removeCoinsFromInventory(Inventory inventory, long amount, long removed) {
@@ -231,32 +272,7 @@ public class CunkCoinUtils {
                     if (stack.getCount() == 0) break;
                 }
             } else if (item instanceof BagOfCoinsItem) {
-                NbtCompound tag = stack.getOrCreateNbt();
-                long bagAmount = 0;
-                bagAmount += tag.getInt("copper");
-                bagAmount += tag.getInt("gold") * 100L;
-                bagAmount += tag.getInt("emerald") * 10000L;
-                bagAmount += tag.getInt("diamond") * 1000000L;
-                bagAmount += tag.getInt("netherite") * 100000000L;
-
-                long toRemove = amount - removed;
-                if ((bagAmount - toRemove) < 0) {
-                    removed += bagAmount;
-                    bagAmount = 0;
-                } else {
-                    removed += toRemove;
-                    bagAmount -= toRemove;
-                }
-
-                Map<CoinValue, Integer> map = valueToSplit((int) bagAmount);
-
-                tag.putInt("copper",    map.get(CoinValue.COPPER));
-                tag.putInt("gold",      map.get(CoinValue.GOLD));
-                tag.putInt("emerald",   map.get(CoinValue.EMERALD));
-                tag.putInt("diamond",   map.get(CoinValue.DIAMOND));
-                tag.putInt("netherite", map.get(CoinValue.NETHERITE));
-
-                stack.setNbt(tag);
+                removed = removeCoinsFromBag(stack, amount, removed);
             }
 
             if (removed > amount) {
@@ -288,6 +304,18 @@ public class CunkCoinUtils {
             }
         }
 
+        if (inventory instanceof PlayerInventory) {
+            var trinketBag = getTrinketCoinBag(((PlayerInventory) inventory).player);
+            if (trinketBag != null) {
+                NbtCompound tag = trinketBag.getOrCreateNbt();
+                total += tag.getInt("copper");
+                total += tag.getInt("gold") * 100;
+                total += tag.getInt("emerald") * 10000;
+                total += tag.getInt("diamond") * 1000000;
+                total += tag.getInt("netherite") * 100000000;
+            }
+        }
+
         return total;
     }
 
@@ -311,21 +339,32 @@ public class CunkCoinUtils {
             }
         }
 
-        var optional_component = TrinketsApi.getTrinketComponent(player);
-        if (optional_component.isPresent()) {
-            var component = optional_component.get();
-            var bags = component.getEquipped(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM);
-            for (int i = 0; i < bags.size(); ++i) {
-                var stack = bags.get(i).getRight();
-                if (stack.isOf(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM)) {
-                    NbtCompound tag = stack.getOrCreateNbt();
-                    if (!tag.getBoolean("using")) {
-                        return stack;
-                    }
-                }
+        var trinketBag = getTrinketCoinBag(player);
+        if (trinketBag != null) {
+            NbtCompound tag = trinketBag.getOrCreateNbt();
+            if (!tag.getBoolean("using")) {
+                return trinketBag;
             }
         }
 
+        return null;
+    }
+
+    public static ItemStack getTrinketCoinBag(PlayerEntity player) {
+        var optionalComponent = TrinketsApi.getTrinketComponent(player);
+        if (optionalComponent.isPresent()) {
+            var component = optionalComponent.get();
+            var bags1 = component.getEquipped(NyakoMod.BAG_OF_COINS_ITEM);
+            var bags2 = component.getEquipped(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM);
+            var bags = Stream.concat(bags1.stream(), bags2.stream()).toList();
+
+            for (int i = 0; i < bags.size(); ++i) {
+                var stack = bags.get(i).getRight();
+                if (stack.isOf(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM) || stack.isOf(NyakoMod.BAG_OF_COINS_ITEM)) {
+                    return stack;
+                }
+            }
+        }
         return null;
     }
 }

@@ -3,6 +3,8 @@ package gay.nyako.nyakomod;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.block.*;
+import gay.nyako.nyakomod.command.LoreCommand;
+import gay.nyako.nyakomod.command.RenameCommand;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
@@ -309,90 +311,6 @@ public class NyakoMod implements ModInitializer {
 	public void onInitialize() {
 		System.out.println("owo");
 
-		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			dispatcher.register(CommandManager.literal("rename")
-				.executes(context -> {
-					ServerCommandSource source = context.getSource();
-					PlayerEntity player = source.getPlayerOrThrow();
-					ItemStack heldStack = player.getMainHandStack();
-					if (heldStack.isEmpty()) {
-						context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
-					} else {
-						heldStack.removeCustomName();
-						context.getSource().sendFeedback(Text.literal("Your item's name has been cleared."), false);
-					}
-					return 1;
-				})
-				.then(CommandManager.argument("name", StringArgumentType.greedyString())
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-						ItemStack heldStack = player.getMainHandStack();
-						String string = context.getArgument("name", String.class);
-						Text newName = TextParserUtils.formatText(string);
-						if (heldStack.isEmpty()) {
-							context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
-						} else {
-							heldStack.setCustomName(newName);
-							context.getSource().sendFeedback(Text.translatable("Your item has been renamed to \"%s\".", newName), false);
-						}
-						return 1;
-					})
-				)
-			);
-
-			dispatcher.register(CommandManager.literal("lore")
-				.then(CommandManager.literal("clear")
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-						ItemStack heldStack = player.getMainHandStack();
-						if (heldStack.isEmpty()) {
-							context.getSource().sendError(Text.literal("You can't clear the lore of nothing!").formatted(Formatting.RED));
-						} else {
-							NbtCompound nbt = heldStack.getOrCreateNbt();
-							NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
-							NbtList nbtLore = new NbtList();
-
-							nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
-							nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
-							heldStack.setNbt(nbt);
-							context.getSource().sendFeedback(Text.literal("Lore cleared."), false);
-						}
-						return 1;
-					})
-				)
-				.then(CommandManager.literal("add")
-					.then(CommandManager.argument("text", StringArgumentType.greedyString())
-						.executes(context -> {
-							ServerCommandSource source = context.getSource();
-							PlayerEntity player = source.getPlayerOrThrow();
-							ItemStack heldStack = player.getMainHandStack();
-							Text newText = TextParserUtils.formatText(context.getArgument("text", String.class));
-							if (heldStack.isEmpty()) {
-								context.getSource().sendError(Text.literal("You can't add lore to nothing!").formatted(Formatting.RED));
-							} else {
-								NbtCompound nbt = heldStack.getOrCreateNbt();
-								NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
-								NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
-
-								nbtLore.add(NbtString.of(Text.Serializer.toJson(newText)));
-
-								nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
-								nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
-								heldStack.setNbt(nbt);
-								context.getSource().sendFeedback(Text.literal("Lore applied."), false);
-							}
-							return 1;
-						})
-					)
-				)
-			);
-		});
-
-
-
 		// Killbind
 		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
 				(server, player, handler, buffer, sender) -> server.execute(() -> {
@@ -499,6 +417,8 @@ public class NyakoMod implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			BackCommand.register(dispatcher);
 			XpCommand.register(dispatcher);
+			LoreCommand.register(dispatcher);
+			RenameCommand.register(dispatcher);
 		});
 	}
 }

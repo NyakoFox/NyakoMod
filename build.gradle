@@ -10,6 +10,16 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+					'src/main/generated'
+			]
+		}
+	}
+}
+
 loom {
 	accessWidenerPath = file("src/main/resources/nyakomod.accesswidener")
 
@@ -77,16 +87,6 @@ processResources {
 
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
-	}
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					'src/main/generated'
-			]
-		}
 	}
 }
 
