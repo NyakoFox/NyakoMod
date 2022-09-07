@@ -8,6 +8,9 @@ import gay.nyako.nyakomod.command.RenameCommand;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
+import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -55,6 +58,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 import gay.nyako.nyakomod.command.BackCommand;
@@ -62,7 +69,15 @@ import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
 
+import javax.imageio.ImageIO;
+
+import static net.devtech.arrp.api.RuntimeResourcePack.id;
+import static net.devtech.arrp.json.loot.JLootTable.*;
+import static net.devtech.arrp.json.models.JModel.textures;
+
 public class NyakoMod implements ModInitializer {
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
+
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
 	// Spunch block
@@ -91,10 +106,10 @@ public class NyakoMod implements ModInitializer {
 
 
 	// Coins
-	public static final Item COPPER_COIN_ITEM    = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item GOLD_COIN_ITEM      = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "gold", 100);
-	public static final Item EMERALD_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "emerald", 10000);
-	public static final Item DIAMOND_COIN_ITEM   = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "diamond", 1000000);
+	public static final Item COPPER_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
+	public static final Item GOLD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "gold", 100);
+	public static final Item EMERALD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "emerald", 10000);
+	public static final Item DIAMOND_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "diamond", 1000000);
 	public static final Item NETHERITE_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), "netherite", 100000000);
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
@@ -145,8 +160,8 @@ public class NyakoMod implements ModInitializer {
 			new FabricItemSettings().group(ItemGroup.MISC).food(FoodComponents.GOLDEN_CARROT),
 			2,
 			Arrays.asList(
-				(MutableText) Text.of("You can't make tools out of these,"),
-				(MutableText) Text.of("but at least they're healthy!")
+					(MutableText) Text.of("You can't make tools out of these,"),
+					(MutableText) Text.of("but at least they're healthy!")
 			)
 	);
 
@@ -167,17 +182,19 @@ public class NyakoMod implements ModInitializer {
 	// Staff of Vorbulation
 	public static final Item STAFF_OF_VORBULATION_ITEM = new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
 
-	public record GachaEntry (
+	public record GachaEntry(
 			Text name,
 			ItemStack itemStack,
 			int rarity,
 			double weight
-	) {}
+	) {
+	}
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
 
 	public static final Identifier DISCORD_SOUND = new Identifier("nyakomod:discord");
 	public static SoundEvent DISCORD_SOUND_EVENT = new SoundEvent(DISCORD_SOUND);
+
 	public void registerGachaItems() {
 		/* REGISTRY */
 		// Items
@@ -346,10 +363,10 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
 
 		// Coins
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"),    COPPER_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "gold_coin"),      GOLD_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "emerald_coin"),   EMERALD_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_coin"),   DIAMOND_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "gold_coin"), GOLD_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "emerald_coin"), EMERALD_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_coin"), DIAMOND_COIN_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "netherite_coin"), NETHERITE_COIN_ITEM);
 		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
 
@@ -380,14 +397,16 @@ public class NyakoMod implements ModInitializer {
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				Direction direction = (Direction)pointer.getBlockState().get(DispenserBlock.FACING);
-				BlockPos pos = pointer.getPos(); // getBlockPos?
+				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+				BlockPos pos = pointer.getPos();
 				World world = pointer.getWorld();
 				if (!stack.getOrCreateNbt().contains("entity")) {
-					BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
-					List<Entity> list = pointer.getWorld().getEntitiesByClass(Entity.class, new Box(blockPos), (Entityx) -> {
-						return Entityx.isAlive();
-					});
+					BlockPos blockPos = pointer.getPos().offset(direction);
+					List<Entity> list = pointer.getWorld().getEntitiesByClass(
+							Entity.class,
+							new Box(blockPos), (Entityx) -> Entityx.isAlive()
+					);
+
 					Iterator var5 = list.iterator();
 
 					Entity entity;
@@ -397,13 +416,13 @@ public class NyakoMod implements ModInitializer {
 							return super.dispenseSilently(pointer, stack);
 						}
 
-						entity = (Entity)var5.next();
-						newStack = ((SoulJarItem)stack.getItem()).captureEntity(stack,null,(LivingEntity) entity);
-					} while(newStack == null);
+						entity = (Entity) var5.next();
+						newStack = ((SoulJarItem) stack.getItem()).captureEntity(stack, null, (LivingEntity) entity);
+					} while (newStack == null);
 
 					return newStack;
 				}
-				((SoulJarItem) stack.getItem()).spawnEntity(pos,direction,world,stack);
+				((SoulJarItem) stack.getItem()).spawnEntity(pos, direction, world, stack);
 				return stack;
 			}
 		});
@@ -411,6 +430,53 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
+		var bufferedImage = downloadImage("https://cdn.upload.systems/uploads/xGKIOAbb.png");
+		registerCustomSprite("diamond", bufferedImage);
+
+		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		RESOURCE_PACK.dump();
+
+	}
+
+	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
+		Identifier identifier = new Identifier("nyakomod", "custom/" + name);
+
+		RESOURCE_PACK.addTexture(identifier, bufferedImage);
+
+		RESOURCE_PACK.addModel(
+				JModel.model("item/generated")
+						.textures(textures()
+								.layer0(identifier.toString())
+						),
+				identifier
+		);
+	}
+
+	public static BufferedImage downloadImage(String urlPath) {
+		BufferedImage image = null;
+		URL url = null;
+
+		System.out.println("downloading " + urlPath);
+
+		try {
+			url = new URL(urlPath);
+			URLConnection connection = url.openConnection();
+			connection.setRequestProperty("User-Agent", "NyakoMod");
+			connection.connect();
+			image = ImageIO.read(connection.getInputStream());
+		} catch (Exception e) {
+			url = null;
+			image = null;
+			e.printStackTrace();
+		}
+
+		if (image == null) {
+			// ?? we just did this server side but client side it failed so whatever
+			System.out.print("failed to dl...?");
+			return null;
+		}
+
+		return image;
 	}
 
 	public static void registerCommands() {

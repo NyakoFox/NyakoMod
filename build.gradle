@@ -51,6 +51,9 @@ repositories {
 		name = "Ladysnake Libs"
 		url = "https://ladysnake.jfrog.io/artifactory/mods"
 	}
+	maven {
+		url = uri("https://storage.googleapis.com/devan-maven/")
+	}
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -80,6 +83,8 @@ dependencies {
 	modImplementation "dev.emi:trinkets:${trinkets_version}"
 
 	modRuntimeOnly(include("com.terraformersmc:modmenu:4.0.6"))
+
+	modImplementation("net.devtech:arrp:0.+")
 }
 
 processResources {
