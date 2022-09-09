@@ -1,26 +1,22 @@
 package gay.nyako.nyakomod.item;
 
-import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
+import gay.nyako.nyakomod.screens.PetSpriteScreen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
-import org.spongepowered.include.com.google.common.base.Predicate;
-
-import java.util.UUID;
+import net.minecraft.world.World;
 
 public class PetSpriteSummonItem extends TrinketItem {
     public PetSpriteSummonItem(Settings settings) {
@@ -59,12 +55,13 @@ public class PetSpriteSummonItem extends TrinketItem {
     }
 
     @Override
-    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-        if (player.isSneaking() && clickType == ClickType.RIGHT) {
-            var nbt = stack.getOrCreateNbt();
-            nbt.putString("custom_sprite", "https://men.are-pretty.sexy/9tk4DuJ.png");
-            stack.setNbt(nbt);
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        if (player.isSneaking()) {
+            if (player.world.isClient()) {
+                MinecraftClient.getInstance().setScreen(new PetSpriteScreen());
+            }
         }
-        return super.onClicked(stack, otherStack, slot, clickType, player, cursorStackReference);
+
+        return TypedActionResult.success(player.getStackInHand(hand));
     }
 }

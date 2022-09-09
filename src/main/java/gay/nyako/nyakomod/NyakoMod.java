@@ -25,6 +25,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.loader.impl.util.log.Log;
+import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -140,6 +142,7 @@ public class NyakoMod implements ModInitializer {
 
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+	public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
 
 	// Bricks
 	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
@@ -396,6 +399,27 @@ public class NyakoMod implements ModInitializer {
 				(server, player, handler, buffer, sender) -> server.execute(() -> {
 					player.damage(DamageSource.MAGIC, 3.4028235E38F);
 				}));
+
+		// Custom Sprite Setting
+		ServerPlayNetworking.registerGlobalReceiver(PET_SPRITE_SET_URL,
+				(server, player, handler, buffer, sender) -> {
+					var string = buffer.readString();
+
+					server.execute(() -> {
+						var stack = player.getMainHandStack();
+						if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
+							stack = player.getOffHandStack();
+							if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
+								return;
+							}
+						}
+
+						var nbt = stack.getOrCreateNbt();
+						nbt.putString("custom_sprite", string);
+						stack.setNbt(nbt);
+					});
+				}
+		);
 
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
