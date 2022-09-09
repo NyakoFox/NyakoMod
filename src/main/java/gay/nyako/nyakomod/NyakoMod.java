@@ -8,6 +8,8 @@ import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
+import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
+import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
@@ -27,7 +29,10 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -49,8 +54,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import gay.nyako.nyakomod.command.BackCommand;
@@ -178,14 +187,18 @@ public class NyakoMod implements ModInitializer {
 	) {
 	}
 
+	public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
+
 	// Entities
 	public static final EntityType<PetSpriteEntity> PET_SPRITE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier("nyakomod", "petsprite"),
-			FabricEntityTypeBuilder.create(SpawnGroup.MISC, PetSpriteEntity::new).build()
+			FabricEntityTypeBuilder
+					.create(SpawnGroup.MISC, PetSpriteEntity::new)
+					.dimensions(EntityDimensions.changing(0.1f, 1.8f))
+					.trackRangeBlocks(10)
+					.build()
 	);
-
-	public static final EntityModelLayer MODEL_PLANE_LAYER = new EntityModelLayer(new Identifier("nyakomod", "plane"), "main");
 
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
@@ -207,6 +220,8 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "mario_gacha"), MARIO_GACHA_ITEM);
 		// Luigi
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"),PET_SPRITE_SUMMON_ITEM);
 
 		// Sounds
 		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);
@@ -480,6 +495,61 @@ public class NyakoMod implements ModInitializer {
 		}
 
 		return image;
+	}
+
+	public static String hashString(String input) {
+		try {
+			var digest = MessageDigest.getInstance("SHA-256");
+			digest.update(input.getBytes(StandardCharsets.UTF_8));
+			var hash = toHexString(digest.digest());
+			return "custom/" + hash.substring(0, 10);
+		} catch (NoSuchAlgorithmException ex) {
+			return "custom/default";
+		}
+	}
+
+	private static String toHexString(byte[] bytes) {
+		Formatter result = new Formatter();
+		try (result) {
+			for (var b : bytes) {
+				result.format("%02x", b & 0xff);
+			}
+			return result.toString();
+		}
+	}
+
+	public static Identifier downloadSprite(String urlPath) {
+		var hash = hashString(urlPath);
+		var id = new Identifier("nyakomod", hash);
+
+		var image = downloadImage(urlPath);
+
+		if (image == null) {
+			return null;
+		}
+
+		NativeImage nativeImage = null;
+		try {
+			nativeImage = getFromBuffered(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		NativeImageBackedTexture nativeImageBackedTexture = new NativeImageBackedTexture(nativeImage);
+
+		MinecraftClient client = MinecraftClient.getInstance();
+		client.getTextureManager().registerTexture(id, nativeImageBackedTexture);
+		System.out.println("finished downloading");
+
+		return id;
+	}
+
+	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
+		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
+			ImageIO.write(image, "PNG", outputStream);
+			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
+		}
 	}
 
 	public static void registerCommands() {

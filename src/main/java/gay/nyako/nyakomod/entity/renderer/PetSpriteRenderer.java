@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.entity.renderer;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -21,16 +22,17 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
 
     @Override
     public Identifier getTexture(PetSpriteEntity entity) {
-        return TEXTURE;
+        return entity.TEXTURE;
     }
 
     @Override
     public void render(PetSpriteEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        NyakoMod.downloadImage("meow");
         matrices.push();
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0f - entity.headYaw));
         float h = 0.0625f;
         matrices.scale(h, h, h);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE));
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(getTexture(entity)));
 
         renderSide(matrices, vertexConsumer, light, false);
         renderSide(matrices, vertexConsumer, light, true);
@@ -50,15 +52,15 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
         }
 
         if (reversed) {
-            this.vertex(matrix4f, matrix3f, consumer, -16, -16, 0, 0, 1, light);
-            this.vertex(matrix4f, matrix3f, consumer, -16, 16, 0, 0, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 16, 0, 1, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, -16, 0, 1, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -16, 0, 0, 0, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -16, 32, 0, 0, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, 16, 32, 0, 1, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, 16, 0, 0, 1, 1, light);
         } else {
-            this.vertex(matrix4f, matrix3f, consumer, -16, -16, 0, 1, 1, light);
-            this.vertex(matrix4f, matrix3f, consumer, -16, 16, 0, 1, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 16, 0, 0, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, -16, 0, 0, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -16, 0, 0, 1, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -16, 32, 0, 1, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, 16, 32, 0, 0, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, 16, 0, 0, 0, 1, light);
         }
         matrices.pop();
     }
