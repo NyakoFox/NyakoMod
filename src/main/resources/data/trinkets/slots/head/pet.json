@@ -1,0 +1,5 @@
+{
+  "amount": 1,
+  "icon": "nyakomod:gui/slots/pet",
+  "drop_rule": "keep"
+}

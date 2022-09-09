@@ -1,10 +1,10 @@
 package gay.nyako.nyakomod;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
-import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.LoreCommand;
 import gay.nyako.nyakomod.command.RenameCommand;
+import gay.nyako.nyakomod.entity.PetSpriteEntity;
+import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
@@ -12,11 +12,13 @@ import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -25,32 +27,19 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.scoreboard.ScoreboardCriterion;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPointer;
@@ -72,7 +61,6 @@ import net.minecraft.world.World;
 import javax.imageio.ImageIO;
 
 import static net.devtech.arrp.api.RuntimeResourcePack.id;
-import static net.devtech.arrp.json.loot.JLootTable.*;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
@@ -189,6 +177,16 @@ public class NyakoMod implements ModInitializer {
 			double weight
 	) {
 	}
+
+	// Entities
+	public static final EntityType<PetSpriteEntity> PET_SPRITE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("nyakomod", "petsprite"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MISC, PetSpriteEntity::new).build()
+	);
+
+	public static final EntityModelLayer MODEL_PLANE_LAYER = new EntityModelLayer(new Identifier("nyakomod", "plane"), "main");
+
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
 
@@ -394,6 +392,11 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		registerGachaItems();
+
+		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
+		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, (context) -> {
+			return new PetSpriteRenderer(context);
+		});
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
