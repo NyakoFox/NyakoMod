@@ -1,7 +1,5 @@
 package gay.nyako.nyakomod;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
-import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.LoreCommand;
 import gay.nyako.nyakomod.command.RenameCommand;
@@ -12,8 +10,10 @@ import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -26,31 +26,28 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.scoreboard.ScoreboardCriterion;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPointer;
@@ -68,11 +65,10 @@ import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 
-import static net.devtech.arrp.api.RuntimeResourcePack.id;
-import static net.devtech.arrp.json.loot.JLootTable.*;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
@@ -148,6 +144,7 @@ public class NyakoMod implements ModInitializer {
 	public static final Identifier WOLVES_SOUND = new Identifier("nyakomod:wolves");
 	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
 
+	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
 
 	// Gacha-related stuff starts here
 
@@ -191,6 +188,8 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
+
+	public static List<String> customIconURLs = new ArrayList<>();
 
 	public static final Identifier DISCORD_SOUND = new Identifier("nyakomod:discord");
 	public static SoundEvent DISCORD_SOUND_EVENT = new SoundEvent(DISCORD_SOUND);
@@ -328,6 +327,36 @@ public class NyakoMod implements ModInitializer {
 	public void onInitialize() {
 		System.out.println("owo");
 
+		for (int i = 0; i < 256; i++) {
+			customIconURLs.add("https://i.imgur.com/0Z0Z0Z0.png");
+		}
+
+		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			dispatcher.register(CommandManager.literal("icons")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						player.openHandledScreen(new NamedScreenHandlerFactory() {
+							@Override
+							public Text getDisplayName() {
+								return Text.literal("Ayo the livvie here");
+							}
+
+							@Override
+							public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+								return new IconScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
+							}
+						});
+
+						return 0;
+					})
+			);
+		});
+
 		// Killbind
 		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
 				(server, player, handler, buffer, sender) -> server.execute(() -> {
@@ -430,16 +459,17 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		var bufferedImage = downloadImage("https://cdn.upload.systems/uploads/xGKIOAbb.png");
-		registerCustomSprite("diamond", bufferedImage);
+		//var bufferedImage = downloadImage("https://cdn.upload.systems/uploads/xGKIOAbb.png");
+		//registerCustomSprite("diamond", bufferedImage);
 
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-		RESOURCE_PACK.dump();
+		//RESOURCE_PACK.dump();
 
 	}
 
 	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
-		Identifier identifier = new Identifier("nyakomod", "custom/" + name);
+		//Identifier identifier = new Identifier("nyakomod", "custom/" + name);
+		Identifier identifier = new Identifier("minecraft", "item/diamond");
 
 		RESOURCE_PACK.addTexture(identifier, bufferedImage);
 
