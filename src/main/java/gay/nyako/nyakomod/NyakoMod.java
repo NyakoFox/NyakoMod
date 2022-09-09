@@ -327,10 +327,6 @@ public class NyakoMod implements ModInitializer {
 	public void onInitialize() {
 		System.out.println("owo");
 
-		for (int i = 0; i < 256; i++) {
-			customIconURLs.add("https://i.imgur.com/0Z0Z0Z0.png");
-		}
-
 		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -343,7 +339,7 @@ public class NyakoMod implements ModInitializer {
 						player.openHandledScreen(new NamedScreenHandlerFactory() {
 							@Override
 							public Text getDisplayName() {
-								return Text.literal("Ayo the livvie here");
+								return Text.literal("Icon Selector");
 							}
 
 							@Override
@@ -459,8 +455,16 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		//var bufferedImage = downloadImage("https://cdn.upload.systems/uploads/xGKIOAbb.png");
-		//registerCustomSprite("diamond", bufferedImage);
+		ArrayList<String> urls = new ArrayList<>();
+		urls.add("https://cdn.upload.systems/uploads/xGKIOAbb.png");
+
+
+		for (int i = 0; i < urls.size(); i++) {
+			String url = urls.get(i);
+
+			var bufferedImage = downloadImage(url);
+			registerCustomSprite("diamond", bufferedImage);
+		}
 
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 		//RESOURCE_PACK.dump();
@@ -468,8 +472,9 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
-		//Identifier identifier = new Identifier("nyakomod", "custom/" + name);
-		Identifier identifier = new Identifier("minecraft", "item/diamond");
+		Identifier identifier = new Identifier("nyakomod", "custom/" + name);
+
+		customIconURLs.add(identifier.toString());
 
 		RESOURCE_PACK.addTexture(identifier, bufferedImage);
 

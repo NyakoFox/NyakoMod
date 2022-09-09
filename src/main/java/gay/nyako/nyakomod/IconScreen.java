@@ -3,10 +3,13 @@ package gay.nyako.nyakomod;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.StonecutterScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -43,7 +46,7 @@ public class IconScreen extends HandledScreen<IconScreenHandler> {
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
         this.renderRecipeBackground(matrices, mouseX, mouseY, l, m, n);
-        this.renderRecipeIcons(matrices, l, m, n);
+        this.renderRecipeIcons(l, m, n);
     }
 
     @Override
@@ -66,17 +69,20 @@ public class IconScreen extends HandledScreen<IconScreenHandler> {
         }
     }
 
-    private void renderRecipeIcons(MatrixStack matrices, int x, int y, int scrollOffset) {
+    private void renderRecipeIcons(int x, int y, int scrollOffset) {
         List<String> list = NyakoMod.customIconURLs;
-        for (int i = scrollOffset; i < scrollOffset && i < list.size(); ++i) {
-            int j = i - scrollOffset;
+        for (int i = this.scrollOffset; i < scrollOffset && i < NyakoMod.customIconURLs.size(); ++i) {
+            int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            this.client.getItemRenderer().renderInGuiWithOverrides(handler.inputSlot.getStack(), k, m);
+            var modStack = handler.inputSlot.getStack().copy();
+            var nbt = modStack.getOrCreateNbt();
+            nbt.putString("modelId", NyakoMod.customIconURLs.get(i));
+            modStack.setNbt(nbt);
+            this.client.getItemRenderer().renderInGuiWithOverrides(modStack, k, m);
         }
     }
-
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
