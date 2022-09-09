@@ -22,17 +22,26 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
 
     @Override
     public Identifier getTexture(PetSpriteEntity entity) {
-        return entity.TEXTURE;
+        if (entity.getCustomSprite() != null) {
+            return NyakoMod.downloadSprite(entity.getCustomSprite().getString());
+        }
+        return TEXTURE;
     }
 
     @Override
     public void render(PetSpriteEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        NyakoMod.downloadImage("meow");
         matrices.push();
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0f - entity.headYaw));
         float h = 0.0625f;
         matrices.scale(h, h, h);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(getTexture(entity)));
+
+        VertexConsumer vertexConsumer;
+        try {
+            vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(getTexture(entity)));
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+            vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE));
+        }
 
         renderSide(matrices, vertexConsumer, light, false);
         renderSide(matrices, vertexConsumer, light, true);

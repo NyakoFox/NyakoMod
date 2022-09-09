@@ -470,6 +470,8 @@ public class NyakoMod implements ModInitializer {
 		);
 	}
 
+	private static final List<String> downloadedUrls = new ArrayList<>();
+
 	public static BufferedImage downloadImage(String urlPath) {
 		BufferedImage image = null;
 		URL url = null;
@@ -521,6 +523,12 @@ public class NyakoMod implements ModInitializer {
 	public static Identifier downloadSprite(String urlPath) {
 		var hash = hashString(urlPath);
 		var id = new Identifier("nyakomod", hash);
+
+		if (downloadedUrls.contains(urlPath)) {
+			return id;
+		}
+
+		downloadedUrls.add(urlPath);
 
 		var image = downloadImage(urlPath);
 
