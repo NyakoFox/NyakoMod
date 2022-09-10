@@ -6,17 +6,22 @@ import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.screens.PetSpriteScreen;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class PetSpriteSummonItem extends TrinketItem {
     public PetSpriteSummonItem(Settings settings) {
@@ -63,5 +68,15 @@ public class PetSpriteSummonItem extends TrinketItem {
         }
 
         return TypedActionResult.success(player.getStackInHand(hand));
+    }
+
+    @Override
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        NbtCompound tag = itemStack.getOrCreateNbt();
+        if (tag.contains("custom_sprite")) {
+            var url = tag.getString("custom_sprite");
+
+            tooltip.add(Text.translatable("item.nyakomod.pet_sprite_summon.tooltip", url));
+        }
     }
 }

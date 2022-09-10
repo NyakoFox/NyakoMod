@@ -60,16 +60,19 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
             matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(180f));
         }
 
+        int width = 32;
+        int height = 32;
+
         if (reversed) {
-            this.vertex(matrix4f, matrix3f, consumer, -16, 0, 0, 0, 1, light);
-            this.vertex(matrix4f, matrix3f, consumer, -16, 32, 0, 0, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 32, 0, 1, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 0, 0, 1, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -width / 2, 0, 0, 0, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -width / 2, height, 0, 0, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, width / 2, height, 0, 1, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, width / 2, 0, 0, 1, 1, light);
         } else {
-            this.vertex(matrix4f, matrix3f, consumer, -16, 0, 0, 1, 1, light);
-            this.vertex(matrix4f, matrix3f, consumer, -16, 32, 0, 1, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 32, 0, 0, 0, light);
-            this.vertex(matrix4f, matrix3f, consumer, 16, 0, 0, 0, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -width / 2, 0, 0, 1, 1, light);
+            this.vertex(matrix4f, matrix3f, consumer, -width / 2, height, 0, 1, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, width / 2, height, 0, 0, 0, light);
+            this.vertex(matrix4f, matrix3f, consumer, width / 2, 0, 0, 0, 1, light);
         }
         matrices.pop();
     }
