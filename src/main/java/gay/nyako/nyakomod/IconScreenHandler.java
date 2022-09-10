@@ -58,6 +58,28 @@ public class IconScreenHandler extends ScreenHandler {
             }
 
             @Override
+            public void setStack(ItemStack inputStack) {
+                var copyStack = inventory.getStack(1);
+
+                var inputNbt = inputStack.getOrCreateNbt();
+                var copyNbt = copyStack.getOrCreateNbt();
+
+                if (copyStack.isEmpty()) {
+                    inputNbt.remove("modelId");
+                } else {
+                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
+                    }
+
+                    inputNbt.putString("modelId", model);
+                }
+
+                inputStack.setNbt(inputNbt);
+                super.setStack(inputStack);
+            }
+
+            @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 context.run((world, pos) -> {
                     long l = world.getTime();
@@ -77,25 +99,25 @@ public class IconScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                var stack2 = inventory.getStack(0);
+            public void setStack(ItemStack copyStack) {
+                var inputStack = inventory.getStack(0);
 
-                var nbt = stack.getOrCreateNbt();
-                var nbt2 = stack2.getOrCreateNbt();
+                var inputNbt = inputStack.getOrCreateNbt();
+                var copyNbt = copyStack.getOrCreateNbt();
 
-                if (stack.isEmpty()) {
-                    nbt2.remove("modelId");
+                if (copyStack.isEmpty()) {
+                    inputNbt.remove("modelId");
                 } else {
-                    String model = Registry.ITEM.getId(stack.getItem()).toString();
-                    if (nbt.contains("modelId")) {
-                        model = nbt.getString("modelId");
+                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
                     }
 
-                    nbt2.putString("modelId", model);
+                    inputNbt.putString("modelId", model);
                 }
 
-                stack2.setNbt(nbt2);
-                super.setStack(stack);
+                inputStack.setNbt(inputNbt);
+                super.setStack(copyStack);
             }
 
             @Override

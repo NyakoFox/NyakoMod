@@ -530,14 +530,14 @@ public class NyakoMod implements ModInitializer {
 		}
 
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-		//RESOURCE_PACK.dump();
+		RESOURCE_PACK.dump();
 
 	}
 
 	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
-		Identifier identifier = new Identifier("nyakomod", "custom/" + name);
+		Identifier identifier = new Identifier("minecraft", "item/" + name);
 
-		customIconURLs.add(identifier.toString());
+		customIconURLs.add("minecraft:" + name);
 
 		RESOURCE_PACK.addTexture(identifier, bufferedImage);
 
@@ -548,6 +548,7 @@ public class NyakoMod implements ModInitializer {
 						),
 				identifier
 		);
+
 	}
 
 	private static final List<String> downloadedUrls = new ArrayList<>();
