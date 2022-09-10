@@ -368,3 +368,4 @@ public class CunkCoinUtils {
         return null;
     }
 }
+

@@ -3,13 +3,19 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.LoreCommand;
 import gay.nyako.nyakomod.command.RenameCommand;
+import gay.nyako.nyakomod.entity.PetSpriteEntity;
+import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
+import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
+import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
@@ -17,7 +23,10 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.loader.impl.util.log.Log;
+import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -26,6 +35,12 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
@@ -57,8 +72,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import gay.nyako.nyakomod.command.BackCommand;
@@ -69,6 +88,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 
+import static net.devtech.arrp.api.RuntimeResourcePack.id;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
@@ -122,6 +142,7 @@ public class NyakoMod implements ModInitializer {
 
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+	public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
 
 	// Bricks
 	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
@@ -187,6 +208,20 @@ public class NyakoMod implements ModInitializer {
 	) {
 	}
 
+	public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
+
+	// Entities
+	public static final EntityType<PetSpriteEntity> PET_SPRITE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("nyakomod", "petsprite"),
+			FabricEntityTypeBuilder
+					.create(SpawnGroup.MISC, PetSpriteEntity::new)
+					.dimensions(EntityDimensions.changing(0.1f, 1.8f))
+					.trackRangeBlocks(10)
+					.build()
+	);
+
+
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
 
 	public static List<String> customIconURLs = new ArrayList<>();
@@ -208,6 +243,8 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "mario_gacha"), MARIO_GACHA_ITEM);
 		// Luigi
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"),PET_SPRITE_SUMMON_ITEM);
 
 		// Sounds
 		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);
@@ -359,6 +396,27 @@ public class NyakoMod implements ModInitializer {
 					player.damage(DamageSource.MAGIC, 3.4028235E38F);
 				}));
 
+		// Custom Sprite Setting
+		ServerPlayNetworking.registerGlobalReceiver(PET_SPRITE_SET_URL,
+				(server, player, handler, buffer, sender) -> {
+					var string = buffer.readString();
+
+					server.execute(() -> {
+						var stack = player.getMainHandStack();
+						if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
+							stack = player.getOffHandStack();
+							if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
+								return;
+							}
+						}
+
+						var nbt = stack.getOrCreateNbt();
+						nbt.putString("custom_sprite", string);
+						stack.setNbt(nbt);
+					});
+				}
+		);
+
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "spunch_block"), new BlockItem(SPUNCH_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
@@ -419,6 +477,11 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		registerGachaItems();
+
+		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
+		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, (context) -> {
+			return new PetSpriteRenderer(context);
+		});
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -487,6 +550,8 @@ public class NyakoMod implements ModInitializer {
 		);
 	}
 
+	private static final List<String> downloadedUrls = new ArrayList<>();
+
 	public static BufferedImage downloadImage(String urlPath) {
 		BufferedImage image = null;
 		URL url = null;
@@ -512,6 +577,67 @@ public class NyakoMod implements ModInitializer {
 		}
 
 		return image;
+	}
+
+	public static String hashString(String input) {
+		try {
+			var digest = MessageDigest.getInstance("SHA-256");
+			digest.update(input.getBytes(StandardCharsets.UTF_8));
+			var hash = toHexString(digest.digest());
+			return "custom/" + hash.substring(0, 10);
+		} catch (NoSuchAlgorithmException ex) {
+			return "custom/default";
+		}
+	}
+
+	private static String toHexString(byte[] bytes) {
+		Formatter result = new Formatter();
+		try (result) {
+			for (var b : bytes) {
+				result.format("%02x", b & 0xff);
+			}
+			return result.toString();
+		}
+	}
+
+	public static Identifier downloadSprite(String urlPath) {
+		var hash = hashString(urlPath);
+		var id = new Identifier("nyakomod", hash);
+
+		if (downloadedUrls.contains(urlPath)) {
+			return id;
+		}
+
+		downloadedUrls.add(urlPath);
+
+		var image = downloadImage(urlPath);
+
+		if (image == null) {
+			return null;
+		}
+
+		NativeImage nativeImage = null;
+		try {
+			nativeImage = getFromBuffered(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		NativeImageBackedTexture nativeImageBackedTexture = new NativeImageBackedTexture(nativeImage);
+
+		MinecraftClient client = MinecraftClient.getInstance();
+		client.getTextureManager().registerTexture(id, nativeImageBackedTexture);
+		System.out.println("finished downloading");
+
+		return id;
+	}
+
+	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
+		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
+			ImageIO.write(image, "PNG", outputStream);
+			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
+		}
 	}
 
 	public static void registerCommands() {
