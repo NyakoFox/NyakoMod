@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "coins=1": {
+      "model": "nyakomod:block/diamond_coin_one"
+    },
+    "coins=2": {
+      "model": "nyakomod:block/diamond_coin_two"
+    },
+    "coins=3": {
+      "model": "nyakomod:block/diamond_coin_three"
+    }
+  }
+}

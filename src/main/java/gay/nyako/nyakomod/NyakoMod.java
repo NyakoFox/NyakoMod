@@ -450,11 +450,11 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
 
 		// Single coin block
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_single_coin_block"), COPPER_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_single_coin_block"), GOLD_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_single_coin_block"), EMERALD_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_single_coin_block"), DIAMOND_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_single_coin_block"), NETHERITE_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_coin"), GOLD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_coin"), EMERALD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_coin"), DIAMOND_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_coin"), NETHERITE_SINGLE_COIN_BLOCK);
 
 		// Coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);

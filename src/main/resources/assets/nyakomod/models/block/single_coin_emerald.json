@@ -1,6 +1,0 @@
-{
-	"parent": "nyakomod:block/single_coin",
-	"textures": {
-		"coin": "nyakomod:block/emerald_coin"
-	}
-}

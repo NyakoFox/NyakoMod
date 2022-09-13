@@ -3,9 +3,15 @@ package gay.nyako.nyakomod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.data.client.*;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
+import net.minecraft.util.math.Direction;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class NyakoModelGenerator extends FabricModelProvider {
@@ -16,18 +22,42 @@ public class NyakoModelGenerator extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         // ...
-        /*
-        registerSingleCoinBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlock(NyakoMod.EMERALD_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK);*/
+
+        registerSingleCoinBlocks(NyakoMod.COPPER_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoMod.GOLD_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoMod.EMERALD_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, blockStateModelGenerator);
     }
 
-    public void registerSingleCoinBlock(Block block) {
-        Model TEMPLATE_SINGLE_COIN = block("single_coin", "_top", TextureKey.TEXTURE);
+    public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {
+        ArrayList<Pair<String,String>> variants = new ArrayList<>();
+        variants.add(new Pair("_one",   "single_coin"));
+        variants.add(new Pair("_two",   "two_single_coins"));
+        variants.add(new Pair("_three", "three_single_coins"));
 
-        TextureMap textureMap = TextureMap.texture(block);
+        var blockStateVariantMap = BlockStateVariantMap.create(NyakoMod.COINS_PROPERTY);
+        var counter = 0;
+        for (Pair pair : variants) {
+            counter++;
+
+            String variant = (String) pair.getLeft();
+            String model   = (String) pair.getRight();
+            Model TEMPLATE_SINGLE_COIN = block(model, variant, TextureKey.TEXTURE);
+
+            TextureMap textureMap = TextureMap.texture(block);
+            Identifier identifier = TEMPLATE_SINGLE_COIN.upload(block, textureMap, blockStateModelGenerator.modelCollector);
+
+            blockStateVariantMap.register(counter, BlockStateVariant.create().put(
+                    VariantSettings.MODEL,
+                    identifier
+            ));
+        }
+        var variantsBlockStateSupplier = VariantsBlockStateSupplier
+                .create(block)
+                .coordinate(blockStateVariantMap);
+
+        blockStateModelGenerator.blockStateCollector.accept(variantsBlockStateSupplier);
     }
 
     private static Model block(String parent, String variant, TextureKey ... requiredTextureKeys) {
