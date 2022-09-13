@@ -1,0 +1,6 @@
+{
+	"parent": "nyakomod:block/two_single_coins",
+	"textures": {
+		"coin": "nyakomod:block/gold_coin"
+	}
+}

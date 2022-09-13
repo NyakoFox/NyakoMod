@@ -2,10 +2,12 @@ package gay.nyako.nyakomod.item;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -15,16 +17,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class CoinItem extends Item {
-    protected int coinValue = 1;
-    protected String coinKey = "copper";
+public class CoinItem extends BlockItem {
+    protected int coinValue;
+    protected String coinKey;
 
-    public CoinItem(Settings settings) {
-        super(settings);
-    }
-
-    public CoinItem(Settings settings, String key, int value) {
-        super(settings);
+    public CoinItem(Settings settings, Block type, String key, int value) {
+        super(type, settings);
 
         this.coinKey = key;
         this.coinValue = value;
@@ -36,6 +34,14 @@ public class CoinItem extends Item {
 
     public int getCoinValue() {
       return coinValue;
+    }
+
+    public String getTranslationKey() {
+        return this.getOrCreateTranslationKey();
+    }
+
+    public String getTranslationKey(ItemStack stack) {
+        return this.getTranslationKey();
     }
 
     @Override

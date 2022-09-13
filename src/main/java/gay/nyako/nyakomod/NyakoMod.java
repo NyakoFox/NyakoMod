@@ -27,12 +27,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -61,6 +56,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -94,6 +90,8 @@ import static net.devtech.arrp.json.models.JModel.textures;
 public class NyakoMod implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
 
+	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, 3);
+
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
 	// Spunch block
@@ -122,11 +120,17 @@ public class NyakoMod implements ModInitializer {
 
 
 	// Coins
-	public static final Item COPPER_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item GOLD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "gold", 100);
-	public static final Item EMERALD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "emerald", 10000);
-	public static final Item DIAMOND_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "diamond", 1000000);
-	public static final Item NETHERITE_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), "netherite", 100000000);
+	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+	public static final Block EMERALD_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+	public static final Block DIAMOND_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+	public static final Block NETHERITE_SINGLE_COIN_BLOCK = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+
+	public static final Item COPPER_COIN_ITEM            = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), COPPER_SINGLE_COIN_BLOCK, "copper", 1);
+	public static final Item GOLD_COIN_ITEM              = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), GOLD_SINGLE_COIN_BLOCK, "gold", 100);
+	public static final Item EMERALD_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), EMERALD_SINGLE_COIN_BLOCK, "emerald", 10000);
+	public static final Item DIAMOND_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), DIAMOND_SINGLE_COIN_BLOCK, "diamond", 1000000);
+	public static final Item NETHERITE_COIN_ITEM         = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), NETHERITE_SINGLE_COIN_BLOCK, "netherite", 100000000);
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
 
@@ -445,6 +449,13 @@ public class NyakoMod implements ModInitializer {
 		// Present
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
 
+		// Single coin block
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_single_coin_block"), COPPER_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_single_coin_block"), GOLD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_single_coin_block"), EMERALD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_single_coin_block"), DIAMOND_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_single_coin_block"), NETHERITE_SINGLE_COIN_BLOCK);
+
 		// Coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "gold_coin"), GOLD_COIN_ITEM);
@@ -518,19 +529,8 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		ArrayList<String> urls = new ArrayList<>();
-		urls.add("https://cdn.upload.systems/uploads/xGKIOAbb.png");
-
-
-		for (int i = 0; i < urls.size(); i++) {
-			String url = urls.get(i);
-
-			var bufferedImage = downloadImage(url);
-			registerCustomSprite("diamond", bufferedImage);
-		}
-
-		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-		RESOURCE_PACK.dump();
+		//RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		//RESOURCE_PACK.dump();
 
 	}
 

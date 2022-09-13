@@ -1,0 +1,6 @@
+{
+	"parent": "nyakomod:block/three_single_coins",
+	"textures": {
+		"coin": "nyakomod:block/copper_coin"
+	}
+}
