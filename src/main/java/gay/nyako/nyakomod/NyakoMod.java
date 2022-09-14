@@ -90,7 +90,7 @@ import static net.devtech.arrp.json.models.JModel.textures;
 public class NyakoMod implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
 
-	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, 4);
+	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");

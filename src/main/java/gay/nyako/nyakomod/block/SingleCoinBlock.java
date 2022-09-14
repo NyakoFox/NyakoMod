@@ -22,12 +22,19 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class SingleCoinBlock extends Block {
-    public static final int MAX_COINS = 4;
+    public static final int MAX_COINS = 32;
     public static final IntProperty COINS = NyakoMod.COINS_PROPERTY;
-    protected static final VoxelShape ONE_COIN_SHAPE    = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 1.0, 12.0);
-    protected static final VoxelShape TWO_COINS_SHAPE   = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 1.0, 15.0);
-    protected static final VoxelShape THREE_COINS_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 1.0, 15.0);
-    protected static final VoxelShape FOUR_COINS_SHAPE  = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
+    protected static final VoxelShape ONE_COIN_SHAPE            = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 1.0, 12.0);
+    protected static final VoxelShape TWO_COINS_SHAPE           = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 1.0, 15.0);
+    protected static final VoxelShape THREE_COINS_SHAPE         = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 1.0, 15.0);
+    protected static final VoxelShape FOUR_COINS_SHAPE          = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
+    protected static final VoxelShape SECOND_LAYER_COINS_SHAPE  = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
+    protected static final VoxelShape THIRD_LAYER_COINS_SHAPE   = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 3.0, 16.0);
+    protected static final VoxelShape FOURTH_LAYER_COINS_SHAPE  = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
+    protected static final VoxelShape FIFTH_LAYER_COINS_SHAPE   = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 5.0, 16.0);
+    protected static final VoxelShape SIXTH_LAYER_COINS_SHAPE   = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 6.0, 16.0);
+    protected static final VoxelShape SEVENTH_LAYER_COINS_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
+    protected static final VoxelShape EIGHTH_LAYER_COINS_SHAPE  = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
 
     public SingleCoinBlock(Settings settings) {
         super(settings.nonOpaque());
@@ -99,6 +106,34 @@ public class SingleCoinBlock extends Block {
             case 2: return TWO_COINS_SHAPE;
             case 3: return THREE_COINS_SHAPE;
             case 4: return FOUR_COINS_SHAPE;
+            case 5:
+            case 6:
+            case 7:
+            case 8: return SECOND_LAYER_COINS_SHAPE;
+            case 9:
+            case 10:
+            case 11:
+            case 12: return THIRD_LAYER_COINS_SHAPE;
+            case 13:
+            case 14:
+            case 15:
+            case 16: return FOURTH_LAYER_COINS_SHAPE;
+            case 17:
+            case 18:
+            case 19:
+            case 20: return FIFTH_LAYER_COINS_SHAPE;
+            case 21:
+            case 22:
+            case 23:
+            case 24: return SIXTH_LAYER_COINS_SHAPE;
+            case 25:
+            case 26:
+            case 27:
+            case 28: return SEVENTH_LAYER_COINS_SHAPE;
+            case 29:
+            case 30:
+            case 31:
+            case 32: return EIGHTH_LAYER_COINS_SHAPE;
         }
     }
 

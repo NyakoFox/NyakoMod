@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"texture": "nyakomod:block/gold_coin",
-		"particle":  "#texture"
+		"particle": "#texture"
 	},
 	"elements": [
 		{

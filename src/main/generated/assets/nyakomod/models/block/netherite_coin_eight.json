@@ -1,0 +1,6 @@
+{
+  "parent": "nyakomod:block/eight_single_coins",
+  "textures": {
+    "texture": "nyakomod:block/netherite_coin"
+  }
+}

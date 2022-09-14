@@ -23,6 +23,7 @@ import net.minecraft.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
     public NyakoBlockLootTableProvider(FabricDataGenerator generator) {
@@ -31,15 +32,15 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     protected void generateBlockLootTables() {
-        /*registerSingleCoinBlocks(NyakoMod.COPPER_SINGLE_COIN_BLOCK);
+        registerSingleCoinBlocks(NyakoMod.COPPER_SINGLE_COIN_BLOCK);
         registerSingleCoinBlocks(NyakoMod.GOLD_SINGLE_COIN_BLOCK);
         registerSingleCoinBlocks(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK);
         registerSingleCoinBlocks(NyakoMod.EMERALD_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK);*/
+        registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK);
     }
 
     public void registerSingleCoinBlocks(Block inputBlock) {
-        //addDrop(inputBlock, (Block block) -> LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with((LootPoolEntry.Builder) BlockLootTableGenerator.applyExplosionDecay(Blocks.SEA_PICKLE, ItemEntry.builder(block).apply(List.of(Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4)), integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer.intValue())).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SeaPickleBlock.PICKLES, integer.intValue()))))))));
-        addDrop(inputBlock, (Block block) -> LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(block).apply(List.of(Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4)), integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer.intValue())).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SingleCoinBlock.COINS, integer.intValue())))))));
+        List<Integer> valueList = IntStream.rangeClosed(2, SingleCoinBlock.MAX_COINS).boxed().toList();
+        addDrop(inputBlock, (Block block) -> LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(block).apply(valueList, integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer.intValue())).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SingleCoinBlock.COINS, integer.intValue())))))));
     }
 }
