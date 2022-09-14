@@ -35,6 +35,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         variants.add(new Pair("_one",   "single_coin"));
         variants.add(new Pair("_two",   "two_single_coins"));
         variants.add(new Pair("_three", "three_single_coins"));
+        variants.add(new Pair("_four",  "four_single_coins"));
 
         var blockStateVariantMap = BlockStateVariantMap.create(NyakoMod.COINS_PROPERTY);
         var counter = 0;

@@ -9,6 +9,7 @@ public class NyakoModDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         // ...
         fabricDataGenerator.addProvider(NyakoModelGenerator::new);
+        fabricDataGenerator.addProvider(NyakoBlockLootTableProvider::new);
         // ...
     }
 }

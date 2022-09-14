@@ -1,0 +1,93 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+      {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nyakomod:emerald_coin",
+                  "properties": {
+                    "coins": 1
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 1
+                }
+              ],
+              "name": "nyakomod:emerald_coin"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nyakomod:emerald_coin",
+                  "properties": {
+                    "coins": 2
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 2
+                }
+              ],
+              "name": "nyakomod:emerald_coin"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nyakomod:emerald_coin",
+                  "properties": {
+                    "coins": 3
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 3
+                }
+              ],
+              "name": "nyakomod:emerald_coin"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nyakomod:emerald_coin",
+                  "properties": {
+                    "coins": 4
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 4
+                }
+              ],
+              "name": "nyakomod:emerald_coin"
+            }
+          ]
+        }
+      ],
+      "conditions": [
+      ]
+    }
+  ]
+}

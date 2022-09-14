@@ -8,6 +8,9 @@
     },
     "coins=3": {
       "model": "nyakomod:block/netherite_coin_three"
+    },
+    "coins=4": {
+      "model": "nyakomod:block/netherite_coin_four"
     }
   }
 }

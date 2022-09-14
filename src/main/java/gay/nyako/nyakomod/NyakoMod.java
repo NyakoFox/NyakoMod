@@ -90,7 +90,7 @@ import static net.devtech.arrp.json.models.JModel.textures;
 public class NyakoMod implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
 
-	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, 3);
+	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, 4);
 
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
@@ -120,11 +120,11 @@ public class NyakoMod implements ModInitializer {
 
 
 	// Coins
-	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
-	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
-	public static final Block EMERALD_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
-	public static final Block DIAMOND_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
-	public static final Block NETHERITE_SINGLE_COIN_BLOCK = new SingleCoinBlock(FabricBlockSettings.copy(Blocks.STONE));
+	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block EMERALD_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block DIAMOND_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block NETHERITE_SINGLE_COIN_BLOCK = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 
 	public static final Item COPPER_COIN_ITEM            = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), COPPER_SINGLE_COIN_BLOCK, "copper", 1);
 	public static final Item GOLD_COIN_ITEM              = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), GOLD_SINGLE_COIN_BLOCK, "gold", 100);
