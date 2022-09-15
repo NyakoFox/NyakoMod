@@ -10,36 +10,25 @@ import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
-import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
@@ -52,6 +41,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -61,10 +51,10 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 
 import java.awt.image.BufferedImage;
@@ -371,6 +361,36 @@ public class NyakoMod implements ModInitializer {
 		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			dispatcher.register(CommandManager.literal("smite")
+					.executes(context -> {
+						ServerPlayerEntity player = context.getSource().getPlayer();
+						var smiteDistance = 128;
+
+						Vec3d pos = player.getCameraPosVec(0.0F);
+						Vec3d ray = pos.add(player.getRotationVector().multiply(smiteDistance));
+
+						EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.world, player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
+
+						if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
+							Entity entity = entityHitResult.getEntity();
+							entity.damage(DamageSource.LIGHTNING_BOLT, 5);
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(entity.getPos());
+							player.world.spawnEntity(lightning);
+							lightning.setCosmetic(true);
+							return 1;
+						}
+
+						var result = player.raycast(smiteDistance, 0, false);
+						if (result.getType() == HitResult.Type.BLOCK) {
+							BlockPos blockPos = ((BlockHitResult) result).getBlockPos();
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+							player.world.spawnEntity(lightning);
+						}
+						return 1;
+					})
+			);
 			dispatcher.register(CommandManager.literal("icons")
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
