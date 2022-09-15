@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.command;
 
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import eu.pb4.placeholders.api.TextParserUtils;
@@ -16,6 +16,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public final class LoreCommand {
@@ -23,7 +24,7 @@ public final class LoreCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("lore")
                 .then(CommandManager.literal("clear").executes(LoreCommand::clearLore))
-                .then(CommandManager.literal("add").executes(LoreCommand::addLore))
+                .then(CommandManager.literal("add").then(argument("text", StringArgumentType.greedyString()).executes(LoreCommand::addLore)))
         );
     }
 
