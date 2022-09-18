@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "coins=1": {
+      "model": "nyakomod:block/copper_coin_one"
+    },
+    "coins=10": {
+      "model": "nyakomod:block/copper_coin_ten"
+    },
+    "coins=11": {
+      "model": "nyakomod:block/copper_coin_eleven"
+    },
+    "coins=12": {
+      "model": "nyakomod:block/copper_coin_twelve"
+    },
+    "coins=13": {
+      "model": "nyakomod:block/copper_coin_thirteen"
+    },
+    "coins=14": {
+      "model": "nyakomod:block/copper_coin_fourteen"
+    },
+    "coins=15": {
+      "model": "nyakomod:block/copper_coin_fifteen"
+    },
+    "coins=16": {
+      "model": "nyakomod:block/copper_coin_sixteen"
+    },
+    "coins=17": {
+      "model": "nyakomod:block/copper_coin_seventeen"
+    },
+    "coins=18": {
+      "model": "nyakomod:block/copper_coin_eighteen"
+    },
+    "coins=19": {
+      "model": "nyakomod:block/copper_coin_nineteen"
+    },
+    "coins=2": {
+      "model": "nyakomod:block/copper_coin_two"
+    },
+    "coins=20": {
+      "model": "nyakomod:block/copper_coin_twenty"
+    },
+    "coins=21": {
+      "model": "nyakomod:block/copper_coin_twenty_one"
+    },
+    "coins=22": {
+      "model": "nyakomod:block/copper_coin_twenty_two"
+    },
+    "coins=23": {
+      "model": "nyakomod:block/copper_coin_twenty_three"
+    },
+    "coins=24": {
+      "model": "nyakomod:block/copper_coin_twenty_four"
+    },
+    "coins=25": {
+      "model": "nyakomod:block/copper_coin_twenty_five"
+    },
+    "coins=26": {
+      "model": "nyakomod:block/copper_coin_twenty_six"
+    },
+    "coins=27": {
+      "model": "nyakomod:block/copper_coin_twenty_seven"
+    },
+    "coins=28": {
+      "model": "nyakomod:block/copper_coin_twenty_eight"
+    },
+    "coins=29": {
+      "model": "nyakomod:block/copper_coin_twenty_nine"
+    },
+    "coins=3": {
+      "model": "nyakomod:block/copper_coin_three"
+    },
+    "coins=30": {
+      "model": "nyakomod:block/copper_coin_thirty"
+    },
+    "coins=31": {
+      "model": "nyakomod:block/copper_coin_thirty_one"
+    },
+    "coins=32": {
+      "model": "nyakomod:block/copper_coin_thirty_two"
+    },
+    "coins=4": {
+      "model": "nyakomod:block/copper_coin_four"
+    },
+    "coins=5": {
+      "model": "nyakomod:block/copper_coin_five"
+    },
+    "coins=6": {
+      "model": "nyakomod:block/copper_coin_six"
+    },
+    "coins=7": {
+      "model": "nyakomod:block/copper_coin_seven"
+    },
+    "coins=8": {
+      "model": "nyakomod:block/copper_coin_eight"
+    },
+    "coins=9": {
+      "model": "nyakomod:block/copper_coin_nine"
+    }
+  }
+}

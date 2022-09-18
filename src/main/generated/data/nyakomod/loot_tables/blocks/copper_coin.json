@@ -1,0 +1,451 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "5"
+                  }
+                }
+              ],
+              "count": 5.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "6"
+                  }
+                }
+              ],
+              "count": 6.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "7"
+                  }
+                }
+              ],
+              "count": 7.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "8"
+                  }
+                }
+              ],
+              "count": 8.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "9"
+                  }
+                }
+              ],
+              "count": 9.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "10"
+                  }
+                }
+              ],
+              "count": 10.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "11"
+                  }
+                }
+              ],
+              "count": 11.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "12"
+                  }
+                }
+              ],
+              "count": 12.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "13"
+                  }
+                }
+              ],
+              "count": 13.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "14"
+                  }
+                }
+              ],
+              "count": 14.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "15"
+                  }
+                }
+              ],
+              "count": 15.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "16"
+                  }
+                }
+              ],
+              "count": 16.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "17"
+                  }
+                }
+              ],
+              "count": 17.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "18"
+                  }
+                }
+              ],
+              "count": 18.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "19"
+                  }
+                }
+              ],
+              "count": 19.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "20"
+                  }
+                }
+              ],
+              "count": 20.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "21"
+                  }
+                }
+              ],
+              "count": 21.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "22"
+                  }
+                }
+              ],
+              "count": 22.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "23"
+                  }
+                }
+              ],
+              "count": 23.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "24"
+                  }
+                }
+              ],
+              "count": 24.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "25"
+                  }
+                }
+              ],
+              "count": 25.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "26"
+                  }
+                }
+              ],
+              "count": 26.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "27"
+                  }
+                }
+              ],
+              "count": 27.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "28"
+                  }
+                }
+              ],
+              "count": 28.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "29"
+                  }
+                }
+              ],
+              "count": 29.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "30"
+                  }
+                }
+              ],
+              "count": 30.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "31"
+                  }
+                }
+              ],
+              "count": 31.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "nyakomod:copper_coin",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "coins": "32"
+                  }
+                }
+              ],
+              "count": 32.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:copper_coin"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

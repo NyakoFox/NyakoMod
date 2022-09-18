@@ -22,9 +22,9 @@ public abstract class ItemStackMixin {
         return text;
     }
 
-    @Redirect(method="getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at=@At(value="INVOKE", target="Lnet/minecraft/text/MutableText;formatted(Lnet/minecraft/util/Formatting;)Lnet/minecraft/text/MutableText;"))
-    public MutableText redirect(MutableText instance, Formatting formatting) {
-        // Just ignore the formatting call...
-        return instance;
+    @Redirect(method="getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;hasCustomName()Z"))
+    public boolean redirect(ItemStack stack) {
+        // Never turn italic
+        return false;
     }
 }

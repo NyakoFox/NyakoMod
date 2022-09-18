@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -16,6 +17,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
@@ -81,6 +83,12 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+    
+    BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK,    RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK,      RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.EMERALD_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, RenderLayer.getCutout());
 	}
 
 	private static final List<String> downloadedUrls = new ArrayList<>();

@@ -31,6 +31,7 @@ public class IconScreenHandler extends ScreenHandler {
         @Override
         public void markDirty() {
             super.markDirty();
+            updateToClient();
             onContentChanged(this);
             contentsChangedListener.run();
         }
@@ -57,13 +58,29 @@ public class IconScreenHandler extends ScreenHandler {
             }
 
             @Override
+            public void setStack(ItemStack inputStack) {
+                var copyStack = inventory.getStack(1);
+
+                var inputNbt = inputStack.getOrCreateNbt();
+                var copyNbt = copyStack.getOrCreateNbt();
+
+                if (copyStack.isEmpty()) {
+                    inputNbt.remove("modelId");
+                } else {
+                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
+                    }
+
+                    inputNbt.putString("modelId", model);
+                }
+
+                inputStack.setNbt(inputNbt);
+                super.setStack(inputStack);
+            }
+
+            @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
-                //stack.onCraft(player.world, player, stack.getCount());
-                //output.unlockLastRecipe(player);
-                //ItemStack itemStack = inputSlot.takeStack(1);
-                //if (!itemStack.isEmpty()) {
-                //    populateResult();
-                //}
                 context.run((world, pos) -> {
                     long l = world.getTime();
                     if (lastTakeTime != l) {
@@ -74,6 +91,7 @@ public class IconScreenHandler extends ScreenHandler {
                 super.onTakeItem(player, stack);
             }
         });
+
         this.copySlot = this.addSlot(new Slot(this.inventory, 1, 143 - 2 + 3, 33 + 2) {
             @Override
             public boolean canInsert(ItemStack stack) {
@@ -81,31 +99,36 @@ public class IconScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                var stack2 = inventory.getStack(0);
+            public void setStack(ItemStack copyStack) {
+                var inputStack = inventory.getStack(0);
 
-                var nbt = stack.getOrCreateNbt();
-                var nbt2 = stack2.getOrCreateNbt();
+                var inputNbt = inputStack.getOrCreateNbt();
+                var copyNbt = copyStack.getOrCreateNbt();
 
-                String model = Registry.ITEM.getId(stack.getItem()).toString();
-                if (nbt.contains("modelId")) {
-                    model = nbt.getString("modelId");
+                if (copyStack.isEmpty()) {
+                    inputNbt.remove("modelId");
+                } else {
+                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
+                    }
+
+                    inputNbt.putString("modelId", model);
                 }
 
-                nbt2.putString("modelId", model);
-                stack2.setNbt(nbt2);
-
-                super.setStack(stack);
+                inputStack.setNbt(inputNbt);
+                super.setStack(copyStack);
             }
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 context.run((world, pos) -> {
-                    var nbt = stack.getNbt();
+                    var stack2 = inventory.getStack(0);
+                    var nbt = stack2.getNbt();
                     if (nbt.contains("modelId")) {
-                        nbt.remove("modelID");
+                        nbt.remove("modelId");
                     }
-                    stack.setNbt(nbt);
+                    stack2.setNbt(nbt);
                 });
                 super.onTakeItem(player, stack);
             }
@@ -118,7 +141,6 @@ public class IconScreenHandler extends ScreenHandler {
         for (i = 0; i < 9; ++i) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
         }
-        //this.addProperty(this.selectedRecipe);
     }
 
     @Override
@@ -137,8 +159,11 @@ public class IconScreenHandler extends ScreenHandler {
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBounds(id)) {
-            //this.selectedRecipe.set(id);
-            //this.populateResult();
+            String model = NyakoMod.customIconURLs.get(id);
+            var stack = inputSlot.getStack();
+            var nbt = stack.getOrCreateNbt();
+            nbt.putString("modelId", model);
+            stack.setNbt(nbt);
         }
         return true;
     }

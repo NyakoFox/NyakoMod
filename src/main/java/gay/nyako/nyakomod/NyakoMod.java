@@ -9,6 +9,8 @@ import gay.nyako.nyakomod.item.gacha.GachaItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.screens.ModelScreen;
 import net.devtech.arrp.api.RRPCallback;
+import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
+import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.EnvType;
@@ -26,6 +28,10 @@ import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
@@ -37,18 +43,20 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -65,6 +73,8 @@ public class NyakoMod implements ModInitializer {
 	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
+
+	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
 	// Killbinding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
@@ -96,11 +106,17 @@ public class NyakoMod implements ModInitializer {
 
 
 	// Coins
-	public static final Item COPPER_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100));
-	public static final Item GOLD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "gold", 100);
-	public static final Item EMERALD_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "emerald", 10000);
-	public static final Item DIAMOND_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), "diamond", 1000000);
-	public static final Item NETHERITE_COIN_ITEM = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), "netherite", 100000000);
+	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block EMERALD_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block DIAMOND_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+	public static final Block NETHERITE_SINGLE_COIN_BLOCK = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
+
+	public static final Item COPPER_COIN_ITEM            = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), COPPER_SINGLE_COIN_BLOCK, "copper", 1);
+	public static final Item GOLD_COIN_ITEM              = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), GOLD_SINGLE_COIN_BLOCK, "gold", 100);
+	public static final Item EMERALD_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), EMERALD_SINGLE_COIN_BLOCK, "emerald", 10000);
+	public static final Item DIAMOND_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), DIAMOND_SINGLE_COIN_BLOCK, "diamond", 1000000);
+	public static final Item NETHERITE_COIN_ITEM         = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), NETHERITE_SINGLE_COIN_BLOCK, "netherite", 100000000);
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
 
@@ -345,11 +361,40 @@ public class NyakoMod implements ModInitializer {
 
 		System.out.println("owo");
 
-		for (int i = 0; i < 256; i++) {
-			customIconURLs.add("https://i.imgur.com/0Z0Z0Z0.png");
-		}
+		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			dispatcher.register(CommandManager.literal("smite")
+					.executes(context -> {
+						ServerPlayerEntity player = context.getSource().getPlayer();
+						var smiteDistance = 128;
+
+						Vec3d pos = player.getCameraPosVec(0.0F);
+						Vec3d ray = pos.add(player.getRotationVector().multiply(smiteDistance));
+
+						EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.world, player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
+
+						if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
+							Entity entity = entityHitResult.getEntity();
+							entity.damage(DamageSource.LIGHTNING_BOLT, 5);
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(entity.getPos());
+							player.world.spawnEntity(lightning);
+							lightning.setCosmetic(true);
+							return 1;
+						}
+
+						var result = player.raycast(smiteDistance, 0, false);
+						if (result.getType() == HitResult.Type.BLOCK) {
+							BlockPos blockPos = ((BlockHitResult) result).getBlockPos();
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+							player.world.spawnEntity(lightning);
+						}
+						return 1;
+					})
+			);
 			dispatcher.register(CommandManager.literal("icons")
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
@@ -359,7 +404,7 @@ public class NyakoMod implements ModInitializer {
 						player.openHandledScreen(new NamedScreenHandlerFactory() {
 							@Override
 							public Text getDisplayName() {
-								return Text.literal("Ayo the livvie here");
+								return Text.literal("Icon Selector");
 							}
 
 							@Override
@@ -440,8 +485,16 @@ public class NyakoMod implements ModInitializer {
 		// Present
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
 
+
 		// Custom
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
+
+		// Single coin block
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_coin"), GOLD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_coin"), EMERALD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_coin"), DIAMOND_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_coin"), NETHERITE_SINGLE_COIN_BLOCK);
 
 		// Coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);
@@ -513,10 +566,7 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		//var bufferedImage = downloadImage("https://cdn.upload.systems/uploads/xGKIOAbb.png");
-		//registerCustomSprite("diamond", bufferedImage);
-
-		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		//RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 		//RESOURCE_PACK.dump();
 
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
@@ -525,8 +575,9 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
-		//Identifier identifier = new Identifier("nyakomod", "custom/" + name);
-		Identifier identifier = new Identifier("minecraft", "item/diamond");
+		Identifier identifier = new Identifier("minecraft", "item/" + name);
+
+		customIconURLs.add("minecraft:" + name);
 
 		RESOURCE_PACK.addTexture(identifier, bufferedImage);
 
@@ -537,6 +588,7 @@ public class NyakoMod implements ModInitializer {
 						),
 				identifier
 		);
+
 	}
 
 	public static String hash(String input) {
