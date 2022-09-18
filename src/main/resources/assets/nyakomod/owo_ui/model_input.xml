@@ -6,6 +6,45 @@
                 <flow-layout direction="vertical">
                     <children>
                         <label>
+                            <text>Model name:</text>
+                        </label>
+                        <text-box id="name-box">
+                            <sizing>
+                                <horizontal method="fixed">250</horizontal>
+                            </sizing>
+                        </text-box>
+
+
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <checkbox id="item-checkbox">
+                                    <text>Item</text>
+                                    <checked>true</checked>
+                                    <margins>
+                                        <horizontal>5</horizontal>
+                                    </margins>
+                                </checkbox>
+                                <checkbox id="handheld-checkbox">
+                                    <text>Handheld</text>
+                                    <margins>
+                                        <horizontal>5</horizontal>
+                                    </margins>
+                                </checkbox>
+                                <checkbox id="block-checkbox">
+                                    <text>Block</text>
+                                    <margins>
+                                        <horizontal>5</horizontal>
+                                    </margins>
+                                </checkbox>
+                            </children>
+
+                            <margins>
+                                <vertical>10</vertical>
+                            </margins>
+                        </flow-layout>
+
+
+                        <label>
                             <text>Enter URL to a PNG:</text>
                         </label>
                         <text-box id="url-box">
