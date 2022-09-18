@@ -7,14 +7,9 @@ import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
-import gay.nyako.nyakomod.screens.ModelScreen;
-import net.devtech.arrp.api.RRPCallback;
-import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
 import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ShopData;
 import gay.nyako.nyakomod.screens.ShopEntries;
-import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
-import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.EnvType;
@@ -28,17 +23,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
@@ -168,9 +157,6 @@ public class NyakoMod implements ModInitializer {
 
 	public static final Identifier WOLVES_SOUND = new Identifier("nyakomod:wolves");
 	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
-
-	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
-	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
 	// Gacha-related stuff starts here
 
@@ -392,11 +378,6 @@ public class NyakoMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), CUNK_SHOP_SCREEN_HANDLER_TYPE);
-
-		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
-		HandledScreens.register(CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
-
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("smite")
 					.executes(context -> {

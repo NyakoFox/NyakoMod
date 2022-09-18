@@ -1,6 +1,8 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
+import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
+import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ModelScreen;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
@@ -12,6 +14,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
@@ -22,6 +25,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.lwjgl.glfw.GLFW;
 
 import javax.imageio.ImageIO;
@@ -35,6 +39,7 @@ import java.util.List;
 public class NyakoClientMod implements ClientModInitializer {
 
 	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
+	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
 	private static final KeyBinding OPEN_MODEL = new KeyBinding("key.nyakomod.model_open", GLFW.GLFW_KEY_I, "key.categories.misc");
 
@@ -83,6 +88,9 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), CUNK_SHOP_SCREEN_HANDLER_TYPE);
+
+		HandledScreens.register(CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
     
     	BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK,    RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK,      RenderLayer.getCutout());

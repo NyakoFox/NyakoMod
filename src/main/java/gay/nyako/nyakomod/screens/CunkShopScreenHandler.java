@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,7 +24,7 @@ public class CunkShopScreenHandler extends ScreenHandler {
     }
 
     public CunkShopScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoClientMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
         this.context = context;
         enableSyncing();
     }
