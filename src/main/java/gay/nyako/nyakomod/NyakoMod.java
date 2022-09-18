@@ -8,6 +8,10 @@ import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
+import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
+import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
+import gay.nyako.nyakomod.screens.ShopData;
+import gay.nyako.nyakomod.screens.ShopEntries;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -20,6 +24,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.client.MinecraftClient;
@@ -32,6 +39,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.scoreboard.ScoreboardCriterion;
@@ -126,6 +134,8 @@ public class NyakoMod implements ModInitializer {
 
 	public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
 
+	public static final Identifier CUNK_SHOP_PURCHASE_PACKET_ID = new Identifier("nyakomod", "purchase");
+
 	// Bag of coins
 	public static final Item BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 	public static final Item HUNGRY_BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
@@ -133,6 +143,9 @@ public class NyakoMod implements ModInitializer {
 	public static final TimeInABottleItem TIME_IN_A_BOTTLE = new TimeInABottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 	// Soul jar
 	public static final SoulJarItem SOUL_JAR = new SoulJarItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+
+	// Test item
+	public static final Item TEST_ITEM = new TestItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
@@ -160,6 +173,7 @@ public class NyakoMod implements ModInitializer {
 	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
 
 	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
+	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
 	// Gacha-related stuff starts here
 
@@ -247,12 +261,12 @@ public class NyakoMod implements ModInitializer {
 		// 1 Gold CunkCoin
 		registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(GOLD_COIN_ITEM), 1);
 		registerGachaItem(Text.of("16 §6Dirt"), Items.DIRT, 16, 1);
-		registerGachaItem(Text.of("8 §6Oak Saplings"), Items.OAK_LOG, 8, 1);
-		registerGachaItem(Text.of("8 §6Dark Oak Saplings"), Items.DARK_OAK_LOG, 8, 1);
-		registerGachaItem(Text.of("8 §6Spruce Saplings"), Items.SPRUCE_LOG, 8, 1);
-		registerGachaItem(Text.of("8 §6Acacia Saplings"), Items.ACACIA_LOG, 8, 1);
-		registerGachaItem(Text.of("8 §6Birch Saplings"), Items.BIRCH_LOG, 8, 1);
-		registerGachaItem(Text.of("8 §6Jungle Saplings"), Items.JUNGLE_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Oak Logs"), Items.OAK_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Dark Oak Logs"), Items.DARK_OAK_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Spruce Logs"), Items.SPRUCE_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Acacia Logs"), Items.ACACIA_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Birch Logs"), Items.BIRCH_LOG, 8, 1);
+		registerGachaItem(Text.of("8 §6Jungle Logs"), Items.JUNGLE_LOG, 8, 1);
 		registerGachaItem(Text.of("8 §cCrimson Fungi"), Items.CRIMSON_FUNGUS, 8, 1);
 		registerGachaItem(Text.of("8 §bWarped Fungi"), Items.WARPED_FUNGUS, 8, 1);
 
@@ -354,11 +368,33 @@ public class NyakoMod implements ModInitializer {
 	}
 
 
+	public static void openShop(PlayerEntity player, World world, ShopData shop) {
+		player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+			@Override
+			public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+				buf.writeString(shop.id);
+			}
+
+			@Override
+			public Text getDisplayName() {
+				return Text.literal("Icon Selector");
+			}
+
+			@Override
+			public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+				return new CunkShopScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
+			}
+		});
+	}
+
 	@Override
 	public void onInitialize() {
 		System.out.println("owo");
 
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), CUNK_SHOP_SCREEN_HANDLER_TYPE);
+
 		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+		HandledScreens.register(CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("smite")
@@ -412,6 +448,17 @@ public class NyakoMod implements ModInitializer {
 						return 0;
 					})
 			);
+			dispatcher.register(CommandManager.literal("shop")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						openShop(player, world, ShopEntries.MAIN);
+
+						return 0;
+					})
+			);
 		});
 
 		// Killbind
@@ -440,6 +487,45 @@ public class NyakoMod implements ModInitializer {
 					});
 				}
 		);
+
+		// Cunk shop purchasing
+		ServerPlayNetworking.registerGlobalReceiver(CUNK_SHOP_PURCHASE_PACKET_ID,
+				(server, player, handler, buffer, sender) -> {
+					var shopId = buffer.readString();
+					var entry = buffer.readInt();
+					var amount = buffer.readInt();
+					server.execute(() -> {
+						var shop = ShopEntries.getShop(shopId);
+						var currentEntry = shop.entries.get(entry);
+						var cost = currentEntry.price() * amount;
+
+						var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
+						if (count < cost) {
+							return;
+						}
+
+						CunkCoinUtils.removeCoins(player, cost);
+						player.getInventory().markDirty();
+						player.getInventory().updateItems();
+
+						if (player.playerScreenHandler != null) {
+							player.playerScreenHandler.sendContentUpdates();
+							player.playerScreenHandler.syncState();
+							player.playerScreenHandler.updateToClient();
+						}
+						if (player.currentScreenHandler != null) {
+							player.currentScreenHandler.sendContentUpdates();
+							player.currentScreenHandler.syncState();
+							player.currentScreenHandler.updateToClient();
+						}
+
+						for (ItemStack stack : currentEntry.stacks()) {
+							for (int i = 0; i < amount; i++) {
+								player.getInventory().offerOrDrop(stack.copy());
+							}
+						}
+					});
+			});
 
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
@@ -503,6 +589,9 @@ public class NyakoMod implements ModInitializer {
 
 		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
 
+		// Test item
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), TEST_ITEM);
+
 		// Gacha-related
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
@@ -548,6 +637,8 @@ public class NyakoMod implements ModInitializer {
 
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
+
+		ShopEntries.registerShops();
 
 		//RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 		//RESOURCE_PACK.dump();
