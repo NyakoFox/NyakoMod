@@ -68,7 +68,7 @@ public class NyakoClientMod implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(NyakoMod.PLAYER_SMITE_PACKET_ID,
 				(client, handler, buffer, sender) -> client.execute(() -> {
-					MinecraftClient.getInstance().player.addVelocity(0D, 5D, 0D);
+					client.player.addVelocity(0D, 5D, 0D);
 				}));
 
 		EntityRendererRegistry.register(NyakoMod.TICKER, TickerEntityRenderer::new);
