@@ -361,9 +361,6 @@ public class NyakoMod implements ModInitializer {
 
 		System.out.println("owo");
 
-		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
-
-
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("smite")
 					.executes(context -> {
