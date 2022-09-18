@@ -5,17 +5,16 @@ import dev.emi.trinkets.api.TrinketItem;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.screens.PetSpriteScreen;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
-import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
@@ -59,6 +58,7 @@ public class PetSpriteSummonItem extends TrinketItem {
         super.tick(stack, slot, entity);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if (player.isSneaking()) {

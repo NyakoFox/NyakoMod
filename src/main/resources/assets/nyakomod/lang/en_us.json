@@ -31,6 +31,7 @@
     "item.nyakomod.mario_gacha": "§cMario",
     "item.nyakomod.luigi_gacha": "§aLuigi",
     "item.nyakomod.present": "Present",
+    "item.nyakomod.custom": "When You See It",
     "key.nyakomod.killbind": "Kill player",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
@@ -39,5 +40,7 @@
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
     "item.nyakomod.pet_sprite_summon": "Pet Summoner",
-    "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s"
+    "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
+
+    "key.nyakomod.model_open": "Open Model Menu"
 }

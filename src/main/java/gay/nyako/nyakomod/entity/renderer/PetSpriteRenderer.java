@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.entity.renderer;
 
+import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -23,7 +24,7 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
     @Override
     public Identifier getTexture(PetSpriteEntity entity) {
         if (entity.getCustomSprite() != null) {
-            return NyakoMod.downloadSprite(entity.getCustomSprite().getString());
+            return NyakoClientMod.downloadSprite(entity.getCustomSprite().getString());
         }
         return TEXTURE;
     }

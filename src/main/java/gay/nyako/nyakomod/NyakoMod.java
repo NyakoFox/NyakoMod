@@ -1,47 +1,28 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.*;
-import gay.nyako.nyakomod.command.LoreCommand;
-import gay.nyako.nyakomod.command.RenameCommand;
+import gay.nyako.nyakomod.command.*;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
-import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
-import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
-import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
+import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
+import gay.nyako.nyakomod.screens.ModelScreen;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -54,7 +35,6 @@ import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -70,28 +50,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-import gay.nyako.nyakomod.command.BackCommand;
-import gay.nyako.nyakomod.command.XpCommand;
-import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-
-import javax.imageio.ImageIO;
-
-import static net.devtech.arrp.api.RuntimeResourcePack.id;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
+	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
+
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
 
 	// Killbinding
@@ -110,6 +82,8 @@ public class NyakoMod implements ModInitializer {
 	public static final Item STAFF_OF_SMITING_ITEM = new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
 	// Present
 	public static final Item PRESENT_ITEM = new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	// Custom
+	public static final Item CUSTOM_ITEM = new CustomItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(69));
 
 	// Music Discs
 	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
@@ -143,6 +117,7 @@ public class NyakoMod implements ModInitializer {
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
 	public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
+	public static final Identifier MODEL_CREATE_PACKET = new Identifier("nyakomod", "create_model");
 
 	// Bricks
 	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
@@ -165,7 +140,6 @@ public class NyakoMod implements ModInitializer {
 	public static final Identifier WOLVES_SOUND = new Identifier("nyakomod:wolves");
 	public static SoundEvent WOLVES_SOUND_EVENT = new SoundEvent(WOLVES_SOUND);
 
-	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
 
 	// Gacha-related stuff starts here
 
@@ -228,6 +202,12 @@ public class NyakoMod implements ModInitializer {
 
 	public static final Identifier DISCORD_SOUND = new Identifier("nyakomod:discord");
 	public static SoundEvent DISCORD_SOUND_EVENT = new SoundEvent(DISCORD_SOUND);
+
+	@Environment(EnvType.SERVER)
+	public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
+
+	@Environment(EnvType.SERVER)
+	public static ModelManager MODEL_MANAGER = new ModelManager();
 
 	public void registerGachaItems() {
 		/* REGISTRY */
@@ -362,13 +342,12 @@ public class NyakoMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		System.out.println("owo");
 
 		for (int i = 0; i < 256; i++) {
 			customIconURLs.add("https://i.imgur.com/0Z0Z0Z0.png");
 		}
-
-		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("icons")
@@ -421,6 +400,18 @@ public class NyakoMod implements ModInitializer {
 				}
 		);
 
+		ServerPlayNetworking.registerGlobalReceiver(MODEL_CREATE_PACKET,
+				(server, player, handler, buffer, sender) -> {
+					var name = buffer.readString();
+					var type = buffer.readString();
+					var url = buffer.readString();
+
+					server.execute(() -> {
+						MODEL_MANAGER.addModel(player, name, type, url);
+					});
+				}
+		);
+
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "spunch_block"), new BlockItem(SPUNCH_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
@@ -448,6 +439,9 @@ public class NyakoMod implements ModInitializer {
 
 		// Present
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
+
+		// Custom
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
 
 		// Coins
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);
@@ -483,9 +477,6 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItems();
 
 		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
-		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, (context) -> {
-			return new PetSpriteRenderer(context);
-		});
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -528,6 +519,9 @@ public class NyakoMod implements ModInitializer {
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 		//RESOURCE_PACK.dump();
 
+		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
+			CachedResourcePack.setPlayerResourcePack(handler.player);
+		}));
 	}
 
 	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
@@ -545,44 +539,19 @@ public class NyakoMod implements ModInitializer {
 		);
 	}
 
-	private static final List<String> downloadedUrls = new ArrayList<>();
-
-	public static BufferedImage downloadImage(String urlPath) {
-		BufferedImage image = null;
-		URL url = null;
-
-		System.out.println("downloading " + urlPath);
-
-		try {
-			url = new URL(urlPath);
-			URLConnection connection = url.openConnection();
-			connection.setRequestProperty("User-Agent", "NyakoMod");
-			connection.connect();
-			image = ImageIO.read(connection.getInputStream());
-		} catch (Exception e) {
-			url = null;
-			image = null;
-			e.printStackTrace();
-		}
-
-		if (image == null) {
-			// ?? we just did this server side but client side it failed so whatever
-			System.out.print("failed to dl...?");
-			return null;
-		}
-
-		return image;
-	}
-
-	public static String hashString(String input) {
+	public static String hash(String input) {
 		try {
 			var digest = MessageDigest.getInstance("SHA-256");
 			digest.update(input.getBytes(StandardCharsets.UTF_8));
 			var hash = toHexString(digest.digest());
-			return "custom/" + hash.substring(0, 10);
+			return hash.substring(0, 10);
 		} catch (NoSuchAlgorithmException ex) {
-			return "custom/default";
+			return "default";
 		}
+	}
+
+	public static String hashString(String input) {
+		return "custom/" + hash(input);
 	}
 
 	private static String toHexString(byte[] bytes) {
@@ -595,45 +564,7 @@ public class NyakoMod implements ModInitializer {
 		}
 	}
 
-	public static Identifier downloadSprite(String urlPath) {
-		var hash = hashString(urlPath);
-		var id = new Identifier("nyakomod", hash);
 
-		if (downloadedUrls.contains(urlPath)) {
-			return id;
-		}
-
-		downloadedUrls.add(urlPath);
-
-		var image = downloadImage(urlPath);
-
-		if (image == null) {
-			return null;
-		}
-
-		NativeImage nativeImage = null;
-		try {
-			nativeImage = getFromBuffered(image);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		NativeImageBackedTexture nativeImageBackedTexture = new NativeImageBackedTexture(nativeImage);
-
-		MinecraftClient client = MinecraftClient.getInstance();
-		client.getTextureManager().registerTexture(id, nativeImageBackedTexture);
-		System.out.println("finished downloading");
-
-		return id;
-	}
-
-	public static NativeImage getFromBuffered(BufferedImage image) throws IOException {
-		try (FastByteArrayOutputStream outputStream = new FastByteArrayOutputStream()) {
-			ImageIO.write(image, "PNG", outputStream);
-			return NativeImage.read(new FastByteArrayInputStream(outputStream.array));
-		}
-	}
 
 	public static void registerCommands() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -641,6 +572,7 @@ public class NyakoMod implements ModInitializer {
 			XpCommand.register(dispatcher);
 			LoreCommand.register(dispatcher);
 			RenameCommand.register(dispatcher);
+			IconCommand.register(dispatcher);
 		});
 	}
 }

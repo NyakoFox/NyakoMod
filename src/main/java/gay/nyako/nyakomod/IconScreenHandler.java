@@ -46,7 +46,7 @@ public class IconScreenHandler extends ScreenHandler {
     }
 
     public IconScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoMod.ICON_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoClientMod.ICON_SCREEN_HANDLER_TYPE, syncId);
         int i;
         this.context = context;
         this.world = inventory.player.world;
@@ -177,7 +177,7 @@ public class IconScreenHandler extends ScreenHandler {
 
     @Override
     public ScreenHandlerType<?> getType() {
-        return NyakoMod.ICON_SCREEN_HANDLER_TYPE;
+        return NyakoClientMod.ICON_SCREEN_HANDLER_TYPE;
     }
 
     public void setContentsChangedListener(Runnable contentsChangedListener) {
