@@ -6,6 +6,7 @@ import io.wispforest.owo.ui.component.CheckboxComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -50,6 +51,8 @@ public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
                 buf.writeString(chosenType);
                 buf.writeString(value);
                 ClientPlayNetworking.send(NyakoMod.MODEL_CREATE_PACKET, buf);
+
+                MinecraftClient.getInstance().setScreen(null);
             }
         });
 

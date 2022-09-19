@@ -48,6 +48,9 @@ public class PetSpriteSummonItem extends TrinketItem {
                 if (nbt.contains("custom_sprite")) {
                     pet.setCustomSprite(nbt.getString("custom_sprite"));
                 }
+                if (nbt.contains("pet_size")) {
+                    pet.setPetSize(nbt.getDouble("pet_size"));
+                }
                 entity.world.spawnEntity(pet);
             } else if (entities.size() > 1) {
                 for (var e : entities.subList(1, entities.size())) {
@@ -63,7 +66,7 @@ public class PetSpriteSummonItem extends TrinketItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if (player.isSneaking()) {
             if (player.world.isClient()) {
-                MinecraftClient.getInstance().setScreen(new PetSpriteScreen());
+                MinecraftClient.getInstance().setScreen(new PetSpriteScreen(player.getStackInHand(hand)));
             }
         }
 
@@ -77,6 +80,10 @@ public class PetSpriteSummonItem extends TrinketItem {
             var url = tag.getString("custom_sprite");
 
             tooltip.add(Text.translatable("item.nyakomod.pet_sprite_summon.tooltip", url));
+        }
+
+        if (tag.contains("pet_size")) {
+            tooltip.add(Text.translatable("item.nyakomod.pet_sprite_summon.tooltip.size", tag.getDouble("pet_size")));
         }
     }
 }

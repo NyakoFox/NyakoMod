@@ -453,6 +453,7 @@ public class NyakoMod implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(PET_SPRITE_SET_URL,
 				(server, player, handler, buffer, sender) -> {
 					var string = buffer.readString();
+					var size = buffer.readDouble();
 
 					server.execute(() -> {
 						var stack = player.getMainHandStack();
@@ -465,6 +466,7 @@ public class NyakoMod implements ModInitializer {
 
 						var nbt = stack.getOrCreateNbt();
 						nbt.putString("custom_sprite", string);
+						nbt.putDouble("pet_size", size);
 						stack.setNbt(nbt);
 					});
 				}

@@ -44,14 +44,14 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
             vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE));
         }
 
-        renderSide(matrices, vertexConsumer, light, false);
-        renderSide(matrices, vertexConsumer, light, true);
+        renderSide(matrices, vertexConsumer, light, false, entity.getPetSize());
+        renderSide(matrices, vertexConsumer, light, true, entity.getPetSize());
 
         matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 
-    public void renderSide(MatrixStack matrices, VertexConsumer consumer, int light, boolean reversed) {
+    public void renderSide(MatrixStack matrices, VertexConsumer consumer, int light, boolean reversed, Double petSize) {
         matrices.push();
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
@@ -61,8 +61,11 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
             matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(180f));
         }
 
-        int width = 32;
-        int height = 32;
+//        int size = Math.max((int)(16 * petSize), 2);
+        int size = (int)(16 * petSize);
+
+        int width = size;
+        int height = size;
 
         if (reversed) {
             this.vertex(matrix4f, matrix3f, consumer, -width / 2, 0, 0, 0, 1, light);

@@ -41,6 +41,7 @@
     "trinkets.slot.head.pet": "Pet",
     "item.nyakomod.pet_sprite_summon": "Pet Summoner",
     "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
+    "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
 
     "key.nyakomod.model_open": "Open Model Menu"
 }

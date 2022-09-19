@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.entity;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.goal.DespawnPetGoal;
 import gay.nyako.nyakomod.entity.goal.PetFollowOwnerGoal;
 import net.fabricmc.loader.impl.util.log.Log;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -67,6 +69,14 @@ public class PetEntity extends PathAwareEntity implements Tameable {
     @Override
     public void tick() {
         super.tick();
+
+        if (!this.world.isClient()) {
+            var owner = this.getServer().getPlayerManager().getPlayer(this.getOwnerUuid());
+
+            if (owner == null) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
     }
 
     @Override

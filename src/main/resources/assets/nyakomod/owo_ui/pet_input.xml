@@ -14,7 +14,18 @@
                             </sizing>
                         </text-box>
 
-
+                        <label>
+                            <text>Pet Size (how tall it is in blocks):</text>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                        </label>
+                        <text-box id="pet-size-box">
+                            <text>2.0</text>
+                            <sizing>
+                                <horizontal method="fixed">250</horizontal>
+                            </sizing>
+                        </text-box>
 
                         <button id="submit">
                             <text>Save URL</text>

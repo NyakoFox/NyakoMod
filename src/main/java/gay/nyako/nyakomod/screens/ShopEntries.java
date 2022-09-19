@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -50,6 +51,14 @@ public class ShopEntries {
                 100000000,
                 Text.of("Livvie"),
                 Text.of("Picture of livvie  [so cute]  I want it so badly")
+        ));
+
+        var petSummoner = new ItemStack(NyakoMod.PET_SPRITE_SUMMON_ITEM);
+        MAIN.add(new ShopEntry(
+                List.of(petSummoner),
+                1000000,
+                Text.of("Pet Summoner"),
+                Text.of("Summons you a pet... but at what cost...")
         ));
     }
 }
