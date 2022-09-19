@@ -2,6 +2,8 @@ package gay.nyako.nyakomod.mixin;
 
 import java.util.Map;
 
+import gay.nyako.nyakomod.NyakoMod;
+import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,6 +34,20 @@ public abstract class ItemModelsMixin {
   @Inject(at = @At("HEAD"), method = "getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", cancellable=true)
   public void getModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
     var nbt = stack.getNbt();
+    if (stack.isOf(NyakoMod.DEV_NULL_ITEM)) {
+      if (nbt.contains("stored_item")) {
+        var storedNbt = nbt.getCompound("stored_item");
+        var stored = ItemStack.fromNbt(storedNbt);
+        if (!storedNbt.contains("modelId")) {
+          var id = Item.getRawId(stored.getItem());
+          cir.setReturnValue(models.get(id));
+          return;
+        } else {
+          nbt = storedNbt;
+        }
+      }
+    }
+
     if (nbt != null) {
       if (nbt.contains("modelId")) {
         var modelId = nbt.getString("modelId");

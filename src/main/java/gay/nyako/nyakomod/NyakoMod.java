@@ -92,6 +92,9 @@ public class NyakoMod implements ModInitializer {
 	// Custom
 	public static final Item CUSTOM_ITEM = new CustomItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(69));
 
+	// /dev/null
+	public static final Item DEV_NULL_ITEM = new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+
 	// Music Discs
 	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
 	public static SoundEvent MUSIC_DISC_MASK_SOUND_EVENT = new SoundEvent(MUSIC_DISC_MASK_SOUND);
@@ -242,6 +245,7 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
 
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"),PET_SPRITE_SUMMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "dev_null"), DEV_NULL_ITEM);
 
 		// Sounds
 		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);

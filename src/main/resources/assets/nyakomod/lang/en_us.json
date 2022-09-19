@@ -42,6 +42,7 @@
     "item.nyakomod.pet_sprite_summon": "Pet Summoner",
     "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
     "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
+    "item.nyakomod.dev_null": "/dev/null",
 
     "key.nyakomod.model_open": "Open Model Menu"
 }

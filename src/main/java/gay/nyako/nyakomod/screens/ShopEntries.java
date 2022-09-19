@@ -56,9 +56,21 @@ public class ShopEntries {
         var petSummoner = new ItemStack(NyakoMod.PET_SPRITE_SUMMON_ITEM);
         MAIN.add(new ShopEntry(
                 List.of(petSummoner),
-                1000000,
+                500000,
                 Text.of("Pet Summoner"),
                 Text.of("Summons you a pet... but at what cost...")
+        ));
+
+        var devNull = new ItemStack(NyakoMod.DEV_NULL_ITEM);
+        MAIN.add(new ShopEntry(
+                List.of(devNull),
+                1250000,
+                Text.of("/dev/null"),
+                Text.of("""
+A miraculous innovation in technology! Leveraging a miniature black hole, this handy item can store any amount of an item you put into it. You can even place blocks that are held from within!
+
+Note: this device is somewhat unstable, and removing more than one item from it at once will cause the hole to collapse, ejecting all of your items onto the floor.
+""")
         ));
     }
 }
