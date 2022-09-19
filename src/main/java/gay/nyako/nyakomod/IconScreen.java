@@ -8,11 +8,14 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
@@ -56,7 +59,7 @@ public class IconScreen extends HandledScreen<IconScreenHandler> {
     }
 
     private void renderRecipeBackground(MatrixStack matrices, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for (int i = this.scrollOffset; i < scrollOffset && i < NyakoMod.customIconURLs.size(); ++i) {
+        for (int i = this.scrollOffset; i < scrollOffset && i < handler.getIconData().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
@@ -70,15 +73,19 @@ public class IconScreen extends HandledScreen<IconScreenHandler> {
     }
 
     private void renderRecipeIcons(int x, int y, int scrollOffset) {
-        List<String> list = NyakoMod.customIconURLs;
-        for (int i = this.scrollOffset; i < scrollOffset && i < NyakoMod.customIconURLs.size(); ++i) {
+        List<Pair<Identifier, Integer>> list = handler.getIconData();
+        for (int i = this.scrollOffset; i < scrollOffset && i < list.size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            var modStack = handler.inputSlot.getStack().copy();
+            var inputStack = handler.inputSlot.getStack();
+
+            ItemStack modStack = inputStack.isEmpty() ? new ItemStack(Items.COBBLESTONE) : inputStack.copy();
+
             var nbt = modStack.getOrCreateNbt();
-            nbt.putString("modelId", NyakoMod.customIconURLs.get(i));
+            nbt.putString("modelId", list.get(i).getLeft().toString());
+            nbt.putInt("CustomModelData", list.get(i).getRight());
             modStack.setNbt(nbt);
             this.client.getItemRenderer().renderInGuiWithOverrides(modStack, k, m);
         }
@@ -134,11 +141,11 @@ public class IconScreen extends HandledScreen<IconScreenHandler> {
     }
 
     private boolean shouldScroll() {
-        return this.canCraft && NyakoMod.customIconURLs.size() > 12;
+        return this.canCraft && handler.getIconData().size() > 12;
     }
 
     protected int getMaxScroll() {
-        return (NyakoMod.customIconURLs.size() + 4 - 1) / 4 - 3;
+        return (handler.getIconData().size() + 4 - 1) / 4 - 3;
     }
 
     private void onInventoryChange() {
