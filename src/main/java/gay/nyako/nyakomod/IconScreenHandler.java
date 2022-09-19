@@ -12,10 +12,14 @@ import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class IconScreenHandler extends ScreenHandler {
 
@@ -44,6 +48,19 @@ public class IconScreenHandler extends ScreenHandler {
 
     public IconScreenHandler(int syncId, PlayerInventory inventory) {
         this(syncId, inventory, ScreenHandlerContext.EMPTY);
+        var manifest = NyakoMod.MODEL_MANAGER.getManifest();
+        var overrides = manifest.getJSONArray("overrides");
+        overrides.length();
+    }
+
+    public List<Pair<Identifier, Integer>> getIconData() {
+        var manifest = NyakoMod.MODEL_MANAGER.getManifest();
+        var overrides = manifest.getJSONArray("overrides");
+        var list = new java.util.ArrayList<Pair<Identifier, Integer>>();
+        for (int i = 0; i < overrides.length(); i++) {
+            list.add(new Pair<>(new Identifier("nyakomod", "custom"), i + 1));
+        }
+        return list;
     }
 
     public IconScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
@@ -63,6 +80,13 @@ public class IconScreenHandler extends ScreenHandler {
 
                 var inputNbt = inputStack.getOrCreateNbt();
                 var copyNbt = copyStack.getOrCreateNbt();
+
+                if (inputNbt.contains("fromButton") && inputNbt.getBoolean("fromButton")) {
+                    inputNbt.remove("fromButton");
+                    inputStack.setNbt(inputNbt);
+                    super.setStack(inputStack);
+                    return;
+                }
 
                 if (copyStack.isEmpty()) {
                     inputNbt.remove("modelId");
@@ -159,17 +183,19 @@ public class IconScreenHandler extends ScreenHandler {
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBounds(id)) {
-            String model = NyakoMod.customIconURLs.get(id);
+            var model = getIconData().get(id);
             var stack = inputSlot.getStack();
             var nbt = stack.getOrCreateNbt();
-            nbt.putString("modelId", model);
+            nbt.putString("modelId", model.getLeft().toString());
+            nbt.putInt("CustomModelData", model.getRight());
+            nbt.putBoolean("fromButton", true);
             stack.setNbt(nbt);
         }
         return true;
     }
 
     private boolean isInBounds(int id) {
-        return id >= 0 && id < NyakoMod.customIconURLs.size();
+        return id >= 0 && id < getIconData().size();
     }
 
     @Override
