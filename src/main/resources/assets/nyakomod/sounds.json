@@ -38,5 +38,29 @@
                 "stream": true
             }
         ]
+    },
+    "music_disc.clunk": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/clunk",
+                "stream": true
+            }
+        ]
+    },
+    "music_disc.merry": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/merry",
+                "stream": true
+            }
+        ]
+    },
+    "music_disc.weezed": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/weezed",
+                "stream": true
+            }
+        ]
     }
 }

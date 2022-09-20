@@ -117,16 +117,6 @@ public class NyakoMod implements ModInitializer {
 	// /dev/null
 	public static final Item DEV_NULL_ITEM = new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
-	// Music Discs
-	public static final Identifier MUSIC_DISC_MASK_SOUND = new Identifier("nyakomod:music_disc.mask");
-	public static SoundEvent MUSIC_DISC_MASK_SOUND_EVENT = new SoundEvent(MUSIC_DISC_MASK_SOUND);
-	public static final Item MUSIC_DISC_MASK = new CustomDiscItem(1, MUSIC_DISC_MASK_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE), 174);
-
-	public static final Identifier MUSIC_DISC_WOLVES_SOUND = new Identifier("nyakomod:music_disc.wolves");
-	public static SoundEvent MUSIC_DISC_WOLVES_SOUND_EVENT = new SoundEvent(MUSIC_DISC_WOLVES_SOUND);
-	public static final Item MUSIC_DISC_WOLVES = new CustomDiscItem(2, MUSIC_DISC_WOLVES_SOUND_EVENT, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE), 301);
-
-
 	// Coins
 	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
@@ -289,7 +279,7 @@ public class NyakoMod implements ModInitializer {
 		/* 2 STAR */
 		registerGachaItem(Text.of("an §5Uncraftable Potion...?"), new ItemStack(Items.POTION), 2);
 		// wolves
-		registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(MUSIC_DISC_WOLVES), 2);
+		registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(NyakoModDisc.get("wolves").discItem), 2);
 		registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) DIAMOND_GACHA_ITEM, 16);
 		registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
 
@@ -625,6 +615,8 @@ public class NyakoMod implements ModInitializer {
 					});
 			});
 
+		NyakoModDisc.registerAll();
+
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "spunch_block"), new BlockItem(SPUNCH_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
@@ -681,13 +673,6 @@ public class NyakoMod implements ModInitializer {
 
 		// Soul jar
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "soul_jar"), SOUL_JAR);
-
-		// Discs
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_mask"), MUSIC_DISC_MASK);
-		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_MASK_SOUND, MUSIC_DISC_MASK_SOUND_EVENT);
-
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "music_disc_wolves"), MUSIC_DISC_WOLVES);
-		Registry.register(Registry.SOUND_EVENT, MUSIC_DISC_WOLVES_SOUND, MUSIC_DISC_WOLVES_SOUND_EVENT);
 
 		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
 

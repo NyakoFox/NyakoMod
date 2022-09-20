@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:music_disc_mask"
+    "nyakomod:music_disc_mask",
+    "nyakomod:music_disc_clunk",
+    "nyakomod:music_disc_weezed",
+    "nyakomod:music_disc_merry",
+    "nyakomod:music_disc_wolves"
   ]
 }

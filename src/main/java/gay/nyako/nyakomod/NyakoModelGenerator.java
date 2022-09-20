@@ -103,8 +103,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
 
         // Music discs
-        itemModelGenerator.register(NyakoMod.MUSIC_DISC_MASK, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.MUSIC_DISC_WOLVES, Models.GENERATED);
+        NyakoModDisc.registerModels(itemModelGenerator);
 
         // Various gacha items
         itemModelGenerator.register(NyakoMod.DISCORD_GACHA_ITEM, Models.GENERATED);
