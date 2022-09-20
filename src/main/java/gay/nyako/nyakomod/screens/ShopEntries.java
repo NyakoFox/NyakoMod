@@ -1,15 +1,5 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.NyakoModPotion;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.PotionItem;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;

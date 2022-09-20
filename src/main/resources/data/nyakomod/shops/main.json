@@ -52,6 +52,17 @@
       "name": "Pet Summoner",
       "description": "Summons you a pet... but at what cost...",
       "price": 1000000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:dev_null",
+          "Count": 1
+        }
+      ],
+      "name": "/dev/null",
+      "description": "A miraculous innovation in technology! Leveraging a miniature black hole, this handy item can store any amount of an item you put into it. You can even place blocks that are held from within!\n\nNote: this device is somewhat unstable, and removing more than one item from it at once will cause the hole to collapse, ejecting all of your items onto the floor.",
+      "price": 1250000
     }
   ]
 }

@@ -1,29 +1,21 @@
 package gay.nyako.nyakomod.item;
 
-import net.minecraft.client.item.BundleTooltipData;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.item.TooltipData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.BundleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -90,7 +82,7 @@ public class DevNullItem extends Item {
     }
 
     public static ItemStack getStoredItem(ItemStack stack) {
-        var nbt = stack.getNbt();
+        var nbt = stack.getOrCreateNbt();
         if (nbt.contains("stored_item")) {
             return ItemStack.fromNbt(nbt.getCompound("stored_item"));
         }
@@ -109,7 +101,7 @@ public class DevNullItem extends Item {
 
         var stored = getStoredItem(stack);
         if (stored != null) {
-            var nbt = stack.getNbt();
+            var nbt = stack.getOrCreateNbt();
             if (nbt.getInt("stored_count") <= 0) {
                 return ActionResult.FAIL;
             }
@@ -191,12 +183,12 @@ public class DevNullItem extends Item {
 
     @Override
     public boolean isItemBarVisible(ItemStack stack) {
-        return stack.getNbt().contains("stored_item");
+        return stack.getOrCreateNbt().contains("stored_item");
     }
 
     @Override
     public int getItemBarStep(ItemStack stack) {
-        var nbt = stack.getNbt();
+        var nbt = stack.getOrCreateNbt();
         if (nbt.contains("stored_item")) {
             var stored = getStoredItem(stack);
             var max = stored.getMaxCount();
