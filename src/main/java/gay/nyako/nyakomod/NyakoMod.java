@@ -14,8 +14,7 @@ import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ShopData;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.screens.ShopEntry;
-import io.wispforest.owo.Owo;
-import io.wispforest.owo.ui.parsing.UIModel;
+import gay.nyako.nyakomod.NyakoModPotion;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.EnvType;
@@ -90,12 +89,9 @@ import java.util.*;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
-
 	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
 
 	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
-
-	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
@@ -244,8 +240,6 @@ public class NyakoMod implements ModInitializer {
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
 
-	public static List<String> customIconURLs = new ArrayList<>();
-
 	public static final Identifier DISCORD_SOUND = new Identifier("nyakomod:discord");
 	public static SoundEvent DISCORD_SOUND_EVENT = new SoundEvent(DISCORD_SOUND);
 
@@ -310,6 +304,7 @@ public class NyakoMod implements ModInitializer {
 		/* 3 STAR */
 		registerGachaItem(Text.of("the §9Discord Logo"), (GachaItem) DISCORD_GACHA_ITEM);
 		registerGachaItem(Text.of("a §2Potion of Luck"), PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LUCK), 3);
+		registerGachaItem(Text.of("a §2Potion of Unluck"), PotionUtil.setPotion(new ItemStack(Items.POTION), NyakoModPotion.UNLUCK), 3);
 		registerGachaItem(Text.of("5 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 5, 3);
 		registerGachaItem(Text.of("64 §7Cobblestone"), Items.COBBLESTONE, 64, 3);
 		registerGachaItem(Text.of("64 §cTorches"), Items.TORCH, 64, 3);
@@ -739,32 +734,48 @@ public class NyakoMod implements ModInitializer {
 			}
 		});
 
+		var BagDispenseBehavior = new ItemDispenserBehavior() {
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+				Position pos = DispenserBlock.getOutputLocation(pointer);
+				World world = pointer.getWorld();
+
+				var nbt = stack.getOrCreateNbt();
+
+				dispenseCoins(nbt, "copper", COPPER_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "gold", GOLD_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "emerald", EMERALD_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "diamond", DIAMOND_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "netherite", NETHERITE_COIN_ITEM, direction, pos, world);
+
+				stack.setNbt(nbt);
+
+				return stack;
+			}
+		};
+
+		DispenserBlock.registerBehavior(BAG_OF_COINS_ITEM, BagDispenseBehavior);
+		DispenserBlock.registerBehavior(HUNGRY_BAG_OF_COINS_ITEM, BagDispenseBehavior);
+
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
-
-		//RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-		//RESOURCE_PACK.dump();
 
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
 			CachedResourcePack.setPlayerResourcePack(handler.player);
 		}));
 	}
 
-	public static void registerCustomSprite(String name, BufferedImage bufferedImage) {
-		Identifier identifier = new Identifier("minecraft", "item/" + name);
+	public void dispenseCoins(NbtCompound nbt, String tag, Item type, Direction direction, Position pos, World world) {
+		if (nbt.contains(tag)) {
+			int coins = nbt.getInt(tag);
+			if (coins > 0) {
+				var stack = new ItemStack(type);
+				stack.setCount(coins);
+				nbt.remove(tag);
 
-		customIconURLs.add("minecraft:" + name);
-
-		RESOURCE_PACK.addTexture(identifier, bufferedImage);
-
-		RESOURCE_PACK.addModel(
-				JModel.model("item/generated")
-						.textures(textures()
-								.layer0(identifier.toString())
-						),
-				identifier
-		);
-
+				ItemDispenserBehavior.spawnItem(world, stack, 6, direction, pos);
+			}
+		}
 	}
 
 	public static String hash(String input) {

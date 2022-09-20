@@ -81,7 +81,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 		// drop less if the player has the curse of cunkless enchant
 		if (EnchantmentHelper.getLevel(NyakoMod.CUNKLESS_CURSE_ENCHANTMENT, handStack) > 0) {
-			coinAmount *= 0.8;
+			coinAmount *= 0.5;
 		}
 
 		if (((EntityAccess)this).isFromSpawner()) {
