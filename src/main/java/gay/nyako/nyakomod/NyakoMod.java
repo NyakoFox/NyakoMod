@@ -1,5 +1,8 @@
 package gay.nyako.nyakomod;
 
+import com.google.gson.*;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
@@ -10,6 +13,9 @@ import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ShopData;
 import gay.nyako.nyakomod.screens.ShopEntries;
+import gay.nyako.nyakomod.screens.ShopEntry;
+import io.wispforest.owo.Owo;
+import io.wispforest.owo.ui.parsing.UIModel;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.EnvType;
@@ -22,6 +28,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -31,9 +39,15 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -49,6 +63,7 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -56,9 +71,17 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -67,6 +90,9 @@ import java.util.*;
 import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
+
+	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
+
 	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("nyakomod:custom");
@@ -361,11 +387,11 @@ public class NyakoMod implements ModInitializer {
 	}
 
 
-	public static void openShop(PlayerEntity player, World world, ShopData shop) {
+	public static void openShop(PlayerEntity player, World world, Identifier shop) {
 		player.openHandledScreen(new ExtendedScreenHandlerFactory() {
 			@Override
 			public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-				buf.writeString(shop.id);
+				buf.writeIdentifier(shop);
 			}
 
 			@Override
@@ -382,6 +408,82 @@ public class NyakoMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+			@Override
+			public Identifier getFabricId() {
+				return new Identifier("nyakomod", "shops");
+			}
+
+			@Override
+			public void reload(ResourceManager manager) {
+				ShopEntries.shops.clear();
+
+				Gson gson = new Gson();
+
+				manager.findResources("shops", identifier -> identifier.getPath().endsWith(".json")).forEach((resourceId, resource) -> {
+					try {
+						var shopId = new Identifier(
+								resourceId.getNamespace(),
+								resourceId.getPath().substring(6, resourceId.getPath().length() - 5)
+						);
+
+						var shopData = new ShopData(shopId);
+
+						// Use GSon to parse the JSON file into a JsonObject
+						JsonObject shopJson = JsonParser.parseReader(new InputStreamReader(resource.getInputStream())).getAsJsonObject();
+						shopJson.getAsJsonArray("entries").forEach(entry -> {
+							JsonObject entryJson = entry.getAsJsonObject();
+							var stacks = new ArrayList<ItemStack>();
+							entryJson.getAsJsonArray("items").forEach(item -> {
+								var jsonObject = item.getAsJsonObject();
+								if ((jsonObject.get("tag") != null) &&
+									(jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
+									(jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
+									var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
+									var string = gson.toJson(display.get("Name").getAsJsonObject());
+									display.addProperty("Name",  string);
+								}
+								NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
+								stacks.add(ItemStack.fromNbt(converted));
+							});
+							shopData.add(
+									new ShopEntry(
+										stacks,
+										entryJson.get("price").getAsInt(),
+										Text.of(entryJson.get("name").getAsString()),
+										Text.of(entryJson.get("description").getAsString())
+									)
+							);
+						});
+
+						/*
+						shopJson.getJSONArray("items").forEach(item -> {
+							var itemJson = (JSONObject) item;
+							Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, itemJson).result().ifPresent(nbt -> {
+								var itemStack = ItemStack.fromNbt(nbt);
+								shopData.addItem(itemStack);
+							});
+							var itemStack = new ItemStack(Registry.ITEM.get(new Identifier(itemJson.getString("item"))));
+							itemStack.setCount(itemJson.optInt("count", 1));
+							var chance = itemJson.getDouble("chance");
+							var gachaEntry = new GachaEntry(
+									Text.of(itemJson.getString("name")),
+									itemStack,
+									rarity,
+									chance
+							);
+							shopData.gachaEntryList.add(gachaEntry);
+						});*/
+
+
+						ShopEntries.register(shopData);
+					} catch (Exception e) {
+						NyakoMod.LOGGER.error("Error occurred while loading resource json " + resourceId, e);
+					}
+				});
+			}
+		});
+
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("smite")
 					.executes(context -> {
@@ -492,7 +594,7 @@ public class NyakoMod implements ModInitializer {
 		// Cunk shop purchasing
 		ServerPlayNetworking.registerGlobalReceiver(CUNK_SHOP_PURCHASE_PACKET_ID,
 				(server, player, handler, buffer, sender) -> {
-					var shopId = buffer.readString();
+					var shopId = buffer.readIdentifier();
 					var entry = buffer.readInt();
 					var amount = buffer.readInt();
 					server.execute(() -> {
@@ -639,8 +741,6 @@ public class NyakoMod implements ModInitializer {
 
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
-
-		ShopEntries.registerShops();
 
 		//RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 		//RESOURCE_PACK.dump();

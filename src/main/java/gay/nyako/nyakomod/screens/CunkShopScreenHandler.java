@@ -11,16 +11,17 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenHandlerSyncHandler;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class CunkShopScreenHandler extends ScreenHandler {
     public final ScreenHandlerContext context;
-    public String shopId;
+    public Identifier shopId;
 
     public CunkShopScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, ScreenHandlerContext.EMPTY);
-        shopId = buf.readString();
+        shopId = buf.readIdentifier();
     }
 
     public CunkShopScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {

@@ -27,6 +27,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
     public FlowLayout layout;
 
     public CunkShopHandledScreen(CunkShopScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.file("cunk_shop.xml"));
+        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.asset(new Identifier("nyakomod", "cunk_shop")));
         this.titleY = 69420;
         this.playerInventoryTitleY = 69420;
     }
@@ -104,7 +105,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
             }
 
             PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-            passedData.writeString(handler.shopId);
+            passedData.writeIdentifier(handler.shopId);
             passedData.writeInt(selectedEntry);
             passedData.writeInt(purchaseAmount);
             ClientPlayNetworking.send(NyakoMod.CUNK_SHOP_PURCHASE_PACKET_ID, passedData);
@@ -139,6 +140,8 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         for (ItemStack item : shopEntry.stacks()) {
             addItem(item, rootComponent);
         }
+
+        rootComponent.childById(LabelComponent.class, "purchase-header").text(shopEntry.name());
 
         rootComponent.childById(LabelComponent.class,"entry-description").text(shopEntry.description());
 

@@ -1,0 +1,57 @@
+{
+  "entries": [
+    {
+      "items": [
+        {
+          "id": "minecraft:potion",
+          "Count": 1,
+          "tag": {
+            "Potion": "minecraft:luck"
+          }
+        }
+      ],
+      "name": "Potion of Luck",
+      "description": "A potion that may make your chances of getting something good a little higher.\n\nFUN FACT: Did you know that 80% of people who gamble quit right before they're about to hit it big?",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
+          "id": "minecraft:potion",
+          "Count": 1,
+          "tag": {
+            "Potion": "minecraft:unluck"
+          }
+        }
+      ],
+      "name": "Potion of Unluck",
+      "description": "You might not want to drink this, however it might be fun to trick a friend into trying.",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
+          "id": "minecraft:potion",
+          "Count": 1,
+          "tag": {
+            "Potion": "minecraft:nausea"
+          }
+        }
+      ],
+      "name": "Potion of Nausea",
+      "description": "A potion that makes you feel sick. It's not very fun, but maybe it's a good way to get rid of unwanted guests.",
+      "price": 2500
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:pet_sprite_summon",
+          "Count": 1
+        }
+      ],
+      "name": "Pet Summoner",
+      "description": "Summons you a pet... but at what cost...",
+      "price": 1000000
+    }
+  ]
+}

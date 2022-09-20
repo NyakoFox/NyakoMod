@@ -1,0 +1,196 @@
+<owo-ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.19/owo-ui.xsd">
+    <components>
+        <flow-layout direction="vertical">
+            <children>
+                <flow-layout direction="vertical">
+                    <children>
+                        <scroll direction="horizontal">
+                            <flow-layout direction="horizontal" id="current_money">
+                                <children>
+                                </children>
+                                <horizontal-alignment>center</horizontal-alignment>
+                                <vertical-alignment>bottom</vertical-alignment>
+                            </flow-layout>
+                            <sizing>
+                                <horizontal method="fixed">91</horizontal>
+                                <vertical method="fixed">20</vertical>
+                            </sizing>
+                            <positioning type="absolute">1,126</positioning>
+                            <surface>
+                                <outline>DDARK_GRAY</outline>
+                            </surface>
+                            <padding>
+                                <all>2</all>
+                            </padding>
+                        </scroll>
+                        <label>
+                            <text>The CunkShop™</text>
+                            <color>DDARK_GRAY</color>
+                            <margins>
+                                <bottom>4</bottom>
+                            </margins>
+                        </label>
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <scroll direction="vertical">
+                                    <flow-layout direction="vertical" id="button_list">
+                                        <children>
+                                            <!-- Buttons here -->
+                                        </children>
+                                        <horizontal-alignment>center</horizontal-alignment>
+                                        <vertical-alignment>center</vertical-alignment>
+                                    </flow-layout>
+                                    <sizing>
+                                        <horizontal method="fixed">91</horizontal>
+                                        <vertical method="fixed">111</vertical>
+                                    </sizing>
+                                    <surface>
+                                        <outline>DDARK_GRAY</outline>
+                                    </surface>
+                                </scroll>
+                                <flow-layout direction="vertical">
+                                    <children>
+                                        <label id="purchase-header">
+                                            <text>Purchase</text>
+                                            <color>DDARK_GRAY</color>
+                                            <margins>
+                                                <bottom>4</bottom>
+                                            </margins>
+                                        </label>
+
+                                        <scroll direction="vertical">
+                                            <flow-layout direction="vertical" id="purchase-description">
+                                                <children>
+                                                    <scroll direction="horizontal">
+                                                        <flow-layout direction="horizontal" id="result-list">
+                                                            <children>
+                                                                <!-- Results here -->
+                                                            </children>
+                                                            <vertical-alignment>bottom</vertical-alignment>
+                                                        </flow-layout>
+                                                        <sizing>
+                                                            <horizontal method="fixed">154</horizontal>
+                                                        </sizing>
+                                                    </scroll>
+                                                    <box>
+                                                        <color>DDARK_GRAY</color>
+                                                        <sizing>
+                                                            <horizontal method="fill">100</horizontal>
+                                                            <vertical method="fixed">1</vertical>
+                                                        </sizing>
+                                                        <fill>true</fill>
+                                                        <margins>
+                                                            <top>4</top>
+                                                            <bottom>4</bottom>
+                                                        </margins>
+                                                    </box>
+                                                    <label id="entry-description">
+                                                        <text></text>
+                                                        <color>DDARK_GRAY</color>
+                                                        <margins>
+                                                            <bottom>4</bottom>
+                                                        </margins>
+                                                        <max-width>154</max-width>
+                                                    </label>
+                                                </children>
+                                            </flow-layout>
+                                            <sizing>
+                                                <vertical method="fixed">78</vertical>
+                                            </sizing>
+                                        </scroll>
+                                        <scroll direction="horizontal">
+                                            <flow-layout direction="horizontal" id="price-display">
+                                                <children>
+                                                </children>
+                                                <horizontal-alignment>center</horizontal-alignment>
+                                                <vertical-alignment>bottom</vertical-alignment>
+                                                <margins>
+                                                    <top>2</top>
+                                                    <bottom>2</bottom>
+                                                </margins>
+                                            </flow-layout>
+                                            <sizing>
+                                                <horizontal method="fixed">154</horizontal>
+                                            </sizing>
+                                        </scroll>
+                                        <flow-layout direction="horizontal">
+                                            <children>
+                                                <button id="remove_16">
+                                                    <text>-16</text>
+                                                    <margins>
+                                                        <left>2</left>
+                                                        <right>2</right>
+                                                    </margins>
+                                                </button>
+                                                <button id="remove_1">
+                                                    <text>-1</text>
+                                                    <margins>
+                                                        <left>2</left>
+                                                        <right>2</right>
+                                                    </margins>
+                                                </button>
+                                                <button id="buy">
+                                                    <text>Buy</text>
+                                                    <margins>
+                                                        <left>2</left>
+                                                        <right>2</right>
+                                                    </margins>
+                                                </button>
+                                                <button id="add_1">
+                                                    <text>+1</text>
+                                                    <margins>
+                                                        <left>2</left>
+                                                        <right>2</right>
+                                                    </margins>
+                                                </button>
+                                                <button id="add_16">
+                                                    <text>+16</text>
+                                                    <margins>
+                                                        <left>2</left>
+                                                        <right>2</right>
+                                                    </margins>
+                                                </button>
+                                            </children>
+                                            <margins>
+                                                <top>1</top>
+                                            </margins>
+                                        </flow-layout>
+                                    </children>
+                                    <margins>
+                                        <left>10</left>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fixed">154</horizontal>
+                                        <vertical method="fixed">132</vertical>
+                                    </sizing>
+                                    <allow-overflow>false</allow-overflow>
+                                    <horizontal-alignment>center</horizontal-alignment>
+                                </flow-layout>
+                            </children>
+                            <vertical-alignment>top</vertical-alignment>
+                        </flow-layout>
+                    </children>
+                    <horizontal-alignment>center</horizontal-alignment>
+                    <vertical-alignment>top</vertical-alignment>
+                    <padding>
+                        <all>10</all>
+                    </padding>
+                    <surface>
+                        <panel dark="false"/>
+                    </surface>
+                    <sizing>
+                        <horizontal method="fixed">276</horizontal>
+                        <vertical method="fixed">166</vertical>
+                    </sizing>
+                </flow-layout>
+            </children>
+            <vertical-alignment>center</vertical-alignment>
+            <horizontal-alignment>center</horizontal-alignment>
+            <surface>
+                <vanilla-translucent/>
+            </surface>
+        </flow-layout>
+
+    </components>
+</owo-ui>

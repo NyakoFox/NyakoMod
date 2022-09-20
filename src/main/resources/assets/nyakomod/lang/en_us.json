@@ -24,6 +24,7 @@
     "item.nyakomod.soul_jar.tooltip": "§7Current entity: §r%s",
     "item.nyakomod.staff_of_smiting": "Staff of Smiting",
     "item.nyakomod.staff_of_vorbulation": "Staff of Vorbulation",
+    "item.nyakomod.test_item": "§bNyakoMod Test Item",
     "item.nyakomod.time_in_a_bottle": "Time In A Bottle",
     "item.nyakomod.time_in_a_bottle.tooltip": "%d H §7§o|§r %d M §7§o|§r %d S",
     "item.nyakomod.diamond_gacha": "Squishy Diamond",
@@ -32,17 +33,78 @@
     "item.nyakomod.luigi_gacha": "§aLuigi",
     "item.nyakomod.present": "Present",
     "item.nyakomod.custom": "When You See It",
-    "key.nyakomod.killbind": "Kill player",
+    "item.nyakomod.pet_sprite_summon": "Pet Summoner",
+    "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
+    "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
+    "item.nyakomod.dev_null": "/dev/null",
+
+    "item.minecraft.potion.effect.haste": "Potion of Haste",
+    "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
+    "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
+    "item.minecraft.tipped_arrow.effect.haste": "Tipped Arrow of Haste",
+
+    "item.minecraft.potion.effect.mining_fatigue": "Potion of Mining Fatigue",
+    "item.minecraft.splash_potion.effect.mining_fatigue": "Splash Potion of Mining Fatigue",
+    "item.minecraft.lingering_potion.effect.mining_fatigue": "Lingering Potion of Mining Fatigue",
+    "item.minecraft.tipped_arrow.effect.mining_fatigue": "Tipped Arrow of Mining Fatigue",
+
+    "item.minecraft.potion.effect.nausea": "Potion of Nausea",
+    "item.minecraft.splash_potion.effect.nausea": "Splash Potion of Nausea",
+    "item.minecraft.lingering_potion.effect.nausea": "Lingering Potion of Nausea",
+    "item.minecraft.tipped_arrow.effect.nausea": "Tipped Arrow of Nausea",
+
+    "item.minecraft.potion.effect.glowing": "Potion of Glowing",
+    "item.minecraft.splash_potion.effect.glowing": "Splash Potion of Glowing",
+    "item.minecraft.lingering_potion.effect.glowing": "Lingering Potion of Glowing",
+    "item.minecraft.tipped_arrow.effect.glowing": "Tipped Arrow of Glowing",
+
+    "item.minecraft.potion.effect.saturation": "Potion of Saturation",
+    "item.minecraft.splash_potion.effect.saturation": "Splash Potion of Saturation",
+    "item.minecraft.lingering_potion.effect.saturation": "Lingering Potion of Saturation",
+    "item.minecraft.tipped_arrow.effect.saturation": "Tipped Arrow of Saturation",
+
+    "item.minecraft.potion.effect.absorption": "Potion of Absorption",
+    "item.minecraft.splash_potion.effect.absorption": "Splash Potion of Absorption",
+    "item.minecraft.lingering_potion.effect.absorption": "Lingering Potion of Absorption",
+    "item.minecraft.tipped_arrow.effect.absorption": "Tipped Arrow of Absorption",
+
+    "item.minecraft.potion.effect.health_boost": "Potion of Health Boost",
+    "item.minecraft.splash_potion.effect.health_boost": "Splash Potion of Health Boost",
+    "item.minecraft.lingering_potion.effect.health_boost": "Lingering Potion of Health Boost",
+    "item.minecraft.tipped_arrow.effect.health_boost": "Tipped Arrow of Health Boost",
+
+    "item.minecraft.potion.effect.unluck": "Potion of Unluck",
+    "item.minecraft.splash_potion.effect.unluck": "Splash Potion of Unluck",
+    "item.minecraft.lingering_potion.effect.unluck": "Lingering Potion of Unluck",
+    "item.minecraft.tipped_arrow.effect.unluck": "Tipped Arrow of Unluck",
+
+    "item.minecraft.potion.effect.darkness": "Potion of Darkness",
+    "item.minecraft.splash_potion.effect.darkness": "Splash Potion of Darkness",
+    "item.minecraft.lingering_potion.effect.darkness": "Lingering Potion of Darkness",
+    "item.minecraft.tipped_arrow.effect.darkness": "Tipped Arrow of Darkness",
+
+    "item.minecraft.potion.effect.dolphins_grace": "Potion of Dolphin's Grace",
+    "item.minecraft.splash_potion.effect.dolphins_grace": "Splash Potion of Dolphin's Grace",
+    "item.minecraft.lingering_potion.effect.dolphins_grace": "Lingering Potion of Dolphin's Grace",
+    "item.minecraft.tipped_arrow.effect.dolphins_grace": "Tipped Arrow of Dolphin's Grace",
+
+    "item.minecraft.potion.effect.hunger": "Potion of Hunger",
+    "item.minecraft.splash_potion.effect.hunger": "Splash Potion of Hunger",
+    "item.minecraft.lingering_potion.effect.hunger": "Lingering Potion of Hunger",
+    "item.minecraft.tipped_arrow.effect.hunger": "Tipped Arrow of Hunger",
+
+    "item.minecraft.potion.effect.blindness": "Potion of Blindness",
+    "item.minecraft.splash_potion.effect.blindness": "Splash Potion of Blindness",
+    "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
+    "item.minecraft.tipped_arrow.effect.blindness": "Tipped Arrow of Blindness",
+
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
     "subtitles.nyakomod.wolves": "Kanye West - Wolves",
     "subtitles.nyakomod.discord": "Discord notification",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
-    "item.nyakomod.pet_sprite_summon": "Pet Summoner",
-    "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
-    "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
-    "item.nyakomod.dev_null": "/dev/null",
 
-    "key.nyakomod.model_open": "Open Model Menu"
+    "key.nyakomod.model_open": "Open Model Menu",
+    "key.nyakomod.killbind": "Kill player"
 }
