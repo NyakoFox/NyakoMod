@@ -117,8 +117,6 @@ public class CachedResourcePack {
     }
 
     public static void setPlayerResourcePack(ServerPlayerEntity player) {
-        // var config = AllyCatPlugin.INSTANCE.getConfig();
-
         Formatter formatter = new Formatter();
         for (byte b : packHash)
         {
@@ -128,11 +126,10 @@ public class CachedResourcePack {
         formatter.close();
 
         // Append the pack's hash as a nonce, to force refetch
-        // var url = config.getString("resourcePackUrl") + "?t=" + result;
         var url = NyakoMod.CONFIG.packURL() + "?t=" + result;
 
         player.sendResourcePackUrl(url, result, false, Text.literal("Pwease enable da wesouwce pack ;w;").formatted(Formatting.AQUA));
 
-        // PackUpdateNotifier.registerUpdate(player);
+        PackUpdateNotifier.registerUpdate(player);
     }
 }

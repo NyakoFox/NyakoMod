@@ -116,7 +116,7 @@ public class ModelManager {
     }
 
     public void addModel(ServerPlayerEntity player, String name, String type, String url) {
-        var hash = NyakoMod.hash(url);
+        var hash = NyakoMod.hash(url + player.getUuidAsString());
         var hashedName = name + "_" + hash;
 
         var image = downloadImage(url);

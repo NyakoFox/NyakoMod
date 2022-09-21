@@ -1,10 +1,12 @@
 package gay.nyako.nyakomod;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -15,7 +17,7 @@ public class PackUpdateNotifier {
     public static void causePackUpdate(ServerPlayerEntity initiator) {
         notifyAckedPlayers(initiator);
 
-        notifAck.replaceAll((uuid, status) -> false);
+        notifAck.replaceAll((uuid, status) -> uuid.equals(initiator.getUuid()));
     }
 
     public static void notifyAckedPlayers(ServerPlayerEntity initiator) {
@@ -28,20 +30,28 @@ public class PackUpdateNotifier {
         }
     }
 
-    public static void notifyPlayers() {
-//        for (var player : ) {
-//            if (!playerHasUpdated(player)) {
-//                notifyPlayer(player);
-//            }
-//        }
+    public static void notifyUnackedPlayers(MinecraftServer server) {
+        for (var player : server.getPlayerManager().getPlayerList()) {
+            if (!playerHasUpdated(player)) {
+                notifyPlayer(player);
+            }
+        }
     }
 
     public static void notifyPlayer(ServerPlayerEntity player) {
-        player.sendMessage(Text.literal("The server resource pack has updated! Type §6/icon update§f to update."));
+        var text = Text.literal("[HERE]").formatted(Formatting.GOLD);
+        text.setStyle(text.getStyle()
+                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pack update"))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("/pack update")))
+                .withBold(true));
+        player.sendMessage(
+                Text.literal("The server resource pack has updated! Click ")
+                        .append(text)
+                        .append(" to update."));
     }
 
     public static boolean playerHasUpdated(ServerPlayerEntity player) {
-        return false;
+        return notifAck.getOrDefault(player.getUuid(), false);
     }
 
     public static void registerUpdate(ServerPlayerEntity player) {
