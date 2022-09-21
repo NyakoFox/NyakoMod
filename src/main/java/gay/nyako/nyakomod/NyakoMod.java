@@ -22,6 +22,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -38,6 +39,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContextType;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -391,8 +399,71 @@ public class NyakoMod implements ModInitializer {
 		});
 	}
 
+
+	private LootPool.Builder addLootTableCoins(LootPool.Builder lootPoolBuilder, Item coinItem, int min, int max, int weight) {
+		return lootPoolBuilder.with(ItemEntry.builder(coinItem)
+				.weight(weight)
+				.quality(0)
+				.apply(SetCountLootFunction.builder(
+						UniformLootNumberProvider.create(min, max)
+				))
+		);
+	}
+
 	@Override
 	public void onInitialize() {
+
+		List<Identifier> coinLootTables = new ArrayList<>();
+		coinLootTables.add(new Identifier("minecraft", "chests/simple_dungeon"));
+		coinLootTables.add(new Identifier("minecraft", "chests/abandoned_mineshaft"));
+		coinLootTables.add(new Identifier("minecraft", "chests/stronghold_corridor"));
+		coinLootTables.add(new Identifier("minecraft", "chests/stronghold_crossing"));
+		coinLootTables.add(new Identifier("minecraft", "chests/stronghold_library"));
+		coinLootTables.add(new Identifier("minecraft", "chests/woodland_mansion"));
+		coinLootTables.add(new Identifier("minecraft", "chests/underwater_ruin_small"));
+		coinLootTables.add(new Identifier("minecraft", "chests/underwater_ruin_big"));
+		coinLootTables.add(new Identifier("minecraft", "chests/shipwreck_map"));
+		coinLootTables.add(new Identifier("minecraft", "chests/shipwreck_supply"));
+		coinLootTables.add(new Identifier("minecraft", "chests/nether_bridge"));
+		coinLootTables.add(new Identifier("minecraft", "chests/shipwreck_treasure"));
+		coinLootTables.add(new Identifier("minecraft", "chests/buried_treasure"));
+		coinLootTables.add(new Identifier("minecraft", "chests/end_city_treasure"));
+		coinLootTables.add(new Identifier("minecraft", "chests/pillager_outpost"));
+		coinLootTables.add(new Identifier("minecraft", "chests/jungle_temple"));
+		coinLootTables.add(new Identifier("minecraft", "chests/desert_pyramid"));
+		coinLootTables.add(new Identifier("minecraft", "chests/igloo_chest"));
+		coinLootTables.add(new Identifier("minecraft", "chests/ruined_portal"));
+		coinLootTables.add(new Identifier("minecraft", "chests/village/village_weaponsmith"));
+
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			// Check if the loot table is one of the coin loot tables
+			if (source.isBuiltin() && coinLootTables.contains(id)) {
+				// Add a random amount of copper coins to the loot table
+				var copperMin = 50;
+				var copperMax = 95;
+				var copperWeight = 1;
+
+				var lootPoolBuilder = LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1));
+
+				switch (id.toString()) {
+					// treasure
+					case "minecraft:chests/end_city_treasure":
+						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, EMERALD_COIN_ITEM, 1, 2, 5);
+					case "minecraft:chests/buried_treasure":
+					case "minecraft:chests/shipwreck_treasure":
+						copperMin = 0;
+						copperMax = 100;
+						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, GOLD_COIN_ITEM, 40, 80, 10);
+						break;
+				}
+
+				lootPoolBuilder = addLootTableCoins(lootPoolBuilder, COPPER_COIN_ITEM, copperMin, copperMax, copperWeight);
+
+				tableBuilder.pool(lootPoolBuilder);
+			}
+		});
+
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public Identifier getFabricId() {
