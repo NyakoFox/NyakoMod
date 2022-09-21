@@ -52,6 +52,8 @@ public class NyakoModDisc {
         createSong("clunk", toSeconds(2, 36));
         createSong("merry", toSeconds(10, 10));
         createSong("weezed", toSeconds(4, 19));
+        createSong("moonlight", toSeconds(3, 10));
+        createSong("welcome", toSeconds(3, 8));
     }
 
     public static void registerAll() {

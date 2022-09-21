@@ -62,5 +62,21 @@
                 "stream": true
             }
         ]
+    },
+    "music_disc.welcome": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/welcome",
+                "stream": true
+            }
+        ]
+    },
+    "music_disc.moonlight": {
+        "sounds": [
+            {
+                "name": "nyakomod:music_disc/moonlight",
+                "stream": true
+            }
+        ]
     }
 }

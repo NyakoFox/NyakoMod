@@ -796,7 +796,6 @@ public class NyakoMod implements ModInitializer {
 			XpCommand.register(dispatcher);
 			LoreCommand.register(dispatcher);
 			RenameCommand.register(dispatcher);
-			IconCommand.register(dispatcher);
 		});
 	}
 }

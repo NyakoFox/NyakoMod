@@ -9,10 +9,13 @@ import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.MinecraftClient;
@@ -41,12 +44,8 @@ public class NyakoClientMod implements ClientModInitializer {
 	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
 	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
-	private static final KeyBinding OPEN_MODEL = new KeyBinding("key.nyakomod.model_open", GLFW.GLFW_KEY_I, "key.categories.misc");
-
-
 	@Override
 	public void onInitializeClient() {
-
 		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, (context) -> {
 			return new PetSpriteRenderer(context);
 		});
@@ -58,16 +57,10 @@ public class NyakoClientMod implements ClientModInitializer {
 				"category.nyakomod.binds" // The translation key of the keybinding's category.
 		));
 
-		KeyBindingHelper.registerKeyBinding(OPEN_MODEL);
-
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
 				ClientPlayNetworking.send(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
-			}
-
-			if (OPEN_MODEL.wasPressed()) {
-				client.setScreen(new ModelScreen());
 			}
 		});
 
@@ -97,6 +90,16 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.EMERALD_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, RenderLayer.getCutout());
+
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
+				var client = context.getSource().getClient();
+				client.send(() -> {
+					client.setScreen(new ModelScreen());
+				});
+				return 1;
+			}));
+		});
 	}
 
 	private static final List<String> downloadedUrls = new ArrayList<>();
