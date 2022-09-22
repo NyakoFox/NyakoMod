@@ -76,8 +76,6 @@ dependencies {
 
 	modRuntimeOnly(include("com.terraformersmc:modmenu:4.0.6"))
 
-	modImplementation("net.devtech:arrp:0.+")
-
 	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 	// only if you plan to use owo-config
 	annotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
