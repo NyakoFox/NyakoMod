@@ -69,8 +69,11 @@ public class PetDragonModel extends EntityModel<PetDragonEntity> {
 	@Override
 	public void setAngles(PetDragonEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// Wings.setAngles(limbSwing, 0, 0);
-		this.Head.pitch = headPitch * ((float)Math.PI / 180);
+		this.Head.setPivot(0, 18.0F, 0);
+		// this.Head.pitch = -10;
+		this.Head.pitch = headPitch * ((float)Math.PI / 180) / 4;
 		this.Head.yaw = netHeadYaw * ((float)Math.PI / 180);
+//		this.Head.yaw = 0;
 		// this.rightWing.setPivot(0.0f, 0.0f, 0.0f);
 		// this.leftWing.setPivot(0.0f, 0.0f, 0.0f);
 		this.rightWing.yaw = MathHelper.cos(ageInTicks * 74.48451f * ((float)Math.PI / 180)) * (float)Math.PI * 0.25f;
