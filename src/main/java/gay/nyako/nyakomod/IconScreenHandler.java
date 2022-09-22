@@ -1,14 +1,14 @@
 package gay.nyako.nyakomod;
 
 import io.wispforest.owo.client.screens.ScreenUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -64,7 +64,7 @@ public class IconScreenHandler extends ScreenHandler {
     }
 
     public IconScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoClientMod.ICON_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoMod.ICON_SCREEN_HANDLER_TYPE, syncId);
         int i;
         this.context = context;
         this.world = inventory.player.world;
@@ -228,7 +228,7 @@ public class IconScreenHandler extends ScreenHandler {
 
     @Override
     public ScreenHandlerType<?> getType() {
-        return NyakoClientMod.ICON_SCREEN_HANDLER_TYPE;
+        return NyakoMod.ICON_SCREEN_HANDLER_TYPE;
     }
 
     public void setContentsChangedListener(Runnable contentsChangedListener) {

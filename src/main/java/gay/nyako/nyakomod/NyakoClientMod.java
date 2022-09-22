@@ -45,8 +45,6 @@ import java.util.List;
 
 public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
-	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
-	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
 	@Override
 	public void onInitializeClient() {
@@ -86,10 +84,8 @@ public class NyakoClientMod implements ClientModInitializer {
 			return 0;
 		});
 
-		HandledScreens.register(ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
-		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), CUNK_SHOP_SCREEN_HANDLER_TYPE);
-
-		HandledScreens.register(CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
+		HandledScreens.register(NyakoMod.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+		HandledScreens.register(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
     
     	BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK,    RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK,      RenderLayer.getCutout());

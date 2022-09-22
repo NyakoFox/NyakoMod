@@ -1,19 +1,13 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerListener;
-import net.minecraft.screen.ScreenHandlerSyncHandler;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
 
 public class CunkShopScreenHandler extends ScreenHandler {
     public final ScreenHandlerContext context;
@@ -25,7 +19,7 @@ public class CunkShopScreenHandler extends ScreenHandler {
     }
 
     public CunkShopScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoClientMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
         this.context = context;
         enableSyncing();
     }
