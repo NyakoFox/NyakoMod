@@ -43,7 +43,7 @@ public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
         submitButton.onPress(button -> {
             var value = urlElement.getText();
             var name = nameElement.getText();
-            if (value.startsWith("https://") && value.endsWith(".png")) {
+            if (value.startsWith("https://") && (value.endsWith(".png") || value.endsWith(".jpg") || value.endsWith(".jpeg"))) {
                 name = name.toLowerCase().replaceAll("[^a-z_0-9]", "");
 
                 var buf = PacketByteBufs.create();
