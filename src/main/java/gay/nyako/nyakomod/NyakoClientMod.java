@@ -48,9 +48,7 @@ public class NyakoClientMod implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, (context) -> {
-			return new PetSpriteRenderer(context);
-		});
+		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, PetSpriteRenderer::new);
 
 		KeyBinding killBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.nyakomod.killbind", // The translation key of the keybinding's name
@@ -93,22 +91,18 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, RenderLayer.getCutout());
 
-		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
-				var client = context.getSource().getClient();
-				client.send(() -> {
-					client.setScreen(new ModelScreen());
-				});
-				return 1;
-			}));
-		});
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
+			var client = context.getSource().getClient();
+			client.send(() -> client.setScreen(new ModelScreen()));
+			return 1;
+		})));
 	}
 
 	private static final List<String> downloadedUrls = new ArrayList<>();
 
 	public static BufferedImage downloadImage(String urlPath) {
 		BufferedImage image = null;
-		URL url = null;
+		URL url;
 
 		System.out.println("downloading " + urlPath);
 
@@ -119,8 +113,6 @@ public class NyakoClientMod implements ClientModInitializer {
 			connection.connect();
 			image = ImageIO.read(connection.getInputStream());
 		} catch (Exception e) {
-			url = null;
-			image = null;
 			e.printStackTrace();
 		}
 
@@ -149,7 +141,7 @@ public class NyakoClientMod implements ClientModInitializer {
 			return null;
 		}
 
-		NativeImage nativeImage = null;
+		NativeImage nativeImage;
 		try {
 			nativeImage = getFromBuffered(image);
 		} catch (IOException e) {

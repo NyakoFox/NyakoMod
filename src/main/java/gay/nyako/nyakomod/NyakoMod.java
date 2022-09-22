@@ -386,6 +386,10 @@ public class NyakoMod implements ModInitializer {
 			@Override
 			public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
 				buf.writeIdentifier(shop);
+				var string = ShopEntries.savedJson.get(shop).toString();
+				var length = string.getBytes(StandardCharsets.UTF_8).length;
+				buf.writeInt(length);
+				buf.writeString(string, length);
 			}
 
 			@Override
@@ -409,6 +413,40 @@ public class NyakoMod implements ModInitializer {
 						UniformLootNumberProvider.create(min, max)
 				))
 		);
+	}
+
+	public static void storeShopModelJson(JsonObject shopJson, Identifier shop) {
+		ShopEntries.savedJson.put(shop, shopJson);
+	}
+
+	public static void loadShopModelFromJson(JsonObject shopJson, ShopData shopData) {
+		Gson gson = new Gson();
+		shopJson.getAsJsonArray("entries").forEach(entry -> {
+			JsonObject entryJson = entry.getAsJsonObject();
+			var stacks = new ArrayList<ItemStack>();
+			entryJson.getAsJsonArray("items").forEach(item -> {
+				var jsonObject = item.getAsJsonObject();
+				if ((jsonObject.get("tag") != null) &&
+						(jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
+						(jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
+					var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
+					var string = gson.toJson(display.get("Name").getAsJsonObject());
+					display.addProperty("Name",  string);
+				}
+				NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
+				stacks.add(ItemStack.fromNbt(converted));
+			});
+			shopData.add(
+					new ShopEntry(
+							stacks,
+							entryJson.get("price").getAsInt(),
+							Text.of(entryJson.get("name").getAsString()),
+							Text.of(entryJson.get("description").getAsString())
+					)
+			);
+		});
+
+		ShopEntries.register(shopData);
 	}
 
 	@Override
@@ -475,8 +513,6 @@ public class NyakoMod implements ModInitializer {
 			public void reload(ResourceManager manager) {
 				ShopEntries.shops.clear();
 
-				Gson gson = new Gson();
-
 				manager.findResources("shops", identifier -> identifier.getPath().endsWith(".json")).forEach((resourceId, resource) -> {
 					try {
 						var shopId = new Identifier(
@@ -488,32 +524,8 @@ public class NyakoMod implements ModInitializer {
 
 						// Use GSon to parse the JSON file into a JsonObject
 						JsonObject shopJson = JsonParser.parseReader(new InputStreamReader(resource.getInputStream())).getAsJsonObject();
-						shopJson.getAsJsonArray("entries").forEach(entry -> {
-							JsonObject entryJson = entry.getAsJsonObject();
-							var stacks = new ArrayList<ItemStack>();
-							entryJson.getAsJsonArray("items").forEach(item -> {
-								var jsonObject = item.getAsJsonObject();
-								if ((jsonObject.get("tag") != null) &&
-									(jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
-									(jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
-									var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
-									var string = gson.toJson(display.get("Name").getAsJsonObject());
-									display.addProperty("Name",  string);
-								}
-								NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
-								stacks.add(ItemStack.fromNbt(converted));
-							});
-							shopData.add(
-									new ShopEntry(
-										stacks,
-										entryJson.get("price").getAsInt(),
-										Text.of(entryJson.get("name").getAsString()),
-										Text.of(entryJson.get("description").getAsString())
-									)
-							);
-						});
-
-						ShopEntries.register(shopData);
+						loadShopModelFromJson(shopJson, shopData);
+						storeShopModelJson(shopJson, shopId);
 					} catch (Exception e) {
 						NyakoMod.LOGGER.error("Error occurred while loading resource json " + resourceId, e);
 					}
