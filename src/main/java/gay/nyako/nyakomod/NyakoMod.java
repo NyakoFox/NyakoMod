@@ -15,9 +15,6 @@ import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ShopData;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.screens.ShopEntry;
-import gay.nyako.nyakomod.NyakoModPotion;
-import net.devtech.arrp.api.RuntimeResourcePack;
-import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
@@ -41,16 +38,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextType;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
@@ -71,8 +64,6 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Rarity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -82,20 +73,12 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-
-import static net.devtech.arrp.json.models.JModel.textures;
 
 public class NyakoMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
@@ -104,7 +87,7 @@ public class NyakoMod implements ModInitializer {
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
-	// Killbinding
+	// Kill binding
 	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
 	// Spunch block
 	public static final Identifier SPUNCH_BLOCK_SOUND = new Identifier("nyakomod:vine_boom");
@@ -537,6 +520,10 @@ public class NyakoMod implements ModInitializer {
 			dispatcher.register(CommandManager.literal("smite")
 					.executes(context -> {
 						ServerPlayerEntity player = context.getSource().getPlayer();
+						if (player == null) {
+							return 0;
+						}
+
 						var smiteDistance = 128;
 
 						Vec3d pos = player.getCameraPosVec(0.0F);
@@ -598,7 +585,7 @@ public class NyakoMod implements ModInitializer {
 			);
 		});
 
-		// Killbind
+		// Kill bind
 		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
 				(server, player, handler, buffer, sender) -> server.execute(() -> {
 					player.damage(DamageSource.MAGIC, 3.4028235E38F);
@@ -648,6 +635,9 @@ public class NyakoMod implements ModInitializer {
 					var amount = buffer.readInt();
 					server.execute(() -> {
 						var shop = ShopEntries.getShop(shopId);
+						if (shop == null) {
+							return;
+						}
 						var currentEntry = shop.entries.get(entry);
 						var cost = currentEntry.price() * amount;
 
@@ -732,7 +722,7 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), BAG_OF_COINS_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "hungry_bag_of_coins"), HUNGRY_BAG_OF_COINS_ITEM);
 
-		// TIAB
+		// Time in a bottle
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "time_in_a_bottle"), TIME_IN_A_BOTTLE);
 
 		// Soul jar
@@ -762,10 +752,10 @@ public class NyakoMod implements ModInitializer {
 					BlockPos blockPos = pointer.getPos().offset(direction);
 					List<Entity> list = pointer.getWorld().getEntitiesByClass(
 							Entity.class,
-							new Box(blockPos), (Entityx) -> Entityx.isAlive()
+							new Box(blockPos), Entity::isAlive
 					);
 
-					Iterator var5 = list.iterator();
+					Iterator<Entity> var5 = list.iterator();
 
 					Entity entity;
 					ItemStack newStack;
@@ -774,7 +764,7 @@ public class NyakoMod implements ModInitializer {
 							return super.dispenseSilently(pointer, stack);
 						}
 
-						entity = (Entity) var5.next();
+						entity = var5.next();
 						newStack = ((SoulJarItem) stack.getItem()).captureEntity(stack, null, (LivingEntity) entity);
 					} while (newStack == null);
 
