@@ -1,5 +1,6 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import io.wispforest.owo.client.screens.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -51,7 +52,7 @@ public class IconScreenHandler extends ScreenHandler {
     public IconScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, ScreenHandlerContext.EMPTY);
         var length = buf.readInt();
-        NyakoMod.MODEL_MANAGER.manifest = new JSONObject(buf.readString(length));
+        NyakoMod.MODEL_MANAGER.setManifest(new JSONObject(buf.readString(length)));
     }
 
     public List<Pair<Identifier, Integer>> getIconData() {

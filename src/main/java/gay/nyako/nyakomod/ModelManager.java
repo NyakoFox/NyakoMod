@@ -53,7 +53,7 @@ public class ModelManager {
         }
     }
 
-    private void addModelToManifest(String name) {
+    private void addModelToManifest(String name, String displayName, String uuid) {
         var overrides = manifest.getJSONArray("overrides");
 
         var override = new JSONObject();
@@ -61,6 +61,8 @@ public class ModelManager {
         predicate.put("custom_model_data", overrides.length() + 1);
         override.put("predicate", predicate);
         override.put("model", "nyako_custom:item/" + name);
+        override.put("_name", displayName);
+        override.put("_uuid", uuid);
 
         overrides.put(override);
         saveManifest();
@@ -143,7 +145,7 @@ public class ModelManager {
 
                 ImageIO.write(image, "png", imageFile);
 
-                addModelToManifest(hashedName);
+                addModelToManifest(hashedName, name, player.getUuidAsString());
 
                 NyakoMod.CACHED_RESOURCE_PACK.zipResourcePack();
                 NyakoMod.CACHED_RESOURCE_PACK.cacheResourcePack();
@@ -156,5 +158,9 @@ public class ModelManager {
 
     public JSONObject getManifest() {
         return manifest;
+    }
+
+    public void setManifest(JSONObject manifest) {
+        this.manifest = manifest;
     }
 }
