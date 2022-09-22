@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
+import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
@@ -222,8 +223,6 @@ public class NyakoMod implements ModInitializer {
 	) {
 	}
 
-	public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
-
 	// Entities
 	public static final EntityType<PetSpriteEntity> PET_SPRITE = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -234,6 +233,19 @@ public class NyakoMod implements ModInitializer {
 					.trackRangeBlocks(10)
 					.build()
 	);
+
+	public static final EntityType<PetDragonEntity> PET_DRAGON = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("nyakomod", "petdragon"),
+			FabricEntityTypeBuilder
+					.create(SpawnGroup.MISC, PetDragonEntity::new)
+					.dimensions(EntityDimensions.changing(0.6f, 1f))
+					.trackRangeBlocks(10)
+					.build()
+	);
+
+	public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
+	public static final Item PET_DRAGON_SUMMON_ITEM = new PetSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoMod.PET_DRAGON, PetDragonEntity::createPet);
 
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
@@ -262,7 +274,8 @@ public class NyakoMod implements ModInitializer {
 		// Luigi
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
 
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"),PET_SPRITE_SUMMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"), PET_SPRITE_SUMMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_dragon_summon"), PET_DRAGON_SUMMON_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "dev_null"), DEV_NULL_ITEM);
 
 		// Sounds
@@ -757,6 +770,8 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItems();
 
 		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
+		FabricDefaultAttributeRegistry.register(PET_DRAGON, PetDragonEntity.createPetAttributes());
+
 
 		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {

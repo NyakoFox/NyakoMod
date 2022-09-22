@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:pet_sprite_summon"
+    "nyakomod:pet_sprite_summon",
+    "nyakomod:pet_dragon_summon"
   ]
 }

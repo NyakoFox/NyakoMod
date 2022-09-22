@@ -11,16 +11,15 @@ import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class PetSpriteEntity extends PetEntity {
     public static final TrackedDataHandler<Optional<Double>> OPTIONAL_DOUBLE_COMPONENT = TrackedDataHandler.ofOptional(PacketByteBuf::writeDouble, PacketByteBuf::readDouble);
@@ -43,6 +42,22 @@ public class PetSpriteEntity extends PetEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, 1f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
+    }
+
+    public static PetEntity createPet(ItemStack stack, LivingEntity entity) {
+        var pet = new PetSpriteEntity(NyakoMod.PET_SPRITE, entity.world);
+        pet.setOwnerUuid(entity.getUuid());
+        pet.setPosition(entity.getX(), entity.getY(), entity.getZ());
+        pet.setInvulnerable(true);
+        var nbt = stack.getOrCreateNbt();
+        if (nbt.contains("custom_sprite")) {
+            pet.setCustomSprite(nbt.getString("custom_sprite"));
+        }
+        if (nbt.contains("pet_size")) {
+            pet.setPetSize(nbt.getDouble("pet_size"));
+        }
+
+        return pet;
     }
 
     @Override

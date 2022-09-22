@@ -49,9 +49,20 @@
           "Count": 1
         }
       ],
-      "name": "Pet Summoner",
-      "description": "Summons you a pet... but at what cost...",
-      "price": 1000000
+      "name": "Pet Sprite",
+      "description": "Summons you any pet you'd like... but at what cost...",
+      "price": 50000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:pet_dragon_summon",
+          "Count": 1
+        }
+      ],
+      "name": "Pet Dragon",
+      "description": "Summons a beautiful dragon hatchling that will follow you around!",
+      "price": 50000
     },
     {
       "items": [

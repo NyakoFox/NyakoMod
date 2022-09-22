@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.entity.goal;
 import dev.emi.trinkets.api.TrinketsApi;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetEntity;
+import gay.nyako.nyakomod.item.PetSummonItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
@@ -35,7 +36,24 @@ public class DespawnPetGoal
         }
 
         var comp = TrinketsApi.getTrinketComponent(livingEntity);
-        return comp.isPresent() && !comp.get().isEquipped(NyakoMod.PET_SPRITE_SUMMON_ITEM);
+        if (comp.isEmpty()) {
+            return true;
+        }
+
+        var c = comp.get();
+        var inventory = c.getInventory();
+        if (inventory.containsKey("head")) {
+            var headGroup = inventory.get("head");
+            if (headGroup.containsKey("pet")) {
+                var petSlot = headGroup.get("pet");
+                var stack = petSlot.getStack(0);
+                if (stack.getCount() > 0 && stack.getItem() instanceof PetSummonItem<?> item) {
+                    return !tameable.getType().equals(item.entityType);
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override
