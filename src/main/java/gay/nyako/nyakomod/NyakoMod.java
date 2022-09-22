@@ -87,7 +87,7 @@ public class NyakoMod implements ModInitializer {
 
 	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
 
-	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(IconScreenHandler::new);
+	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(IconScreenHandler::new);
 	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
@@ -562,7 +562,15 @@ public class NyakoMod implements ModInitializer {
 						PlayerEntity player = source.getPlayerOrThrow();
 						ServerWorld world = source.getWorld();
 
-						player.openHandledScreen(new NamedScreenHandlerFactory() {
+						player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+							@Override
+							public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+								var json = MODEL_MANAGER.getManifest().toString();
+								var length = json.getBytes(StandardCharsets.UTF_8).length;
+								buf.writeInt(length);
+								buf.writeString(json, length);
+							}
+
 							@Override
 							public Text getDisplayName() {
 								return Text.literal("Icon Selector");
