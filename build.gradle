@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -85,7 +86,7 @@ dependencies {
 	// sentinel will warn them and give the option to download it automatically
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
 
-	implementation 'org.json:json:20220320'
+	shadow(implementation('org.json:json:20220320'))
 }
 
 processResources {
@@ -118,6 +119,16 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+}
+
+shadowJar {
+	configurations = [project.configurations.shadow]
+	archiveClassifier.set("dev")
+}
+
+remapJar {
+	dependsOn(shadowJar)
+	inputFile = tasks.shadowJar.archiveFile
 }
 
 // configure the maven publication
