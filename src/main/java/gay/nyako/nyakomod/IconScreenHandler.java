@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -46,11 +48,10 @@ public class IconScreenHandler extends ScreenHandler {
         this.context = context;
     }
 
-    public IconScreenHandler(int syncId, PlayerInventory inventory) {
+    public IconScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, ScreenHandlerContext.EMPTY);
-        var manifest = NyakoMod.MODEL_MANAGER.getManifest();
-        var overrides = manifest.getJSONArray("overrides");
-        overrides.length();
+        var length = buf.readInt();
+        NyakoMod.MODEL_MANAGER.manifest = new JSONObject(buf.readString(length));
     }
 
     public List<Pair<Identifier, Integer>> getIconData() {
