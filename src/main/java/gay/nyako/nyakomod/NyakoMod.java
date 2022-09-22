@@ -525,26 +525,6 @@ public class NyakoMod implements ModInitializer {
 							);
 						});
 
-						/*
-						shopJson.getJSONArray("items").forEach(item -> {
-							var itemJson = (JSONObject) item;
-							Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, itemJson).result().ifPresent(nbt -> {
-								var itemStack = ItemStack.fromNbt(nbt);
-								shopData.addItem(itemStack);
-							});
-							var itemStack = new ItemStack(Registry.ITEM.get(new Identifier(itemJson.getString("item"))));
-							itemStack.setCount(itemJson.optInt("count", 1));
-							var chance = itemJson.getDouble("chance");
-							var gachaEntry = new GachaEntry(
-									Text.of(itemJson.getString("name")),
-									itemStack,
-									rarity,
-									chance
-							);
-							shopData.gachaEntryList.add(gachaEntry);
-						});*/
-
-
 						ShopEntries.register(shopData);
 					} catch (Exception e) {
 						NyakoMod.LOGGER.error("Error occurred while loading resource json " + resourceId, e);
