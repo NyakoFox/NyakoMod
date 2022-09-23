@@ -3,6 +3,17 @@
     {
       "items": [
         {
+          "id": "nyakomod:bag_of_coins",
+          "Count": 1
+        }
+      ],
+      "name": "Bag of Coins",
+      "description": "Tired of loose change in your pocket? Want an easier way to store your precious money? The Bag of Coins can help with that, providing a way to store all of your CunkCoin™ without wasting your precious inventory space! It also makes it easier to share coins with someone else -- just throw them in a bag! You can also put the bag in a dispenser and all of the coins will shoot out at once!",
+      "price": 2500
+    },
+    {
+      "items": [
+        {
           "id": "minecraft:potion",
           "Count": 1,
           "tag": {
@@ -78,13 +89,36 @@
     {
       "items": [
         {
-          "id": "nyakomod:bag_of_coins",
+          "id": "nyakomod:plasteel_plating",
+          "Count": 32
+        }
+      ],
+      "name": "Plasteel Plating",
+      "description": "Looking for some new metal to spice up your house? Your towers? Your shrines? Plasteel might just be the material for you! Aside from looking really good, it can also be put into a stonecutter (note: it is NOT stone) to make a variety of different blocks, including Plasteel Casing, Plasteel Smooth Casing and Plasteel Pillars! And maybe more in the future, if we get the budget.",
+      "price": 3200
+    },
+    {
+      "items": [
+        {
+          "id": "minecraft:slime_ball",
+          "Count": 1,
+          "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"
+        }
+      ],
+      "name": "KB Slimeball",
+      "description": "Well... let's not dwell on the past.",
+      "price": 10000000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:staff_of_smiting",
           "Count": 1
         }
       ],
-      "name": "Bag of Coins",
-      "description": "Tired of loose change in your pocket? Want an easier way to store your precious money? The Bag of Coins can help with that, providing a way to store all of your CunkCoin™ without wasting your precious inventory space! It also makes it easier to share coins with someone else -- just throw them in a bag! You can also put the bag in a dispenser and all of the coins will shoot out at once!",
-      "price": 2500
+      "name": "Staff of Smiting",
+      "description": "Let's just put it this way... do you want to learn how to fly?",
+      "price": 40000000
     }
   ]
 }

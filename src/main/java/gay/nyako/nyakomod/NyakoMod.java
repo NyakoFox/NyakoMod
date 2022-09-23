@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import com.google.gson.*;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import gay.nyako.nyakomod.block.*;
@@ -44,6 +45,7 @@ import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.potion.PotionUtil;
@@ -117,6 +119,14 @@ public class NyakoMod implements ModInitializer {
 	public static final Block BLUEPRINT_WORKBENCH = new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
 	public static final BlockItem BLUEPRINT_WORKBENCH_ITEM = new BlockItem(BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC));
 	public static final BlockEntityType<BlueprintWorkbenchBlockEntity> BLUEPRINT_WORKBENCH_ENTITY = FabricBlockEntityTypeBuilder.create(BlueprintWorkbenchBlockEntity::new, BLUEPRINT_WORKBENCH).build(null);
+
+	// Shops
+	public static final Block MAIN_SHOP_BLOCK = new ShopBlock(new Identifier("nyakomod", "main"));
+
+	public static final Block PLASTEEL_CASING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
+	public static final Block PLASTEEL_SMOOTH_CASING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
+	public static final Block PLASTEEL_PLATING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
+	public static final Block PLASTEEL_PILLAR_BLOCK = new PillarBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 
 	// Coins
 	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
@@ -431,15 +441,33 @@ public class NyakoMod implements ModInitializer {
 			var stacks = new ArrayList<ItemStack>();
 			entryJson.getAsJsonArray("items").forEach(item -> {
 				var jsonObject = item.getAsJsonObject();
-				if ((jsonObject.get("tag") != null) &&
-						(jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
-						(jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
-					var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
-					var string = gson.toJson(display.get("Name").getAsJsonObject());
-					display.addProperty("Name",  string);
+				if (jsonObject.has("nbt")) {
+					var snbt = jsonObject.get("nbt").getAsString();
+					var stack = new ItemStack(Registry.ITEM.get(new Identifier(jsonObject.get("id").getAsString())));
+					if (jsonObject.has("count")) {
+						stack.setCount(jsonObject.get("count").getAsInt());
+					} else if (jsonObject.has("Count")) {
+						stack.setCount(jsonObject.get("Count").getAsInt());
+					}
+					try {
+						stack.setNbt(NbtHelper.fromNbtProviderString(snbt));
+					} catch (CommandSyntaxException e) {
+						e.printStackTrace();
+					}
+					stacks.add(stack);
+				} else {
+					// Convert Name from json to a string
+					// Lore needs something like this as well
+					/*if ((jsonObject.get("tag") != null) &&
+							(jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
+							(jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
+						var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
+						var string = gson.toJson(display.get("Name"));
+						display.addProperty("Name",  string);
+					}*/
+					NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
+					stacks.add(ItemStack.fromNbt(converted));
 				}
-				NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
-				stacks.add(ItemStack.fromNbt(converted));
 			});
 			shopData.add(
 					new ShopEntry(
@@ -613,6 +641,42 @@ public class NyakoMod implements ModInitializer {
 						return 0;
 					})
 			);
+			dispatcher.register(CommandManager.literal("dumpjson")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+
+						// Get stack in hand
+						ItemStack stack = player.getMainHandStack();
+						if (stack.isEmpty()) {
+							return 0;
+						}
+						// Get the NBT
+						NbtCompound tag = stack.getOrCreateNbt();
+						JsonObject converted = (JsonObject) Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, tag);
+						System.out.println(converted.toString());
+						player.sendMessage(Text.literal("Dumped to console!"));
+						return 0;
+					})
+			);
+
+			dispatcher.register(CommandManager.literal("dumpnbt")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+
+						// Get stack in hand
+						ItemStack stack = player.getMainHandStack();
+						if (stack.isEmpty()) {
+							return 0;
+						}
+						// Get the NBT
+						NbtCompound tag = stack.getOrCreateNbt();
+						System.out.println(tag.toString());
+						player.sendMessage(Text.literal("Dumped to console!"));
+						return 0;
+					})
+			);
 		});
 
 		// Kill bind
@@ -737,10 +801,28 @@ public class NyakoMod implements ModInitializer {
 		// Custom
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
 
+<<<<<<< HEAD
 		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
 		Registry.register(Registry.BLOCK, blueprintWorkbenchId, BLUEPRINT_WORKBENCH);
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
 		Registry.register(Registry.ITEM, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ITEM);
+=======
+		// Shops
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "main_shop"), MAIN_SHOP_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "main_shop"), new BlockItem(MAIN_SHOP_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_casing"), PLASTEEL_CASING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_casing"), new BlockItem(PLASTEEL_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_smooth_casing"), PLASTEEL_SMOOTH_CASING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_smooth_casing"), new BlockItem(PLASTEEL_SMOOTH_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_plating"), PLASTEEL_PLATING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_plating"), new BlockItem(PLASTEEL_PLATING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_pillar"), PLASTEEL_PILLAR_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_pillar"), new BlockItem(PLASTEEL_PILLAR_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+>>>>>>> 62a69a6 (new blocks, lots of polish)
 
 		// Single coin block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);

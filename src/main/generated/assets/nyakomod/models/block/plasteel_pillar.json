@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nyakomod:block/plasteel_pillar_top",
+    "side": "nyakomod:block/plasteel_pillar"
+  }
+}
