@@ -801,12 +801,11 @@ public class NyakoMod implements ModInitializer {
 		// Custom
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
 
-<<<<<<< HEAD
 		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
 		Registry.register(Registry.BLOCK, blueprintWorkbenchId, BLUEPRINT_WORKBENCH);
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
 		Registry.register(Registry.ITEM, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ITEM);
-=======
+
 		// Shops
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "main_shop"), MAIN_SHOP_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "main_shop"), new BlockItem(MAIN_SHOP_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
@@ -822,7 +821,6 @@ public class NyakoMod implements ModInitializer {
 
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_pillar"), PLASTEEL_PILLAR_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_pillar"), new BlockItem(PLASTEEL_PILLAR_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
->>>>>>> 62a69a6 (new blocks, lots of polish)
 
 		// Single coin block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
