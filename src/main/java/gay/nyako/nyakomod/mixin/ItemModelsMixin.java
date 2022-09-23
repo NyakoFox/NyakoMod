@@ -33,9 +33,9 @@ public abstract class ItemModelsMixin {
 
   @Inject(at = @At("HEAD"), method = "getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", cancellable=true)
   public void getModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
-    var nbt = stack.getOrCreateNbt();
+    var nbt = stack.getNbt();
     if (stack.isOf(NyakoMod.DEV_NULL_ITEM)) {
-      if (nbt.contains("stored_item")) {
+      if (nbt != null && nbt.contains("stored_item")) {
         var storedNbt = nbt.getCompound("stored_item");
         var stored = ItemStack.fromNbt(storedNbt);
         if (!storedNbt.contains("modelId")) {

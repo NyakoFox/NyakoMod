@@ -100,7 +100,7 @@ public class DraftingTableBlock extends Block {
             case NORTH:
             case SOUTH:
             default:
-                return Block.createCuboidShape(0.0, 2.0, 0.0, 16.0, 15.0, 14.0);
+                return Block.createCuboidShape(0.0, 0.0, 2.0, 16.0, 15.0, 14.0);
         }
     }
 
