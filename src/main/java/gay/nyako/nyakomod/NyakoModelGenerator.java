@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -29,6 +30,14 @@ public class NyakoModelGenerator extends FabricModelProvider {
         registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, blockStateModelGenerator);
 
         registerBlueprintWorkbench(blockStateModelGenerator);
+
+        // Shop block
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoMod.MAIN_SHOP_BLOCK, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_CASING_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_SMOOTH_CASING_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_PLATING_BLOCK);
+        blockStateModelGenerator.registerAxisRotated(NyakoMod.PLASTEEL_PILLAR_BLOCK, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {

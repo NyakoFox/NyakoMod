@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nyakomod:block/main_shop",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/main_shop"
+    },
+    "facing=south": {
+      "model": "nyakomod:block/main_shop",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nyakomod:block/main_shop",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "nyakomod:block/main_shop_bottom",
+    "front": "nyakomod:block/main_shop_front",
+    "side": "nyakomod:block/main_shop_side",
+    "top": "nyakomod:block/main_shop_top"
+  }
+}

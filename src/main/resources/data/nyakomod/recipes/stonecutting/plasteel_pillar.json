@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "nyakomod:plasteel_plating"
+  },
+  "result": "nyakomod:plasteel_pillar",
+  "count": 1
+}

@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "nyakomod:launcher",
-    "nyakomod:spunch_block"
+    "nyakomod:spunch_block",
+    "nyakomod:main_shop",
+    "nyakomod:plasteel_casing",
+    "nyakomod:plasteel_smooth_casing",
+    "nyakomod:plasteel_plating",
+    "nyakomod:plasteel_pillar"
   ]
 }
