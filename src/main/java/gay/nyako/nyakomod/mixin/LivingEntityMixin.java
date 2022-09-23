@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.mixin;
 import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.EntityAccess;
+import gay.nyako.nyakomod.item.RetentiveBallItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,6 +30,8 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow
 	public PlayerEntity attackingPlayer;
+
+	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
 	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V")
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {

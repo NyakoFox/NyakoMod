@@ -113,6 +113,7 @@ public class NyakoMod implements ModInitializer {
 
 	// /dev/null
 	public static final Item DEV_NULL_ITEM = new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item RETENTIVE_BALL_ITEM = new RetentiveBallItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
 	public static final Block BLUEPRINT_WORKBENCH = new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
 	public static final BlockItem BLUEPRINT_WORKBENCH_ITEM = new BlockItem(BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC));
@@ -270,6 +271,7 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"), PET_SPRITE_SUMMON_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_dragon_summon"), PET_DRAGON_SUMMON_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "dev_null"), DEV_NULL_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "retentive_ball"), RETENTIVE_BALL_ITEM);
 
 		// Sounds
 		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);

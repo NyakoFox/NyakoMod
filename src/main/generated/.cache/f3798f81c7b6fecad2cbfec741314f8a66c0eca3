@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-22T19:40:23.6090687	Models
+// 1.19.2	2022-09-23T11:56:59.046252	Models
 fd52b3a47e9e80854e6550f76b8cff74e89fc4ac assets\nyakomod\models\block\netherite_coin_five.json
 f1b3dcbe53859080d82c467e79c616e5ff2116f0 assets\nyakomod\models\block\gold_coin_twenty_nine.json
 fec2356cb648267667c35dc68b3755c02d5c053b assets\nyakomod\models\block\emerald_coin_twelve.json
@@ -9,6 +9,7 @@ fcb8ddabc35867cb6474582027b30c87f77d01fe assets\nyakomod\models\block\emerald_co
 54376cd60026a61aeb03014a52fc462cf3c7a310 assets\nyakomod\models\block\gold_coin_twenty_three.json
 0ce16d18c3ae994d1b5e3fdaa3c2bf36b4a89a12 assets\nyakomod\blockstates\copper_coin.json
 eaf2036f4ad83396619c7cb8c64f1f144e7e718f assets\nyakomod\models\block\netherite_coin_twenty_two.json
+e5a37b6eb7d558868f42d60b0876d58047ea7f60 assets\nyakomod\models\item\retentive_ball.json
 1623273368be40973bb36b85dd92b4327f7f6e10 assets\nyakomod\models\block\netherite_coin_thirty_one.json
 35b97d22584b3ea3220867ac1a8ac30a7ef5c47c assets\nyakomod\models\block\copper_coin_thirteen.json
 7505da8fde3eb87bb3781e4a0a1c8be6a57a174c assets\nyakomod\models\block\gold_coin_two.json
