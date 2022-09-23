@@ -3,12 +3,15 @@ package gay.nyako.nyakomod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static net.minecraft.data.client.BlockStateModelGenerator.createSingletonBlockState;
 
 public class NyakoModelGenerator extends FabricModelProvider {
     public NyakoModelGenerator(FabricDataGenerator generator) {
@@ -24,6 +27,20 @@ public class NyakoModelGenerator extends FabricModelProvider {
         registerSingleCoinBlocks(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK, blockStateModelGenerator);
         registerSingleCoinBlocks(NyakoMod.EMERALD_SINGLE_COIN_BLOCK, blockStateModelGenerator);
         registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+
+        registerBlueprintWorkbench(blockStateModelGenerator);
+    }
+
+    private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
+        TextureMap textureMap = (new TextureMap())
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.DOWN, TextureMap.getId(Blocks.DARK_OAK_PLANKS))
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.EAST, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoMod.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoMod.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {

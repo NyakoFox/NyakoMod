@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-21T22:58:44.0755033	Models
+// 1.19.2	2022-09-22T19:40:23.6090687	Models
 fd52b3a47e9e80854e6550f76b8cff74e89fc4ac assets\nyakomod\models\block\netherite_coin_five.json
 f1b3dcbe53859080d82c467e79c616e5ff2116f0 assets\nyakomod\models\block\gold_coin_twenty_nine.json
 fec2356cb648267667c35dc68b3755c02d5c053b assets\nyakomod\models\block\emerald_coin_twelve.json
@@ -31,6 +31,7 @@ e24fd9f19799358d6669758c0c971cc13521ac8a assets\nyakomod\models\block\emerald_co
 d691d63f106b6edef080799d07da09f50e4c821c assets\nyakomod\models\block\gold_coin_twenty_seven.json
 07bbafb4456fd74a4abccf8d80a134fcce27db3e assets\nyakomod\models\block\gold_coin_twenty_six.json
 b050778bcc7ea9dfcb078fc69017cceeaca6f590 assets\nyakomod\models\block\copper_coin_thirty_two.json
+9e565aa52bef21505ed4d2d8a887e06b42797d68 assets\nyakomod\blockstates\blueprint_workbench.json
 97bf3c633854919472ac85e49121b555070da4b5 assets\nyakomod\models\block\netherite_coin_ten.json
 0c305b0278ff2ede90bc4b5ef9071655c906b6d7 assets\nyakomod\models\block\netherite_coin_twelve.json
 a3122c08eb7bf0d16902156c18870ef91ef5d75e assets\nyakomod\models\block\gold_coin_thirteen.json
@@ -66,6 +67,7 @@ b69cb52deaea3027904bd47ddcc76a3cd68efcc6 assets\nyakomod\models\block\emerald_co
 02d56f698dd1c85acda703699ff62c7aece7bc6e assets\nyakomod\models\block\diamond_coin_twenty_seven.json
 db2f11f81c7f1ad692619f68bb00f0700e66c84c assets\nyakomod\models\block\diamond_coin_twenty_two.json
 538cc41d3c86d33177409984e2e6c0a5d061ad23 assets\nyakomod\blockstates\diamond_coin.json
+91a8488a32185cdb0116aa7c9823aad85e27d21d assets\nyakomod\models\item\blueprint_workbench.json
 280a6ef311544bf7b49986027e5912b0c805a28a assets\nyakomod\models\block\emerald_coin_four.json
 7b0af7bb3b421df68f3f91a68b0d15cd79007371 assets\nyakomod\models\block\copper_coin_twenty_four.json
 9c7887e5e930abf1977fdecd39215ad1c73c34c9 assets\nyakomod\models\block\emerald_coin_eighteen.json
@@ -94,6 +96,7 @@ a1244eabae337be724a601262495598018dea186 assets\nyakomod\models\block\emerald_co
 5864856a003e2205ebf63cc5ca9d7d38bca98bf7 assets\nyakomod\models\block\netherite_coin_eleven.json
 5487ddc21bef1854deecfe168f0eac8ea4891d8f assets\nyakomod\models\block\netherite_coin_nineteen.json
 1c7a92648d5a4d5305ad1d054dd82e653f6945f0 assets\nyakomod\models\block\copper_coin_sixteen.json
+1be3af5e83faa645b8cf502006c3564e7d3edba4 assets\nyakomod\models\block\blueprint_workbench.json
 7c8bd78c87aaaa25be22804f60a2578427a1bd06 assets\nyakomod\models\block\netherite_coin_thirty_two.json
 9250b3b4b14c35a9f901c96c1b3e6ff936db29f2 assets\nyakomod\models\block\copper_coin_nine.json
 1884a7d96fd7f8b29e397944d559f039b032eefa assets\nyakomod\models\item\emerald_coin.json

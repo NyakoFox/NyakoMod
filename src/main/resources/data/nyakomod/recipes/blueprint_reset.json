@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:blueprint"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:blueprint",
+    "count": 1
+  }
+}
