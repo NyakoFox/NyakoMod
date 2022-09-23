@@ -6,6 +6,7 @@
     "block.nyakomod.launcher": "Launcher",
     "block.nyakomod.matter_vortex": "Matter Vortex",
     "block.nyakomod.spunch_block": "Spunch Block",
+    "block.nyakomod.blueprint_workbench": "Blueprint Workbench",
     "category.nyakomod.binds": "NyakoMod",
     "enchantment.nyakomod.cunkless_curse": "Curse of Cunkless",
     "item.nyakomod.bag_of_coins": "Bag of Coins",
@@ -48,6 +49,8 @@
     "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
     "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
     "item.nyakomod.dev_null": "/dev/null",
+    "item.nyakomod.blueprint": "Blueprint",
+    "item.nyakomod.blueprint.filled": "Blueprint (%s)",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",

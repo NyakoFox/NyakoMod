@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -90,17 +91,7 @@ public class IconScreenHandler extends ScreenHandler {
                     return;
                 }
 
-                if (copyStack.isEmpty()) {
-                    inputNbt.remove("modelId");
-                } else {
-                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
-                    if (copyNbt.contains("modelId")) {
-                        model = copyNbt.getString("modelId");
-                    }
-
-                    inputNbt.putString("modelId", model);
-                }
-
+                inputNbt = onSlotsChanged();
                 inputStack.setNbt(inputNbt);
                 super.setStack(inputStack);
             }
@@ -126,24 +117,9 @@ public class IconScreenHandler extends ScreenHandler {
 
             @Override
             public void setStack(ItemStack copyStack) {
-                var inputStack = inventory.getStack(0);
-
-                var inputNbt = inputStack.getOrCreateNbt();
-                var copyNbt = copyStack.getOrCreateNbt();
-
-                if (copyStack.isEmpty()) {
-                    inputNbt.remove("modelId");
-                } else {
-                    String model = Registry.ITEM.getId(copyStack.getItem()).toString();
-                    if (copyNbt.contains("modelId")) {
-                        model = copyNbt.getString("modelId");
-                    }
-
-                    inputNbt.putString("modelId", model);
-                }
-
-                inputStack.setNbt(inputNbt);
                 super.setStack(copyStack);
+
+                onSlotsChanged();
             }
 
             @Override
@@ -167,6 +143,67 @@ public class IconScreenHandler extends ScreenHandler {
         for (i = 0; i < 9; ++i) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
         }
+    }
+
+    public NbtCompound onSlotsChanged() {
+        var inputStack = inventory.getStack(0);
+        var copyStack = inventory.getStack(1);
+        var inputNbt = inputStack.getOrCreateNbt();
+        var copyNbt = copyStack.getOrCreateNbt();
+
+        if (copyStack.isOf(NyakoMod.BLUEPRINT) && copyNbt.contains("blueprint")) {
+            var blueprint = copyNbt.getCompound("blueprint");
+            if (blueprint.contains("tag")) {
+                var tag = blueprint.getCompound("tag");
+
+                if (tag.contains("display")) {
+                    if (inputNbt.contains("display")) {
+                        var inputDisplay = inputNbt.getCompound("display");
+                        var copyDisplay = tag.getCompound("display");
+
+                        if (copyDisplay.contains("Lore")) {
+                            inputDisplay.put("Lore", copyDisplay.get("Lore"));
+                        } else {
+                            inputDisplay.remove("Lore");
+                        }
+
+                        if (copyDisplay.contains("Name")) {
+                            inputDisplay.put("Name", copyDisplay.get("Name"));
+                        } else {
+                            inputDisplay.remove("Lore");
+                        }
+
+                        inputNbt.put("display", inputDisplay);
+                    } else {
+                        inputNbt.put("display", tag.getCompound("display"));
+                    }
+                } else {
+                    inputNbt.remove("display");
+                }
+
+                if (tag.contains("modelId")) {
+                    inputNbt.putString("modelId", tag.getString("modelId"));
+                }
+                if (tag.contains("CustomModelData")) {
+                    inputNbt.putInt("CustomModelData", tag.getInt("CustomModelData"));
+                }
+            }
+        } else {
+            if (copyStack.isEmpty()) {
+                inputNbt.remove("modelId");
+            } else {
+                String model = Registry.ITEM.getId(copyStack.getItem()).toString();
+                if (copyNbt.contains("modelId")) {
+                    model = copyNbt.getString("modelId");
+                }
+
+                inputNbt.putString("modelId", model);
+            }
+        }
+
+        inputStack.setNbt(inputNbt);
+
+        return inputNbt;
     }
 
     @Override

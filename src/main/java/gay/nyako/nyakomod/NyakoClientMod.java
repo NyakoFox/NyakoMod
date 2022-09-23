@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
+import gay.nyako.nyakomod.screens.BlueprintWorkbenchScreen;
 import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
 import gay.nyako.nyakomod.screens.IconScreen;
 import gay.nyako.nyakomod.screens.ModelScreen;
@@ -78,9 +79,19 @@ public class NyakoClientMod implements ClientModInitializer {
 			return 0;
 		});
 
+		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_blueprint"), (stack, world, entity, i) ->
+		{
+			if (stack.getOrCreateNbt().contains("blueprint")) {
+				return 1;
+			}
+
+			return 0;
+		});
+
 		HandledScreens.register(NyakoMod.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 		HandledScreens.register(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
-    
+		HandledScreens.register(NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
+
     	BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK,    RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK,      RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.EMERALD_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());

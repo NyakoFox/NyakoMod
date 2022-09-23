@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -29,6 +30,8 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -85,6 +88,7 @@ public class NyakoMod implements ModInitializer {
 
 	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(IconScreenHandler::new);
 	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
+	public static final ScreenHandlerType<BlueprintWorkbenchScreenHandler> BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(BlueprintWorkbenchScreenHandler::new);
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
@@ -109,6 +113,10 @@ public class NyakoMod implements ModInitializer {
 
 	// /dev/null
 	public static final Item DEV_NULL_ITEM = new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+
+	public static final Block BLUEPRINT_WORKBENCH = new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
+	public static final BlockItem BLUEPRINT_WORKBENCH_ITEM = new BlockItem(BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC));
+	public static final BlockEntityType<BlueprintWorkbenchBlockEntity> BLUEPRINT_WORKBENCH_ENTITY = FabricBlockEntityTypeBuilder.create(BlueprintWorkbenchBlockEntity::new, BLUEPRINT_WORKBENCH).build(null);
 
 	// Coins
 	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
@@ -139,6 +147,7 @@ public class NyakoMod implements ModInitializer {
 
 	// Test item
 	public static final Item TEST_ITEM = new TestItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item BLUEPRINT = new BlueprintItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16));
 
 	// Player smite packet
 	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
@@ -694,6 +703,7 @@ public class NyakoMod implements ModInitializer {
 
 		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE);
 		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "icon_menu"), NyakoMod.ICON_SCREEN_HANDLER_TYPE);
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "blueprint_workbench"), NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE);
 
 		// Spunch block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
@@ -727,6 +737,11 @@ public class NyakoMod implements ModInitializer {
 		// Custom
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
 
+		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
+		Registry.register(Registry.BLOCK, blueprintWorkbenchId, BLUEPRINT_WORKBENCH);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
+		Registry.register(Registry.ITEM, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ITEM);
+
 		// Single coin block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_coin"), GOLD_SINGLE_COIN_BLOCK);
@@ -756,6 +771,7 @@ public class NyakoMod implements ModInitializer {
 
 		// Test item
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), TEST_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "blueprint"), BLUEPRINT);
 
 		// Gacha-related
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);

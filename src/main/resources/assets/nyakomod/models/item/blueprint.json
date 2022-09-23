@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "nyakomod:item/blueprint"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nyakomod:has_blueprint": 1
+      },
+      "model": "nyakomod:item/blueprint_filled"
+    }
+  ]
+}
