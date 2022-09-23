@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nyakomod:block/drafting_table",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/drafting_table"
+    },
+    "facing=south": {
+      "model": "nyakomod:block/drafting_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nyakomod:block/drafting_table",
+      "y": 270
+    }
+  }
+}

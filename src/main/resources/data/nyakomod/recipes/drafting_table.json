@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP",
+    "WW",
+    "WW"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:painting"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "nyakomod:drafting_table",
+    "count": 1
+  }
+}

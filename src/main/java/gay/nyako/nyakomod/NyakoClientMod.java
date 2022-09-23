@@ -98,6 +98,8 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, RenderLayer.getCutout());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DRAFTING_TABLE_BLOCK, RenderLayer.getCutout());
+
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
 			var client = context.getSource().getClient();
 			client.send(() -> client.setScreen(new ModelScreen()));

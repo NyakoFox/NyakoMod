@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import com.google.gson.*;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
@@ -83,6 +84,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+import static net.minecraft.server.command.CommandManager.argument;
+
 public class NyakoMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
 
@@ -123,6 +126,9 @@ public class NyakoMod implements ModInitializer {
 
 	// Shops
 	public static final Block MAIN_SHOP_BLOCK = new ShopBlock(new Identifier("nyakomod", "main"));
+
+	// Drafting Table
+	public static final Block DRAFTING_TABLE_BLOCK = new DraftingTableBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE));
 
 	public static final Block PLASTEEL_CASING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 	public static final Block PLASTEEL_SMOOTH_CASING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
@@ -570,6 +576,7 @@ public class NyakoMod implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("smite")
+					.requires(source -> source.hasPermissionLevel(2))
 					.executes(context -> {
 						ServerPlayerEntity player = context.getSource().getPlayer();
 						if (player == null) {
@@ -604,6 +611,7 @@ public class NyakoMod implements ModInitializer {
 					})
 			);
 			dispatcher.register(CommandManager.literal("icons")
+					.requires(source -> source.hasPermissionLevel(2))
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
 						PlayerEntity player = source.getPlayerOrThrow();
@@ -620,7 +628,7 @@ public class NyakoMod implements ModInitializer {
 
 							@Override
 							public Text getDisplayName() {
-								return Text.literal("Icon Selector");
+								return Text.literal("Drafting Table");
 							}
 
 							@Override
@@ -633,6 +641,15 @@ public class NyakoMod implements ModInitializer {
 					})
 			);
 			dispatcher.register(CommandManager.literal("shop")
+					.requires(source -> source.hasPermissionLevel(2))
+					.then(argument("name", StringArgumentType.greedyString()).executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						openShop(player, world, new Identifier("nyakomod", context.getArgument("name", String.class)));
+						return 0;
+					}))
 					.executes(context -> {
 						ServerCommandSource source = context.getSource();
 						PlayerEntity player = source.getPlayerOrThrow();
@@ -811,6 +828,12 @@ public class NyakoMod implements ModInitializer {
 		// Shops
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "main_shop"), MAIN_SHOP_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "main_shop"), new BlockItem(MAIN_SHOP_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Drafting table
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "drafting_table"), DRAFTING_TABLE_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "drafting_table"), new BlockItem(DRAFTING_TABLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Plasteel
 
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_casing"), PLASTEEL_CASING_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_casing"), new BlockItem(PLASTEEL_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));

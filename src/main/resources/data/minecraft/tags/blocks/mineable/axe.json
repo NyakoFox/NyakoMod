@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:blueprint_workbench"
+    "nyakomod:blueprint_workbench",
+    "nyakomod:drafting_table"
   ]
 }
