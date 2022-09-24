@@ -148,6 +148,7 @@ public class RetentiveBallItem extends Item {
         var xp = getXp(stack);
 
         tooltip.add(Text.literal("XP is stored in the ball."));
+        tooltip.add(Text.literal("Requires fuel. Right click with ").append(Text.literal("Ender Eyes").formatted(Formatting.DARK_AQUA)).append(" to refuel."));
         tooltip.add(Text.literal(""));
 
         tooltip.add(Text.literal("Fuel: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(fuel)).formatted(Formatting.GOLD)));
