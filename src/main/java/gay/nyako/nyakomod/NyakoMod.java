@@ -428,14 +428,17 @@ public class NyakoMod implements ModInitializer {
 	}
 
 
-	private LootPool.Builder addLootTableCoins(LootPool.Builder lootPoolBuilder, Item coinItem, int min, int max, int weight) {
-		return lootPoolBuilder.with(ItemEntry.builder(coinItem)
+	private LootPool.Builder addLootTableCoins(Item coinItem, int min, int max, int weight) {
+		var lootPoolBuilder = LootPool.builder()
+				.rolls(ConstantLootNumberProvider.create(1))
+				.with(ItemEntry.builder(coinItem)
 				.weight(weight)
 				.quality(0)
 				.apply(SetCountLootFunction.builder(
 						UniformLootNumberProvider.create(min, max)
 				))
 		);
+		return lootPoolBuilder;
 	}
 
 	public static void storeShopModelJson(JsonObject shopJson, Identifier shop) {
@@ -523,24 +526,19 @@ public class NyakoMod implements ModInitializer {
 				var copperMax = 95;
 				var copperWeight = 1;
 
-				var lootPoolBuilder = LootPool.builder()
-						.rolls(ConstantLootNumberProvider.create(1));
-
 				switch (id.toString()) {
 					// treasure
 					case "minecraft:chests/end_city_treasure":
-						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, EMERALD_COIN_ITEM, 1, 2, 5);
+						tableBuilder.pool(addLootTableCoins(EMERALD_COIN_ITEM, 1, 2, 5).build());
 					case "minecraft:chests/buried_treasure":
 					case "minecraft:chests/shipwreck_treasure":
 						copperMin = 0;
 						copperMax = 100;
-						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, GOLD_COIN_ITEM, 40, 80, 10);
+						tableBuilder.pool(addLootTableCoins(GOLD_COIN_ITEM, 40, 80, 10).build());
 						break;
 				}
 
-				lootPoolBuilder = addLootTableCoins(lootPoolBuilder, COPPER_COIN_ITEM, copperMin, copperMax, copperWeight);
-
-				tableBuilder.pool(lootPoolBuilder);
+				tableBuilder.pool(addLootTableCoins(COPPER_COIN_ITEM, copperMin, copperMax, copperWeight).build());
 			}
 		});
 
