@@ -86,6 +86,38 @@ public class NyakoModelGenerator extends FabricModelProvider {
         variants.add(new Pair<>("_thirty", "thirty_single_coins"));
         variants.add(new Pair<>("_thirty_one", "thirty_one_single_coins"));
         variants.add(new Pair<>("_thirty_two", "thirty_two_single_coins"));
+        variants.add(new Pair<>("_thirty_three", "thirty_three_single_coins"));
+        variants.add(new Pair<>("_thirty_four", "thirty_four_single_coins"));
+        variants.add(new Pair<>("_thirty_five", "thirty_five_single_coins"));
+        variants.add(new Pair<>("_thirty_six", "thirty_six_single_coins"));
+        variants.add(new Pair<>("_thirty_seven", "thirty_seven_single_coins"));
+        variants.add(new Pair<>("_thirty_eight", "thirty_eight_single_coins"));
+        variants.add(new Pair<>("_thirty_nine", "thirty_nine_single_coins"));
+        variants.add(new Pair<>("_forty", "forty_single_coins"));
+        variants.add(new Pair<>("_forty_one", "forty_one_single_coins"));
+        variants.add(new Pair<>("_forty_two", "forty_two_single_coins"));
+        variants.add(new Pair<>("_forty_three", "forty_three_single_coins"));
+        variants.add(new Pair<>("_forty_four", "forty_four_single_coins"));
+        variants.add(new Pair<>("_forty_five", "forty_five_single_coins"));
+        variants.add(new Pair<>("_forty_six", "forty_six_single_coins"));
+        variants.add(new Pair<>("_forty_seven", "forty_seven_single_coins"));
+        variants.add(new Pair<>("_forty_eight", "forty_eight_single_coins"));
+        variants.add(new Pair<>("_forty_nine", "forty_nine_single_coins"));
+        variants.add(new Pair<>("_fifty", "fifty_single_coins"));
+        variants.add(new Pair<>("_fifty_one", "fifty_one_single_coins"));
+        variants.add(new Pair<>("_fifty_two", "fifty_two_single_coins"));
+        variants.add(new Pair<>("_fifty_three", "fifty_three_single_coins"));
+        variants.add(new Pair<>("_fifty_four", "fifty_four_single_coins"));
+        variants.add(new Pair<>("_fifty_five", "fifty_five_single_coins"));
+        variants.add(new Pair<>("_fifty_six", "fifty_six_single_coins"));
+        variants.add(new Pair<>("_fifty_seven", "fifty_seven_single_coins"));
+        variants.add(new Pair<>("_fifty_eight", "fifty_eight_single_coins"));
+        variants.add(new Pair<>("_fifty_nine", "fifty_nine_single_coins"));
+        variants.add(new Pair<>("_sixty", "sixty_single_coins"));
+        variants.add(new Pair<>("_sixty_one", "sixty_one_single_coins"));
+        variants.add(new Pair<>("_sixty_two", "sixty_two_single_coins"));
+        variants.add(new Pair<>("_sixty_three", "sixty_three_single_coins"));
+        variants.add(new Pair<>("_sixty_four", "sixty_four_single_coins"));
 
         var blockStateVariantMap = BlockStateVariantMap.create(NyakoMod.COINS_PROPERTY);
         var counter = 0;
@@ -93,7 +125,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
             counter++;
 
             String variant = pair.getLeft();
-            String model   = pair.getRight();
+            String model   = "coins/" + pair.getRight();
             Model TEMPLATE_SINGLE_COIN = block(model, variant, TextureKey.TEXTURE);
 
             TextureMap textureMap = TextureMap.texture(block);

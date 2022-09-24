@@ -1,5 +1,5 @@
 {
-  "parent": "nyakomod:block/twelve_single_coins",
+  "parent": "nyakomod:block/coins/twelve_single_coins",
   "textures": {
     "texture": "nyakomod:block/netherite_coin"
   }

@@ -1,5 +1,5 @@
 {
-  "parent": "nyakomod:block/ten_single_coins",
+  "parent": "nyakomod:block/coins/ten_single_coins",
   "textures": {
     "texture": "nyakomod:block/emerald_coin"
   }

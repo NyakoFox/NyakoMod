@@ -78,14 +78,110 @@
     "coins=32": {
       "model": "nyakomod:block/diamond_coin_thirty_two"
     },
+    "coins=33": {
+      "model": "nyakomod:block/diamond_coin_thirty_three"
+    },
+    "coins=34": {
+      "model": "nyakomod:block/diamond_coin_thirty_four"
+    },
+    "coins=35": {
+      "model": "nyakomod:block/diamond_coin_thirty_five"
+    },
+    "coins=36": {
+      "model": "nyakomod:block/diamond_coin_thirty_six"
+    },
+    "coins=37": {
+      "model": "nyakomod:block/diamond_coin_thirty_seven"
+    },
+    "coins=38": {
+      "model": "nyakomod:block/diamond_coin_thirty_eight"
+    },
+    "coins=39": {
+      "model": "nyakomod:block/diamond_coin_thirty_nine"
+    },
     "coins=4": {
       "model": "nyakomod:block/diamond_coin_four"
+    },
+    "coins=40": {
+      "model": "nyakomod:block/diamond_coin_forty"
+    },
+    "coins=41": {
+      "model": "nyakomod:block/diamond_coin_forty_one"
+    },
+    "coins=42": {
+      "model": "nyakomod:block/diamond_coin_forty_two"
+    },
+    "coins=43": {
+      "model": "nyakomod:block/diamond_coin_forty_three"
+    },
+    "coins=44": {
+      "model": "nyakomod:block/diamond_coin_forty_four"
+    },
+    "coins=45": {
+      "model": "nyakomod:block/diamond_coin_forty_five"
+    },
+    "coins=46": {
+      "model": "nyakomod:block/diamond_coin_forty_six"
+    },
+    "coins=47": {
+      "model": "nyakomod:block/diamond_coin_forty_seven"
+    },
+    "coins=48": {
+      "model": "nyakomod:block/diamond_coin_forty_eight"
+    },
+    "coins=49": {
+      "model": "nyakomod:block/diamond_coin_forty_nine"
     },
     "coins=5": {
       "model": "nyakomod:block/diamond_coin_five"
     },
+    "coins=50": {
+      "model": "nyakomod:block/diamond_coin_fifty"
+    },
+    "coins=51": {
+      "model": "nyakomod:block/diamond_coin_fifty_one"
+    },
+    "coins=52": {
+      "model": "nyakomod:block/diamond_coin_fifty_two"
+    },
+    "coins=53": {
+      "model": "nyakomod:block/diamond_coin_fifty_three"
+    },
+    "coins=54": {
+      "model": "nyakomod:block/diamond_coin_fifty_four"
+    },
+    "coins=55": {
+      "model": "nyakomod:block/diamond_coin_fifty_five"
+    },
+    "coins=56": {
+      "model": "nyakomod:block/diamond_coin_fifty_six"
+    },
+    "coins=57": {
+      "model": "nyakomod:block/diamond_coin_fifty_seven"
+    },
+    "coins=58": {
+      "model": "nyakomod:block/diamond_coin_fifty_eight"
+    },
+    "coins=59": {
+      "model": "nyakomod:block/diamond_coin_fifty_nine"
+    },
     "coins=6": {
       "model": "nyakomod:block/diamond_coin_six"
+    },
+    "coins=60": {
+      "model": "nyakomod:block/diamond_coin_sixty"
+    },
+    "coins=61": {
+      "model": "nyakomod:block/diamond_coin_sixty_one"
+    },
+    "coins=62": {
+      "model": "nyakomod:block/diamond_coin_sixty_two"
+    },
+    "coins=63": {
+      "model": "nyakomod:block/diamond_coin_sixty_three"
+    },
+    "coins=64": {
+      "model": "nyakomod:block/diamond_coin_sixty_four"
     },
     "coins=7": {
       "model": "nyakomod:block/diamond_coin_seven"
