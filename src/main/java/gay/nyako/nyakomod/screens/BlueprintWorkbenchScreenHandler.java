@@ -11,15 +11,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.screen.CartographyTableScreenHandler;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 
 public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final CraftingResultInventory output = new CraftingResultInventory();
-
+    long lastTakeResultTime;
 
     public BlueprintWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(3));
@@ -68,7 +72,15 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
             }
 
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                onSlotChanged();
                 BlueprintWorkbenchScreenHandler.this.onTakeOutput(player, stack);
+                long l = player.world.getTime();
+                if (lastTakeResultTime != l) {
+                    player.world.playSound(null, player.getBlockPos(), SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    lastTakeResultTime = l;
+                }
+                super.onTakeItem(player, stack);
+                onSlotChanged();
             }
         });
 
@@ -123,6 +135,8 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
             } else {
                 slot.markDirty();
             }
+            slot.onTakeItem(player, originalStack);
+            sendContentUpdates();
         }
 
         return newStack;

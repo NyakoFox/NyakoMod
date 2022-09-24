@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -19,7 +20,7 @@ public class ShopBlock extends Block {
 
     public final Identifier shopId;
     public ShopBlock(Identifier shopIdentifier) {
-        super(FabricBlockSettings.of(Material.METAL).strength(0.3f).requiresTool());
+        super(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
         this.setDefaultState(this.stateManager.getDefaultState().with(HORIZONTAL_FACING, Direction.NORTH));
         shopId = shopIdentifier;
     }
