@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.entity.TickerEntityRenderer;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
@@ -57,11 +58,11 @@ public class NyakoClientMod implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-				ClientPlayNetworking.send(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
+				ClientPlayNetworking.send(NyakoModNetworking.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
 
-		ClientPlayNetworking.registerGlobalReceiver(NyakoMod.PLAYER_SMITE_PACKET_ID,
+		ClientPlayNetworking.registerGlobalReceiver(NyakoModNetworking.PLAYER_SMITE_PACKET_ID,
 				(client, handler, buffer, sender) -> client.execute(() -> {
 					client.player.addVelocity(0D, 5D, 0D);
 				}));

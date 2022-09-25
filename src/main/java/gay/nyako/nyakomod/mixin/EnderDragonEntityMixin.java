@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
@@ -36,31 +36,31 @@ public abstract class EnderDragonEntityMixin extends LivingEntity {
         Integer netherite = map.get(CunkCoinUtils.CoinValue.NETHERITE);
 
         if (copper > 0) {
-            ItemStack itemStack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
+            ItemStack itemStack = new ItemStack(NyakoModItem.COPPER_COIN_ITEM);
             itemStack.setCount(copper);
             dropStack(itemStack);
         }
 
         if (gold > 0) {
-            ItemStack itemStack = new ItemStack(NyakoMod.GOLD_COIN_ITEM);
+            ItemStack itemStack = new ItemStack(NyakoModItem.GOLD_COIN_ITEM);
             itemStack.setCount(gold);
             dropStack(itemStack);
         }
 
         if (emerald > 0) {
-            ItemStack itemStack = new ItemStack(NyakoMod.EMERALD_COIN_ITEM);
+            ItemStack itemStack = new ItemStack(NyakoModItem.EMERALD_COIN_ITEM);
             itemStack.setCount(emerald);
             dropStack(itemStack);
         }
 
         if (diamond > 0) {
-            ItemStack itemStack = new ItemStack(NyakoMod.DIAMOND_COIN_ITEM);
+            ItemStack itemStack = new ItemStack(NyakoModItem.DIAMOND_COIN_ITEM);
             itemStack.setCount(diamond);
             dropStack(itemStack);
         }
 
         if (netherite > 0) {
-            ItemStack itemStack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
+            ItemStack itemStack = new ItemStack(NyakoModItem.NETHERITE_COIN_ITEM);
             itemStack.setCount(netherite);
             dropStack(itemStack);
         }

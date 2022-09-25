@@ -2,8 +2,8 @@ package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModItem;
 import gay.nyako.nyakomod.access.EntityAccess;
-import gay.nyako.nyakomod.item.RetentiveBallItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -104,27 +104,27 @@ public abstract class LivingEntityMixin extends Entity {
 		// drop the coins
 		// this is super ugly but i didnt wanna make a function for some reason lol
 		if (copper > 0) {
-			ItemStack stack = new ItemStack(NyakoMod.COPPER_COIN_ITEM);
+			ItemStack stack = new ItemStack(NyakoModItem.COPPER_COIN_ITEM);
 			stack.setCount(copper);
 			dropStack(stack);
 		}
 		if (gold > 0) {
-			ItemStack stack = new ItemStack(NyakoMod.GOLD_COIN_ITEM);
+			ItemStack stack = new ItemStack(NyakoModItem.GOLD_COIN_ITEM);
 			stack.setCount(gold);
 			dropStack(stack);
 		}
 		if (emerald > 0) {
-			ItemStack stack = new ItemStack(NyakoMod.EMERALD_COIN_ITEM);
+			ItemStack stack = new ItemStack(NyakoModItem.EMERALD_COIN_ITEM);
 			stack.setCount(emerald);
 			dropStack(stack);
 		}
 		if (diamond > 0) {
-			ItemStack stack = new ItemStack(NyakoMod.DIAMOND_COIN_ITEM);
+			ItemStack stack = new ItemStack(NyakoModItem.DIAMOND_COIN_ITEM);
 			stack.setCount(diamond);
 			dropStack(stack);
 		}
 		if (netherite > 0) {
-			ItemStack stack = new ItemStack(NyakoMod.NETHERITE_COIN_ITEM);
+			ItemStack stack = new ItemStack(NyakoModItem.NETHERITE_COIN_ITEM);
 			stack.setCount(netherite);
 			dropStack(stack);
 		}

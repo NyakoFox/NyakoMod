@@ -1,5 +1,6 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.entity;
 
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;

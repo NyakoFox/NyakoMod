@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -150,32 +149,32 @@ public class NyakoModelGenerator extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         // Coins
-        itemModelGenerator.register(NyakoMod.COPPER_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.GOLD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.EMERALD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.DIAMOND_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.NETHERITE_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.COPPER_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.GOLD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.EMERALD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DIAMOND_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.NETHERITE_COIN_ITEM, Models.GENERATED);
 
         // Coin bags
-        itemModelGenerator.register(NyakoMod.BAG_OF_COINS_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
 
         // Music discs
         NyakoModDisc.registerModels(itemModelGenerator);
 
         // Various gacha items
-        itemModelGenerator.register(NyakoMod.DISCORD_GACHA_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DISCORD_GACHA_ITEM, Models.GENERATED);
 
         // Staffs
-        itemModelGenerator.register(NyakoMod.STAFF_OF_SMITING_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.STAFF_OF_SMITING_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
 
         // Misc. items
-        itemModelGenerator.register(NyakoMod.DRIP_JACKET, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.PRESENT_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.RETENTIVE_BALL_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DRIP_JACKET, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.PRESENT_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.RETENTIVE_BALL_ITEM, Models.GENERATED);
 
-        itemModelGenerator.register(NyakoMod.TEST_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.TEST_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
     }
 }

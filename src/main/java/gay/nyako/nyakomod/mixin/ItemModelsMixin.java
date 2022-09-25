@@ -2,7 +2,7 @@ package gay.nyako.nyakomod.mixin;
 
 import java.util.Map;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModItem;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,7 +18,6 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 
 @Mixin(ItemModels.class)
 public abstract class ItemModelsMixin {
@@ -34,7 +33,7 @@ public abstract class ItemModelsMixin {
   @Inject(at = @At("HEAD"), method = "getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", cancellable=true)
   public void getModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
     var nbt = stack.getNbt();
-    if (stack.isOf(NyakoMod.DEV_NULL_ITEM)) {
+    if (stack.isOf(NyakoModItem.DEV_NULL_ITEM)) {
       if (nbt != null && nbt.contains("stored_item")) {
         var storedNbt = nbt.getCompound("stored_item");
         var stored = ItemStack.fromNbt(storedNbt);

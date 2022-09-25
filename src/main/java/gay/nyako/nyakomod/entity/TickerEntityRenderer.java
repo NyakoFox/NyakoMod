@@ -1,9 +1,8 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.entity;
 
-import net.minecraft.client.MinecraftClient;
+import gay.nyako.nyakomod.NyakoModItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -27,7 +26,7 @@ public class TickerEntityRenderer extends EntityRenderer<TickerEntity> {
     }
     @Override
     public void render(TickerEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        ItemStack tiabStack = new ItemStack(NyakoMod.TIME_IN_A_BOTTLE);
+        ItemStack tiabStack = new ItemStack(NyakoModItem.TIME_IN_A_BOTTLE);
         for (Direction direction : Direction.values()) {
             if (direction == direction.UP || direction == direction.DOWN) continue;
             matrices.push();

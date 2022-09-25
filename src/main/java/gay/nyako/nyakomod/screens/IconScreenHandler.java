@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModItem;
 import io.wispforest.owo.client.screens.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -151,7 +152,7 @@ public class IconScreenHandler extends ScreenHandler {
         var inputNbt = inputStack.getOrCreateNbt();
         var copyNbt = copyStack.getOrCreateNbt();
 
-        if (copyStack.isOf(NyakoMod.BLUEPRINT) && copyNbt.contains("blueprint")) {
+        if (copyStack.isOf(NyakoModItem.BLUEPRINT) && copyNbt.contains("blueprint")) {
             var blueprint = copyNbt.getCompound("blueprint");
             if (blueprint.contains("tag")) {
                 var tag = blueprint.getCompound("tag");
