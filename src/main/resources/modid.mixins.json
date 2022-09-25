@@ -14,7 +14,8 @@
     "MobSpawnerLogicMixin",
     "EntityMixin",
     "EnderDragonEntityMixin",
-    "FishingBobberEntityMixin"
+    "FishingBobberEntityMixin",
+    "CreeperExplodeMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
