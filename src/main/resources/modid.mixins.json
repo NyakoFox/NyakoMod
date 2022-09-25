@@ -13,7 +13,8 @@
     "VillagerEntityMixin",
     "MobSpawnerLogicMixin",
     "EntityMixin",
-    "EnderDragonEntityMixin"
+    "EnderDragonEntityMixin",
+    "FishingBobberEntityMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",

@@ -359,7 +359,7 @@ public class NyakoMod implements ModInitializer {
 
 
 	private LootPool.Builder addLootTableCoins(Item coinItem, int min, int max, int weight) {
-		var lootPoolBuilder = LootPool.builder()
+		return LootPool.builder()
 				.rolls(ConstantLootNumberProvider.create(1))
 				.with(ItemEntry.builder(coinItem)
 				.weight(weight)
@@ -368,7 +368,6 @@ public class NyakoMod implements ModInitializer {
 						UniformLootNumberProvider.create(min, max)
 				))
 		);
-		return lootPoolBuilder;
 	}
 
 	public static void storeShopModelJson(JsonObject shopJson, Identifier shop) {
@@ -499,130 +498,6 @@ public class NyakoMod implements ModInitializer {
 					}
 				});
 			}
-		});
-
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			dispatcher.register(CommandManager.literal("smite")
-					.requires(source -> source.hasPermissionLevel(2))
-					.executes(context -> {
-						ServerPlayerEntity player = context.getSource().getPlayer();
-						if (player == null) {
-							return 0;
-						}
-
-						var smiteDistance = 128;
-
-						Vec3d pos = player.getCameraPosVec(0.0F);
-						Vec3d ray = pos.add(player.getRotationVector().multiply(smiteDistance));
-
-						EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.world, player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
-
-						if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
-							Entity entity = entityHitResult.getEntity();
-							entity.damage(DamageSource.LIGHTNING_BOLT, 5);
-							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
-							lightning.setPosition(entity.getPos());
-							player.world.spawnEntity(lightning);
-							lightning.setCosmetic(true);
-							return 1;
-						}
-
-						var result = player.raycast(smiteDistance, 0, false);
-						if (result.getType() == HitResult.Type.BLOCK) {
-							BlockPos blockPos = ((BlockHitResult) result).getBlockPos();
-							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
-							lightning.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-							player.world.spawnEntity(lightning);
-						}
-						return 1;
-					})
-			);
-			dispatcher.register(CommandManager.literal("icons")
-					.requires(source -> source.hasPermissionLevel(2))
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-						ServerWorld world = source.getWorld();
-
-						player.openHandledScreen(new ExtendedScreenHandlerFactory() {
-							@Override
-							public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-								var json = MODEL_MANAGER.getManifest().toString();
-								var length = json.getBytes(StandardCharsets.UTF_8).length;
-								buf.writeInt(length);
-								buf.writeString(json, length);
-							}
-
-							@Override
-							public Text getDisplayName() {
-								return Text.literal("Drafting Table");
-							}
-
-							@Override
-							public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-								return new IconScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
-							}
-						});
-
-						return 0;
-					})
-			);
-			dispatcher.register(CommandManager.literal("shop")
-					.requires(source -> source.hasPermissionLevel(2))
-					.then(argument("name", StringArgumentType.greedyString()).executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-						ServerWorld world = source.getWorld();
-
-						openShop(player, world, new Identifier("nyakomod", context.getArgument("name", String.class)));
-						return 0;
-					}))
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-						ServerWorld world = source.getWorld();
-
-						openShop(player, world, ShopEntries.MAIN);
-
-						return 0;
-					})
-			);
-			dispatcher.register(CommandManager.literal("dumpjson")
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-
-						// Get stack in hand
-						ItemStack stack = player.getMainHandStack();
-						if (stack.isEmpty()) {
-							return 0;
-						}
-						// Get the NBT
-						NbtCompound tag = stack.getOrCreateNbt();
-						JsonObject converted = (JsonObject) Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, tag);
-						System.out.println(converted.toString());
-						player.sendMessage(Text.literal("Dumped to console!"));
-						return 0;
-					})
-			);
-
-			dispatcher.register(CommandManager.literal("dumpnbt")
-					.executes(context -> {
-						ServerCommandSource source = context.getSource();
-						PlayerEntity player = source.getPlayerOrThrow();
-
-						// Get stack in hand
-						ItemStack stack = player.getMainHandStack();
-						if (stack.isEmpty()) {
-							return 0;
-						}
-						// Get the NBT
-						NbtCompound tag = stack.getOrCreateNbt();
-						System.out.println(tag.toString());
-						player.sendMessage(Text.literal("Dumped to console!"));
-						return 0;
-					})
-			);
 		});
 
 		NyakoModNetworking.registerGlobalReceivers();
@@ -790,9 +665,7 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-			CachedResourcePack.setPlayerResourcePack(handler.player);
-		}));
+		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> CachedResourcePack.setPlayerResourcePack(handler.player)));
 	}
 
 	public void dispenseCoins(NbtCompound nbt, String tag, Item type, Direction direction, Position pos, World world) {
@@ -842,6 +715,130 @@ public class NyakoMod implements ModInitializer {
 			LoreCommand.register(dispatcher);
 			RenameCommand.register(dispatcher);
 			PackCommand.register(dispatcher);
+
+			// "Loose" commands
+			// TODO: move these to their own files
+			dispatcher.register(CommandManager.literal("smite")
+					.requires(source -> source.hasPermissionLevel(2))
+					.executes(context -> {
+						ServerPlayerEntity player = context.getSource().getPlayer();
+						if (player == null) {
+							return 0;
+						}
+
+						var smiteDistance = 128;
+
+						Vec3d pos = player.getCameraPosVec(0.0F);
+						Vec3d ray = pos.add(player.getRotationVector().multiply(smiteDistance));
+
+						EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.world, player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
+
+						if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
+							Entity entity = entityHitResult.getEntity();
+							entity.damage(DamageSource.LIGHTNING_BOLT, 5);
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(entity.getPos());
+							player.world.spawnEntity(lightning);
+							lightning.setCosmetic(true);
+							return 1;
+						}
+
+						var result = player.raycast(smiteDistance, 0, false);
+						if (result.getType() == HitResult.Type.BLOCK) {
+							BlockPos blockPos = ((BlockHitResult) result).getBlockPos();
+							var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+							lightning.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+							player.world.spawnEntity(lightning);
+						}
+						return 1;
+					})
+			);
+			dispatcher.register(CommandManager.literal("icons")
+					.requires(source -> source.hasPermissionLevel(2))
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+							@Override
+							public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+								var json = MODEL_MANAGER.getManifest().toString();
+								var length = json.getBytes(StandardCharsets.UTF_8).length;
+								buf.writeInt(length);
+								buf.writeString(json, length);
+							}
+
+							@Override
+							public Text getDisplayName() {
+								return Text.literal("Drafting Table");
+							}
+
+							@Override
+							public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+								return new IconScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
+							}
+						});
+
+						return 0;
+					})
+			);
+			dispatcher.register(CommandManager.literal("shop")
+					.requires(source -> source.hasPermissionLevel(2))
+					.then(argument("name", StringArgumentType.greedyString()).executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						openShop(player, world, new Identifier("nyakomod", context.getArgument("name", String.class)));
+						return 0;
+					}))
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+						ServerWorld world = source.getWorld();
+
+						openShop(player, world, ShopEntries.MAIN);
+
+						return 0;
+					})
+			);
+			dispatcher.register(CommandManager.literal("dumpjson")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+
+						// Get stack in hand
+						ItemStack stack = player.getMainHandStack();
+						if (stack.isEmpty()) {
+							return 0;
+						}
+						// Get the NBT
+						NbtCompound tag = stack.getOrCreateNbt();
+						JsonObject converted = (JsonObject) Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, tag);
+						System.out.println(converted.toString());
+						player.sendMessage(Text.literal("Dumped to console!"));
+						return 0;
+					})
+			);
+
+			dispatcher.register(CommandManager.literal("dumpnbt")
+					.executes(context -> {
+						ServerCommandSource source = context.getSource();
+						PlayerEntity player = source.getPlayerOrThrow();
+
+						// Get stack in hand
+						ItemStack stack = player.getMainHandStack();
+						if (stack.isEmpty()) {
+							return 0;
+						}
+						// Get the NBT
+						NbtCompound tag = stack.getOrCreateNbt();
+						System.out.println(tag.toString());
+						player.sendMessage(Text.literal("Dumped to console!"));
+						return 0;
+					})
+			);
 		});
 	}
 }
