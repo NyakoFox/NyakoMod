@@ -15,7 +15,9 @@
     "EntityMixin",
     "EnderDragonEntityMixin",
     "FishingBobberEntityMixin",
-    "CreeperExplodeMixin"
+    "CreeperExplodeMixin",
+    "GrindstoneSlotsScreenHandlerMixin",
+    "GrindstoneScreenHandlerMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
