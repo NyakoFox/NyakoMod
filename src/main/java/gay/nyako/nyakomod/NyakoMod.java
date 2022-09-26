@@ -597,6 +597,8 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), NyakoModItem.TEST_ITEM);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "blueprint"), NyakoModItem.BLUEPRINT);
 
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "piamond_dickaxe"), NyakoModItem.PIAMOND_DICKAXE);
+
 		// Gacha-related
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));

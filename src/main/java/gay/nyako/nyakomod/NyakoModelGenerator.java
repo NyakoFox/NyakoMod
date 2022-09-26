@@ -176,5 +176,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         itemModelGenerator.register(NyakoModItem.TEST_ITEM, Models.GENERATED);
         itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+
+        itemModelGenerator.register(NyakoModItem.PIAMOND_DICKAXE, Models.HANDHELD);
     }
 }

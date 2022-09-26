@@ -62,4 +62,6 @@ public class NyakoModItem {
     public static final Item STAFF_OF_VORBULATION_ITEM = new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
     public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
     public static final Item PET_DRAGON_SUMMON_ITEM = new PetSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoMod.PET_DRAGON, PetDragonEntity::createPet);
+
+    public static final Item PIAMOND_DICKAXE = new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 }

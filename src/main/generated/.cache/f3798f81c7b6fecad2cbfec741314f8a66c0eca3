@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-24T17:14:03.3418577	Models
+// 1.19.2	2022-09-25T22:33:56.2476507	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 989126e3317f8901e2261a435609e264c35093fd assets\nyakomod\blockstates\plasteel_casing.json
 eac5b30d5bb73ffb07093dc38476d9a2ff41697b assets\nyakomod\models\block\netherite_coin_thirty_nine.json
@@ -106,6 +106,7 @@ fea8ff31f6ae7f7ab5825d0ca4b21b1f63a6787d assets\nyakomod\models\block\emerald_co
 06f4825c6b45454e759b25154f2b55a2da4ab5be assets\nyakomod\models\block\gold_coin_forty_two.json
 d8a8c2d3104ca713aa723e40d112f8ec7859d0a8 assets\nyakomod\models\block\copper_coin_ten.json
 597dbaf801d3c7801c0fb38d9f232393bac338f7 assets\nyakomod\models\block\copper_coin_four.json
+8af836b6943738fff7dfaf9507331aa96a1f6082 assets\nyakomod\models\item\piamond_dickaxe.json
 410c26564fcae5c3f8f8e1ed7a602ee04a85464b assets\nyakomod\models\block\diamond_coin_fourteen.json
 5d882e356d53298b1d2bff237452cb39323da2c2 assets\nyakomod\models\item\staff_of_vorbulation.json
 3377eeb5a3e4c6a27a4650d8e77ce997b09a55ea assets\nyakomod\models\block\netherite_coin_seventeen.json
