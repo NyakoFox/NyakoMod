@@ -106,13 +106,13 @@ public class NyakoClientMod implements ClientModInitializer {
 		HandledScreens.register(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
 		HandledScreens.register(NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
 
-    	BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.COPPER_SINGLE_COIN_BLOCK,    RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.GOLD_SINGLE_COIN_BLOCK,      RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.EMERALD_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK,   RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, RenderLayer.getCutout());
+    	BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.COPPER_SINGLE_COIN,    RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.GOLD_SINGLE_COIN,      RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.EMERALD_SINGLE_COIN,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.DIAMOND_SINGLE_COIN,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.NETHERITE_SINGLE_COIN, RenderLayer.getCutout());
 
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DRAFTING_TABLE_BLOCK, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.DRAFTING_TABLE, RenderLayer.getCutout());
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {

@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -23,35 +22,35 @@ public class NyakoModelGenerator extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         // ...
 
-        registerSingleCoinBlocks(NyakoMod.COPPER_SINGLE_COIN_BLOCK, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoMod.GOLD_SINGLE_COIN_BLOCK, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoMod.EMERALD_SINGLE_COIN_BLOCK, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoModBlock.COPPER_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoModBlock.GOLD_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoModBlock.DIAMOND_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoModBlock.EMERALD_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoModBlock.NETHERITE_SINGLE_COIN, blockStateModelGenerator);
 
         registerBlueprintWorkbench(blockStateModelGenerator);
 
         // Shop block
-        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoMod.MAIN_SHOP_BLOCK, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoModBlock.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
 
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_CASING_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_SMOOTH_CASING_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_PLATING_BLOCK);
-        blockStateModelGenerator.registerAxisRotated(NyakoMod.PLASTEEL_PILLAR_BLOCK, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_CASING);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_SMOOTH_CASING);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_PLATING);
+        blockStateModelGenerator.registerAxisRotated(NyakoModBlock.PLASTEEL_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
 
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.FIREBLU_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.FIREBLU);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
         TextureMap textureMap = (new TextureMap())
-                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
                 .put(TextureKey.DOWN, TextureMap.getId(Blocks.DARK_OAK_PLANKS))
-                .put(TextureKey.UP, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_top"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.EAST, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.WEST, TextureMap.getSubId(NyakoMod.BLUEPRINT_WORKBENCH, "_side"));
-        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoMod.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoMod.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.EAST, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoModBlock.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoModBlock.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {

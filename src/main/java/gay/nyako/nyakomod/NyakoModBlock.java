@@ -1,0 +1,34 @@
+package gay.nyako.nyakomod;
+
+import gay.nyako.nyakomod.block.*;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
+public class NyakoModBlock {
+    public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SpunchBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoMod.SPUNCH_BLOCK_SOUND_GROUP).requiresTool()));
+    public static final Block LAUNCHER                  = register("launcher",                  new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(new Identifier("nyakomod", "main")));
+    public static final Block BLUEPRINT_WORKBENCH       = register("blueprint_workbench",       new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
+    public static final Block MATTER_VORTEX             = register("matter_vortex",             new MatterVortexBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block DRAFTING_TABLE            = register("drafting_table",            new DraftingTableBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
+    public static final Block PLASTEEL_CASING           = register("plasteel_casing",           new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
+    public static final Block PLASTEEL_SMOOTH_CASING    = register("plasteel_smooth_casing",    new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
+    public static final Block PLASTEEL_PLATING          = register("plasteel_plating",          new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
+    public static final Block PLASTEEL_PILLAR           = register("plasteel_pillar",           new PillarBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
+    public static final Block COPPER_SINGLE_COIN        = register("copper_coin",               new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
+    public static final Block GOLD_SINGLE_COIN          = register("gold_coin",                 new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
+    public static final Block DIAMOND_SINGLE_COIN       = register("diamond_coin",              new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
+    public static final Block EMERALD_SINGLE_COIN       = register("emerald_coin",              new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
+    public static final Block NETHERITE_SINGLE_COIN     = register("netherite_coin",            new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
+    public static final Block BRICKUS                   = register("brickus",                   new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f)));
+    public static final Block BRICKUS_WALL              = register("brickus_wall",              new CustomWallBlock(AbstractBlock.Settings.copy(BRICKUS)));
+    public static final Block BRICKUS_SLAB              = register("brickus_slab",              new CustomSlabBlock(AbstractBlock.Settings.copy(BRICKUS)));
+    public static final Block BRICKUS_STAIRS            = register("brickus_stairs",            new CustomStairsBlock(BRICKUS.getDefaultState(), AbstractBlock.Settings.copy(BRICKUS)));
+    public static final Block FIREBLU                   = register("fireblu",                   new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+
+    public static Block register(String id, Block block) {
+        return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);
+    }
+}

@@ -3,26 +3,16 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.block.SingleCoinBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SeaPickleBlock;
-import net.minecraft.data.client.*;
-import net.minecraft.data.server.BlockLootTableGenerator;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
@@ -32,11 +22,11 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     protected void generateBlockLootTables() {
-        registerSingleCoinBlocks(NyakoMod.COPPER_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlocks(NyakoMod.GOLD_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlocks(NyakoMod.DIAMOND_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlocks(NyakoMod.EMERALD_SINGLE_COIN_BLOCK);
-        registerSingleCoinBlocks(NyakoMod.NETHERITE_SINGLE_COIN_BLOCK);
+        registerSingleCoinBlocks(NyakoModBlock.COPPER_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoModBlock.GOLD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoModBlock.DIAMOND_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoModBlock.EMERALD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoModBlock.NETHERITE_SINGLE_COIN);
     }
 
     public void registerSingleCoinBlocks(Block inputBlock) {
