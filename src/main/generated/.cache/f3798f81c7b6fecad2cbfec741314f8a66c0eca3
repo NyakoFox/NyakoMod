@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-25T23:20:16.9549054	Models
+// 1.19.2	2022-09-26T17:11:43.5061493	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 989126e3317f8901e2261a435609e264c35093fd assets\nyakomod\blockstates\plasteel_casing.json
 eac5b30d5bb73ffb07093dc38476d9a2ff41697b assets\nyakomod\models\block\netherite_coin_thirty_nine.json
@@ -53,6 +53,7 @@ fe2aaea6a17267f0ba29e2e9ef2e68a11bb88c44 assets\nyakomod\blockstates\main_shop.j
 a4dd624eb9c31c4a871337e21bab930dab2fe895 assets\nyakomod\models\block\netherite_coin_thirty.json
 f87f61ec8ba813a4ce04bdceb4e1d8b7ac1ce251 assets\nyakomod\models\block\diamond_coin_twenty_seven.json
 487c53698646b552568dc4ce4c832d6bdf752d3a assets\nyakomod\models\item\main_shop.json
+f4de553718adff59d9577cecdca7976032e15604 assets\minecraft\models\item\nether_portal.json
 f59e2085dcbf00b795a99500d9e8f24d7f4aec24 assets\nyakomod\models\block\diamond_coin_fifty.json
 182f6927bb591fa8192632d1faa2d2ba456f82f3 assets\nyakomod\models\item\music_disc_mask.json
 7d23ee74299630cf7a368371ba8460182ac045b0 assets\nyakomod\models\block\diamond_coin_thirty_two.json

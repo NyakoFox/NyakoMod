@@ -60,7 +60,7 @@ public class CunkCoinUtils {
         registerCoinAmount(EntityType.PIGLIN_BRUTE, 0, 6, 0, 0,0);
         registerCoinAmount(EntityType.PILLAGER,     0, 1, 0, 0,0);
         registerCoinAmount(EntityType.RAVAGER, 	    0, 6, 0, 0,0);
-        registerCoinAmount(EntityType.SLIME,        0, 1, 0, 0,0);
+        registerCoinAmount(EntityType.SLIME,        50, 0, 0, 0,0);
         registerCoinAmount(EntityType.VINDICATOR,   0, 2, 0, 0,0);
         registerCoinAmount(EntityType.VEX,          50, 0, 0, 0,0);
         registerCoinAmount(EntityType.SHULKER,      0, 1, 0, 0,0);

@@ -64,4 +64,6 @@ public class NyakoModItem {
     public static final Item PET_DRAGON_SUMMON_ITEM = new PetSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoMod.PET_DRAGON, PetDragonEntity::createPet);
 
     public static final Item PIAMOND_DICKAXE = new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+
+    public static final Item TWO_TALL = new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 }

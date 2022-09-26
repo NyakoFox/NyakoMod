@@ -17,7 +17,9 @@
     "FishingBobberEntityMixin",
     "CreeperExplodeMixin",
     "GrindstoneSlotsScreenHandlerMixin",
-    "GrindstoneScreenHandlerMixin"
+    "GrindstoneScreenHandlerMixin",
+    "SlimeEntityMixin",
+    "NetherPortalBlockMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",

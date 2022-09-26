@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -41,7 +42,12 @@ public abstract class LivingEntityMixin extends Entity {
 		EntityType<?> type = this.getType();
 
 		// get the amount of coins to give based off of the entity type
-		int baseCoinAmount = CunkCoinUtils.getCoinValue(type);
+		double baseCoinAmount = CunkCoinUtils.getCoinValue(type);
+
+		if (type == EntityType.SLIME) {
+			SlimeEntity slime = (SlimeEntity) (Object) this;
+			baseCoinAmount *= (slime.getSize() / 5d);
+		}
 
 		// pick a random number between 0.8 and 1.2
 		double randomRange = ((Math.random() * (1.2 - 0.8)) + 0.8);

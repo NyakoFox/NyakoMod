@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import com.google.gson.*;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
@@ -18,6 +19,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -69,6 +73,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
+import net.minecraft.util.profiling.jfr.event.ServerTickTimeEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -93,6 +98,8 @@ public class NyakoMod implements ModInitializer {
 	public static final ScreenHandlerType<BlueprintWorkbenchScreenHandler> BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(BlueprintWorkbenchScreenHandler::new);
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
+
+	private static SlimeSkyManager SLIME_SKY_MANAGER;
 
 	// Spunch block
 	public static final Identifier SPUNCH_BLOCK_SOUND = new Identifier("nyakomod:vine_boom");
@@ -600,6 +607,9 @@ public class NyakoMod implements ModInitializer {
 
 		// Test item
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), NyakoModItem.TEST_ITEM);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "two_tall"), NyakoModItem.TWO_TALL);
+
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "blueprint"), NyakoModItem.BLUEPRINT);
 
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "piamond_dickaxe"), NyakoModItem.PIAMOND_DICKAXE);
@@ -607,6 +617,9 @@ public class NyakoMod implements ModInitializer {
 		// Gacha-related
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Register block items for vanilla blocks
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "nether_portal"), new BlockItem(Blocks.NETHER_PORTAL, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		registerGachaItems();
 
@@ -673,6 +686,18 @@ public class NyakoMod implements ModInitializer {
 		registerCommands();
 
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> CachedResourcePack.setPlayerResourcePack(handler.player)));
+
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
+		});
+
+		ServerTickEvents.END_WORLD_TICK.register(world -> {
+			if (world.getRegistryKey() == World.OVERWORLD) {
+				if (SLIME_SKY_MANAGER == null) return;
+
+				SLIME_SKY_MANAGER.tick();
+			}
+		});
 	}
 
 	public void dispenseCoins(NbtCompound nbt, String tag, Item type, Direction direction, Position pos, World world) {
@@ -789,6 +814,13 @@ public class NyakoMod implements ModInitializer {
 
 						return 0;
 					})
+			);
+			dispatcher.register(CommandManager.literal("slimedebug")
+					.requires(source -> source.hasPermissionLevel(2))
+					.then(argument("ticks", IntegerArgumentType.integer()).executes(context -> {
+						SLIME_SKY_MANAGER.stateLength = IntegerArgumentType.getInteger(context, "ticks");
+						return 0;
+					}))
 			);
 			dispatcher.register(CommandManager.literal("shop")
 					.requires(source -> source.hasPermissionLevel(2))

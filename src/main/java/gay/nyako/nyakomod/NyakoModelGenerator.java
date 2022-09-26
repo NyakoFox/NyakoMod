@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -180,5 +181,6 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
 
         itemModelGenerator.register(NyakoModItem.PIAMOND_DICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(Blocks.NETHER_PORTAL.asItem(), Models.GENERATED);
     }
 }
