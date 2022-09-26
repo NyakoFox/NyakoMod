@@ -34,14 +34,14 @@ public class SpunchBlock extends Block {
     }
 
 
-    @Override
+    /*@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         world.playSound(pos.getX(), pos.getY(), pos.getZ(), NyakoMod.SPUNCH_BLOCK_SOUND_EVENT, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }
         return ActionResult.CONSUME;
-    }
+    }*/
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

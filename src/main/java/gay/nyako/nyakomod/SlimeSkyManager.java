@@ -43,6 +43,11 @@ public class SlimeSkyManager extends PersistentState {
 
         stateLength--;
 
+        if (stateLength % (20 * 60 * 10) == 0) {
+            // Save every 10 minutes
+            markDirty();
+        }
+
         switch (state) {
             case INACTIVE:
                 // Make the slime rain active

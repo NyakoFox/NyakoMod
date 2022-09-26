@@ -18,6 +18,7 @@ import gay.nyako.nyakomod.screens.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -619,7 +620,11 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		// Register block items for vanilla blocks
-		Registry.register(Registry.ITEM, new Identifier("minecraft", "nether_portal"), new BlockItem(Blocks.NETHER_PORTAL, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "nether_portal"), NyakoModItem.NETHER_PORTAL);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "fire"),          NyakoModItem.FIRE);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "soul_fire"),     NyakoModItem.SOUL_FIRE);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "water"),         NyakoModItem.WATER);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "lava"),          NyakoModItem.LAVA);
 
 		registerGachaItems();
 

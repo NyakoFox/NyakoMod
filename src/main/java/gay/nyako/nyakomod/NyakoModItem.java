@@ -5,10 +5,12 @@ import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
 
@@ -66,4 +68,11 @@ public class NyakoModItem {
     public static final Item PIAMOND_DICKAXE = new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
     public static final Item TWO_TALL = new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+
+    public static final Item NETHER_PORTAL = new BlockItem(Blocks.NETHER_PORTAL, new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item FIRE          = new BlockItem(Blocks.FIRE,          new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item SOUL_FIRE     = new BlockItem(Blocks.SOUL_FIRE,     new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item WATER         = new BlockItem(Blocks.WATER,         new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Item LAVA          = new BlockItem(Blocks.LAVA,          new FabricItemSettings().group(ItemGroup.MISC));
+
 }

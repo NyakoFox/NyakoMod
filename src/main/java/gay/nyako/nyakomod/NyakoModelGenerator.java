@@ -181,6 +181,17 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
 
         itemModelGenerator.register(NyakoModItem.PIAMOND_DICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(Blocks.NETHER_PORTAL.asItem(), Models.GENERATED);
+
+        // Minecraft items lol
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/fire_0", Blocks.FIRE);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/soul_fire_0", Blocks.SOUL_FIRE);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/water_still", Blocks.WATER);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/lava_still", Blocks.LAVA);
+    }
+
+    public final void registerMinecraftBlockItem(ItemModelGenerator itemModelGenerator, String texture, Block block) {
+        TextureMap layer0 = new TextureMap().put(TextureKey.LAYER0, Identifier.tryParse(texture));
+        Models.GENERATED.upload(ModelIds.getItemModelId(block.asItem()), layer0, itemModelGenerator.writer);
     }
 }
