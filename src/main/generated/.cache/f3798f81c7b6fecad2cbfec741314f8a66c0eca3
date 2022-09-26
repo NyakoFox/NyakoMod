@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-25T22:33:56.2476507	Models
+// 1.19.2	2022-09-25T23:20:16.9549054	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 989126e3317f8901e2261a435609e264c35093fd assets\nyakomod\blockstates\plasteel_casing.json
 eac5b30d5bb73ffb07093dc38476d9a2ff41697b assets\nyakomod\models\block\netherite_coin_thirty_nine.json
@@ -203,6 +203,7 @@ ee8227ece6a0071506ab258a60cd4a3b9fd38816 assets\nyakomod\models\block\netherite_
 c7ac52e4c9ec54bd51c818997422b6667c0f7cbc assets\nyakomod\models\block\gold_coin_fourteen.json
 0157e3f3dd2ace0a374229dbc8c2968317b49293 assets\nyakomod\models\block\diamond_coin_twenty.json
 5893ab962a55464142ad0ffb9371fee5074cbab9 assets\nyakomod\models\block\gold_coin_thirty_seven.json
+bdc81b680942d2e0090c57d89c132d6bdc662e58 assets\nyakomod\models\item\fireblu.json
 277150bc4c86542f1040f673f50b16ccd8caa753 assets\nyakomod\models\block\netherite_coin_fifty.json
 0b8aab63a52dd6f250817e961ef0655bea07f344 assets\nyakomod\models\block\netherite_coin_thirty_three.json
 cf0fd80b3f2c38e6c1cefd7e9e080c1161e4821e assets\nyakomod\models\block\copper_coin_fifty_five.json
@@ -284,6 +285,7 @@ d2cd341677f9b9841141dd28ad1dfd6f9eea18e6 assets\nyakomod\models\block\gold_coin_
 6160667e447a69078284a431705b3078f6e7d1ee assets\nyakomod\models\block\diamond_coin_thirty_six.json
 998318298f738e416e2550b017bfcd6ff1b888ed assets\nyakomod\models\item\plasteel_plating.json
 8a9184dbdddc99ad8b07c1fa92ae8d91217cbe61 assets\nyakomod\models\block\emerald_coin_forty_two.json
+05587476e9650c68a6c577f56bf3f702a37b39b5 assets\nyakomod\models\block\fireblu.json
 3049d5408fd84aee64340bb2d2e8580f95290925 assets\nyakomod\models\block\copper_coin_sixty_two.json
 1633bfae55149607bb79beffb4a1b53d93263cd6 assets\nyakomod\models\block\netherite_coin_twenty_two.json
 e89bbfff215f12aef096442224b00054a09c2a65 assets\nyakomod\models\block\netherite_coin_eight.json
@@ -304,6 +306,7 @@ f918195bd8d918685bab25452f4a8db38a13e9b7 assets\nyakomod\models\block\copper_coi
 2d6666a72d6fb55ca102e633df239dca34cc9e2f assets\nyakomod\models\block\emerald_coin_six.json
 bcc3a74e117108c65cb32cff4ab8b2eafd17f6b5 assets\nyakomod\models\block\copper_coin_twenty_four.json
 59580142ed0a1ba93d1cca8462621278ec6fac6c assets\nyakomod\models\block\diamond_coin_eight.json
+2805e416f1e8d6c52883a8fc45dde7ee79dc2146 assets\nyakomod\blockstates\fireblu.json
 ac2f4dd50a1a9a6a95d38bfb68063b552c1dddff assets\nyakomod\models\block\netherite_coin_sixty_four.json
 5ba678f176e7ccb9a0a4156a17e5e157d85e3bb1 assets\nyakomod\blockstates\copper_coin.json
 59236151f638fe3da50074d3cf14707c164e50e0 assets\nyakomod\models\block\diamond_coin_fifty_seven.json

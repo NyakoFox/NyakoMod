@@ -37,6 +37,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_SMOOTH_CASING_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_PLATING_BLOCK);
         blockStateModelGenerator.registerAxisRotated(NyakoMod.PLASTEEL_PILLAR_BLOCK, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.FIREBLU_BLOCK);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {

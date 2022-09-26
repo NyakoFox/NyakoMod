@@ -118,6 +118,8 @@ public class NyakoMod implements ModInitializer {
 	public static final Block PLASTEEL_PLATING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 	public static final Block PLASTEEL_PILLAR_BLOCK = new PillarBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 
+	public static final Block FIREBLU_BLOCK = new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
+
 	// Coins
 	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
@@ -565,6 +567,9 @@ public class NyakoMod implements ModInitializer {
 
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_pillar"), PLASTEEL_PILLAR_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_pillar"), new BlockItem(PLASTEEL_PILLAR_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "fireblu"), FIREBLU_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "fireblu"), new BlockItem(FIREBLU_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
 		// Single coin block
 		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
