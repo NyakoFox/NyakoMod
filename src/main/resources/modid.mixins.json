@@ -13,7 +13,13 @@
     "VillagerEntityMixin",
     "MobSpawnerLogicMixin",
     "EntityMixin",
-    "EnderDragonEntityMixin"
+    "EnderDragonEntityMixin",
+    "FishingBobberEntityMixin",
+    "CreeperExplodeMixin",
+    "GrindstoneSlotsScreenHandlerMixin",
+    "GrindstoneScreenHandlerMixin",
+    "SlimeEntityMixin",
+    "NetherPortalBlockMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",

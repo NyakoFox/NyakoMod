@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
-import net.minecraft.state.property.Properties;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -38,6 +38,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_SMOOTH_CASING_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.PLASTEEL_PLATING_BLOCK);
         blockStateModelGenerator.registerAxisRotated(NyakoMod.PLASTEEL_PILLAR_BLOCK, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoMod.FIREBLU_BLOCK);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -86,6 +88,38 @@ public class NyakoModelGenerator extends FabricModelProvider {
         variants.add(new Pair<>("_thirty", "thirty_single_coins"));
         variants.add(new Pair<>("_thirty_one", "thirty_one_single_coins"));
         variants.add(new Pair<>("_thirty_two", "thirty_two_single_coins"));
+        variants.add(new Pair<>("_thirty_three", "thirty_three_single_coins"));
+        variants.add(new Pair<>("_thirty_four", "thirty_four_single_coins"));
+        variants.add(new Pair<>("_thirty_five", "thirty_five_single_coins"));
+        variants.add(new Pair<>("_thirty_six", "thirty_six_single_coins"));
+        variants.add(new Pair<>("_thirty_seven", "thirty_seven_single_coins"));
+        variants.add(new Pair<>("_thirty_eight", "thirty_eight_single_coins"));
+        variants.add(new Pair<>("_thirty_nine", "thirty_nine_single_coins"));
+        variants.add(new Pair<>("_forty", "forty_single_coins"));
+        variants.add(new Pair<>("_forty_one", "forty_one_single_coins"));
+        variants.add(new Pair<>("_forty_two", "forty_two_single_coins"));
+        variants.add(new Pair<>("_forty_three", "forty_three_single_coins"));
+        variants.add(new Pair<>("_forty_four", "forty_four_single_coins"));
+        variants.add(new Pair<>("_forty_five", "forty_five_single_coins"));
+        variants.add(new Pair<>("_forty_six", "forty_six_single_coins"));
+        variants.add(new Pair<>("_forty_seven", "forty_seven_single_coins"));
+        variants.add(new Pair<>("_forty_eight", "forty_eight_single_coins"));
+        variants.add(new Pair<>("_forty_nine", "forty_nine_single_coins"));
+        variants.add(new Pair<>("_fifty", "fifty_single_coins"));
+        variants.add(new Pair<>("_fifty_one", "fifty_one_single_coins"));
+        variants.add(new Pair<>("_fifty_two", "fifty_two_single_coins"));
+        variants.add(new Pair<>("_fifty_three", "fifty_three_single_coins"));
+        variants.add(new Pair<>("_fifty_four", "fifty_four_single_coins"));
+        variants.add(new Pair<>("_fifty_five", "fifty_five_single_coins"));
+        variants.add(new Pair<>("_fifty_six", "fifty_six_single_coins"));
+        variants.add(new Pair<>("_fifty_seven", "fifty_seven_single_coins"));
+        variants.add(new Pair<>("_fifty_eight", "fifty_eight_single_coins"));
+        variants.add(new Pair<>("_fifty_nine", "fifty_nine_single_coins"));
+        variants.add(new Pair<>("_sixty", "sixty_single_coins"));
+        variants.add(new Pair<>("_sixty_one", "sixty_one_single_coins"));
+        variants.add(new Pair<>("_sixty_two", "sixty_two_single_coins"));
+        variants.add(new Pair<>("_sixty_three", "sixty_three_single_coins"));
+        variants.add(new Pair<>("_sixty_four", "sixty_four_single_coins"));
 
         var blockStateVariantMap = BlockStateVariantMap.create(NyakoMod.COINS_PROPERTY);
         var counter = 0;
@@ -93,7 +127,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
             counter++;
 
             String variant = pair.getLeft();
-            String model   = pair.getRight();
+            String model   = "coins/" + pair.getRight();
             Model TEMPLATE_SINGLE_COIN = block(model, variant, TextureKey.TEXTURE);
 
             TextureMap textureMap = TextureMap.texture(block);
@@ -118,32 +152,46 @@ public class NyakoModelGenerator extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         // Coins
-        itemModelGenerator.register(NyakoMod.COPPER_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.GOLD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.EMERALD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.DIAMOND_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.NETHERITE_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.COPPER_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.GOLD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.EMERALD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DIAMOND_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.NETHERITE_COIN_ITEM, Models.GENERATED);
 
         // Coin bags
-        itemModelGenerator.register(NyakoMod.BAG_OF_COINS_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
 
         // Music discs
         NyakoModDisc.registerModels(itemModelGenerator);
 
         // Various gacha items
-        itemModelGenerator.register(NyakoMod.DISCORD_GACHA_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DISCORD_GACHA_ITEM, Models.GENERATED);
 
         // Staffs
-        itemModelGenerator.register(NyakoMod.STAFF_OF_SMITING_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.STAFF_OF_SMITING_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
 
         // Misc. items
-        itemModelGenerator.register(NyakoMod.DRIP_JACKET, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.PRESENT_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.RETENTIVE_BALL_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.DRIP_JACKET, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.PRESENT_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.RETENTIVE_BALL_ITEM, Models.GENERATED);
 
-        itemModelGenerator.register(NyakoMod.TEST_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoMod.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.TEST_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+
+        itemModelGenerator.register(NyakoModItem.PIAMOND_DICKAXE, Models.HANDHELD);
+
+        // Minecraft items lol
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/fire_0", Blocks.FIRE);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/soul_fire_0", Blocks.SOUL_FIRE);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/water_still", Blocks.WATER);
+        registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/lava_still", Blocks.LAVA);
+    }
+
+    public final void registerMinecraftBlockItem(ItemModelGenerator itemModelGenerator, String texture, Block block) {
+        TextureMap layer0 = new TextureMap().put(TextureKey.LAYER0, Identifier.tryParse(texture));
+        Models.GENERATED.upload(ModelIds.getItemModelId(block.asItem()), layer0, itemModelGenerator.writer);
     }
 }

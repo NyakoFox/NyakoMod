@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoMod;
-import net.minecraft.client.MinecraftClient;
+import gay.nyako.nyakomod.NyakoModItem;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ItemPickupAnimationS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -24,11 +23,11 @@ public abstract class ClientPlayNetworkHandlerMixin {
         if (entity instanceof ItemEntity) {
             ItemEntity itemEntity = (ItemEntity)entity;
             ItemStack itemStack = itemEntity.getStack();
-            if (itemStack.isOf(NyakoMod.COPPER_COIN_ITEM) ||
-                itemStack.isOf(NyakoMod.GOLD_COIN_ITEM) ||
-                itemStack.isOf(NyakoMod.EMERALD_COIN_ITEM) ||
-                itemStack.isOf(NyakoMod.DIAMOND_COIN_ITEM) ||
-                itemStack.isOf(NyakoMod.NETHERITE_COIN_ITEM)) {
+            if (itemStack.isOf(NyakoModItem.COPPER_COIN_ITEM) ||
+                itemStack.isOf(NyakoModItem.GOLD_COIN_ITEM) ||
+                itemStack.isOf(NyakoModItem.EMERALD_COIN_ITEM) ||
+                itemStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM) ||
+                itemStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
                 world.playSound(x, y, z, NyakoMod.COIN_COLLECT_SOUND_EVENT, category, 0.7f, pitch, useDistance);
                 return;
             }

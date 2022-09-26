@@ -13,6 +13,7 @@
     "block.nyakomod.plasteel_plating": "Plasteel Plating",
     "block.nyakomod.plasteel_pillar": "Plasteel Pillar",
     "block.nyakomod.drafting_table": "Drafting Table",
+    "block.nyakomod.fireblu": "FIREBLU",
     "category.nyakomod.binds": "NyakoMod",
     "enchantment.nyakomod.cunkless_curse": "Curse of Cunkless",
     "item.nyakomod.bag_of_coins": "Bag of Coins",
@@ -58,6 +59,8 @@
     "item.nyakomod.blueprint": "Blueprint",
     "item.nyakomod.blueprint.filled": "Blueprint (%s)",
     "item.nyakomod.retentive_ball": "Retentive Ball",
+    "item.nyakomod.piamond_dickaxe": "Piamond Dickaxe",
+    "item.nyakomod.two_tall": "Rose Bush",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",

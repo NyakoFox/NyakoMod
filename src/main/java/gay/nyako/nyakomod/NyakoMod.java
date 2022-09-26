@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import com.google.gson.*;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
@@ -9,19 +10,22 @@ import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
+import gay.nyako.nyakomod.entity.TickerEntity;
 import gay.nyako.nyakomod.item.*;
-import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.screens.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -32,7 +36,6 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
@@ -65,13 +68,13 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
+import net.minecraft.util.profiling.jfr.event.ServerTickTimeEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -97,31 +100,19 @@ public class NyakoMod implements ModInitializer {
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
-	// Kill binding
-	public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
+	private static SlimeSkyManager SLIME_SKY_MANAGER;
+
 	// Spunch block
 	public static final Identifier SPUNCH_BLOCK_SOUND = new Identifier("nyakomod:vine_boom");
 	public static SoundEvent SPUNCH_BLOCK_SOUND_EVENT = new SoundEvent(SPUNCH_BLOCK_SOUND);
 	public static final BlockSoundGroup SPUNCH_BLOCK_SOUND_GROUP = new BlockSoundGroup(1.0f, 1.2f, SPUNCH_BLOCK_SOUND_EVENT, SoundEvents.BLOCK_STONE_STEP, SPUNCH_BLOCK_SOUND_EVENT, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
-	public static final Block SPUNCH_BLOCK = new Block(FabricBlockSettings.copy(Blocks.STONE).sounds(SPUNCH_BLOCK_SOUND_GROUP).requiresTool());
+	public static final Block SPUNCH_BLOCK = new SpunchBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(SPUNCH_BLOCK_SOUND_GROUP).requiresTool());
 	// Drip
 	public static final ArmorMaterial customArmorMaterial = new CustomArmorMaterial();
-	public static final Item DRIP_JACKET = new ArmorItem(customArmorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof());
 	// Launcher
 	public static final Block LAUNCHER_BLOCK = new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
-	// Staff of Smiting
-	public static final Item STAFF_OF_SMITING_ITEM = new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
-	// Present
-	public static final Item PRESENT_ITEM = new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	// Custom
-	public static final Item CUSTOM_ITEM = new CustomItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(69));
-
-	// /dev/null
-	public static final Item DEV_NULL_ITEM = new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	public static final Item RETENTIVE_BALL_ITEM = new RetentiveBallItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
 
 	public static final Block BLUEPRINT_WORKBENCH = new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE));
-	public static final BlockItem BLUEPRINT_WORKBENCH_ITEM = new BlockItem(BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC));
 	public static final BlockEntityType<BlueprintWorkbenchBlockEntity> BLUEPRINT_WORKBENCH_ENTITY = FabricBlockEntityTypeBuilder.create(BlueprintWorkbenchBlockEntity::new, BLUEPRINT_WORKBENCH).build(null);
 
 	// Shops
@@ -135,6 +126,8 @@ public class NyakoMod implements ModInitializer {
 	public static final Block PLASTEEL_PLATING_BLOCK = new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 	public static final Block PLASTEEL_PILLAR_BLOCK = new PillarBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
 
+	public static final Block FIREBLU_BLOCK = new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool());
+
 	// Coins
 	public static final Block GOLD_SINGLE_COIN_BLOCK      = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 	public static final Block COPPER_SINGLE_COIN_BLOCK    = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
@@ -142,34 +135,10 @@ public class NyakoMod implements ModInitializer {
 	public static final Block DIAMOND_SINGLE_COIN_BLOCK   = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 	public static final Block NETHERITE_SINGLE_COIN_BLOCK = new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f));
 
-	public static final Item COPPER_COIN_ITEM            = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), COPPER_SINGLE_COIN_BLOCK, "copper", 1);
-	public static final Item GOLD_COIN_ITEM              = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), GOLD_SINGLE_COIN_BLOCK, "gold", 100);
-	public static final Item EMERALD_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), EMERALD_SINGLE_COIN_BLOCK, "emerald", 10000);
-	public static final Item DIAMOND_COIN_ITEM           = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), DIAMOND_SINGLE_COIN_BLOCK, "diamond", 1000000);
-	public static final Item NETHERITE_COIN_ITEM         = new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), NETHERITE_SINGLE_COIN_BLOCK, "netherite", 100000000);
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
 
 	public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
-
-	public static final Identifier CUNK_SHOP_PURCHASE_PACKET_ID = new Identifier("nyakomod", "purchase");
-
-	// Bag of coins
-	public static final Item BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	public static final Item HUNGRY_BAG_OF_COINS_ITEM = new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	// Time in a bottle
-	public static final TimeInABottleItem TIME_IN_A_BOTTLE = new TimeInABottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	// Soul jar
-	public static final SoulJarItem SOUL_JAR = new SoulJarItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-
-	// Test item
-	public static final Item TEST_ITEM = new TestItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
-	public static final Item BLUEPRINT = new BlueprintItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16));
-
-	// Player smite packet
-	public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
-	public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
-	public static final Identifier MODEL_CREATE_PACKET = new Identifier("nyakomod", "create_model");
 
 	// Bricks
 	public static final Block BRICKUS = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f));
@@ -198,32 +167,6 @@ public class NyakoMod implements ModInitializer {
 
 
 	// Gacha items
-
-	public static final Item DIAMOND_GACHA_ITEM = new GachaItem(
-			new FabricItemSettings().group(ItemGroup.MISC).food(FoodComponents.GOLDEN_CARROT),
-			2,
-			Arrays.asList(
-					(MutableText) Text.of("You can't make tools out of these,"),
-					(MutableText) Text.of("but at least they're healthy!")
-			)
-	);
-
-	public static final Item MARIO_GACHA_ITEM = new GachaItem(
-			new FabricItemSettings().group(ItemGroup.MISC),
-			4,
-			(MutableText) Text.of("The lovable plumber!")
-	);
-
-	public static final Item LUIGI_GACHA_ITEM = new GachaItem(
-			new FabricItemSettings().group(ItemGroup.MISC),
-			4,
-			(MutableText) Text.of("The lovable plumber's brother!")
-	);
-
-	public static final Item DISCORD_GACHA_ITEM = new DiscordGachaItem(new FabricItemSettings().group(ItemGroup.MISC));
-
-	// Staff of Vorbulation
-	public static final Item STAFF_OF_VORBULATION_ITEM = new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
 
 	public record GachaEntry(
 			Text name,
@@ -254,9 +197,6 @@ public class NyakoMod implements ModInitializer {
 					.build()
 	);
 
-	public static final Item PET_SPRITE_SUMMON_ITEM = new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof());
-	public static final Item PET_DRAGON_SUMMON_ITEM = new PetSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoMod.PET_DRAGON, PetDragonEntity::createPet);
-
 
 	public static List<GachaEntry> gachaEntryList = new ArrayList<>();
 
@@ -273,28 +213,28 @@ public class NyakoMod implements ModInitializer {
 		/* REGISTRY */
 		// Items
 		// Squishy Diamond
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_gacha"), DIAMOND_GACHA_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_gacha"), NyakoModItem.DIAMOND_GACHA_ITEM);
 		// Discord Logo
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "discord_gacha"), DISCORD_GACHA_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "discord_gacha"), NyakoModItem.DISCORD_GACHA_ITEM);
 		// Staff of Vorbulation
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), STAFF_OF_VORBULATION_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_vorbulation"), NyakoModItem.STAFF_OF_VORBULATION_ITEM);
 
 		// Mario
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "mario_gacha"), MARIO_GACHA_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "mario_gacha"), NyakoModItem.MARIO_GACHA_ITEM);
 		// Luigi
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), LUIGI_GACHA_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "luigi_gacha"), NyakoModItem.LUIGI_GACHA_ITEM);
 
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"), PET_SPRITE_SUMMON_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_dragon_summon"), PET_DRAGON_SUMMON_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "dev_null"), DEV_NULL_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "retentive_ball"), RETENTIVE_BALL_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_sprite_summon"), NyakoModItem.PET_SPRITE_SUMMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "pet_dragon_summon"), NyakoModItem.PET_DRAGON_SUMMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "dev_null"), NyakoModItem.DEV_NULL_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "retentive_ball"), NyakoModItem.RETENTIVE_BALL_ITEM);
 
 		// Sounds
 		Registry.register(Registry.SOUND_EVENT, DISCORD_SOUND, DISCORD_SOUND_EVENT);
 
 		/* 1 STAR */
 		// 1 Gold CunkCoin
-		registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(GOLD_COIN_ITEM), 1);
+		registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(NyakoModItem.GOLD_COIN_ITEM), 1);
 		registerGachaItem(Text.of("16 §6Dirt"), Items.DIRT, 16, 1);
 		registerGachaItem(Text.of("8 §6Oak Logs"), Items.OAK_LOG, 8, 1);
 		registerGachaItem(Text.of("8 §6Dark Oak Logs"), Items.DARK_OAK_LOG, 8, 1);
@@ -312,7 +252,7 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("an §5Uncraftable Potion...?"), new ItemStack(Items.POTION), 2);
 		// wolves
 		registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(NyakoModDisc.get("wolves").discItem), 2);
-		registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) DIAMOND_GACHA_ITEM, 16);
+		registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) NyakoModItem.DIAMOND_GACHA_ITEM, 16);
 		registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
 
 		registerGachaItem(Text.of("32 §7Sticks"), Items.STICK, 32, 2);
@@ -324,10 +264,10 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("2 §dChicken Spawn Eggs"), Items.CHICKEN_SPAWN_EGG, 2, 2);
 
 		/* 3 STAR */
-		registerGachaItem(Text.of("the §9Discord Logo"), (GachaItem) DISCORD_GACHA_ITEM);
+		registerGachaItem(Text.of("the §9Discord Logo"), (GachaItem) NyakoModItem.DISCORD_GACHA_ITEM);
 		registerGachaItem(Text.of("a §2Potion of Luck"), PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LUCK), 3);
 		registerGachaItem(Text.of("a §2Potion of Unluck"), PotionUtil.setPotion(new ItemStack(Items.POTION), NyakoModPotion.UNLUCK), 3);
-		registerGachaItem(Text.of("5 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 5, 3);
+		registerGachaItem(Text.of("5 §6Gold CunkCoin™"), NyakoModItem.GOLD_COIN_ITEM, 5, 3);
 		registerGachaItem(Text.of("64 §7Cobblestone"), Items.COBBLESTONE, 64, 3);
 		registerGachaItem(Text.of("64 §cTorches"), Items.TORCH, 64, 3);
 		registerGachaItem(Text.of("16 §7Iron Ingots"), Items.IRON_INGOT, 16, 3);
@@ -336,15 +276,15 @@ public class NyakoMod implements ModInitializer {
 		registerGachaItem(Text.of("16 §7Arrows"), Items.ARROW, 16, 3);
 
 		// Mario and Luigi
-		ItemStack brotherStack = new ItemStack(PRESENT_ITEM);
-		PresentItem.addToPresent(brotherStack, new ItemStack(MARIO_GACHA_ITEM));
-		PresentItem.addToPresent(brotherStack, new ItemStack(LUIGI_GACHA_ITEM));
+		ItemStack brotherStack = new ItemStack(NyakoModItem.PRESENT_ITEM);
+		PresentItem.addToPresent(brotherStack, new ItemStack(NyakoModItem.MARIO_GACHA_ITEM));
+		PresentItem.addToPresent(brotherStack, new ItemStack(NyakoModItem.LUIGI_GACHA_ITEM));
 		brotherStack.setCustomName(Text.of("Present (Brothers)"));
 		registerGachaItem(Text.of("§cThe §4Brothers"), brotherStack, 3);
 
 		/* 4 STAR */
-		registerGachaItem(Text.of("10 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 10, 4);
-		registerGachaItem(Text.of("the §5Staff of Vorbulation"), (GachaItem) STAFF_OF_VORBULATION_ITEM);
+		registerGachaItem(Text.of("10 §6Gold CunkCoin™"), NyakoModItem.GOLD_COIN_ITEM, 10, 4);
+		registerGachaItem(Text.of("the §5Staff of Vorbulation"), (GachaItem) NyakoModItem.STAFF_OF_VORBULATION_ITEM);
 		registerGachaItem(Text.of("16 §aExperience Bottles"), Items.EXPERIENCE_BOTTLE, 16, 4);
 		registerGachaItem(Text.of("16 §eGlowing Item Frames"), Items.GLOW_ITEM_FRAME, 16, 4);
 		registerGachaItem(Text.of("16 §eSpectral Arrows"), Items.SPECTRAL_ARROW, 16, 4);
@@ -356,7 +296,7 @@ public class NyakoMod implements ModInitializer {
 
 		/* 5 STAR */
 		registerGachaItem(Text.of("a §dDragon §5Egg"), Items.DRAGON_EGG, 1, 5);
-		registerGachaItem(Text.of("20 §6Gold CunkCoin™"), GOLD_COIN_ITEM, 20, 5);
+		registerGachaItem(Text.of("20 §6Gold CunkCoin™"), NyakoModItem.GOLD_COIN_ITEM, 20, 5);
 		registerGachaItem(Text.of("1 §4Ancient Debris"), Items.ANCIENT_DEBRIS, 1, 5);
 		registerGachaItem(Text.of("8 §bDiamonds"), Items.DIAMOND, 8, 5);
 
@@ -428,8 +368,10 @@ public class NyakoMod implements ModInitializer {
 	}
 
 
-	private LootPool.Builder addLootTableCoins(LootPool.Builder lootPoolBuilder, Item coinItem, int min, int max, int weight) {
-		return lootPoolBuilder.with(ItemEntry.builder(coinItem)
+	private LootPool.Builder addLootTableCoins(Item coinItem, int min, int max, int weight) {
+		return LootPool.builder()
+				.rolls(ConstantLootNumberProvider.create(1))
+				.with(ItemEntry.builder(coinItem)
 				.weight(weight)
 				.quality(0)
 				.apply(SetCountLootFunction.builder(
@@ -443,7 +385,6 @@ public class NyakoMod implements ModInitializer {
 	}
 
 	public static void loadShopModelFromJson(JsonObject shopJson, ShopData shopData) {
-		Gson gson = new Gson();
 		shopJson.getAsJsonArray("entries").forEach(entry -> {
 			JsonObject entryJson = entry.getAsJsonObject();
 			var stacks = new ArrayList<ItemStack>();
@@ -523,24 +464,19 @@ public class NyakoMod implements ModInitializer {
 				var copperMax = 95;
 				var copperWeight = 1;
 
-				var lootPoolBuilder = LootPool.builder()
-						.rolls(ConstantLootNumberProvider.create(1));
-
 				switch (id.toString()) {
 					// treasure
 					case "minecraft:chests/end_city_treasure":
-						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, EMERALD_COIN_ITEM, 1, 2, 5);
+						tableBuilder.pool(addLootTableCoins(NyakoModItem.EMERALD_COIN_ITEM, 1, 2, 5).build());
 					case "minecraft:chests/buried_treasure":
 					case "minecraft:chests/shipwreck_treasure":
 						copperMin = 0;
 						copperMax = 100;
-						lootPoolBuilder = addLootTableCoins(lootPoolBuilder, GOLD_COIN_ITEM, 40, 80, 10);
+						tableBuilder.pool(addLootTableCoins(NyakoModItem.GOLD_COIN_ITEM, 40, 80, 10).build());
 						break;
 				}
 
-				lootPoolBuilder = addLootTableCoins(lootPoolBuilder, COPPER_COIN_ITEM, copperMin, copperMax, copperWeight);
-
-				tableBuilder.pool(lootPoolBuilder);
+				tableBuilder.pool(addLootTableCoins(NyakoModItem.COPPER_COIN_ITEM, copperMin, copperMax, copperWeight).build());
 			}
 		});
 
@@ -574,7 +510,251 @@ public class NyakoMod implements ModInitializer {
 			}
 		});
 
+		NyakoModNetworking.registerGlobalReceivers();
+		NyakoModDisc.registerAll();
+
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE);
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "icon_menu"), NyakoMod.ICON_SCREEN_HANDLER_TYPE);
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "blueprint_workbench"), NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE);
+
+		// Spunch block
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "spunch_block"), new BlockItem(SPUNCH_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.SOUND_EVENT, SPUNCH_BLOCK_SOUND, SPUNCH_BLOCK_SOUND_EVENT);
+
+		// Drip
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "drip_jacket"), NyakoModItem.DRIP_JACKET);
+
+		// Launcher
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "launcher"), LAUNCHER_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "launcher"), new BlockItem(LAUNCHER_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Brickus
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus"), BRICKUS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_stairs"), BRICKUS_STAIRS);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_slab"), BRICKUS_SLAB);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_wall"), BRICKUS_WALL);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus"), new BlockItem(BRICKUS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_stairs"), new BlockItem(BRICKUS_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_slab"), new BlockItem(BRICKUS_SLAB, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_wall"), new BlockItem(BRICKUS_WALL, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Staff of Smiting
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_smiting"), NyakoModItem.STAFF_OF_SMITING_ITEM);
+
+		// Present
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), NyakoModItem.PRESENT_ITEM);
+
+
+		// Custom
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), NyakoModItem.CUSTOM_ITEM);
+
+		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
+		Registry.register(Registry.BLOCK, blueprintWorkbenchId, BLUEPRINT_WORKBENCH);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
+		Registry.register(Registry.ITEM, blueprintWorkbenchId, NyakoModItem.BLUEPRINT_WORKBENCH_ITEM);
+
+		// Shops
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "main_shop"), MAIN_SHOP_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "main_shop"), new BlockItem(MAIN_SHOP_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Drafting table
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "drafting_table"), DRAFTING_TABLE_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "drafting_table"), new BlockItem(DRAFTING_TABLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Plasteel
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_casing"), PLASTEEL_CASING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_casing"), new BlockItem(PLASTEEL_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_smooth_casing"), PLASTEEL_SMOOTH_CASING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_smooth_casing"), new BlockItem(PLASTEEL_SMOOTH_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_plating"), PLASTEEL_PLATING_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_plating"), new BlockItem(PLASTEEL_PLATING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_pillar"), PLASTEEL_PILLAR_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_pillar"), new BlockItem(PLASTEEL_PILLAR_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "fireblu"), FIREBLU_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "fireblu"), new BlockItem(FIREBLU_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Single coin block
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_coin"), GOLD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_coin"), EMERALD_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_coin"), DIAMOND_SINGLE_COIN_BLOCK);
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_coin"), NETHERITE_SINGLE_COIN_BLOCK);
+
+		// Coins
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), NyakoModItem.COPPER_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "gold_coin"), NyakoModItem.GOLD_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "emerald_coin"), NyakoModItem.EMERALD_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_coin"), NyakoModItem.DIAMOND_COIN_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "netherite_coin"), NyakoModItem.NETHERITE_COIN_ITEM);
+		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
+
+		// Bag of coins
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), NyakoModItem.BAG_OF_COINS_ITEM);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "hungry_bag_of_coins"), NyakoModItem.HUNGRY_BAG_OF_COINS_ITEM);
+
+		// Time in a bottle
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "time_in_a_bottle"), NyakoModItem.TIME_IN_A_BOTTLE);
+
+		// Soul jar
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "soul_jar"), NyakoModItem.SOUL_JAR);
+
+		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
+
+		// Test item
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), NyakoModItem.TEST_ITEM);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "two_tall"), NyakoModItem.TWO_TALL);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "blueprint"), NyakoModItem.BLUEPRINT);
+
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "piamond_dickaxe"), NyakoModItem.PIAMOND_DICKAXE);
+
+		// Gacha-related
+		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
+		// Register block items for vanilla blocks
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "nether_portal"), NyakoModItem.NETHER_PORTAL);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "fire"),          NyakoModItem.FIRE);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "soul_fire"),     NyakoModItem.SOUL_FIRE);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "water"),         NyakoModItem.WATER);
+		Registry.register(Registry.ITEM, new Identifier("minecraft", "lava"),          NyakoModItem.LAVA);
+
+		registerGachaItems();
+
+		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
+		FabricDefaultAttributeRegistry.register(PET_DRAGON, PetDragonEntity.createPetAttributes());
+
+
+		DispenserBlock.registerBehavior(NyakoModItem.SOUL_JAR, new ItemDispenserBehavior() {
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+				BlockPos pos = pointer.getPos();
+				World world = pointer.getWorld();
+				if (!stack.getOrCreateNbt().contains("entity")) {
+					BlockPos blockPos = pointer.getPos().offset(direction);
+					List<Entity> list = pointer.getWorld().getEntitiesByClass(
+							Entity.class,
+							new Box(blockPos), Entity::isAlive
+					);
+
+					Iterator<Entity> var5 = list.iterator();
+
+					Entity entity;
+					ItemStack newStack;
+					do {
+						if (!var5.hasNext()) {
+							return super.dispenseSilently(pointer, stack);
+						}
+
+						entity = var5.next();
+						newStack = ((SoulJarItem) stack.getItem()).captureEntity(stack, null, (LivingEntity) entity);
+					} while (newStack == null);
+
+					return newStack;
+				}
+				((SoulJarItem) stack.getItem()).spawnEntity(pos, direction, world, stack);
+				return stack;
+			}
+		});
+
+		var BagDispenseBehavior = new ItemDispenserBehavior() {
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+				Position pos = DispenserBlock.getOutputLocation(pointer);
+				World world = pointer.getWorld();
+
+				var nbt = stack.getOrCreateNbt();
+
+				dispenseCoins(nbt, "copper", NyakoModItem.COPPER_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "gold", NyakoModItem.GOLD_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "emerald", NyakoModItem.EMERALD_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "diamond", NyakoModItem.DIAMOND_COIN_ITEM, direction, pos, world);
+				dispenseCoins(nbt, "netherite", NyakoModItem.NETHERITE_COIN_ITEM, direction, pos, world);
+
+				stack.setNbt(nbt);
+
+				return stack;
+			}
+		};
+
+		DispenserBlock.registerBehavior(NyakoModItem.BAG_OF_COINS_ITEM, BagDispenseBehavior);
+		DispenserBlock.registerBehavior(NyakoModItem.HUNGRY_BAG_OF_COINS_ITEM, BagDispenseBehavior);
+
+		CunkCoinUtils.registerCoinAmounts();
+		registerCommands();
+
+		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> CachedResourcePack.setPlayerResourcePack(handler.player)));
+
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
+		});
+
+		ServerTickEvents.END_WORLD_TICK.register(world -> {
+			if (world.getRegistryKey() == World.OVERWORLD) {
+				if (SLIME_SKY_MANAGER == null) return;
+
+				SLIME_SKY_MANAGER.tick();
+			}
+		});
+	}
+
+	public void dispenseCoins(NbtCompound nbt, String tag, Item type, Direction direction, Position pos, World world) {
+		if (nbt.contains(tag)) {
+			int coins = nbt.getInt(tag);
+			if (coins > 0) {
+				var stack = new ItemStack(type);
+				stack.setCount(coins);
+				nbt.remove(tag);
+
+				ItemDispenserBehavior.spawnItem(world, stack, 6, direction, pos);
+			}
+		}
+	}
+
+	public static String hash(String input) {
+		try {
+			var digest = MessageDigest.getInstance("SHA-256");
+			digest.update(input.getBytes(StandardCharsets.UTF_8));
+			var hash = toHexString(digest.digest());
+			return hash.substring(0, 10);
+		} catch (NoSuchAlgorithmException ex) {
+			return "default";
+		}
+	}
+
+	public static String hashString(String input) {
+		return "custom/" + hash(input);
+	}
+
+	private static String toHexString(byte[] bytes) {
+		Formatter result = new Formatter();
+		try (result) {
+			for (var b : bytes) {
+				result.format("%02x", b & 0xff);
+			}
+			return result.toString();
+		}
+	}
+
+
+
+	public static void registerCommands() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			BackCommand.register(dispatcher);
+			XpCommand.register(dispatcher);
+			LoreCommand.register(dispatcher);
+			RenameCommand.register(dispatcher);
+			PackCommand.register(dispatcher);
+
+			// "Loose" commands
+			// TODO: move these to their own files
 			dispatcher.register(CommandManager.literal("smite")
 					.requires(source -> source.hasPermissionLevel(2))
 					.executes(context -> {
@@ -640,6 +820,13 @@ public class NyakoMod implements ModInitializer {
 						return 0;
 					})
 			);
+			dispatcher.register(CommandManager.literal("slimedebug")
+					.requires(source -> source.hasPermissionLevel(2))
+					.then(argument("ticks", IntegerArgumentType.integer()).executes(context -> {
+						SLIME_SKY_MANAGER.stateLength = IntegerArgumentType.getInteger(context, "ticks");
+						return 0;
+					}))
+			);
 			dispatcher.register(CommandManager.literal("shop")
 					.requires(source -> source.hasPermissionLevel(2))
 					.then(argument("name", StringArgumentType.greedyString()).executes(context -> {
@@ -696,308 +883,6 @@ public class NyakoMod implements ModInitializer {
 						return 0;
 					})
 			);
-		});
-
-		// Kill bind
-		ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
-				(server, player, handler, buffer, sender) -> server.execute(() -> {
-					player.damage(DamageSource.MAGIC, 3.4028235E38F);
-				}));
-
-		// Custom Sprite Setting
-		ServerPlayNetworking.registerGlobalReceiver(PET_SPRITE_SET_URL,
-				(server, player, handler, buffer, sender) -> {
-					var string = buffer.readString();
-					var size = buffer.readDouble();
-
-					server.execute(() -> {
-						var stack = player.getMainHandStack();
-						if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
-							stack = player.getOffHandStack();
-							if (!stack.isOf(PET_SPRITE_SUMMON_ITEM)) {
-								return;
-							}
-						}
-
-						var nbt = stack.getOrCreateNbt();
-						nbt.putString("custom_sprite", string);
-						nbt.putDouble("pet_size", size);
-						stack.setNbt(nbt);
-					});
-				}
-		);
-
-
-		ServerPlayNetworking.registerGlobalReceiver(MODEL_CREATE_PACKET,
-				(server, player, handler, buffer, sender) -> {
-					var name = buffer.readString();
-					var type = buffer.readString();
-					var url = buffer.readString();
-
-					server.execute(() -> {
-						MODEL_MANAGER.addModel(player, name, type, url);
-					});
-				}
-		);
-
-		// Cunk shop purchasing
-		ServerPlayNetworking.registerGlobalReceiver(CUNK_SHOP_PURCHASE_PACKET_ID,
-				(server, player, handler, buffer, sender) -> {
-					var shopId = buffer.readIdentifier();
-					var entry = buffer.readInt();
-					var amount = buffer.readInt();
-					server.execute(() -> {
-						var shop = ShopEntries.getShop(shopId);
-						if (shop == null) {
-							return;
-						}
-						var currentEntry = shop.entries.get(entry);
-						var cost = currentEntry.price() * amount;
-
-						var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
-						if (count < cost) {
-							return;
-						}
-
-						CunkCoinUtils.removeCoins(player, cost);
-						player.getInventory().markDirty();
-						player.getInventory().updateItems();
-
-						if (player.playerScreenHandler != null) {
-							player.playerScreenHandler.sendContentUpdates();
-							player.playerScreenHandler.syncState();
-							player.playerScreenHandler.updateToClient();
-						}
-						if (player.currentScreenHandler != null) {
-							player.currentScreenHandler.sendContentUpdates();
-							player.currentScreenHandler.syncState();
-							player.currentScreenHandler.updateToClient();
-						}
-
-						for (ItemStack stack : currentEntry.stacks()) {
-							for (int i = 0; i < amount; i++) {
-								player.getInventory().offerOrDrop(stack.copy());
-							}
-						}
-					});
-			});
-
-		NyakoModDisc.registerAll();
-
-		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE);
-		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "icon_menu"), NyakoMod.ICON_SCREEN_HANDLER_TYPE);
-		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "blueprint_workbench"), NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE);
-
-		// Spunch block
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "spunch_block"), SPUNCH_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "spunch_block"), new BlockItem(SPUNCH_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-		Registry.register(Registry.SOUND_EVENT, SPUNCH_BLOCK_SOUND, SPUNCH_BLOCK_SOUND_EVENT);
-
-		// Drip
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "drip_jacket"), DRIP_JACKET);
-
-		// Launcher
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "launcher"), LAUNCHER_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "launcher"), new BlockItem(LAUNCHER_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		// Brickus
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus"), BRICKUS);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_stairs"), BRICKUS_STAIRS);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_slab"), BRICKUS_SLAB);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "brickus_wall"), BRICKUS_WALL);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus"), new BlockItem(BRICKUS, new FabricItemSettings().group(ItemGroup.MISC)));
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_stairs"), new BlockItem(BRICKUS_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_slab"), new BlockItem(BRICKUS_SLAB, new FabricItemSettings().group(ItemGroup.MISC)));
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "brickus_wall"), new BlockItem(BRICKUS_WALL, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		// Staff of Smiting
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "staff_of_smiting"), STAFF_OF_SMITING_ITEM);
-
-		// Present
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "present"), PRESENT_ITEM);
-
-
-		// Custom
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "custom"), CUSTOM_ITEM);
-
-		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
-		Registry.register(Registry.BLOCK, blueprintWorkbenchId, BLUEPRINT_WORKBENCH);
-		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
-		Registry.register(Registry.ITEM, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ITEM);
-
-		// Shops
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "main_shop"), MAIN_SHOP_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "main_shop"), new BlockItem(MAIN_SHOP_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		// Drafting table
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "drafting_table"), DRAFTING_TABLE_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "drafting_table"), new BlockItem(DRAFTING_TABLE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		// Plasteel
-
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_casing"), PLASTEEL_CASING_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_casing"), new BlockItem(PLASTEEL_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_smooth_casing"), PLASTEEL_SMOOTH_CASING_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_smooth_casing"), new BlockItem(PLASTEEL_SMOOTH_CASING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_plating"), PLASTEEL_PLATING_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_plating"), new BlockItem(PLASTEEL_PLATING_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "plasteel_pillar"), PLASTEEL_PILLAR_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "plasteel_pillar"), new BlockItem(PLASTEEL_PILLAR_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		// Single coin block
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "copper_coin"), COPPER_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "gold_coin"), GOLD_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "emerald_coin"), EMERALD_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "diamond_coin"), DIAMOND_SINGLE_COIN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "netherite_coin"), NETHERITE_SINGLE_COIN_BLOCK);
-
-		// Coins
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "copper_coin"), COPPER_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "gold_coin"), GOLD_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "emerald_coin"), EMERALD_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "diamond_coin"), DIAMOND_COIN_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "netherite_coin"), NETHERITE_COIN_ITEM);
-		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
-
-		// Bag of coins
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "bag_of_coins"), BAG_OF_COINS_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "hungry_bag_of_coins"), HUNGRY_BAG_OF_COINS_ITEM);
-
-		// Time in a bottle
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "time_in_a_bottle"), TIME_IN_A_BOTTLE);
-
-		// Soul jar
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "soul_jar"), SOUL_JAR);
-
-		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
-
-		// Test item
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "test_item"), TEST_ITEM);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "blueprint"), BLUEPRINT);
-
-		// Gacha-related
-		Registry.register(Registry.BLOCK, new Identifier("nyakomod", "matter_vortex"), MATTER_VORTEX_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier("nyakomod", "matter_vortex"), new BlockItem(MATTER_VORTEX_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
-
-		registerGachaItems();
-
-		FabricDefaultAttributeRegistry.register(PET_SPRITE, PetSpriteEntity.createPetAttributes());
-		FabricDefaultAttributeRegistry.register(PET_DRAGON, PetDragonEntity.createPetAttributes());
-
-
-		DispenserBlock.registerBehavior(SOUL_JAR, new ItemDispenserBehavior() {
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-				BlockPos pos = pointer.getPos();
-				World world = pointer.getWorld();
-				if (!stack.getOrCreateNbt().contains("entity")) {
-					BlockPos blockPos = pointer.getPos().offset(direction);
-					List<Entity> list = pointer.getWorld().getEntitiesByClass(
-							Entity.class,
-							new Box(blockPos), Entity::isAlive
-					);
-
-					Iterator<Entity> var5 = list.iterator();
-
-					Entity entity;
-					ItemStack newStack;
-					do {
-						if (!var5.hasNext()) {
-							return super.dispenseSilently(pointer, stack);
-						}
-
-						entity = var5.next();
-						newStack = ((SoulJarItem) stack.getItem()).captureEntity(stack, null, (LivingEntity) entity);
-					} while (newStack == null);
-
-					return newStack;
-				}
-				((SoulJarItem) stack.getItem()).spawnEntity(pos, direction, world, stack);
-				return stack;
-			}
-		});
-
-		var BagDispenseBehavior = new ItemDispenserBehavior() {
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-				Position pos = DispenserBlock.getOutputLocation(pointer);
-				World world = pointer.getWorld();
-
-				var nbt = stack.getOrCreateNbt();
-
-				dispenseCoins(nbt, "copper", COPPER_COIN_ITEM, direction, pos, world);
-				dispenseCoins(nbt, "gold", GOLD_COIN_ITEM, direction, pos, world);
-				dispenseCoins(nbt, "emerald", EMERALD_COIN_ITEM, direction, pos, world);
-				dispenseCoins(nbt, "diamond", DIAMOND_COIN_ITEM, direction, pos, world);
-				dispenseCoins(nbt, "netherite", NETHERITE_COIN_ITEM, direction, pos, world);
-
-				stack.setNbt(nbt);
-
-				return stack;
-			}
-		};
-
-		DispenserBlock.registerBehavior(BAG_OF_COINS_ITEM, BagDispenseBehavior);
-		DispenserBlock.registerBehavior(HUNGRY_BAG_OF_COINS_ITEM, BagDispenseBehavior);
-
-		CunkCoinUtils.registerCoinAmounts();
-		registerCommands();
-
-		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-			CachedResourcePack.setPlayerResourcePack(handler.player);
-		}));
-	}
-
-	public void dispenseCoins(NbtCompound nbt, String tag, Item type, Direction direction, Position pos, World world) {
-		if (nbt.contains(tag)) {
-			int coins = nbt.getInt(tag);
-			if (coins > 0) {
-				var stack = new ItemStack(type);
-				stack.setCount(coins);
-				nbt.remove(tag);
-
-				ItemDispenserBehavior.spawnItem(world, stack, 6, direction, pos);
-			}
-		}
-	}
-
-	public static String hash(String input) {
-		try {
-			var digest = MessageDigest.getInstance("SHA-256");
-			digest.update(input.getBytes(StandardCharsets.UTF_8));
-			var hash = toHexString(digest.digest());
-			return hash.substring(0, 10);
-		} catch (NoSuchAlgorithmException ex) {
-			return "default";
-		}
-	}
-
-	public static String hashString(String input) {
-		return "custom/" + hash(input);
-	}
-
-	private static String toHexString(byte[] bytes) {
-		Formatter result = new Formatter();
-		try (result) {
-			for (var b : bytes) {
-				result.format("%02x", b & 0xff);
-			}
-			return result.toString();
-		}
-	}
-
-
-
-	public static void registerCommands() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			BackCommand.register(dispatcher);
-			XpCommand.register(dispatcher);
-			LoreCommand.register(dispatcher);
-			RenameCommand.register(dispatcher);
-			PackCommand.register(dispatcher);
 		});
 	}
 }

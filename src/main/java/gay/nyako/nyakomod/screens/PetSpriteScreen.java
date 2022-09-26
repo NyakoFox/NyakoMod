@@ -1,23 +1,15 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoMod;
-import io.wispforest.owo.ui.base.BaseOwoScreen;
+import gay.nyako.nyakomod.NyakoModNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
-import io.wispforest.owo.ui.component.Components;
-import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
-import io.wispforest.owo.ui.core.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
     ItemStack item;
@@ -58,7 +50,7 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
                     buf.writeDouble(2);
                 }
 
-                ClientPlayNetworking.send(NyakoMod.PET_SPRITE_SET_URL, buf);
+                ClientPlayNetworking.send(NyakoModNetworking.PET_SPRITE_SET_URL, buf);
 
                 MinecraftClient.getInstance().setScreen(null);
             }

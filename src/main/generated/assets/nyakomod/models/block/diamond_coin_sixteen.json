@@ -1,5 +1,5 @@
 {
-  "parent": "nyakomod:block/sixteen_single_coins",
+  "parent": "nyakomod:block/coins/sixteen_single_coins",
   "textures": {
     "texture": "nyakomod:block/diamond_coin"
   }

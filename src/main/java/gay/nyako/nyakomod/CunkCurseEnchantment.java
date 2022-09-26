@@ -5,8 +5,8 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 
 public class CunkCurseEnchantment extends Enchantment {
-    public CunkCurseEnchantment(EquipmentSlot ... slotTypes) {
-        super(Rarity.VERY_RARE, EnchantmentTarget.VANISHABLE, slotTypes);
+    public CunkCurseEnchantment() {
+        super(Rarity.VERY_RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override

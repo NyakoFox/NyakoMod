@@ -1,0 +1,17 @@
+{
+    "animation": {
+        "interpolate": true,
+        "frametime": 20,
+        "frames": [
+            0,
+            1
+        ]
+    },
+    "ctm": {
+        "ctm_version": 1,
+        "type": "pattern",
+        "extra": {
+            "size": 8
+        }
+    }
+}

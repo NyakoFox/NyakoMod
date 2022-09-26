@@ -2,9 +2,7 @@ package gay.nyako.nyakomod.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
@@ -17,7 +15,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -27,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.TickerEntity;
+import gay.nyako.nyakomod.entity.TickerEntity;
 
 public class TimeInABottleItem extends Item {
 

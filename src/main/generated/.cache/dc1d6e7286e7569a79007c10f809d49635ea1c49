@@ -1,6 +1,6 @@
-// 1.19.2	2022-09-23T14:03:42.9993054	Block Loot Tables
-9456ef5ba81651ff65208e0b2163872884de4feb data\nyakomod\loot_tables\blocks\gold_coin.json
-2701d288cba2b61e85b4933801e591c4ed9f8369 data\nyakomod\loot_tables\blocks\netherite_coin.json
-ecd004d757609899949d137b891cba39f633fb25 data\nyakomod\loot_tables\blocks\emerald_coin.json
-9583989300bae5f427160fcab023916d4c4f9b20 data\nyakomod\loot_tables\blocks\copper_coin.json
-02d5cc71d02a0e81ff27ff13c021f8b6ab88c192 data\nyakomod\loot_tables\blocks\diamond_coin.json
+// 1.19.2	2022-09-26T18:23:39.9782516	Block Loot Tables
+fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json
+eccd3c221c8f7a1752f887bb1be0a5d288c573b0 data\nyakomod\loot_tables\blocks\emerald_coin.json
+60a276f848469a102df0b8baee8872bedca631d8 data\nyakomod\loot_tables\blocks\gold_coin.json
+f44feb1149fdc067e74c123453c2094c26661588 data\nyakomod\loot_tables\blocks\diamond_coin.json
+061d86470ec4d801c22041778b17a8e4f25e4f36 data\nyakomod\loot_tables\blocks\copper_coin.json

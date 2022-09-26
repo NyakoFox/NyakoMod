@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -10,15 +10,11 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.screen.CartographyTableScreenHandler;
-import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 
 public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -151,7 +147,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
             return;
         }
 
-        var newStack = new ItemStack(NyakoMod.BLUEPRINT);
+        var newStack = new ItemStack(NyakoModItem.BLUEPRINT);
         newStack.setCustomName(Text.translatable("item.nyakomod.blueprint.filled", input.getName()));
 
         newStack.setCount(1);
