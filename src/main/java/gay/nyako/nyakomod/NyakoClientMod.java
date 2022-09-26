@@ -7,6 +7,7 @@ import gay.nyako.nyakomod.screens.BlueprintWorkbenchScreen;
 import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
 import gay.nyako.nyakomod.screens.IconScreen;
 import gay.nyako.nyakomod.screens.ModelScreen;
+import gay.nyako.nyakomod.test.SongPlayer;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
@@ -43,8 +44,12 @@ import java.util.List;
 public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
 
+	public static SongPlayer SONG_PLAYER;
+
 	@Override
 	public void onInitializeClient() {
+		SONG_PLAYER = new SongPlayer();
+
 		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, PetSpriteRenderer::new);
 
 		KeyBinding killBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -54,12 +59,19 @@ public class NyakoClientMod implements ClientModInitializer {
 				"category.nyakomod.binds" // The translation key of the keybinding's category.
 		));
 
+		ClientTickEvents.START_CLIENT_TICK.register(client -> {
+			if (SONG_PLAYER.isPlaying()) {
+				SONG_PLAYER.tick();
+			}
+		});
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
 				ClientPlayNetworking.send(NyakoMod.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
+
 
 		ClientPlayNetworking.registerGlobalReceiver(NyakoMod.PLAYER_SMITE_PACKET_ID,
 				(client, handler, buffer, sender) -> client.execute(() -> {
@@ -100,11 +112,19 @@ public class NyakoClientMod implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoMod.DRAFTING_TABLE_BLOCK, RenderLayer.getCutout());
 
-		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
-			var client = context.getSource().getClient();
-			client.send(() -> client.setScreen(new ModelScreen()));
-			return 1;
-		})));
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
+				var client = context.getSource().getClient();
+				client.send(() -> client.setScreen(new ModelScreen()));
+				return 1;
+			}));
+
+			dispatcher.register(ClientCommandManager.literal("song").executes(context -> {
+				var client = context.getSource().getClient();
+				SONG_PLAYER.play();
+				return 1;
+			}));
+		});
 	}
 
 	private static final List<String> downloadedUrls = new ArrayList<>();
