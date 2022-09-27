@@ -18,17 +18,23 @@ import net.minecraft.server.world.ServerWorld;
 public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAccess {
     private boolean inSafeMode = false;
     private Vec3d joinPos = Vec3d.ZERO;
+    private GameMode joinPreviousGameMode = GameMode.SURVIVAL;
+    private GameMode joinGameMode = GameMode.SURVIVAL;
 
     @Override
     public void setSafeMode(boolean bool) {
         inSafeMode = bool;
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        ServerPlayerEntityAccess playerAccess = (ServerPlayerEntityAccess) player;
         if (inSafeMode) {
+            playerAccess.setJoinPos(player.getPos());
+            playerAccess.setJoinPreviousGameMode(player.interactionManager.getPreviousGameMode());
+            playerAccess.setJoinGameMode(player.interactionManager.getGameMode());
             player.changeGameMode(GameMode.SPECTATOR);
-            ((ServerPlayerEntityAccess)player).setJoinPos(player.getPos());
         } else {
-            player.changeGameMode(GameMode.SURVIVAL);
-            player.setPosition(((ServerPlayerEntityAccess)player).getJoinPos());
+            player.changeGameMode(playerAccess.getJoinPreviousGameMode());
+            player.changeGameMode(playerAccess.getJoinGameMode());
+            player.setPosition(playerAccess.getJoinPos());
             player.setVelocity(0, 0, 0);
         }
     }
@@ -46,6 +52,26 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
     @Override
     public Vec3d getJoinPos() {
         return joinPos;
+    }
+
+    @Override
+    public void setJoinPreviousGameMode(GameMode gameMode) {
+        joinPreviousGameMode = gameMode;
+    }
+
+    @Override
+    public GameMode getJoinPreviousGameMode() {
+        return joinPreviousGameMode;
+    }
+
+    @Override
+    public void setJoinGameMode(GameMode gameMode) {
+        joinGameMode = gameMode;
+    }
+
+    @Override
+    public GameMode getJoinGameMode() {
+        return joinGameMode;
     }
 
     @Inject(at = @At("HEAD"), method = "teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
