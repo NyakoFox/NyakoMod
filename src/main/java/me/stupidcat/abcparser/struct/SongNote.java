@@ -5,7 +5,7 @@ import me.stupidcat.abcparser.ABCSong;
 import java.util.regex.Pattern;
 
 public class SongNote extends SongComponent {
-    public static Pattern regex = Pattern.compile("(?<note>(?<prefix>[_=^]?)(?<noteName>[za-gA-G])(?<octave>[',]*)(?<num>\\d*)(?<dem>(/\\d+)?))");
+    public static Pattern regex = Pattern.compile("(?<note>(?<prefix>[_=^]?)(?<noteName>[za-gA-G])(?<octave>[',]*)(?<num>\\d*)(?<dem>(/\\d*)?))");
 
     String rawNote;
     String noteName;
@@ -28,10 +28,15 @@ public class SongNote extends SongComponent {
             var dem = match.group("dem");
 
             int offset = 0;
-            if (prefix.equals("^")) {
-                offset = 1;
-            } else if (prefix.equals("_")) {
-                offset = -1;
+            if (!prefix.isEmpty()) {
+                switch (prefix) {
+                    case "^" -> offset = 1;
+                    case "_" -> offset = -1;
+                    case "=" -> offset = 0;
+                }
+                song.setAccidentalState(noteName, offset);
+            } else {
+                offset = song.getAccidentalState(noteName);
             }
 
             for (var c : octave.toCharArray()) {
@@ -43,13 +48,17 @@ public class SongNote extends SongComponent {
             }
 
             int numI = 1;
-            int demI = 2;
+            int demI = 1;
 
             if (!num.isBlank()) {
                 numI = Integer.parseInt(num);
             }
             if (!dem.isBlank()) {
-                demI = Integer.parseInt(dem.substring(1));
+                if (dem.equals("/")) {
+                    demI = 2;
+                } else {
+                    demI = Integer.parseInt(dem.substring(1));
+                }
             }
 
             lengthMultiplier = (double) numI / (double) demI;
@@ -68,6 +77,7 @@ public class SongNote extends SongComponent {
 
     int getNoteValue(char note) {
         return switch (note) {
+            case 'C' -> 0;
             case 'D' -> 2;
             case 'E' -> 4;
             case 'F' -> 5;

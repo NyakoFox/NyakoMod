@@ -405,6 +405,7 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
 
 		Registry.register(Registry.SOUND_EVENT, WOLVES_SOUND, WOLVES_SOUND_EVENT);
+		InstrumentRegistry.register();
 
 		registerGachaItems();
 

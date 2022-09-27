@@ -18,7 +18,7 @@ public class ABCParser {
         input = input.replaceAll("\r", "");
         input = input.replaceAll("\n", " ");
 
-        var parts = input.split(" ");
+        var parts = input.trim().split("\s+");
 
         var list = new ArrayList<SongComponent>();
 
