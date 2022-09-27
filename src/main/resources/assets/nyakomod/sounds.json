@@ -11,6 +11,12 @@
             "nyakomod:coin_collect"
         ]
     },
+    "harp_2": {
+        "subtitle": "subtitles.block.note_block.note",
+        "sounds": [
+            "nyakomod:instrument/harp_2"
+        ]
+    },
     "harp_3": {
         "subtitle": "subtitles.block.note_block.note",
         "sounds": [
@@ -33,6 +39,12 @@
         "subtitle": "subtitles.block.note_block.note",
         "sounds": [
             "nyakomod:instrument/harp_7"
+        ]
+    },
+    "harp_8": {
+        "subtitle": "subtitles.block.note_block.note",
+        "sounds": [
+            "nyakomod:instrument/harp_8"
         ]
     },
     "wolves": {

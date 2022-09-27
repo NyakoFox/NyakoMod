@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.test;
 
+import gay.nyako.nyakomod.InstrumentRegister;
 import gay.nyako.nyakomod.InstrumentRegistry;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
@@ -232,20 +233,7 @@ public class SongPlayer {
     public void playNote(SongNote note) {
         var noteIndex = note.getNote() - 24 + 6;
         var pitch = noteToPitch(note);
-        var sound = SoundEvents.BLOCK_NOTE_BLOCK_HARP;
-        if (noteIndex < -12) {
-            if (noteIndex < -24) {
-                sound = InstrumentRegistry.HARP.get(0);
-            } else {
-                sound = InstrumentRegistry.HARP.get(1);
-            }
-        } else if (noteIndex > 12) {
-            if (noteIndex > 24) {
-                sound = InstrumentRegistry.HARP.get(3);
-            } else {
-                sound = InstrumentRegistry.HARP.get(2);
-            }
-        }
+        var sound = InstrumentRegistry.HARP.getFromIndex(noteIndex);
 
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
@@ -272,20 +260,11 @@ public class SongPlayer {
         return (noteStep + step * 5) * 0.5f;
          */
         var noteIndex = note.getNote() - 24 + 6;
-        if (noteIndex < -12) {
-            if (noteIndex < -24) {
-                noteIndex += 24;
-            } else {
-                noteIndex += 12;
-            }
-        } else if (noteIndex > 12) {
-            if (noteIndex > 24) {
-                noteIndex -= 24;
-            } else {
-                noteIndex -= 12;
-            }
-        }
-        float f = (float)Math.pow(2.0D, (double)(noteIndex) / 12.0D);
+        var newNoteIndex = InstrumentRegistry.adjustIndex(noteIndex);
+
+        System.out.println(noteIndex + " - " + newNoteIndex);
+
+        float f = (float)Math.pow(2.0D, (double)(newNoteIndex) / 12.0D);
         // System.out.println(noteIndex);
 
         return f;
