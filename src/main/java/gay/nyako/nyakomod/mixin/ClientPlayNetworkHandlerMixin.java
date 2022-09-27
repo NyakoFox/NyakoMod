@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.NyakoModSoundEvents;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -30,7 +30,7 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
                 itemStack.isOf(NyakoModItem.EMERALD_COIN_ITEM) ||
                 itemStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM) ||
                 itemStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
-                world.playSound(x, y, z, NyakoMod.COIN_COLLECT_SOUND_EVENT, category, 0.7f, pitch, useDistance);
+                world.playSound(x, y, z, NyakoModSoundEvents.COIN_COLLECT, category, 0.7f, pitch, useDistance);
                 return;
             }
         }

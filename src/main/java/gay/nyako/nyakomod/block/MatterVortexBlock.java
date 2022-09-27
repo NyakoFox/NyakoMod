@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModGacha;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,17 +39,17 @@ public class MatterVortexBlock extends Block {
 
         // Compute the total weight of all items together.
         double totalWeight = 0.0;
-        for (NyakoMod.GachaEntry i : NyakoMod.gachaEntryList) {
+        for (NyakoModGacha.GachaEntry i : NyakoModGacha.GACHA_ENTRIES) {
             totalWeight += i.weight();
         }
 
         // Now choose a random item.
         int idx = 0;
-        for (double r = Math.random() * totalWeight; idx < NyakoMod.gachaEntryList.size() - 1; ++idx) {
-            r -= NyakoMod.gachaEntryList.get(idx).weight();
+        for (double r = Math.random() * totalWeight; idx < NyakoModGacha.GACHA_ENTRIES.size() - 1; ++idx) {
+            r -= NyakoModGacha.GACHA_ENTRIES.get(idx).weight();
             if (r <= 0.0) break;
         }
-        NyakoMod.GachaEntry gachaEntry = NyakoMod.gachaEntryList.get(idx);
+        NyakoModGacha.GachaEntry gachaEntry = NyakoModGacha.GACHA_ENTRIES.get(idx);
 
         String starText = "";
         // Let's use Math.max in case we accidentally use something... over 5.

@@ -1,12 +1,12 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModSoundEvents;
 import gay.nyako.nyakomod.item.CoinItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -70,7 +70,7 @@ public class SingleCoinBlock extends Block {
             return ActionResult.PASS;
         }
 
-        world.playSound(pos.getX(), pos.getY(), pos.getZ(), NyakoMod.COIN_COLLECT_SOUND_EVENT, player.getSoundCategory(), 0.7f, 1f, true);
+        world.playSound(pos.getX(), pos.getY(), pos.getZ(), NyakoModSoundEvents.COIN_COLLECT, player.getSoundCategory(), 0.7f, 1f, true);
         var stack = new ItemStack(asItem());
         stack.setCount(1);
         player.getInventory().offerOrDrop(stack);

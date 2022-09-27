@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.item;
 
 import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.NyakoModSoundEvents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -18,8 +19,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import gay.nyako.nyakomod.NyakoMod;
-
 public class BagOfCoinsItem extends Item {
 
     public BagOfCoinsItem(Settings settings) {
@@ -35,7 +34,7 @@ public class BagOfCoinsItem extends Item {
                     otherStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM) ||
                     otherStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
 
-                player.playSound(NyakoMod.COIN_COLLECT_SOUND_EVENT, SoundCategory.MASTER, 0.7f, 1f);
+                player.playSound(NyakoModSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
 
                 NbtCompound tag = stack.getOrCreateNbt();
                 int copper = tag.getInt("copper");
@@ -111,7 +110,7 @@ public class BagOfCoinsItem extends Item {
         if (diamond   > 0) diamond   = user.getInventory().addStack(diamondStack);
         if (netherite > 0) netherite = user.getInventory().addStack(netheriteStack);
 
-        user.playSound(NyakoMod.COIN_COLLECT_SOUND_EVENT, SoundCategory.MASTER, 0.7f, 1f);
+        user.playSound(NyakoModSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
 
         tag.putInt("copper", copper);
         tag.putInt("gold", gold);
