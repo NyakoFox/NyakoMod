@@ -35,7 +35,7 @@ public class NyakoGacha {
         /* 2 STAR */
         registerGachaItem(Text.of("an §5Uncraftable Potion...?"), new ItemStack(Items.POTION), 2);
         // wolves
-        registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(NyakoDiscs.WOLVES.item()), 2);
+        registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(NyakoItems.MUSIC_DISC_WOLVES), 2);
         registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) NyakoItems.DIAMOND_GACHA_ITEM, 16);
         registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
 

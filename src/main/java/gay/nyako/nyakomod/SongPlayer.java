@@ -6,6 +6,8 @@ import me.stupidcat.abcparser.ABCSong;
 import me.stupidcat.abcparser.struct.SongChord;
 import me.stupidcat.abcparser.struct.SongComponent;
 import me.stupidcat.abcparser.struct.SongNote;
+import net.fabricmc.loader.impl.util.log.Log;
+import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 
@@ -227,7 +229,7 @@ public class SongPlayer {
         var sound = instrument.getFromIndex(noteIndex);
 
         if (sound == null) {
-            Log.warn(LogCategory.LOG, "Tried playing invalid note " + note.getRawNote());
+            NyakoMod.LOGGER.warn("Tried playing invalid note " + note.getRawNote());
             return;
         }
 

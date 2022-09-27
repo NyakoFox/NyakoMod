@@ -65,7 +65,15 @@ public class NyakoItems {
     public static final Item SOUL_FIRE                  = registerMC("soul_fire",               new BlockItem(Blocks.SOUL_FIRE,     new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item WATER                      = registerMC("water",                   new BlockItem(Blocks.WATER,         new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item LAVA                       = registerMC("lava",                    new BlockItem(Blocks.LAVA,          new FabricItemSettings().group(ItemGroup.MISC)));
-    public static final Item NOTE_BLOCK_PLUS            = register("note_block_plus",         new BlockItem(NyakoBlocks.NOTE_BLOCK_PLUS, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+    public static final Item NOTE_BLOCK_PLUS            = register("note_block_plus",           new BlockItem(NyakoBlocks.NOTE_BLOCK_PLUS, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+
+    public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
+    public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
+    public static final Item MUSIC_DISC_CLUNK           = NyakoDiscs.CLUNK.item();
+    public static final Item MUSIC_DISC_MERRY           = NyakoDiscs.MERRY.item();
+    public static final Item MUSIC_DISC_WEEZED          = NyakoDiscs.WEEZED.item();
+    public static final Item MUSIC_DISC_MOONLIGHT       = NyakoDiscs.MOONLIGHT.item();
+    public static final Item MUSIC_DISC_WELCOME         = NyakoDiscs.WELCOME.item();
 
     public static Item register(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier("nyakomod", id), item);
