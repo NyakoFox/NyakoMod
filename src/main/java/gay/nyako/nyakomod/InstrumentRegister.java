@@ -16,7 +16,7 @@ public class InstrumentRegister {
         ids[2] = new Identifier("nyakomod:" + name + "_4");
         ids[3] = new Identifier("nyakomod:" + name + "_6");
         ids[4] = new Identifier("nyakomod:" + name + "_7");
-        ids[5] = new Identifier("nyakomod:" + name + "_8");
+        ids[5] = new Identifier("nyakomod:" + name + "_t8");
 
         for (var i = 0; i < ids.length; i++) {
             soundEvents[i] = new SoundEvent(ids[i]);
@@ -48,6 +48,11 @@ public class InstrumentRegister {
     }
 
     public SoundEvent get(int i) {
+        if (i < 0 || i > soundEvents.length) {
+            System.out.println("Invalid Sound Index: " + i);
+            return null;
+        }
+
         return soundEvents[i];
     }
 }

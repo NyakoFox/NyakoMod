@@ -237,6 +237,11 @@ public class SongPlayer {
 
         var sound = instrument.getFromIndex(noteIndex);
 
+        if (sound == null) {
+            Log.warn(LogCategory.LOG, "Tried playing invalid note " + note.getRawNote());
+            return;
+        }
+
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
                 if (blockEntity != null) {
