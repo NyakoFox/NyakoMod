@@ -1,10 +1,18 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
 import gay.nyako.nyakomod.screens.ShopEntries;
+import gay.nyako.nyakomod.test.SongPlayer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 public class NyakoModNetworking {
     // Killbind packet
@@ -17,6 +25,7 @@ public class NyakoModNetworking {
     public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
     // Creating a model
     public static final Identifier MODEL_CREATE_PACKET = new Identifier("nyakomod", "create_model");
+    public static final Identifier NOTE_BLOCK_PLUS_SAVE_PACKET = new Identifier("nyakomod", "note_block_plus_save");
 
     public static void registerGlobalReceivers() {
         registerServerGlobalReceivers();
@@ -107,5 +116,43 @@ public class NyakoModNetworking {
                         }
                     });
                 });
+
+        ServerPlayNetworking.registerGlobalReceiver(NOTE_BLOCK_PLUS_SAVE_PACKET,
+                (server, player, handler, buffer, sender) -> {
+                    var blockPos = buffer.readBlockPos();
+                    var url = buffer.readString();
+
+
+                    server.execute(() -> {
+                        if (!player.world.isOutOfHeightLimit(blockPos)) {
+                            var blockEntity = player.world.getBlockEntity(blockPos);
+
+                            if (blockEntity instanceof NoteBlockPlusBlockEntity noteEntity) {
+                                var contents = downloadFile(url);
+                                if (contents != null && contents.startsWith("X: ")) {
+                                    noteEntity.songContents = contents;
+                                    noteEntity.markDirty();
+                                }
+                            }
+                        }
+                    });
+                }
+        );
+    }
+
+    public static String downloadFile(String urlPath) {
+        URL url = null;
+
+        try {
+            url = new URL(urlPath);
+            URLConnection connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", "NyakoMod");
+            connection.connect();
+            return new String(connection.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

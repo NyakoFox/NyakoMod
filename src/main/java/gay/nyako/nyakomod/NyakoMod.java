@@ -86,6 +86,7 @@ public class NyakoMod implements ModInitializer {
 	public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(IconScreenHandler::new);
 	public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new);
 	public static final ScreenHandlerType<BlueprintWorkbenchScreenHandler> BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE = new ScreenHandlerType<>(BlueprintWorkbenchScreenHandler::new);
+	public static final ScreenHandlerType<NBPScreenHandler> NBP_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(NBPScreenHandler::new);
 
 	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
 
@@ -99,6 +100,7 @@ public class NyakoMod implements ModInitializer {
 	public static final ArmorMaterial customArmorMaterial = new CustomArmorMaterial();
 
 	public static final BlockEntityType<BlueprintWorkbenchBlockEntity> BLUEPRINT_WORKBENCH_ENTITY = FabricBlockEntityTypeBuilder.create(BlueprintWorkbenchBlockEntity::new, NyakoModBlock.BLUEPRINT_WORKBENCH).build(null);
+	public static final BlockEntityType<NoteBlockPlusBlockEntity> NOTE_BLOCK_PLUS_ENTITY = FabricBlockEntityTypeBuilder.create(NoteBlockPlusBlockEntity::new, NyakoModBlock.NOTE_BLOCK_PLUS).build(null);
 
 	public static final Identifier COIN_COLLECT_SOUND = new Identifier("nyakomod:coin_collect");
 	public static SoundEvent COIN_COLLECT_SOUND_EVENT = new SoundEvent(COIN_COLLECT_SOUND);
@@ -395,12 +397,14 @@ public class NyakoMod implements ModInitializer {
 		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "cunk_shop"), NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE);
 		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "icon_menu"), NyakoMod.ICON_SCREEN_HANDLER_TYPE);
 		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "blueprint_workbench"), NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE);
+		Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", "note_block_plus"), NyakoMod.NBP_SCREEN_HANDLER_TYPE);
 
 		// Spunch block
 		Registry.register(Registry.SOUND_EVENT, SPUNCH_BLOCK_SOUND, SPUNCH_BLOCK_SOUND_EVENT);
 
 		var blueprintWorkbenchId = new Identifier("nyakomod", "blueprint_workbench");
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, blueprintWorkbenchId, BLUEPRINT_WORKBENCH_ENTITY);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("nyakomod", "note_block_plus"), NOTE_BLOCK_PLUS_ENTITY);
 
 		Registry.register(Registry.SOUND_EVENT, COIN_COLLECT_SOUND, COIN_COLLECT_SOUND_EVENT);
 

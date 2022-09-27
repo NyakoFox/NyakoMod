@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.test;
 
 import gay.nyako.nyakomod.InstrumentRegistry;
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
 import me.stupidcat.abcparser.ABCParser;
 import me.stupidcat.abcparser.ABCSong;
 import me.stupidcat.abcparser.struct.SongChord;
@@ -11,6 +12,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -19,8 +21,10 @@ import java.util.List;
 
 public class SongPlayer {
     MinecraftClient client;
+    NoteBlockPlusBlockEntity blockEntity;
 
     public static String megalovania = """
+                        X: 1
                         d/4 d/4 d'/ a3/4 ^g/ =g/ f/ d/4 f/4 g/4\s
                         c/4 c/4 d'/ a3/4 ^g/ =g/ f/ d/4 f/4 g/4\s
                         B/4 B/4 d'/ a3/4 ^g/ =g/ f/ d/4 f/4 g/4\s
@@ -116,24 +120,14 @@ public class SongPlayer {
         client = MinecraftClient.getInstance();
     }
 
+    public SongPlayer(NoteBlockPlusBlockEntity blockEntity) {
+        client = MinecraftClient.getInstance();
+        this.blockEntity = blockEntity;
+    }
+
     public void play() {
-        playing = !playing;
-        initial = System.currentTimeMillis();
-        progress = 0;
-
-        if (playing) {
-
-            song = new ABCSong()
-                    .setBpm(160 * 4)
-                    .setMeter("4/4")
-                    .setDefaultNoteLength("1/4")
-                    .setKey("C")
-            ;
-
-            var parser = new ABCParser(song);
-
-//            var components = parser.parse(megalovania);
-            var components = parser.parse("""
+        play("""
+                    X: 1
                     [D/8^G,/8D,,5/24D5/24] z/24 [z/12F/8B,/8] [z/12F,,5/24F5/24] [^G/8D/8] z/24 [B/8F/8^G,,5/24G5/24] z/24 [z/12d/8G/8] [z/12B,,5/24B5/24] [f/8B/8] z/24 [^D/8A,/8F,,5/24F5/24] z/24 [z/12^F/8C/8] [z/12G,,5/24G5/24] [A/8D/8] z/24 [c/8F/8C,,5/24C5/24] z/24 [z/12^d/8A/8] [z/12^D,,5/24D5/24] [^f/8c/8] z/24 [=F/8B,/8^F,,5/24^F5/24] z/24 [z/12G/8=D/8] [z/12A,,5/24A5/24] [B/8=F/8] z/24 [=d/8G/8F,,5/24^F5/24] z/24 [z/12=f/8B/8] [z/12D,,5/24^D5/24] [^g/8d/8] z/24 [^d/8A/8B,,,5/24B,5/24] z/24 [z/12^f/8c/8] [z/12=D,,5/24=D5/24] [a/8d/8] z/24 [c'/8f/8=F,,5/24=F5/24] z/24 [z/12^d'/8a/8] [z/12G,,5/24G5/24] [^f'/8c'/8] z/24\s
                     [A,5/12A,,,5/12e7/6c7/6E23/6A,23/6] z/12 [A5/24A,,5/24] z/24 [A,5/12A,,,5/12] z/12 [=d5/24A,5/24A,,,5/24B5/24] z/24 [c5/24A5/24A,,5/24A5/24] z/24 [d5/24A,5/24A,,,5/24B5/24] z/24 [A5/24A,,5/24e23/24c23/24] z/24 [A,5/24A,,,5/24] z/24 [A5/24A,,5/24] z/24 [z/4A,,,11/24A,11/24] [z/4a23/24e23/24] [A,5/24A,,,5/24] z/24 [A5/24A,,5/24] z/24 [A,,,5/24A,5/24] z/24\s
                     [=G,5/12G,,,5/12=g7/6d7/6D23/6G,23/6] z/12 [=G5/24=G,,5/24] z/24 [G,5/12G,,,5/12] z/12 [=f5/24G,5/24G,,,5/24d5/24] z/24 [e5/24F,5/24F,,,5/24c5/24] z/24 [d5/24G,5/24G,,,5/24B5/24] z/24 [G,5/24G,,,5/24c23/24A23/24] z/24 [G,5/24G,,,5/24] z/24 [G5/24G,,5/24] z/24 [z/4G,,,11/24G,11/24] [z/4d23/24B23/24] [G,5/24G,,,5/24] z/24 [G5/24G,,5/24] z/24 [G,,,5/24G,5/24] z/24\s
@@ -172,22 +166,46 @@ public class SongPlayer {
                     [F,,5/24A/4F,11/24F,,,11/24E,23/6G,23/6] z/24 [F,,5/24_B3/4] z/24 [F,5/24F,11/24F,,,11/24] z/24 F,,5/24 z/24 [F5/24F,,5/24F,5/24=B17/6] z/24 [E5/24E,,5/24F,,5/24] z/24 [F5/24F,,5/24E,5/24] z/24 [F,5/24F,11/24F,,,11/24] z/24 F,,5/24 z/24 [F,5/24F,,,5/24F,,5/24] z/24 [F,5/24F,11/24F,,,11/24] z/24 F,,5/24 z/24 [F5/24F,,5/24E,5/24] z/24 [E5/24E,,5/24F,5/24] z/24 [F5/24F,,5/24F,,5/24] z/24 [C,,5/24C5/24F,5/24]\s
                                         
                     """);
+    }
+
+    public void play(String input) {
+        playing = !playing;
+        initial = System.currentTimeMillis();
+        progress = 0;
+
+        if (playing) {
+
+            song = new ABCSong()
+                    .setBpm(160 * 4)
+                    .setMeter("4/4")
+                    .setDefaultNoteLength("1/4")
+                    .setKey("C")
+            ;
+
+            var parser = new ABCParser(song);
+
+//            var components = parser.parse(megalovania);
+            try {
+                var components = parser.parse(input);
 //             var components = parser.parse("G,, A,, B,, C, D, E, F, G, A, B, C D E F G A B c d e f g a b c' d' e' f' g' a' b' c'' d'' e'' f'' g'' a'' b'' c''' d''' e''' f'''");
 //             var components = parser.parse("""
 //                e ^f ^g a b ^c' ^d' e'
 //             """);
 
-            songComponents = new SongComponent[components.size()];
-            components.toArray(songComponents);
-            pointer = 0;
-            client.player.sendMessage(Text.of("PLAYING"));
-        } else {
-            client.player.sendMessage(Text.of("STOPPED PLAYING"));
+                songComponents = new SongComponent[components.size()];
+                components.toArray(songComponents);
+                pointer = 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     public void tick() {
+        if (!playing) {
+            return;
+        }
+
         var ms = System.currentTimeMillis() - initial;
         // progress += client.getTickDelta();
 
@@ -231,7 +249,11 @@ public class SongPlayer {
 
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
-                client.player.playSound(sound, 3, pitch);
+                if (blockEntity != null) {
+                    blockEntity.getWorld().playSound(client.player, blockEntity.getPos(), sound, SoundCategory.RECORDS, 3, pitch);
+                } else {
+                    client.player.playSound(sound, 3, pitch);
+                }
             }
         } else {
             // client.player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 1, 1);

@@ -28,6 +28,7 @@ public class NyakoModBlock {
     public static final Block BRICKUS_STAIRS            = register("brickus_stairs",            new CustomStairsBlock(BRICKUS.getDefaultState(), AbstractBlock.Settings.copy(BRICKUS)));
     public static final Block FIREBLU                   = register("fireblu",                   new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block TRUE_BLOCK                = register("true_block",                new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block NOTE_BLOCK_PLUS           = register("note_block_plus",           new NoteBlockPlusBlock(FabricBlockSettings.copy(Blocks.NOTE_BLOCK)));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

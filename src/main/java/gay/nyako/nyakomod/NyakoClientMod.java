@@ -4,10 +4,7 @@ import gay.nyako.nyakomod.entity.TickerEntityRenderer;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
-import gay.nyako.nyakomod.screens.BlueprintWorkbenchScreen;
-import gay.nyako.nyakomod.screens.CunkShopHandledScreen;
-import gay.nyako.nyakomod.screens.IconScreen;
-import gay.nyako.nyakomod.screens.ModelScreen;
+import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.test.SongPlayer;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
@@ -105,6 +102,7 @@ public class NyakoClientMod implements ClientModInitializer {
 		HandledScreens.register(NyakoMod.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 		HandledScreens.register(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
 		HandledScreens.register(NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
+		HandledScreens.register(NyakoMod.NBP_SCREEN_HANDLER_TYPE, NBPHandledScreen::new);
 
     	BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.COPPER_SINGLE_COIN,    RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.GOLD_SINGLE_COIN,      RenderLayer.getCutout());

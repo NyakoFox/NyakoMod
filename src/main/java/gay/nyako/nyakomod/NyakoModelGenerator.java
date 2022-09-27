@@ -40,6 +40,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.FIREBLU);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.TRUE_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.NOTE_BLOCK_PLUS);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
