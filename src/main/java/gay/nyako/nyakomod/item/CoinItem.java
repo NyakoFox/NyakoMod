@@ -1,14 +1,10 @@
 package gay.nyako.nyakomod.item;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoModSoundEvents;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
@@ -57,7 +53,7 @@ public class CoinItem extends BlockItem {
         tag.putInt(coin.getCoinKey(), tag.getInt(coin.getCoinKey()) + stack.getCount());
         ((BagOfCoinsItem) hungryBag.getItem()).rebalance(hungryBag);
         stack.setCount(0);
-        user.playSound(NyakoMod.COIN_COLLECT_SOUND_EVENT, SoundCategory.MASTER, 0.7f, 1f);
+        user.playSound(NyakoModSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
         return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, user.getStackInHand(hand));
     }
 }
