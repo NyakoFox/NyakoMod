@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "down": "minecraft:block/dark_oak_planks",
+    "down": "minecraft:block/spruce_planks",
     "east": "nyakomod:block/blueprint_workbench_side",
     "north": "nyakomod:block/blueprint_workbench_side",
     "particle": "nyakomod:block/blueprint_workbench_side",

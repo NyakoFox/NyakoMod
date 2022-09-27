@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "nyakomod:spunch_block",
-    "nyakomod:main_shop"
+    "nyakomod:main_shop",
+    "nyakomod:true_block"
   ]
 }
