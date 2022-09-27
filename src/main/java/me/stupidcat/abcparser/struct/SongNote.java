@@ -43,7 +43,7 @@ public class SongNote extends SongComponent {
             }
 
             int numI = 1;
-            int demI = 1;
+            int demI = 2;
 
             if (!num.isBlank()) {
                 numI = Integer.parseInt(num);
@@ -57,7 +57,7 @@ public class SongNote extends SongComponent {
             int value = getNoteValue(noteName.charAt(0));
             note = value + offset;
 
-            rest = noteName.equals("z") || noteName.equals("x");
+            rest = noteName.equals("z") || noteName.equals("x") || noteName.equals("Z") || noteName.equals("X");
         }
     }
 

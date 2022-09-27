@@ -19,7 +19,8 @@
     "GrindstoneSlotsScreenHandlerMixin",
     "GrindstoneScreenHandlerMixin",
     "SlimeEntityMixin",
-    "NetherPortalBlockMixin"
+    "NetherPortalBlockMixin",
+    "SoundSystemMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
