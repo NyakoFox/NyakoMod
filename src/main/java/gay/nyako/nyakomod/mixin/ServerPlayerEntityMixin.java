@@ -1,6 +1,8 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.CunkCoinUtils;
+import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,29 +14,47 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin {
-  @Inject(at = @At("HEAD"), method = "teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
-  public void requestTeleport(ServerWorld world, double x1, double y1, double z1, float yaw1, float pitch1,
-      CallbackInfo ci) {
-    var p = (ServerPlayerEntity) (Object) this;
+public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAccess {
 
-    BackCommand.registerPreviousLocation(p);
+    private boolean inSafeMode = false;
+    private Vec3d joinPos = Vec3d.ZERO;
+
+    @Override
+    public void setSafeMode(boolean bool) {
+      inSafeMode = bool;
   }
 
-  @Inject(at = @At("RETURN"), method = "teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
-  public void requestTeleportReturn(ServerWorld world, double x1, double y1, double z1, float yaw1, float pitch1,
-      CallbackInfo ci) {
-    var p = (ServerPlayerEntity) (Object) this;
-
-    XpCommand.refreshLevels(p);
+    @Override
+    public boolean isInSafeMode() {
+    return inSafeMode;
   }
 
-  @Inject(at = @At("TAIL"), method = "playerTick()V", cancellable = false)
-  public void playerTick(CallbackInfo info) {
-    var player = ((ServerPlayerEntity) (Object) this);
+    @Override
+    public void setJoinPos(Vec3d pos) {
+        joinPos = pos;
+    }
 
-    var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
+    @Override
+    public Vec3d getJoinPos() {
+        return joinPos;
+    }
 
-    player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
-  }
+    @Inject(at = @At("HEAD"), method = "teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
+    public void requestTeleport(ServerWorld world, double x1, double y1, double z1, float yaw1, float pitch1, CallbackInfo ci) {
+        var p = (ServerPlayerEntity) (Object) this;
+        BackCommand.registerPreviousLocation(p);
+    }
+
+    @Inject(at = @At("RETURN"), method = "teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V", cancellable = true)
+    public void requestTeleportReturn(ServerWorld world, double x1, double y1, double z1, float yaw1, float pitch1, CallbackInfo ci) {
+        var p = (ServerPlayerEntity) (Object) this;
+        XpCommand.refreshLevels(p);
+    }
+
+    @Inject(at = @At("TAIL"), method = "playerTick()V", cancellable = false)
+    public void playerTick(CallbackInfo info) {
+        var player = ((ServerPlayerEntity) (Object) this);
+        var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
+        player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
+    }
 }

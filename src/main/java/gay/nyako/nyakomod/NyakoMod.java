@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
@@ -59,12 +60,14 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -475,13 +478,29 @@ public class NyakoMod implements ModInitializer {
 		CunkCoinUtils.registerCoinAmounts();
 		registerCommands();
 
-		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> CachedResourcePack.setPlayerResourcePack(handler.player)));
+		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
+			CachedResourcePack.setPlayerResourcePack(handler.player);
+			handler.player.changeGameMode(GameMode.SPECTATOR);
+			((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
+			((ServerPlayerEntityAccess)handler.player).setJoinPos(handler.player.getPos());
+		}));
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
 			SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
 		});
 
 		ServerTickEvents.END_WORLD_TICK.register(world -> {
+			for (ServerPlayerEntity player : world.getPlayers()) {
+				if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
+					if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
+						player.changeGameMode(GameMode.SURVIVAL);
+						((ServerPlayerEntityAccess)player).setSafeMode(false);
+						player.setPosition(((ServerPlayerEntityAccess)player).getJoinPos());
+						player.setVelocity(0, 0, 0);
+					}
+				}
+			}
+
 			if (world.getRegistryKey() == World.OVERWORLD) {
 				if (SLIME_SKY_MANAGER == null) return;
 
