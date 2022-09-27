@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-27T12:57:48.0872302	Models
+// 1.19.2	2022-09-27T17:35:30.8197183	Models
 87fae775c4b50b90f29f2db5b533ddebfdd5fd55 assets\nyakomod\models\block\netherite_coin_five.json
 9ceb4cde6f475acf86e8db0b32b6835e351b40ab assets\nyakomod\models\block\netherite_coin_twenty_five.json
 2ae16258cb382a3cdcc1fa06ecf624fec32a327a assets\nyakomod\models\block\gold_coin_twenty_three.json
@@ -306,7 +306,7 @@ f19b56cb73215907abde24372fc432296aed11b6 assets\nyakomod\models\block\copper_coi
 130766310ccd3e7620008fcdebda07d932c6a0f0 assets\nyakomod\models\block\diamond_coin_forty_four.json
 dd71b9ce9ef074380511e904f2796553655bd8f6 assets\nyakomod\models\block\netherite_coin_fourteen.json
 f92b42a2cd29763758ba5a6a0ccfc8a67a6b1ed2 assets\nyakomod\models\block\netherite_coin_three.json
-58f4aff8d843d438a982daf87db11d1c3bba3dbd assets\nyakomod\models\block\note_block_plus.json
+bd435034a2c4671ec2f321263d6697f22dc13cbd assets\nyakomod\models\block\note_block_plus.json
 7d23ee74299630cf7a368371ba8460182ac045b0 assets\nyakomod\models\block\diamond_coin_thirty_two.json
 95879bc46fa81c4192b1169fbfe29e78eba1bf9d assets\nyakomod\models\block\emerald_coin_sixty_one.json
 3dd9e63e5a92267a12c8f75c48f88cb0987e86a9 assets\nyakomod\models\block\gold_coin_forty_nine.json

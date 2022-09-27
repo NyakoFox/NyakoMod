@@ -29,6 +29,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN, blockStateModelGenerator);
 
         registerBlueprintWorkbench(blockStateModelGenerator);
+        registerNoteBlockPlus(blockStateModelGenerator);
 
         // Shop block
         blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoBlocks.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
@@ -40,7 +41,6 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.FIREBLU);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TRUE_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.NOTE_BLOCK_PLUS);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -53,6 +53,18 @@ public class NyakoModelGenerator extends FabricModelProvider {
                 .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"))
                 .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"));
         blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoBlocks.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
+    }
+
+    private void registerNoteBlockPlus(BlockStateModelGenerator blockStateModelGenerator) {
+        TextureMap textureMap = (new TextureMap())
+                .put(TextureKey.PARTICLE, TextureMap.getId(Blocks.NOTE_BLOCK))
+                .put(TextureKey.DOWN, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_bottom"))
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getId(Blocks.NOTE_BLOCK))
+                .put(TextureKey.EAST, TextureMap.getId(Blocks.NOTE_BLOCK))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_front"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_west"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.NOTE_BLOCK_PLUS, Models.CUBE.upload(NyakoBlocks.NOTE_BLOCK_PLUS, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {

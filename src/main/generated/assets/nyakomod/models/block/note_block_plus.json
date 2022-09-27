@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "nyakomod:block/note_block_plus"
+    "down": "nyakomod:block/note_block_plus_bottom",
+    "east": "minecraft:block/note_block",
+    "north": "minecraft:block/note_block",
+    "particle": "minecraft:block/note_block",
+    "south": "nyakomod:block/note_block_plus_front",
+    "up": "nyakomod:block/note_block_plus_top",
+    "west": "nyakomod:block/note_block_plus_west"
   }
 }

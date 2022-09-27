@@ -222,7 +222,7 @@ public class SongPlayer {
     }
 
     public void playNote(SongNote note) {
-        var noteIndex = note.getNote() - 24 + 6;
+        var noteIndex = note.getNote() - 12 + 6;
         var pitch = noteToPitch(note);
         var instrument = InstrumentRegistry.fromBlockState(blockEntity.getWorld().getBlockState(blockEntity.getPos().down()));
 
@@ -257,7 +257,7 @@ public class SongPlayer {
 
         return (noteStep + step * 5) * 0.5f;
          */
-        var noteIndex = note.getNote() - 24 + 6;
+        var noteIndex = note.getNote() - 12 + 6;
         var newNoteIndex = InstrumentRegistry.adjustIndex(noteIndex);
 
         float f = (float)Math.pow(2.0D, (double)(newNoteIndex) / 12.0D);

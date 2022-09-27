@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IWW",
+    "PRW",
+    "IWW"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "minecraft:note_block"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "nyakomod:note_block_plus",
+    "count": 1
+  }
+}
