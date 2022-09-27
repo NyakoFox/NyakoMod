@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
 import gay.nyako.nyakomod.item.CoinItem;
 import gay.nyako.nyakomod.item.DevNullItem;
@@ -60,7 +60,7 @@ public abstract class PlayerInventoryMixin {
 
 		for (int i = 0; i < inventory.size(); ++i) {
 			var s = inventory.getStack(i);
-			if (s.isOf(NyakoModItem.DEV_NULL_ITEM)) {
+			if (s.isOf(NyakoItems.DEV_NULL_ITEM)) {
 				var stored = DevNullItem.getStoredItem(s);
 				if (stored != null && ItemStack.canCombine(stack, stored)) {
 					var nbt = s.getNbt();
@@ -80,19 +80,19 @@ public abstract class PlayerInventoryMixin {
 		var item = stack.getItem();
 
 		if (item instanceof CoinItem) {
-			if (!stack.isOf(NyakoModItem.NETHERITE_COIN_ITEM) &&
+			if (!stack.isOf(NyakoItems.NETHERITE_COIN_ITEM) &&
 					(itemStack.getCount() + stack.getCount()) >= stack.getMaxCount()) {
 				int left = (stack.getCount() + itemStack.getCount()) - stack.getMaxCount();
 
-				Item type = NyakoModItem.COPPER_COIN_ITEM;
-				if (stack.isOf(NyakoModItem.COPPER_COIN_ITEM)) {
-					type = NyakoModItem.GOLD_COIN_ITEM;
-				} else if (stack.isOf(NyakoModItem.GOLD_COIN_ITEM)) {
-					type = NyakoModItem.EMERALD_COIN_ITEM;
-				} else if (stack.isOf(NyakoModItem.EMERALD_COIN_ITEM)) {
-					type = NyakoModItem.DIAMOND_COIN_ITEM;
-				} else if (stack.isOf(NyakoModItem.DIAMOND_COIN_ITEM)) {
-					type = NyakoModItem.NETHERITE_COIN_ITEM;
+				Item type = NyakoItems.COPPER_COIN_ITEM;
+				if (stack.isOf(NyakoItems.COPPER_COIN_ITEM)) {
+					type = NyakoItems.GOLD_COIN_ITEM;
+				} else if (stack.isOf(NyakoItems.GOLD_COIN_ITEM)) {
+					type = NyakoItems.EMERALD_COIN_ITEM;
+				} else if (stack.isOf(NyakoItems.EMERALD_COIN_ITEM)) {
+					type = NyakoItems.DIAMOND_COIN_ITEM;
+				} else if (stack.isOf(NyakoItems.DIAMOND_COIN_ITEM)) {
+					type = NyakoItems.NETHERITE_COIN_ITEM;
 				}
 
 				setStack(slot, ItemStack.EMPTY);

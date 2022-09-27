@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.CunkCoinUtils;
+import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;

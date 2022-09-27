@@ -2,7 +2,8 @@ package gay.nyako.nyakomod.screens;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.CunkShop;
+import gay.nyako.nyakomod.NyakoScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -10,9 +11,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.Identifier;
-
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 public class CunkShopScreenHandler extends ScreenHandler {
     public final ScreenHandlerContext context;
@@ -28,11 +26,11 @@ public class CunkShopScreenHandler extends ScreenHandler {
 
         // Use GSon to parse the JSON file into a JsonObject
         JsonObject shopJson = JsonParser.parseString(json).getAsJsonObject();
-        NyakoMod.loadShopModelFromJson(shopJson, shopData);
+        CunkShop.loadShopModelFromJson(shopJson, shopData);
     }
 
     public CunkShopScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, syncId);
         this.context = context;
         enableSyncing();
     }

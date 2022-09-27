@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.item.gacha;
 
-import gay.nyako.nyakomod.NyakoModSoundEvents;
+import gay.nyako.nyakomod.NyakoSoundEvents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -18,7 +18,7 @@ public class DiscordGachaItem extends GachaItem {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        world.playSoundFromEntity(null, user, NyakoModSoundEvents.DISCORD, SoundCategory.PLAYERS, 1f, 1f);
+        world.playSoundFromEntity(null, user, NyakoSoundEvents.DISCORD, SoundCategory.PLAYERS, 1f, 1f);
         return TypedActionResult.success(user.getStackInHand(hand));
     }
 }

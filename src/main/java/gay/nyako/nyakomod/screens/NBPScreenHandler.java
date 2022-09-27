@@ -1,15 +1,12 @@
 package gay.nyako.nyakomod.screens;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class NBPScreenHandler extends ScreenHandler {
@@ -24,7 +21,7 @@ public class NBPScreenHandler extends ScreenHandler {
     }
 
     public NBPScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoMod.NBP_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoScreenHandlers.NBP_SCREEN_HANDLER_TYPE, syncId);
         this.context = context;
         enableSyncing();
     }

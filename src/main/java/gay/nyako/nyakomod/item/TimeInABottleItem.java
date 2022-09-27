@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,7 +24,6 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Optional;
 
-import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.TickerEntity;
 
 public class TimeInABottleItem extends Item {
@@ -86,7 +86,7 @@ public class TimeInABottleItem extends Item {
         }
         tag.putInt("timeStored", timeStored - 600);
 
-        NyakoMod.TICKER.spawn((ServerWorld) world, null, null, null, pos, SpawnReason.TRIGGERED, false, false);
+        NyakoEntities.TICKER.spawn((ServerWorld) world, null, null, null, pos, SpawnReason.TRIGGERED, false, false);
 
         world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 0.749154F);
         return ActionResult.success(true);

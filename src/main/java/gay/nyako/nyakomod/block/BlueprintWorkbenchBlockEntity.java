@@ -1,15 +1,13 @@
 package gay.nyako.nyakomod.block;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.screens.BlueprintWorkbenchScreenHandler;
 import io.wispforest.owo.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -22,7 +20,7 @@ public class BlueprintWorkbenchBlockEntity extends BlockEntity implements NamedS
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public BlueprintWorkbenchBlockEntity(BlockPos pos, BlockState state) {
-        super(NyakoMod.BLUEPRINT_WORKBENCH_ENTITY, pos, state);
+        super(NyakoEntities.BLUEPRINT_WORKBENCH_ENTITY, pos, state);
     }
 
 

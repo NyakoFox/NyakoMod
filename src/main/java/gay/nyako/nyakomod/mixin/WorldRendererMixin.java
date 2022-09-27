@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.NyakoModSoundEvents;
+import gay.nyako.nyakomod.NyakoSoundEvents;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.SoundCategory;
@@ -17,7 +17,7 @@ public abstract class WorldRendererMixin {
     public void redirect(ClientWorld clientWorld, double x, double y, double z, SoundEvent sound, SoundCategory category, float volume, float pitch, boolean useDistance, int eventId) {
         clientWorld.playSound(x, y, z, sound, category, volume, pitch, true);
         if (eventId == WorldEvents.ENDER_DRAGON_DIES) {
-            clientWorld.playSound(x, y, z, NyakoModSoundEvents.WOLVES, category, volume, pitch, true);
+            clientWorld.playSound(x, y, z, NyakoSoundEvents.WOLVES, category, volume, pitch, true);
         }
         return;
     }

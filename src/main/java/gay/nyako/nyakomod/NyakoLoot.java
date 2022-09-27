@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NyakoModLoot {
+public class NyakoLoot {
     private static List<Identifier> coinLootTables = new ArrayList<>();
 
     private static LootPool.Builder addLootTableCoins(Item coinItem, int min, int max, int weight) {
@@ -60,16 +60,16 @@ public class NyakoModLoot {
                 switch (id.toString()) {
                     // treasure
                     case "minecraft:chests/end_city_treasure":
-                        tableBuilder.pool(addLootTableCoins(NyakoModItem.EMERALD_COIN_ITEM, 1, 2, 5).build());
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.EMERALD_COIN_ITEM, 1, 2, 5).build());
                     case "minecraft:chests/buried_treasure":
                     case "minecraft:chests/shipwreck_treasure":
                         copperMin = 0;
                         copperMax = 100;
-                        tableBuilder.pool(addLootTableCoins(NyakoModItem.GOLD_COIN_ITEM, 40, 80, 10).build());
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN_ITEM, 40, 80, 10).build());
                         break;
                 }
 
-                tableBuilder.pool(addLootTableCoins(NyakoModItem.COPPER_COIN_ITEM, copperMin, copperMax, copperWeight).build());
+                tableBuilder.pool(addLootTableCoins(NyakoItems.COPPER_COIN_ITEM, copperMin, copperMax, copperWeight).build());
             }
         });
     }

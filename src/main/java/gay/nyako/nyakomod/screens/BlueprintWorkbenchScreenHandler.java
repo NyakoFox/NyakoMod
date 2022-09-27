@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -28,7 +28,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
     //This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
     //and can therefore directly provide it as an argument. This inventory will then be synced to the client.
     public BlueprintWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoScreenHandlers.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, syncId);
         checkSize(inventory, 3);
         this.inventory = inventory;
         //some inventories do custom logic when a player opens it.
@@ -147,7 +147,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
             return;
         }
 
-        var newStack = new ItemStack(NyakoModItem.BLUEPRINT);
+        var newStack = new ItemStack(NyakoItems.BLUEPRINT);
         newStack.setCustomName(Text.translatable("item.nyakomod.blueprint.filled", input.getName()));
 
         newStack.setCount(1);

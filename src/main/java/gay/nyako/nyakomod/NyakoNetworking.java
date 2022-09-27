@@ -2,19 +2,17 @@ package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
 import gay.nyako.nyakomod.screens.ShopEntries;
-import gay.nyako.nyakomod.test.SongPlayer;
+import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-public class NyakoModNetworking {
+public class NyakoNetworking {
     // Killbind packet
     public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
     // Purchase packet
@@ -47,9 +45,9 @@ public class NyakoModNetworking {
 
                     server.execute(() -> {
                         var stack = player.getMainHandStack();
-                        if (!stack.isOf(NyakoModItem.PET_SPRITE_SUMMON_ITEM)) {
+                        if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON_ITEM)) {
                             stack = player.getOffHandStack();
-                            if (!stack.isOf(NyakoModItem.PET_SPRITE_SUMMON_ITEM)) {
+                            if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON_ITEM)) {
                                 return;
                             }
                         }

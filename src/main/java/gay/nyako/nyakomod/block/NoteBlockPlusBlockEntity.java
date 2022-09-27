@@ -1,14 +1,10 @@
 package gay.nyako.nyakomod.block;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.SyncingBlockEntity;
-import gay.nyako.nyakomod.screens.BlueprintWorkbenchScreenHandler;
 import gay.nyako.nyakomod.screens.NBPScreenHandler;
-import gay.nyako.nyakomod.test.SongPlayer;
-import io.wispforest.owo.util.ImplementedInventory;
-import net.minecraft.block.Block;
+import gay.nyako.nyakomod.SongPlayer;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -18,15 +14,10 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.nio.charset.StandardCharsets;
 
 public class NoteBlockPlusBlockEntity extends SyncingBlockEntity implements NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
@@ -36,7 +27,7 @@ public class NoteBlockPlusBlockEntity extends SyncingBlockEntity implements Name
     public String songContents;
 
     public NoteBlockPlusBlockEntity(BlockPos pos, BlockState state) {
-        super(NyakoMod.NOTE_BLOCK_PLUS_ENTITY, pos, state);
+        super(NyakoEntities.NOTE_BLOCK_PLUS_ENTITY, pos, state);
 
         songPlayer = new SongPlayer(this);
     }

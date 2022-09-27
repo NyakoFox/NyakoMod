@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoModNetworking;
+import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.CheckboxComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
@@ -49,7 +49,7 @@ public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
                 buf.writeString(name);
                 buf.writeString(chosenType);
                 buf.writeString(value);
-                ClientPlayNetworking.send(NyakoModNetworking.MODEL_CREATE_PACKET, buf);
+                ClientPlayNetworking.send(NyakoNetworking.MODEL_CREATE_PACKET, buf);
 
                 MinecraftClient.getInstance().setScreen(null);
             }

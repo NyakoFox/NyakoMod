@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.json.JSONObject;
@@ -118,7 +119,7 @@ public class ModelManager {
     }
 
     public void addModel(ServerPlayerEntity player, String name, String type, String url) {
-        var hash = NyakoMod.hash(url + player.getUuidAsString());
+        var hash = NyakoUtils.hash(url + player.getUuidAsString());
         var hashedName = name + "_" + hash;
 
         var image = downloadImage(url);

@@ -26,7 +26,7 @@
       "gay.nyako.nyakomod.NyakoClientMod"
     ],
     "fabric-datagen": [
-      "gay.nyako.nyakomod.NyakoModDatagen"
+      "gay.nyako.nyakomod.NyakoDatagen"
     ]
   },
   "mixins": [

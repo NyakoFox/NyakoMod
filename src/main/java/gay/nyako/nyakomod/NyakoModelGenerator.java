@@ -22,37 +22,37 @@ public class NyakoModelGenerator extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         // ...
 
-        registerSingleCoinBlocks(NyakoModBlock.COPPER_SINGLE_COIN, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoModBlock.GOLD_SINGLE_COIN, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoModBlock.DIAMOND_SINGLE_COIN, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoModBlock.EMERALD_SINGLE_COIN, blockStateModelGenerator);
-        registerSingleCoinBlocks(NyakoModBlock.NETHERITE_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoBlocks.COPPER_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoBlocks.GOLD_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoBlocks.DIAMOND_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoBlocks.EMERALD_SINGLE_COIN, blockStateModelGenerator);
+        registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN, blockStateModelGenerator);
 
         registerBlueprintWorkbench(blockStateModelGenerator);
 
         // Shop block
-        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoModBlock.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoBlocks.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
 
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_CASING);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_SMOOTH_CASING);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.PLASTEEL_PLATING);
-        blockStateModelGenerator.registerAxisRotated(NyakoModBlock.PLASTEEL_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.PLASTEEL_CASING);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.PLASTEEL_SMOOTH_CASING);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.PLASTEEL_PLATING);
+        blockStateModelGenerator.registerAxisRotated(NyakoBlocks.PLASTEEL_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
 
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.FIREBLU);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.TRUE_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.NOTE_BLOCK_PLUS);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.FIREBLU);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TRUE_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.NOTE_BLOCK_PLUS);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
         TextureMap textureMap = (new TextureMap())
-                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"))
                 .put(TextureKey.DOWN, TextureMap.getId(Blocks.SPRUCE_PLANKS))
-                .put(TextureKey.UP, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_top"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.EAST, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.WEST, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"));
-        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoModBlock.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoModBlock.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.EAST, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.BLUEPRINT_WORKBENCH, "_side"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.BLUEPRINT_WORKBENCH, Models.CUBE.upload(NyakoBlocks.BLUEPRINT_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {
@@ -153,35 +153,35 @@ public class NyakoModelGenerator extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         // Coins
-        itemModelGenerator.register(NyakoModItem.COPPER_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.GOLD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.EMERALD_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.DIAMOND_COIN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.NETHERITE_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.COPPER_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.GOLD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.EMERALD_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.DIAMOND_COIN_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.NETHERITE_COIN_ITEM, Models.GENERATED);
 
         // Coin bags
-        itemModelGenerator.register(NyakoModItem.BAG_OF_COINS_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.BAG_OF_COINS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM, Models.GENERATED);
 
         // Music discs
-        NyakoModDisc.registerModels(itemModelGenerator);
+        NyakoDiscs.registerModels(itemModelGenerator);
 
         // Various gacha items
-        itemModelGenerator.register(NyakoModItem.DISCORD_GACHA_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.DISCORD_GACHA_ITEM, Models.GENERATED);
 
         // Staffs
-        itemModelGenerator.register(NyakoModItem.STAFF_OF_SMITING_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.STAFF_OF_SMITING_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.STAFF_OF_VORBULATION_ITEM, Models.GENERATED);
 
         // Misc. items
-        itemModelGenerator.register(NyakoModItem.DRIP_JACKET, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.PRESENT_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.RETENTIVE_BALL_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.DRIP_JACKET, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.PRESENT_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.RETENTIVE_BALL_ITEM, Models.GENERATED);
 
-        itemModelGenerator.register(NyakoModItem.TEST_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoModItem.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.TEST_ITEM, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
 
-        itemModelGenerator.register(NyakoModItem.PIAMOND_DICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

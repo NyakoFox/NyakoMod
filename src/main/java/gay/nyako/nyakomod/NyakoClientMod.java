@@ -5,7 +5,7 @@ import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.screens.*;
-import gay.nyako.nyakomod.test.SongPlayer;
+import gay.nyako.nyakomod.utils.NyakoUtils;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
@@ -50,7 +50,7 @@ public class NyakoClientMod implements ClientModInitializer {
 	public void onInitializeClient() {
 		SONG_PLAYER = new SongPlayer();
 
-		EntityRendererRegistry.register(NyakoMod.PET_SPRITE, PetSpriteRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteRenderer::new);
 
 		KeyBinding killBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.nyakomod.killbind", // The translation key of the keybinding's name
@@ -68,17 +68,17 @@ public class NyakoClientMod implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-				ClientPlayNetworking.send(NyakoModNetworking.KILL_PLAYER_PACKET_ID, passedData);
+				ClientPlayNetworking.send(NyakoNetworking.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
 
-		ClientPlayNetworking.registerGlobalReceiver(NyakoModNetworking.PLAYER_SMITE_PACKET_ID,
+		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.PLAYER_SMITE_PACKET_ID,
 				(client, handler, buffer, sender) -> client.execute(() -> {
 					client.player.addVelocity(0D, 5D, 0D);
 				}));
 
-		EntityRendererRegistry.register(NyakoMod.TICKER, TickerEntityRenderer::new);
-		EntityRendererRegistry.register(NyakoMod.PET_DRAGON, PetDragonRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.TICKER, TickerEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.PET_DRAGON, PetDragonRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DRAGON_LAYER, PetDragonModel::getTexturedModelData);
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
@@ -99,18 +99,18 @@ public class NyakoClientMod implements ClientModInitializer {
 			return 0;
 		});
 
-		HandledScreens.register(NyakoMod.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
-		HandledScreens.register(NyakoMod.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
-		HandledScreens.register(NyakoMod.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
-		HandledScreens.register(NyakoMod.NBP_SCREEN_HANDLER_TYPE, NBPHandledScreen::new);
+		HandledScreens.register(NyakoScreenHandlers.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+		HandledScreens.register(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
+		HandledScreens.register(NyakoScreenHandlers.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
+		HandledScreens.register(NyakoScreenHandlers.NBP_SCREEN_HANDLER_TYPE, NBPHandledScreen::new);
 
-    	BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.COPPER_SINGLE_COIN,    RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.GOLD_SINGLE_COIN,      RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.EMERALD_SINGLE_COIN,   RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.DIAMOND_SINGLE_COIN,   RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.NETHERITE_SINGLE_COIN, RenderLayer.getCutout());
+    	BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.COPPER_SINGLE_COIN,    RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.GOLD_SINGLE_COIN,      RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.EMERALD_SINGLE_COIN,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.DIAMOND_SINGLE_COIN,   RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.NETHERITE_SINGLE_COIN, RenderLayer.getCutout());
 
-		BlockRenderLayerMap.INSTANCE.putBlock(NyakoModBlock.DRAFTING_TABLE, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.DRAFTING_TABLE, RenderLayer.getCutout());
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
@@ -133,7 +133,7 @@ public class NyakoClientMod implements ClientModInitializer {
 			} else {
 				waterColor = 4159204;
 			}
-			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> waterColor, NyakoModItem.WATER);
+			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> waterColor, NyakoItems.WATER);
 		});
 	}
 
@@ -165,7 +165,7 @@ public class NyakoClientMod implements ClientModInitializer {
 	}
 
 	public static Identifier downloadSprite(String urlPath) {
-		var hash = NyakoMod.hashString(urlPath);
+		var hash = NyakoUtils.hashString(urlPath);
 		var id = new Identifier("nyakomod", hash);
 
 		if (downloadedUrls.contains(urlPath)) {

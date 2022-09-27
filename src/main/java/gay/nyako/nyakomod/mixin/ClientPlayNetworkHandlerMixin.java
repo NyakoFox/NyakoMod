@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.NyakoModItem;
-import gay.nyako.nyakomod.NyakoModSoundEvents;
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoSoundEvents;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -25,12 +25,12 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
         if (entity instanceof ItemEntity) {
             ItemEntity itemEntity = (ItemEntity)entity;
             ItemStack itemStack = itemEntity.getStack();
-            if (itemStack.isOf(NyakoModItem.COPPER_COIN_ITEM) ||
-                itemStack.isOf(NyakoModItem.GOLD_COIN_ITEM) ||
-                itemStack.isOf(NyakoModItem.EMERALD_COIN_ITEM) ||
-                itemStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM) ||
-                itemStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
-                world.playSound(x, y, z, NyakoModSoundEvents.COIN_COLLECT, category, 0.7f, pitch, useDistance);
+            if (itemStack.isOf(NyakoItems.COPPER_COIN_ITEM) ||
+                itemStack.isOf(NyakoItems.GOLD_COIN_ITEM) ||
+                itemStack.isOf(NyakoItems.EMERALD_COIN_ITEM) ||
+                itemStack.isOf(NyakoItems.DIAMOND_COIN_ITEM) ||
+                itemStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
+                world.playSound(x, y, z, NyakoSoundEvents.COIN_COLLECT, category, 0.7f, pitch, useDistance);
                 return;
             }
         }

@@ -22,11 +22,11 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     protected void generateBlockLootTables() {
-        registerSingleCoinBlocks(NyakoModBlock.COPPER_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoModBlock.GOLD_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoModBlock.DIAMOND_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoModBlock.EMERALD_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoModBlock.NETHERITE_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.COPPER_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.GOLD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.DIAMOND_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.EMERALD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN);
     }
 
     public void registerSingleCoinBlocks(Block inputBlock) {

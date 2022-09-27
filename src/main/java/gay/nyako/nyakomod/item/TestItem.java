@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.CunkShop;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ public class TestItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        NyakoMod.openShop(user, world, ShopEntries.MAIN);
+        CunkShop.openShop(user, world, ShopEntries.MAIN);
         return TypedActionResult.success(user.getStackInHand(hand));
     }
 

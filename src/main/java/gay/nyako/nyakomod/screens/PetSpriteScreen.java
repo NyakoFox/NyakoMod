@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.NyakoModNetworking;
+import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -50,7 +50,7 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
                     buf.writeDouble(2);
                 }
 
-                ClientPlayNetworking.send(NyakoModNetworking.PET_SPRITE_SET_URL, buf);
+                ClientPlayNetworking.send(NyakoNetworking.PET_SPRITE_SET_URL, buf);
 
                 MinecraftClient.getInstance().setScreen(null);
             }

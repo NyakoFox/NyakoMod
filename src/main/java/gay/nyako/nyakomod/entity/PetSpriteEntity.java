@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.entity;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -45,7 +45,7 @@ public class PetSpriteEntity extends PetEntity {
     }
 
     public static PetEntity createPet(ItemStack stack, LivingEntity entity) {
-        var pet = new PetSpriteEntity(NyakoMod.PET_SPRITE, entity.world);
+        var pet = new PetSpriteEntity(NyakoEntities.PET_SPRITE, entity.world);
         pet.setOwnerUuid(entity.getUuid());
         pet.setPosition(entity.getX(), entity.getY(), entity.getZ());
         pet.setInvulnerable(true);

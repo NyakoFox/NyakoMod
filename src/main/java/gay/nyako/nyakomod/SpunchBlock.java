@@ -22,7 +22,7 @@ public class SpunchBlock extends Block {
         boolean bl = world.isReceivingRedstonePower(pos);
         if (bl != state.get(POWERED)) {
             if (bl) {
-                world.playSound(null, pos, NyakoModSoundEvents.SPUNCH_BLOCK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, pos, NyakoSoundEvents.SPUNCH_BLOCK, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
             world.setBlockState(pos, state.with(POWERED, bl), Block.NOTIFY_ALL);
         }

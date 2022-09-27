@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.entity;
 
-import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,7 +28,7 @@ public class TickerEntity extends Entity {
     }
 
     public static TickerEntity summon(World world, BlockPos pos, Direction direction) {
-        return new TickerEntity(NyakoMod.TICKER, world);
+        return new TickerEntity(NyakoEntities.TICKER, world);
     }
 
     @Override

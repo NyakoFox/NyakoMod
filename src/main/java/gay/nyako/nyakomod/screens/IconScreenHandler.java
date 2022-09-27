@@ -1,7 +1,8 @@
 package gay.nyako.nyakomod.screens;
 
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoScreenHandlers;
 import io.wispforest.owo.client.screens.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -68,7 +69,7 @@ public class IconScreenHandler extends ScreenHandler {
     }
 
     public IconScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NyakoMod.ICON_SCREEN_HANDLER_TYPE, syncId);
+        super(NyakoScreenHandlers.ICON_SCREEN_HANDLER_TYPE, syncId);
         int i;
         this.context = context;
         this.world = inventory.player.world;
@@ -152,7 +153,7 @@ public class IconScreenHandler extends ScreenHandler {
         var inputNbt = inputStack.getOrCreateNbt();
         var copyNbt = copyStack.getOrCreateNbt();
 
-        if (copyStack.isOf(NyakoModItem.BLUEPRINT) && copyNbt.contains("blueprint")) {
+        if (copyStack.isOf(NyakoItems.BLUEPRINT) && copyNbt.contains("blueprint")) {
             var blueprint = copyNbt.getCompound("blueprint");
             if (blueprint.contains("tag")) {
                 var tag = blueprint.getCompound("tag");
@@ -268,7 +269,7 @@ public class IconScreenHandler extends ScreenHandler {
 
     @Override
     public ScreenHandlerType<?> getType() {
-        return NyakoMod.ICON_SCREEN_HANDLER_TYPE;
+        return NyakoScreenHandlers.ICON_SCREEN_HANDLER_TYPE;
     }
 
     public void setContentsChangedListener(Runnable contentsChangedListener) {

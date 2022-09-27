@@ -1,8 +1,8 @@
 package gay.nyako.nyakomod.screens;
 
-import gay.nyako.nyakomod.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoModItem;
-import gay.nyako.nyakomod.NyakoModNetworking;
+import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoNetworking;
 import io.netty.buffer.Unpooled;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
@@ -104,7 +104,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
             passedData.writeIdentifier(handler.shopId);
             passedData.writeInt(selectedEntry);
             passedData.writeInt(purchaseAmount);
-            ClientPlayNetworking.send(NyakoModNetworking.CUNK_SHOP_PURCHASE_PACKET_ID, passedData);
+            ClientPlayNetworking.send(NyakoNetworking.CUNK_SHOP_PURCHASE_PACKET_ID, passedData);
             player.getInventory().markDirty();
 
         });
@@ -180,13 +180,13 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
                                 .margins(new Insets(0, 0, 0, 4))
                 );
-                var item = NyakoModItem.COPPER_COIN_ITEM;
+                var item = NyakoItems.COPPER_COIN_ITEM;
                 switch (key) {
-                    case COPPER -> item = NyakoModItem.COPPER_COIN_ITEM;
-                    case GOLD -> item = NyakoModItem.GOLD_COIN_ITEM;
-                    case EMERALD -> item = NyakoModItem.EMERALD_COIN_ITEM;
-                    case DIAMOND -> item = NyakoModItem.DIAMOND_COIN_ITEM;
-                    case NETHERITE -> item = NyakoModItem.NETHERITE_COIN_ITEM;
+                    case COPPER -> item = NyakoItems.COPPER_COIN_ITEM;
+                    case GOLD -> item = NyakoItems.GOLD_COIN_ITEM;
+                    case EMERALD -> item = NyakoItems.EMERALD_COIN_ITEM;
+                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN_ITEM;
+                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN_ITEM;
                 }
                 price.child(
                         Components.item(new ItemStack(item))
@@ -224,13 +224,13 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
                                 .margins(new Insets(0, 0, 0, 4))
                 );
-                var item = NyakoModItem.COPPER_COIN_ITEM;
+                var item = NyakoItems.COPPER_COIN_ITEM;
                 switch (key) {
-                    case COPPER -> item = NyakoModItem.COPPER_COIN_ITEM;
-                    case GOLD -> item = NyakoModItem.GOLD_COIN_ITEM;
-                    case EMERALD -> item = NyakoModItem.EMERALD_COIN_ITEM;
-                    case DIAMOND -> item = NyakoModItem.DIAMOND_COIN_ITEM;
-                    case NETHERITE -> item = NyakoModItem.NETHERITE_COIN_ITEM;
+                    case COPPER -> item = NyakoItems.COPPER_COIN_ITEM;
+                    case GOLD -> item = NyakoItems.GOLD_COIN_ITEM;
+                    case EMERALD -> item = NyakoItems.EMERALD_COIN_ITEM;
+                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN_ITEM;
+                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN_ITEM;
                 }
                 currentMoney.child(
                         Components.item(new ItemStack(item))

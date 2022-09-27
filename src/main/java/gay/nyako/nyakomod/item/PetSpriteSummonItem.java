@@ -1,31 +1,25 @@
 package gay.nyako.nyakomod.item;
 
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketItem;
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.entity.PetEntity;
+import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.screens.PetSpriteScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class PetSpriteSummonItem extends PetSummonItem<PetSpriteEntity> {
     public PetSpriteSummonItem(Settings settings) {
-        super(settings, NyakoMod.PET_SPRITE, PetSpriteEntity::createPet);
+        super(settings, NyakoEntities.PET_SPRITE, PetSpriteEntity::createPet);
     }
 
     @Environment(EnvType.CLIENT)

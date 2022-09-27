@@ -1,7 +1,7 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.NyakoModItem;
-import gay.nyako.nyakomod.NyakoModSoundEvents;
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoSoundEvents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -28,13 +28,13 @@ public class BagOfCoinsItem extends Item {
     @Override
     public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
         if (!otherStack.isEmpty()) {
-            if (otherStack.isOf(NyakoModItem.COPPER_COIN_ITEM) ||
-                    otherStack.isOf(NyakoModItem.GOLD_COIN_ITEM) ||
-                    otherStack.isOf(NyakoModItem.EMERALD_COIN_ITEM) ||
-                    otherStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM) ||
-                    otherStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
+            if (otherStack.isOf(NyakoItems.COPPER_COIN_ITEM) ||
+                    otherStack.isOf(NyakoItems.GOLD_COIN_ITEM) ||
+                    otherStack.isOf(NyakoItems.EMERALD_COIN_ITEM) ||
+                    otherStack.isOf(NyakoItems.DIAMOND_COIN_ITEM) ||
+                    otherStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
 
-                player.playSound(NyakoModSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
+                player.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
 
                 NbtCompound tag = stack.getOrCreateNbt();
                 int copper = tag.getInt("copper");
@@ -43,19 +43,19 @@ public class BagOfCoinsItem extends Item {
                 int diamond = tag.getInt("diamond");
                 int netherite = tag.getInt("netherite");
 
-                if (otherStack.isOf(NyakoModItem.COPPER_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.COPPER_COIN_ITEM)) {
                     copper += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoModItem.GOLD_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.GOLD_COIN_ITEM)) {
                     gold += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoModItem.EMERALD_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.EMERALD_COIN_ITEM)) {
                     emerald += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoModItem.DIAMOND_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.DIAMOND_COIN_ITEM)) {
                     diamond += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoModItem.NETHERITE_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
                     netherite += otherStack.getCount();
                 }
 
@@ -89,19 +89,19 @@ public class BagOfCoinsItem extends Item {
 
         tag.putBoolean("using", true);
 
-        ItemStack copperStack = new ItemStack(NyakoModItem.COPPER_COIN_ITEM);
+        ItemStack copperStack = new ItemStack(NyakoItems.COPPER_COIN_ITEM);
         copperStack.setCount(copper);
 
-        ItemStack goldStack = new ItemStack(NyakoModItem.GOLD_COIN_ITEM);
+        ItemStack goldStack = new ItemStack(NyakoItems.GOLD_COIN_ITEM);
         goldStack.setCount(gold);
 
-        ItemStack emeraldStack = new ItemStack(NyakoModItem.EMERALD_COIN_ITEM);
+        ItemStack emeraldStack = new ItemStack(NyakoItems.EMERALD_COIN_ITEM);
         emeraldStack.setCount(emerald);
 
-        ItemStack diamondStack = new ItemStack(NyakoModItem.DIAMOND_COIN_ITEM);
+        ItemStack diamondStack = new ItemStack(NyakoItems.DIAMOND_COIN_ITEM);
         diamondStack.setCount(diamond);
 
-        ItemStack netheriteStack = new ItemStack(NyakoModItem.NETHERITE_COIN_ITEM);
+        ItemStack netheriteStack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
         netheriteStack.setCount(netherite);
 
         if (copper    > 0) copper    = user.getInventory().addStack(copperStack);
@@ -110,7 +110,7 @@ public class BagOfCoinsItem extends Item {
         if (diamond   > 0) diamond   = user.getInventory().addStack(diamondStack);
         if (netherite > 0) netherite = user.getInventory().addStack(netheriteStack);
 
-        user.playSound(NyakoModSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
+        user.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
 
         tag.putInt("copper", copper);
         tag.putInt("gold", gold);

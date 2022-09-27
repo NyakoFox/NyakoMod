@@ -1,24 +1,13 @@
-package gay.nyako.nyakomod.test;
+package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.InstrumentRegister;
-import gay.nyako.nyakomod.InstrumentRegistry;
-import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
 import me.stupidcat.abcparser.ABCParser;
 import me.stupidcat.abcparser.ABCSong;
 import me.stupidcat.abcparser.struct.SongChord;
 import me.stupidcat.abcparser.struct.SongComponent;
 import me.stupidcat.abcparser.struct.SongNote;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-
-import java.util.List;
 
 public class SongPlayer {
     MinecraftClient client;

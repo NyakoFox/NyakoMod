@@ -5,7 +5,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
 
-public class NyakoModPotion {
+public class NyakoPotions {
     public static final Potion UNLUCK = Potions.register("unluck", new Potion("unluck", new StatusEffectInstance(StatusEffects.UNLUCK, 6000))); // 5 minutes
     public static final Potion HASTE = Potions.register("haste", new Potion("haste", new StatusEffectInstance(StatusEffects.HASTE, 1200))); // 1 minute
     public static final Potion MINING_FATIGUE = Potions.register("mining_fatigue", new Potion("mining_fatigue", new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 1200))); // 1 minute

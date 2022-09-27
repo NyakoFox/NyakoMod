@@ -1,9 +1,7 @@
 package gay.nyako.nyakomod.block;
 
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
+import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.screens.NBPScreenHandler;
-import gay.nyako.nyakomod.screens.ShopEntries;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -15,25 +13,20 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.nio.charset.StandardCharsets;
 
 public class NoteBlockPlusBlock extends BlockWithEntity {
     public NoteBlockPlusBlock(Settings settings) {
@@ -82,7 +75,7 @@ public class NoteBlockPlusBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NyakoMod.NOTE_BLOCK_PLUS_ENTITY, NoteBlockPlusBlockEntity::tick);
+        return checkType(type, NyakoEntities.NOTE_BLOCK_PLUS_ENTITY, NoteBlockPlusBlockEntity::tick);
     }
 
     @Override

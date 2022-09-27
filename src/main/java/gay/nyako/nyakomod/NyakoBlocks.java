@@ -6,8 +6,8 @@ import net.minecraft.block.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class NyakoModBlock {
-    public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SpunchBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoModSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool()));
+public class NyakoBlocks {
+    public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SpunchBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool()));
     public static final Block LAUNCHER                  = register("launcher",                  new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(new Identifier("nyakomod", "main")));
     public static final Block BLUEPRINT_WORKBENCH       = register("blueprint_workbench",       new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));

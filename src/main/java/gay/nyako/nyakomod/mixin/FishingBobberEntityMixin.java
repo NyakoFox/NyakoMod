@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.NyakoModItem;
+import gay.nyako.nyakomod.NyakoItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
@@ -27,9 +27,9 @@ public abstract class FishingBobberEntityMixin extends ProjectileEntity {
     private void injected(ItemStack usedItem, CallbackInfoReturnable<Integer> cir) {
         int rand = world.random.nextBetween(0, 100);
         if (rand < 1) {
-            spawnItem(new ItemStack(NyakoModItem.GOLD_COIN_ITEM, world.random.nextBetween(1, 2)));
+            spawnItem(new ItemStack(NyakoItems.GOLD_COIN_ITEM, world.random.nextBetween(1, 2)));
         } else if (rand < 50) {
-            spawnItem(new ItemStack(NyakoModItem.COPPER_COIN_ITEM, world.random.nextBetween(1, 16)));
+            spawnItem(new ItemStack(NyakoItems.COPPER_COIN_ITEM, world.random.nextBetween(1, 16)));
         }
 
         // fishing up tnt

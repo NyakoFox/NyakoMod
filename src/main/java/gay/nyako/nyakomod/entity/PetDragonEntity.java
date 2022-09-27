@@ -1,8 +1,6 @@
 package gay.nyako.nyakomod.entity;
 
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.entity.goal.DespawnPetGoal;
-import gay.nyako.nyakomod.entity.goal.PetFollowOwnerGoal;
+import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.EntityStatuses;
@@ -16,27 +14,16 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandler;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
 
 public class PetDragonEntity extends PetEntity {
     public PetDragonEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
@@ -54,7 +41,7 @@ public class PetDragonEntity extends PetEntity {
     }
 
     public static PetEntity createPet(ItemStack stack, LivingEntity entity) {
-        var pet = new PetDragonEntity(NyakoMod.PET_DRAGON, entity.world);
+        var pet = new PetDragonEntity(NyakoEntities.PET_DRAGON, entity.world);
         pet.setOwnerUuid(entity.getUuid());
         pet.setPosition(entity.getX(), entity.getY(), entity.getZ());
         pet.setInvulnerable(true);
