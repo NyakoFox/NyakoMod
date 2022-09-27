@@ -480,9 +480,7 @@ public class NyakoMod implements ModInitializer {
 
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
 			CachedResourcePack.setPlayerResourcePack(handler.player);
-			handler.player.changeGameMode(GameMode.SPECTATOR);
 			((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
-			((ServerPlayerEntityAccess)handler.player).setJoinPos(handler.player.getPos());
 		}));
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
@@ -493,10 +491,7 @@ public class NyakoMod implements ModInitializer {
 			for (ServerPlayerEntity player : world.getPlayers()) {
 				if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
 					if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
-						player.changeGameMode(GameMode.SURVIVAL);
 						((ServerPlayerEntityAccess)player).setSafeMode(false);
-						player.setPosition(((ServerPlayerEntityAccess)player).getJoinPos());
-						player.setVelocity(0, 0, 0);
 					}
 				}
 			}

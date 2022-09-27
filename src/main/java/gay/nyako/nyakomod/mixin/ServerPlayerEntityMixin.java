@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.mixin;
 import gay.nyako.nyakomod.CunkCoinUtils;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,14 +16,22 @@ import net.minecraft.server.world.ServerWorld;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAccess {
-
     private boolean inSafeMode = false;
     private Vec3d joinPos = Vec3d.ZERO;
 
     @Override
     public void setSafeMode(boolean bool) {
-      inSafeMode = bool;
-  }
+        inSafeMode = bool;
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        if (inSafeMode) {
+            player.changeGameMode(GameMode.SPECTATOR);
+            ((ServerPlayerEntityAccess)player).setJoinPos(player.getPos());
+        } else {
+            player.changeGameMode(GameMode.SURVIVAL);
+            player.setPosition(((ServerPlayerEntityAccess)player).getJoinPos());
+            player.setVelocity(0, 0, 0);
+        }
+    }
 
     @Override
     public boolean isInSafeMode() {
