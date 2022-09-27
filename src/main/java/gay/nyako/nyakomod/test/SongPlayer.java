@@ -233,7 +233,9 @@ public class SongPlayer {
     public void playNote(SongNote note) {
         var noteIndex = note.getNote() - 24 + 6;
         var pitch = noteToPitch(note);
-        var sound = InstrumentRegistry.HARP.getFromIndex(noteIndex);
+        var instrument = InstrumentRegistry.fromBlockState(blockEntity.getWorld().getBlockState(blockEntity.getPos().down()));
+
+        var sound = instrument.getFromIndex(noteIndex);
 
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
@@ -261,8 +263,6 @@ public class SongPlayer {
          */
         var noteIndex = note.getNote() - 24 + 6;
         var newNoteIndex = InstrumentRegistry.adjustIndex(noteIndex);
-
-        System.out.println(noteIndex + " - " + newNoteIndex);
 
         float f = (float)Math.pow(2.0D, (double)(newNoteIndex) / 12.0D);
         // System.out.println(noteIndex);
