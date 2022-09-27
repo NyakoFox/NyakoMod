@@ -31,6 +31,8 @@ public class NyakoModItem {
     public static final Item PLASTEEL_PILLAR            = register("plasteel_pillar",           new BlockItem(NyakoModBlock.PLASTEEL_PILLAR, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item FIREBLU                    = register("fireblu",                   new BlockItem(NyakoModBlock.FIREBLU, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item MATTER_VORTEX              = register("matter_vortex",             new BlockItem(NyakoModBlock.MATTER_VORTEX, new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item TRUE_BLOCK                 = register("true_block",                new BlockItem(NyakoModBlock.TRUE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+
     public static final Item DRIP_JACKET                = register("drip_jacket",               new ArmorItem(NyakoMod.customArmorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
     public static final Item STAFF_OF_SMITING_ITEM      = register("staff_of_smiting",          new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof()));
     public static final Item PRESENT_ITEM               = register("present",                   new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));

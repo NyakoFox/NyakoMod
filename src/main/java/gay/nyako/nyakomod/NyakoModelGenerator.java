@@ -39,12 +39,13 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerAxisRotated(NyakoModBlock.PLASTEEL_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.FIREBLU);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoModBlock.TRUE_BLOCK);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
         TextureMap textureMap = (new TextureMap())
                 .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
-                .put(TextureKey.DOWN, TextureMap.getId(Blocks.DARK_OAK_PLANKS))
+                .put(TextureKey.DOWN, TextureMap.getId(Blocks.SPRUCE_PLANKS))
                 .put(TextureKey.UP, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_top"))
                 .put(TextureKey.NORTH, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
                 .put(TextureKey.EAST, TextureMap.getSubId(NyakoModBlock.BLUEPRINT_WORKBENCH, "_side"))
