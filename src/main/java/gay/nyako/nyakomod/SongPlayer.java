@@ -199,9 +199,6 @@ public class SongPlayer {
         }
 
         var ms = System.currentTimeMillis() - initial;
-        // progress += client.getTickDelta();
-
-        // System.out.println(progress);
 
         while (pointer < songComponents.length && ms > songComponents[pointer].getStart()) {
             var comp = songComponents[pointer];
@@ -218,7 +215,6 @@ public class SongPlayer {
         if (pointer >= songComponents.length) {
             playing = false;
         }
-        // .player.sendMessage(Text.literal(String.valueOf(ms)), true);
     }
 
     public void playNote(SongNote note) {

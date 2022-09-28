@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class ABCParser {
-    public static Pattern metaRegex = Pattern.compile("^(?<key>[A-Z]): (?<value>.+?)(=(?<extra>.+))?$");
+    public static Pattern metaRegex = Pattern.compile("^(?<key>[A-Z]): ?(?<value>.+?)(=(?<extra>.+))?$");
 
     ABCSong songMeta;
 
@@ -25,7 +25,7 @@ public class ABCParser {
 
             var list = new ArrayList<SongComponent>();
 
-            if (!lines[0].startsWith("X: ")) {
+            if (!lines[0].startsWith("X:")) {
                 return new ArrayList<>();
             }
 

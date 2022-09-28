@@ -5,7 +5,7 @@ import me.stupidcat.abcparser.ABCSong;
 import java.util.regex.Pattern;
 
 public class SongNote extends SongComponent {
-    public static Pattern regex = Pattern.compile("(?<note>(?<prefix>[_=^]?)(?<noteName>[za-gA-G])(?<octave>[',]*)(?<num>\\d*)(?<dem>(/\\d*)?))");
+    public static Pattern regex = Pattern.compile("(?<note>(?<prefix>[_=^]?)(?<noteName>[za-gA-G])(?<octave>[',]*)(?<num>\\d*)(?<dem>(/+\\d*)?))");
 
     String rawNote;
     String noteName;
@@ -54,8 +54,8 @@ public class SongNote extends SongComponent {
                 numI = Integer.parseInt(num);
             }
             if (!dem.isBlank()) {
-                if (dem.equals("/")) {
-                    demI = 2;
+                if (dem.startsWith("/") && dem.endsWith("/")) {
+                    demI = (int)Math.pow(2, dem.length());
                 } else {
                     demI = Integer.parseInt(dem.substring(1));
                 }

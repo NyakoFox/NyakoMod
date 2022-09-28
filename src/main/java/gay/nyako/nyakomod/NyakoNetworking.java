@@ -127,7 +127,7 @@ public class NyakoNetworking {
 
                             if (blockEntity instanceof NoteBlockPlusBlockEntity noteEntity) {
                                 var contents = downloadFile(url);
-                                if (contents != null && contents.startsWith("X: ")) {
+                                if (contents != null && contents.startsWith("X:")) {
                                     noteEntity.songContents = contents;
                                     noteEntity.markDirty();
                                 }

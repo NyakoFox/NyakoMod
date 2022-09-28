@@ -25,7 +25,17 @@ public class SongChord extends SongComponent {
     @Override
     public double getEnd() {
         if (notes.size() > 0) {
-            return notes.get(0).getEnd();
+            double shortest = 0;
+            for (var note : notes) {
+                var end = note.getEnd();
+                if (shortest == 0) {
+                    shortest = end;
+                } else if (shortest > end) {
+                     shortest = end;
+                }
+            }
+
+            return shortest;
         }
         return startMs;
     }
