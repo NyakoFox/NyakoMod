@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
@@ -38,10 +39,10 @@ public abstract class CreditsScreenMixin extends Screen {
         RenderSystem.setShaderTexture(0, QUEEN_TITLE_TEXTURE);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.enableBlend();
-        matrices.translate(this.width / 2, this.height / 2, 0);
+        matrices.translate(this.width / 2f, this.height / 2f, 0);
         matrices.scale(scale, scale, 0f);
 
-        this.drawTexture(matrices, -(textureWidth / 2), -(textureHeight / 2), 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
+        drawTexture(matrices, -(textureWidth / 2), -(textureHeight / 2), 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
 
         RenderSystem.disableBlend();
 
