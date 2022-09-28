@@ -5,6 +5,12 @@
             "nyakomod:vine_boom"
         ]
     },
+    "true": {
+        "subtitle": "subtitles.nyakomod.true",
+        "sounds": [
+            "nyakomod:true"
+        ]
+    },
     "coin_collect": {
         "subtitle": "subtitles.nyakomod.coin_collect",
         "sounds": [
