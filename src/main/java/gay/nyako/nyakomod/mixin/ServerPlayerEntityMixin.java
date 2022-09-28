@@ -32,8 +32,13 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
             playerAccess.setJoinGameMode(player.interactionManager.getGameMode());
             player.changeGameMode(GameMode.SPECTATOR);
         } else {
-            player.changeGameMode(playerAccess.getJoinPreviousGameMode());
-            player.changeGameMode(playerAccess.getJoinGameMode());
+            var previous = playerAccess.getJoinPreviousGameMode();
+            var current = playerAccess.getJoinGameMode();
+            if (previous == null) previous = GameMode.SURVIVAL;
+            if (current == null) current = GameMode.SURVIVAL;
+
+            player.changeGameMode(previous);
+            player.changeGameMode(current);
             player.setPosition(playerAccess.getJoinPos());
             player.setVelocity(0, 0, 0);
         }
