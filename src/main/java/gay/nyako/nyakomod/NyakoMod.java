@@ -11,6 +11,7 @@ import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
@@ -53,6 +54,11 @@ public class NyakoMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		Milk.enableMilkFluid();
+		Milk.enableCauldron();
+		Milk.enableMilkPlacing();
+		Milk.finiteMilkFluid();
+
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
 		NyakoNetworking.registerGlobalReceivers();
 		NyakoLoot.register();

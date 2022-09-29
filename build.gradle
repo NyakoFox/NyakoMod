@@ -56,6 +56,10 @@ repositories {
 		url = uri("https://storage.googleapis.com/devan-maven/")
 	}
 	maven { url 'https://maven.wispforest.io' }
+	maven {
+		url = "https://mvn.devos.one/snapshots/"
+	}
+	maven { url = "https://api.modrinth.com/maven" }
 }
 
 dependencies {
@@ -85,6 +89,8 @@ dependencies {
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
 
 	shadow(implementation('org.json:json:20220320'))
+
+	modImplementation(include("io.github.tropheusj:milk-lib:1.0.48"))
 }
 
 processResources {
