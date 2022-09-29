@@ -10,6 +10,7 @@ public class NyakoDatagen implements DataGeneratorEntrypoint {
         // ...
         fabricDataGenerator.addProvider(NyakoModelGenerator::new);
         fabricDataGenerator.addProvider(NyakoBlockLootTableProvider::new);
+        fabricDataGenerator.addProvider(NyakoAdvancementProvider::new);
         // ...
     }
 }

@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:nyakomod/root",
+  "criteria": {
+    "player_milked": {
+      "conditions": {},
+      "trigger": "nyakomod:player_milked"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "Get milked by another player"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:milk_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Get milked bozo"
+    }
+  },
+  "requirements": [
+    [
+      "player_milked"
+    ]
+  ]
+}

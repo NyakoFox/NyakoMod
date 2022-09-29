@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.behavior.CoinBagItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.SoulJarItemDispenserBehavior;
@@ -21,6 +22,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
@@ -56,6 +58,7 @@ public class NyakoMod implements ModInitializer {
 		NyakoLoot.register();
 		NyakoGacha.register();
 		InstrumentRegistry.register();
+		NyakoCriteria.register();
 
 		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
 		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
@@ -81,6 +84,24 @@ public class NyakoMod implements ModInitializer {
 				if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
 					if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
 						((ServerPlayerEntityAccess)player).setSafeMode(false);
+					}
+				}
+			}
+
+			if (world.getTime() % (10 * 60 * 20) == 0) {
+				for (ServerPlayerEntity player : world.getPlayers()) {
+					if (player.abilities.invulnerable) continue;
+					if (player.isDead()) continue;
+
+					var access = (PlayerEntityAccess) player;
+
+					if (access.getMilkSaturation() > 0) {
+						access.setMilkSaturation(access.getMilkSaturation() - 1);
+						continue;
+					}
+					if (access.getMilk() > 0) {
+						access.setMilk(access.getMilk() - 1);
+						continue;
 					}
 				}
 			}

@@ -1,7 +1,6 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.CunkShop;
-import gay.nyako.nyakomod.screens.ShopEntries;
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,13 @@ public class TestItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        CunkShop.openShop(user, world, ShopEntries.MAIN);
+        var access = (PlayerEntityAccess) user;
+        if (user.isSneaking()) {
+            access.setMilk(access.getMilk() - 1);
+        } else {
+            access.setMilk(access.getMilk() + 1);
+        }
+
         return TypedActionResult.success(user.getStackInHand(hand));
     }
 

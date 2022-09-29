@@ -20,7 +20,9 @@
     "GrindstoneScreenHandlerMixin",
     "SlimeEntityMixin",
     "NetherPortalBlockMixin",
-    "CreditsScreenMixin"
+    "CreditsScreenMixin",
+    "PlayerEntityMixin",
+    "MilkBucketItemMixin",
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",

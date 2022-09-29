@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "inventory_changed": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "nyakomod:copper_coin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png",
+    "description": {
+      "translate": "Get your first coin"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "nyakomod:diamond_coin"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Cunkin' it up"
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

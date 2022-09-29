@@ -5,3 +5,4 @@ accessible    class     net/minecraft/server/command/TeleportCommand$LookTarget
 accessible    method    net/minecraft/entity/player/PlayerInventory   addStack   (Lnet/minecraft/item/ItemStack;)I
 accessible    method    net/minecraft/potion/Potions    register    (Ljava/lang/String;Lnet/minecraft/potion/Potion;)Lnet/minecraft/potion/Potion;
 accessible    field    net/minecraft/data/client/ItemModelGenerator    writer    Ljava/util/function/BiConsumer;
+accessible    field    net/minecraft/entity/player/PlayerEntity    abilities    Lnet/minecraft/entity/player/PlayerAbilities;
