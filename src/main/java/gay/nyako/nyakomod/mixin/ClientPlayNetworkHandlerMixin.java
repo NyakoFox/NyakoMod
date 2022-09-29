@@ -30,7 +30,7 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
                 itemStack.isOf(NyakoItems.EMERALD_COIN_ITEM) ||
                 itemStack.isOf(NyakoItems.DIAMOND_COIN_ITEM) ||
                 itemStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
-                world.playSound(x, y, z, NyakoSoundEvents.COIN_COLLECT, category, 0.7f, pitch, useDistance);
+                world.playSound(x, y, z, NyakoSoundEvents.COIN_COLLECT, category, volume * 0.7f, pitch, useDistance);
                 return;
             }
         }
