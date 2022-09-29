@@ -36,6 +36,8 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
             var current = playerAccess.getJoinGameMode();
             if (previous == null) previous = GameMode.SURVIVAL;
             if (current == null) current = GameMode.SURVIVAL;
+            if (current == GameMode.SPECTATOR) current = previous;
+            if (current == GameMode.SPECTATOR) current = GameMode.SURVIVAL;
 
             player.changeGameMode(previous);
             player.changeGameMode(current);
