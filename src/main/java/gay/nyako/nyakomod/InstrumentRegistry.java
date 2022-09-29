@@ -28,6 +28,21 @@ public class InstrumentRegistry {
 
     public static void register() {
         HARP.register();
+        BASS.register();
+        FLUTE.register();
+        BELL.register();
+        GUITAR.register();
+        CHIME.register();
+        XYLOPHONE.register();
+        IRON_XYLOPHONE.register();
+        COW_BELL.register();
+        DIDGERIDOO.register();
+        BIT.register();
+        BANJO.register();
+        PLING.register();
+        BASEDRUM.register();
+        SNARE.register();
+        HAT.register();
     }
 
     public static int adjustIndex(int i) {

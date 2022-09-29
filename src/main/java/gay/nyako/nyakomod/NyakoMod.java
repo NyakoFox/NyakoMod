@@ -58,6 +58,7 @@ public class NyakoMod implements ModInitializer {
 		NyakoLoot.register();
 		NyakoGacha.register();
 		InstrumentRegistry.register();
+		NyakoSoundEvents.register();
 		NyakoCriteria.register();
 		NyakoScreenHandlers.register();
 

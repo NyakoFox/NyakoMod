@@ -28,4 +28,8 @@ public class NyakoSoundEvents {
         Identifier identifier = new Identifier("nyakomod", name);
         return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
     }
+
+    public static void register() {
+        // include the class
+    }
 }

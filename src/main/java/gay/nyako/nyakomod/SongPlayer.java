@@ -9,6 +9,7 @@ import me.stupidcat.abcparser.struct.SongNote;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -227,7 +228,7 @@ public class SongPlayer {
 
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
-                if (blockEntity != null && blockEntity.getWorld().isClient()) {
+                if (blockEntity != null) {
                     playSound(sound, pitch);
                 }
             }
@@ -236,10 +237,11 @@ public class SongPlayer {
         }
     }
 
-    @Environment(EnvType.CLIENT)
     public void playSound(SoundEvent sound, float pitch) {
         if (blockEntity != null) {
-            blockEntity.getWorld().playSound(MinecraftClient.getInstance().player, blockEntity.getPos(), sound, SoundCategory.RECORDS, 3, pitch);
+            var pos = blockEntity.getPos();
+            ServerWorld world = (ServerWorld)blockEntity.getWorld();
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), sound, SoundCategory.RECORDS, 3, pitch);
         }
     }
 
