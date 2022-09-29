@@ -59,6 +59,7 @@ public class NyakoMod implements ModInitializer {
 		NyakoGacha.register();
 		InstrumentRegistry.register();
 		NyakoCriteria.register();
+		NyakoScreenHandlers.register();
 
 		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
 		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());

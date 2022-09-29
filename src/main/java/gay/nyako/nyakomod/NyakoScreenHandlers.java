@@ -19,4 +19,8 @@ public class NyakoScreenHandlers {
     public static <T extends ScreenHandler> ScreenHandlerType<T> register(String id, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registry.SCREEN_HANDLER, new Identifier("nyakomod", id), screenHandlerType);
     }
+
+    public static void register() {
+        // include the class
+    }
 }
