@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:nyakomod/root",
+  "criteria": {
+    "consume_item": {
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:milk_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "Drink a refreshing bucket of milk"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:milk_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Bone Generator"
+    }
+  },
+  "requirements": [
+    [
+      "consume_item"
+    ]
+  ]
+}
