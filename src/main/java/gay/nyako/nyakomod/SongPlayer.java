@@ -6,13 +6,14 @@ import me.stupidcat.abcparser.ABCSong;
 import me.stupidcat.abcparser.struct.SongChord;
 import me.stupidcat.abcparser.struct.SongComponent;
 import me.stupidcat.abcparser.struct.SongNote;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 
 public class SongPlayer {
-    MinecraftClient client;
     NoteBlockPlusBlockEntity blockEntity;
 
     public static String megalovania = """
@@ -108,12 +109,7 @@ public class SongPlayer {
     int pointer = 0;
     float progress = 0;
 
-    public SongPlayer() {
-        client = MinecraftClient.getInstance();
-    }
-
     public SongPlayer(NoteBlockPlusBlockEntity blockEntity) {
-        client = MinecraftClient.getInstance();
         this.blockEntity = blockEntity;
     }
 
@@ -231,14 +227,19 @@ public class SongPlayer {
 
         if (canPlayNote(pitch)) {
             if (!note.isRest()) {
-                if (blockEntity != null) {
-                    blockEntity.getWorld().playSound(client.player, blockEntity.getPos(), sound, SoundCategory.RECORDS, 3, pitch);
-                } else {
-                    client.player.playSound(sound, 3, pitch);
+                if (blockEntity != null && blockEntity.getWorld().isClient()) {
+                    playSound(sound, pitch);
                 }
             }
         } else {
             // client.player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 1, 1);
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void playSound(SoundEvent sound, float pitch) {
+        if (blockEntity != null) {
+            blockEntity.getWorld().playSound(MinecraftClient.getInstance().player, blockEntity.getPos(), sound, SoundCategory.RECORDS, 3, pitch);
         }
     }
 

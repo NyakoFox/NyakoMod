@@ -44,12 +44,8 @@ import java.util.List;
 public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
 
-	public static SongPlayer SONG_PLAYER;
-
 	@Override
 	public void onInitializeClient() {
-		SONG_PLAYER = new SongPlayer();
-
 		EntityRendererRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteRenderer::new);
 
 		KeyBinding killBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -58,12 +54,6 @@ public class NyakoClientMod implements ClientModInitializer {
 				GLFW.GLFW_KEY_G, // The keycode of the key
 				"category.nyakomod.binds" // The translation key of the keybinding's category.
 		));
-
-		ClientTickEvents.START_CLIENT_TICK.register(client -> {
-			if (SONG_PLAYER.isPlaying()) {
-				SONG_PLAYER.tick();
-			}
-		});
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
@@ -116,12 +106,6 @@ public class NyakoClientMod implements ClientModInitializer {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
 				var client = context.getSource().getClient();
 				client.send(() -> client.setScreen(new ModelScreen()));
-				return 1;
-			}));
-
-			dispatcher.register(ClientCommandManager.literal("song").executes(context -> {
-				var client = context.getSource().getClient();
-				SONG_PLAYER.play();
 				return 1;
 			}));
 		});
