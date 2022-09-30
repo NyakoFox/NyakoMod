@@ -67,19 +67,4 @@ public class NoteBlockPlusBlockEntity extends SyncingBlockEntity implements Name
     public static void tick(World world, BlockPos pos, BlockState state, NoteBlockPlusBlockEntity blockEntity) {
         blockEntity.getSongPlayer().tick();
     }
-
-    @Override
-    public void markDirty() {
-        super.markDirty();
-        if (!world.isClient()) {
-            sync();
-        }
-    }
-
-    public void sync() {
-        if (world.isClient()) {
-            return;
-        }
-        ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
-    }
 }
