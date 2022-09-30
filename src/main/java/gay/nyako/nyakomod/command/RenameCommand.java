@@ -33,10 +33,10 @@ public final class RenameCommand {
         PlayerEntity player = source.getPlayer();
         ItemStack heldStack = player.getMainHandStack();
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't rename nothing."));
         } else {
             heldStack.removeCustomName();
-            context.getSource().sendFeedback(Text.literal("Your item's name has been cleared."), false);
+            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item's name has been cleared."), false);
         }
         return 1;
     }
@@ -47,10 +47,10 @@ public final class RenameCommand {
         ItemStack heldStack = player.getMainHandStack();
         Text newName = TextParserUtils.formatText(context.getArgument("name", String.class));
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(Text.literal("You can't rename nothing!").formatted(Formatting.RED));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't rename nothing."));
         } else {
             heldStack.setCustomName(newName);
-            context.getSource().sendFeedback(Text.translatable("Your item has been renamed to \"%s\".", newName), false);
+            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item has been renamed to " + newName + "."), false);
         }
         return 1;
     }

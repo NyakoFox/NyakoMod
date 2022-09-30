@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.access.EntityAccess;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -7,6 +8,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.world.PersistentState;
@@ -54,7 +56,8 @@ public class SlimeSkyManager extends PersistentState {
                 if (stateLength <= 0) {
                     state = SlimeSkyState.ACTIVE;
                     stateLength = (world.getRandom().nextBetween(9, 15) * 60L) * 20;
-                    world.getServer().getPlayerManager().broadcast(Text.literal("Slime is falling from the sky!").setStyle(Style.EMPTY.withColor(0x32FF82)), false);
+                    var prefix = (MutableText) TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
+                    world.getServer().getPlayerManager().broadcast(prefix.append(Text.literal("Slime is falling from the sky!").setStyle(Style.EMPTY.withColor(0x32FF82))), false);
                     markDirty();
                 }
                 break;
@@ -83,7 +86,8 @@ public class SlimeSkyManager extends PersistentState {
                 if (stateLength <= 0) {
                     state = SlimeSkyState.INACTIVE;
                     stateLength = world.getRandom().nextBetween((7 * 24000), (20 * 24000)); // 7 - 20 days
-                    world.getServer().getPlayerManager().broadcast(Text.literal("Slime has stopped falling from the sky.").setStyle(Style.EMPTY.withColor(0x32FF82)), false);
+                    var prefix = (MutableText) TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
+                    world.getServer().getPlayerManager().broadcast(prefix.append(Text.literal("Slime has stopped falling from the sky.").setStyle(Style.EMPTY.withColor(0x32FF82))), false);
                     markDirty();
                 }
                 break;

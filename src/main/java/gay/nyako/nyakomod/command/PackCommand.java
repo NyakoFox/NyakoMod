@@ -42,7 +42,7 @@ public final class PackCommand {
         NyakoMod.CACHED_RESOURCE_PACK.zipResourcePack();
         NyakoMod.CACHED_RESOURCE_PACK.cacheResourcePack();
         PackUpdateNotifier.causePackUpdate(source.getPlayer());
-        source.sendFeedback(Text.of("Published the resource pack!"), false);
+        source.sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Published the pack!"), false);
         return 1;
     }
 

@@ -1,9 +1,11 @@
 package gay.nyako.nyakomod;
 
+import eu.pb4.placeholders.api.TextParserUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.core.tools.picocli.CommandLine;
@@ -44,8 +46,9 @@ public class PackUpdateNotifier {
                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pack update"))
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("/pack update")))
                 .withBold(true));
+        var prefix = (MutableText)TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
         player.sendMessage(
-                Text.literal("The server resource pack has updated! Click ")
+                prefix.append("The server resource pack has updated! Click ")
                         .append(text)
                         .append(" to update."));
     }

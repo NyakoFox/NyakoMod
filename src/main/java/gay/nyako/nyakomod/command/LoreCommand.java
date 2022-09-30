@@ -33,7 +33,7 @@ public final class LoreCommand {
         PlayerEntity player = source.getPlayer();
         ItemStack heldStack = player.getMainHandStack();
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(Text.literal("You can't clear the lore of nothing!").formatted(Formatting.RED));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't clear the lore of nothing."));
         } else {
             NbtCompound nbt = heldStack.getOrCreateNbt();
             NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
@@ -42,7 +42,7 @@ public final class LoreCommand {
             nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
             nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
             heldStack.setNbt(nbt);
-            context.getSource().sendFeedback(Text.literal("Lore cleared."), false);
+            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Lore cleared."), false);
         }
         return 1;
     }
@@ -53,7 +53,7 @@ public final class LoreCommand {
         ItemStack heldStack = player.getMainHandStack();
         Text newText = TextParserUtils.formatText(context.getArgument("text", String.class));
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(Text.literal("You can't add lore to nothing!").formatted(Formatting.RED));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't add lore to nothing."));
         } else {
             NbtCompound nbt = heldStack.getOrCreateNbt();
             NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
@@ -64,7 +64,7 @@ public final class LoreCommand {
             nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
             nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
             heldStack.setNbt(nbt);
-            context.getSource().sendFeedback(Text.literal("Lore applied."), false);
+            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Lore applied."), false);
         }
         return 1;
     }
