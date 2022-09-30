@@ -27,6 +27,8 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
@@ -162,13 +164,18 @@ public class NyakoMod implements ModInitializer {
 				}
 			}
 
-			if (world.getTime() % (10 * 60 * 20) == 0) {
-				for (ServerPlayerEntity player : world.getPlayers()) {
-					if (player.abilities.invulnerable) continue;
-					if (player.isDead()) continue;
+			for (ServerPlayerEntity player : world.getPlayers()) {
+				if (player.abilities.invulnerable) continue;
+				if (player.isDead()) continue;
 
-					var access = (PlayerEntityAccess) player;
+				var access = (PlayerEntityAccess) player;
 
+				int increase = 1;
+				if (player.isSprinting()) increase += 1;
+				access.setMilkTimer(access.getMilkTimer() + increase);
+
+				if (access.getMilkTimer() >= (10 * 60 * 20)) { // every 10 minutes (unless u sprint
+					access.setMilkTimer(0);
 					if (access.getMilkSaturation() > 0) {
 						access.setMilkSaturation(access.getMilkSaturation() - 1);
 						continue;
@@ -176,6 +183,15 @@ public class NyakoMod implements ModInitializer {
 					if (access.getMilk() > 0) {
 						access.setMilk(access.getMilk() - 1);
 						continue;
+					}
+				}
+
+				if (access.getMilk() >= 18) {
+					var currentSpeed = player.getStatusEffect(StatusEffects.SPEED);
+					if (currentSpeed == null) {
+						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
+					} else if (currentSpeed.getDuration() < 20) {
+						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
 					}
 				}
 			}

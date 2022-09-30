@@ -20,7 +20,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:milk_bucket"
+      "item": "minecraft:bone"
     },
     "show_toast": true,
     "title": {

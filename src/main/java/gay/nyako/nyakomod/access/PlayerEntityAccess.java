@@ -7,4 +7,6 @@ public interface PlayerEntityAccess {
     int getMilkSaturation();
     void setMilkSaturation(int milk);
     void addMilkSaturation(int milk);
+    void setMilkTimer(int time);
+    int getMilkTimer();
 }
