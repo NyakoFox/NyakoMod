@@ -6,3 +6,4 @@ accessible    method    net/minecraft/entity/player/PlayerInventory   addStack  
 accessible    method    net/minecraft/potion/Potions    register    (Ljava/lang/String;Lnet/minecraft/potion/Potion;)Lnet/minecraft/potion/Potion;
 accessible    field    net/minecraft/data/client/ItemModelGenerator    writer    Ljava/util/function/BiConsumer;
 accessible    field    net/minecraft/entity/player/PlayerEntity    abilities    Lnet/minecraft/entity/player/PlayerAbilities;
+accessible    field    net/minecraft/entity/player/PlayerEntity    hungerManager    Lnet/minecraft/entity/player/HungerManager;

@@ -99,4 +99,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
         var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
         player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
     }
+
+
+
 }

@@ -23,6 +23,7 @@
     "CreditsScreenMixin",
     "PlayerEntityMixin",
     "MilkBucketItemMixin",
+    "PlayerManagerMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
