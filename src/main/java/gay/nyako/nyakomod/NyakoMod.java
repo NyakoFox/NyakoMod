@@ -1,5 +1,8 @@
 package gay.nyako.nyakomod;
 
+import eu.pb4.placeholders.api.PlaceholderContext;
+import eu.pb4.placeholders.api.Placeholders;
+import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.behavior.CoinBagItemDispenserBehavior;
@@ -15,6 +18,7 @@ import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -28,12 +32,17 @@ import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.time.format.TextStyle;
 
 public class NyakoMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
@@ -81,6 +90,63 @@ public class NyakoMod implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
 			CachedResourcePack.setPlayerResourcePack(handler.player);
 			((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
+
+			var statHandler = handler.player.getStatHandler();
+
+			// Pool of strings:
+			String[][] randomText = {
+					{
+						"You have caught <gold>%player:statistic minecraft:fish_caught%</gold> fish!",
+						"Maybe today you could make that more."
+					},
+					{
+						"You've jumped <gold>%player:statistic minecraft:jump%</gold> times!",
+						"Maybe today you could make that more."
+					},
+					{
+						"You've killed <gold>%player:statistic minecraft:player_kills%</gold> players!",
+						"Maybe today you could make that more...?"
+					},
+					{
+						"Did you know that <gold>80%</gold> of gamblers",
+						"quit right before they're about to hit it big?"
+					},
+					{
+						"You're hiding something. That's okay.",
+						"We are, too."
+					},
+					{
+						"You can place milk in cauldrons.",
+						"It's easier to drink that way."
+					},
+					{
+						"Creepers drop <gold>100%</gold> of the blocks they explode!",
+						"This is because Ally got tired of losing things."
+					},
+					{
+						"You miss <gold>99%</gold> of the shots you don't take.",
+						"And around <gold>74%</gold> of the ones you do."
+					},
+					{
+						"Make sure to check out the shop every once in a while!",
+						"Maybe you'll find something you like."
+					},
+					{
+						"You have new mail!",
+						"...just kidding, we don't have mail."
+					}
+			};
+
+			// Pick a random array from the pool
+			String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
+
+			handler.player.sendMessage(TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!"), false);
+
+			for (String string : randomTextArray) {
+				var formatted = TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> " + string);
+				var parsed = Placeholders.parseText(formatted, PlaceholderContext.of(handler.player));
+				handler.player.sendMessage(parsed, false);
+			}
 		}));
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
