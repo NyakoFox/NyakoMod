@@ -139,5 +139,8 @@
     "trinkets.slot.head.pet": "Pet",
 
     "key.nyakomod.model_open": "Open Model Menu",
-    "key.nyakomod.killbind": "Kill player"
+    "key.nyakomod.killbind": "Kill player",
+
+    "entity.nyakomod.petdragon": "Dragon Hatchling",
+    "entity.nyakomod.petsprite": "Sprite"
 }
