@@ -136,6 +136,10 @@ public class NyakoMod implements ModInitializer {
 					{
 						"You have new mail!",
 						"...just kidding, we don't have mail."
+					},
+					{
+						"There's a secret underneath.",
+						"Maybe you'll find it."
 					}
 			};
 
