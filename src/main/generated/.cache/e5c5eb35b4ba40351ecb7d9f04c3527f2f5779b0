@@ -1,4 +1,6 @@
-// 1.19.2	2022-09-29T13:41:51.3443385	Advancements
-05e517d9dbf27e52141076b0a14d7100f32845a0 data\minecraft\advancements\nyakomod\drank_milk.json
-8ba991b03db2eee381a5339eaedc4386fd5ee051 data\minecraft\advancements\nyakomod\root.json
+// 1.19.2	2022-09-30T00:52:47.4606863	Advancements
+b7fe479cf1abc54c992dae667621a23aa5c94a4e data\minecraft\advancements\nyakomod\drank_milk.json
+140d216e0b009d87132ac504a4f75533e0785da0 data\minecraft\advancements\nyakomod\root.json
 33fe19e4639e6db4e1ffde6cdeeee10a1d9ae7c8 data\minecraft\advancements\nyakomod\player_milked.json
+9ae343c4ef71fcddcd9990df5787fd6c955b5aea data\minecraft\advancements\nyakomod\diamond_coin.json
+7cd2b08445e89748a99dc33c83312d8dc286d50d data\minecraft\advancements\nyakomod\netherite_coin.json

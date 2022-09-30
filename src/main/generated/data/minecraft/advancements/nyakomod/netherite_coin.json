@@ -1,11 +1,12 @@
 {
+  "parent": "minecraft:nyakomod/diamond_coin",
   "criteria": {
     "inventory_changed": {
       "conditions": {
         "items": [
           {
             "items": [
-              "nyakomod:copper_coin"
+              "nyakomod:netherite_coin"
             ]
           }
         ]
@@ -15,18 +16,17 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png",
     "description": {
-      "translate": "Get your first coin"
+      "translate": "Obtain your first Netherite Coin"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "nyakomod:emerald_coin"
+      "item": "nyakomod:netherite_coin"
     },
     "show_toast": true,
     "title": {
-      "text": "Cunkin' it up"
+      "text": "You're Rich"
     }
   },
   "requirements": [

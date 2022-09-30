@@ -41,6 +41,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
     private static final TrackedData<Integer> MILK = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_SATURATION = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> MILK_TIMER = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -70,16 +71,26 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         this.setMilkSaturation(Math.min(this.getMilkSaturation() + milkSaturation, 5));
     }
 
+    public void setMilkTimer(int time) {
+        this.dataTracker.set(MILK_TIMER, time);
+    }
+
+    public int getMilkTimer() {
+        return this.dataTracker.get(MILK_TIMER);
+    }
+
     @Inject(at = @At("TAIL"), method = "initDataTracker()V")
     private void initDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(MILK, 10);
         this.dataTracker.startTracking(MILK_SATURATION, 2);
+        this.dataTracker.startTracking(MILK_TIMER, 0);
     }
 
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V")
     private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         nbt.putInt("Milk", this.dataTracker.get(MILK));
         nbt.putInt("MilkSaturation", this.dataTracker.get(MILK_SATURATION));
+        nbt.putInt("MilkTimer", this.dataTracker.get(MILK_TIMER));
     }
 
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V")
@@ -95,6 +106,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             milkSaturation = nbt.getInt("MilkSaturation");
         }
         this.dataTracker.set(MILK_SATURATION, milkSaturation);
+
+        int milkTimer = 0;
+        if (nbt.contains("MilkTimer")) {
+            milkTimer = nbt.getInt("MilkTimer");
+        }
+        this.dataTracker.set(MILK_TIMER, milkTimer);
     }
 
 
