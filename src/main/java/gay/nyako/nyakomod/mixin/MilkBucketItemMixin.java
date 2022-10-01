@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MilkBucketItem;
@@ -21,8 +22,10 @@ public abstract class MilkBucketItemMixin extends Item {
 
     @Inject(method = "finishUsing(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z"))
     private void injected(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
-        var access = (PlayerEntityAccess) user;
-        access.addMilk(5);
-        access.addMilkSaturation(1);
+        if (user instanceof PlayerEntity) {
+            var access = (PlayerEntityAccess) user;
+            access.addMilk(5);
+            access.addMilkSaturation(1);
+        }
     }
 }
