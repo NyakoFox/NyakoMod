@@ -40,180 +40,180 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NyakoMod implements ModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
+    public static final Logger LOGGER = LogManager.getLogger("nyakomod");
 
-	public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
+    public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
 
-	public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
-	public static SlimeSkyManager SLIME_SKY_MANAGER;
-	public static final ArmorMaterial NYAKO_ARMOR_MATERIAL = new NyakoArmorMaterial();
-	public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
-	public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
+    public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
+    public static SlimeSkyManager SLIME_SKY_MANAGER;
+    public static final ArmorMaterial NYAKO_ARMOR_MATERIAL = new NyakoArmorMaterial();
+    public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
+    public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
 
-	@Environment(EnvType.SERVER)
-	public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
+    @Environment(EnvType.SERVER)
+    public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
 
-	@Environment(EnvType.SERVER)
-	public static ModelManager MODEL_MANAGER = new ModelManager();
+    @Environment(EnvType.SERVER)
+    public static ModelManager MODEL_MANAGER = new ModelManager();
 
-	@Override
-	public void onInitialize() {
-		Milk.enableMilkFluid();
-		Milk.enableCauldron();
-		Milk.enableMilkPlacing();
-		Milk.finiteMilkFluid();
+    @Override
+    public void onInitialize() {
+        Milk.enableMilkFluid();
+        Milk.enableCauldron();
+        Milk.enableMilkPlacing();
+        Milk.finiteMilkFluid();
 
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
-		NyakoNetworking.registerGlobalReceivers();
-		NyakoLoot.register();
-		NyakoGacha.register();
-		InstrumentRegistry.register();
-		NyakoSoundEvents.register();
-		NyakoCriteria.register();
-		NyakoScreenHandlers.register();
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
+        NyakoNetworking.registerGlobalReceivers();
+        NyakoLoot.register();
+        NyakoGacha.register();
+        InstrumentRegistry.register();
+        NyakoSoundEvents.register();
+        NyakoCriteria.register();
+        NyakoScreenHandlers.register();
 
-		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
-		FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
+        FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
+        FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
 
-		DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
-		DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
-		DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
 
-		CunkCoinUtils.registerCoinAmounts();
-		registerCommands();
+        CunkCoinUtils.registerCoinAmounts();
+        registerCommands();
 
-		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-			CachedResourcePack.setPlayerResourcePack(handler.player);
-			((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
+        ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
+            CachedResourcePack.setPlayerResourcePack(handler.player);
+            ((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
 
-			// Pool of strings:
-			String[][] randomText = {
-					{
-						"You have caught <gold>%player:statistic minecraft:fish_caught%</gold> fish!",
-						"Maybe today you could make that more."
-					},
-					{
-						"You've jumped <gold>%player:statistic minecraft:jump%</gold> times!",
-						"Maybe today you could make that more."
-					},
-					{
-						"You've killed <gold>%player:statistic minecraft:player_kills%</gold> players!",
-						"Maybe today you could make that more...?"
-					},
-					{
-						"Did you know that <gold>80%</gold> of gamblers",
-						"quit right before they're about to hit it big?"
-					},
-					{
-						"You're hiding something. That's okay.",
-						"We are, too."
-					},
-					{
-						"You can place milk in cauldrons.",
-						"It's easier to drink that way."
-					},
-					{
-						"Creepers drop <gold>100%</gold> of the blocks they explode!",
-						"This is because Ally got tired of losing things."
-					},
-					{
-						"You miss <gold>99%</gold> of the shots you don't take.",
-						"And around <gold>74%</gold> of the ones you do."
-					},
-					{
-						"Make sure to check out the shop every once in a while!",
-						"Maybe you'll find something you like."
-					},
-					{
-						"You have new mail!",
-						"...just kidding, we don't have mail."
-					},
-					{
-						"There's a secret underneath.",
-						"Maybe you'll find it."
-					}
-			};
+            // Pool of strings:
+            String[][] randomText = {
+                    {
+                            "You have caught <gold>%player:statistic minecraft:fish_caught%</gold> fish!",
+                            "Maybe today you could make that more."
+                    },
+                    {
+                            "You've jumped <gold>%player:statistic minecraft:jump%</gold> times!",
+                            "Maybe today you could make that more."
+                    },
+                    {
+                            "You've killed <gold>%player:statistic minecraft:player_kills%</gold> players!",
+                            "Maybe today you could make that more...?"
+                    },
+                    {
+                            "Did you know that <gold>80%</gold> of gamblers",
+                            "quit right before they're about to hit it big?"
+                    },
+                    {
+                            "You're hiding something. That's okay.",
+                            "We are, too."
+                    },
+                    {
+                            "You can place milk in cauldrons.",
+                            "It's easier to drink that way."
+                    },
+                    {
+                            "Creepers drop <gold>100%</gold> of the blocks they explode!",
+                            "This is because Ally got tired of losing things."
+                    },
+                    {
+                            "You miss <gold>99%</gold> of the shots you don't take.",
+                            "And around <gold>74%</gold> of the ones you do."
+                    },
+                    {
+                            "Make sure to check out the shop every once in a while!",
+                            "Maybe you'll find something you like."
+                    },
+                    {
+                            "You have new mail!",
+                            "...just kidding, we don't have mail."
+                    },
+                    {
+                            "There's a secret underneath.",
+                            "Maybe you'll find it."
+                    }
+            };
 
-			// Pick a random array from the pool
-			String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
+            // Pick a random array from the pool
+            String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-			handler.player.sendMessage(TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!"), false);
+            handler.player.sendMessage(TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!"), false);
 
-			for (String string : randomTextArray) {
-				var formatted = TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> " + string);
-				var parsed = Placeholders.parseText(formatted, PlaceholderContext.of(handler.player));
-				handler.player.sendMessage(parsed, false);
-			}
-		}));
+            for (String string : randomTextArray) {
+                var formatted = TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> " + string);
+                var parsed = Placeholders.parseText(formatted, PlaceholderContext.of(handler.player));
+                handler.player.sendMessage(parsed, false);
+            }
+        }));
 
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
-		});
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
+        });
 
-		ServerTickEvents.END_WORLD_TICK.register(world -> {
-			for (ServerPlayerEntity player : world.getPlayers()) {
-				if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
-					if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
-						((ServerPlayerEntityAccess)player).setSafeMode(false);
-					}
-				}
-			}
+        ServerTickEvents.END_WORLD_TICK.register(world -> {
+            for (ServerPlayerEntity player : world.getPlayers()) {
+                if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
+                    if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
+                        ((ServerPlayerEntityAccess)player).setSafeMode(false);
+                    }
+                }
+            }
 
-			for (ServerPlayerEntity player : world.getPlayers()) {
-				if (player.abilities.invulnerable) continue;
-				if (player.isDead()) continue;
+            for (ServerPlayerEntity player : world.getPlayers()) {
+                if (player.abilities.invulnerable) continue;
+                if (player.isDead()) continue;
 
-				var access = (PlayerEntityAccess) player;
+                var access = (PlayerEntityAccess) player;
 
-				int increase = 1;
-				if (player.isSprinting()) increase += 1;
-				access.setMilkTimer(access.getMilkTimer() + increase);
+                int increase = 1;
+                if (player.isSprinting()) increase += 1;
+                access.setMilkTimer(access.getMilkTimer() + increase);
 
-				if (access.getMilkTimer() >= (10 * 60 * 20)) { // every 10 minutes (unless u sprint
-					access.setMilkTimer(0);
-					if (access.getMilkSaturation() > 0) {
-						access.setMilkSaturation(access.getMilkSaturation() - 1);
-						continue;
-					}
-					if (access.getMilk() > 0) {
-						access.setMilk(access.getMilk() - 1);
-						continue;
-					}
-				}
+                if (access.getMilkTimer() >= (10 * 60 * 20)) { // every 10 minutes (unless u sprint
+                    access.setMilkTimer(0);
+                    if (access.getMilkSaturation() > 0) {
+                        access.setMilkSaturation(access.getMilkSaturation() - 1);
+                        continue;
+                    }
+                    if (access.getMilk() > 0) {
+                        access.setMilk(access.getMilk() - 1);
+                        continue;
+                    }
+                }
 
-				if (access.getMilk() >= 18) {
-					var currentSpeed = player.getStatusEffect(StatusEffects.SPEED);
-					if (currentSpeed == null) {
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
-					} else if (currentSpeed.getDuration() < 20) {
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
-					}
-				}
-			}
+                if (access.getMilk() >= 18) {
+                    var currentSpeed = player.getStatusEffect(StatusEffects.SPEED);
+                    if (currentSpeed == null) {
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
+                    } else if (currentSpeed.getDuration() < 20) {
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
+                    }
+                }
+            }
 
-			if (world.getRegistryKey() == World.OVERWORLD) {
-				if (SLIME_SKY_MANAGER == null) return;
+            if (world.getRegistryKey() == World.OVERWORLD) {
+                if (SLIME_SKY_MANAGER == null) return;
 
-				SLIME_SKY_MANAGER.tick();
-			}
-		});
-	}
+                SLIME_SKY_MANAGER.tick();
+            }
+        });
+    }
 
-	public static void registerCommands() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			BackCommand.register(dispatcher);
-			XpCommand.register(dispatcher);
-			LoreCommand.register(dispatcher);
-			RenameCommand.register(dispatcher);
-			FakeCountCommand.register(dispatcher);
-			PackCommand.register(dispatcher);
-			SmiteCommand.register(dispatcher);
-			IconsCommand.register(dispatcher);
-			SlimeDebugCommand.register(dispatcher);
-			ShopCommand.register(dispatcher);
-			DumpJsonCommand.register(dispatcher);
-			DumpNbtCommand.register(dispatcher);
-		});
-	}
+    public static void registerCommands() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            BackCommand.register(dispatcher);
+            XpCommand.register(dispatcher);
+            LoreCommand.register(dispatcher);
+            RenameCommand.register(dispatcher);
+            FakeCountCommand.register(dispatcher);
+            PackCommand.register(dispatcher);
+            SmiteCommand.register(dispatcher);
+            IconsCommand.register(dispatcher);
+            SlimeDebugCommand.register(dispatcher);
+            ShopCommand.register(dispatcher);
+            DumpJsonCommand.register(dispatcher);
+            DumpNbtCommand.register(dispatcher);
+        });
+    }
 
 }
