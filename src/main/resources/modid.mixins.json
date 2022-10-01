@@ -30,7 +30,8 @@
     "ItemModelsMixin",
     "ItemStackMixin",
     "InGameHudMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "ItemRendererMixin"
   ],
   "server": [
 

@@ -33,7 +33,7 @@ public final class LoreCommand {
         PlayerEntity player = source.getPlayer();
         ItemStack heldStack = player.getMainHandStack();
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't clear the lore of nothing."));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't clear the lore of nothing.</white>"));
         } else {
             NbtCompound nbt = heldStack.getOrCreateNbt();
             NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
@@ -53,7 +53,7 @@ public final class LoreCommand {
         ItemStack heldStack = player.getMainHandStack();
         Text newText = TextParserUtils.formatText(context.getArgument("text", String.class));
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't add lore to nothing."));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't add lore to nothing.</white>"));
         } else {
             NbtCompound nbt = heldStack.getOrCreateNbt();
             NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);

@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,8 +37,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Shadow
     protected abstract PlayerEntity getCameraPlayer();
 
+    @Final
     @Shadow
-    protected MinecraftClient client;
+    private MinecraftClient client;
 
     @Inject(method = "renderStatusBars(Lnet/minecraft/client/util/math/MatrixStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getProfiler()Lnet/minecraft/util/profiler/Profiler;"))
     private void injected(MatrixStack matrices, CallbackInfo ci) {

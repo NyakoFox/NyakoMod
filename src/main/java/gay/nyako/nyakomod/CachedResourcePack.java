@@ -4,9 +4,7 @@ import gay.nyako.nyakomod.utils.Zipper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -16,8 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Formatter;
-import java.util.HexFormat;
-import java.util.logging.Level;
 
 public class CachedResourcePack {
     Path gameDir;

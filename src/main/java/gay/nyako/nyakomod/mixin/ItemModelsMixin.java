@@ -4,6 +4,7 @@ import java.util.Map;
 
 import gay.nyako.nyakomod.NyakoItems;
 import net.minecraft.item.Item;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,9 +22,11 @@ import net.minecraft.item.ItemStack;
 
 @Mixin(ItemModels.class)
 public abstract class ItemModelsMixin {
+  @Final
   @Shadow
   public Int2ObjectMap<ModelIdentifier> modelIds;
 
+  @Final
   @Shadow
   private Int2ObjectMap<BakedModel> models;
 

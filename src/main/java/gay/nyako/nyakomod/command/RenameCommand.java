@@ -31,9 +31,12 @@ public final class RenameCommand {
     public static int clearName(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         PlayerEntity player = source.getPlayer();
+        if (player == null) {
+            return 0;
+        }
         ItemStack heldStack = player.getMainHandStack();
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't rename nothing."));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't rename nothing.</white>"));
         } else {
             heldStack.removeCustomName();
             context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item's name has been cleared."), false);
@@ -44,10 +47,13 @@ public final class RenameCommand {
     public static int setName(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         PlayerEntity player = source.getPlayer();
+        if (player == null) {
+            return 0;
+        }
         ItemStack heldStack = player.getMainHandStack();
         Text newName = TextParserUtils.formatText(context.getArgument("name", String.class));
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You can't rename nothing."));
+            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't rename nothing.</white>"));
         } else {
             heldStack.setCustomName(newName);
             context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item has been renamed to " + newName + "."), false);

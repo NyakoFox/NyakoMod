@@ -18,7 +18,6 @@ import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -29,22 +28,16 @@ import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.time.format.TextStyle;
 
 public class NyakoMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("nyakomod");
@@ -92,8 +85,6 @@ public class NyakoMod implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
 			CachedResourcePack.setPlayerResourcePack(handler.player);
 			((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
-
-			var statHandler = handler.player.getStatHandler();
 
 			// Pool of strings:
 			String[][] randomText = {
@@ -214,6 +205,7 @@ public class NyakoMod implements ModInitializer {
 			XpCommand.register(dispatcher);
 			LoreCommand.register(dispatcher);
 			RenameCommand.register(dispatcher);
+			FakeCountCommand.register(dispatcher);
 			PackCommand.register(dispatcher);
 			SmiteCommand.register(dispatcher);
 			IconsCommand.register(dispatcher);
