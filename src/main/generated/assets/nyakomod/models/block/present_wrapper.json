@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nyakomod:block/present_wrapper_side",
+    "east": "nyakomod:block/present_wrapper_side",
+    "north": "nyakomod:block/present_wrapper_side",
+    "particle": "nyakomod:block/present_wrapper_side",
+    "south": "nyakomod:block/present_wrapper_side",
+    "up": "nyakomod:block/present_wrapper_top",
+    "west": "nyakomod:block/present_wrapper_side"
+  }
+}

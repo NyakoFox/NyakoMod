@@ -29,6 +29,7 @@ public class NyakoBlocks {
     public static final Block FIREBLU                   = register("fireblu",                   new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block TRUE_BLOCK                = register("true_block",                new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool(), NyakoSoundEvents.TRUE_BLOCK));
     public static final Block NOTE_BLOCK_PLUS           = register("note_block_plus",           new NoteBlockPlusBlock(FabricBlockSettings.copy(Blocks.NOTE_BLOCK)));
+    public static final Block PRESENT_WRAPPER           = register("present_wrapper",           new PresentWrapperBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

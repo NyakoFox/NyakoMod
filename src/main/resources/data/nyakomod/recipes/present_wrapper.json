@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "WW",
+    "WW"
+  ],
+  "key": {
+    "S": {
+      "item": "nyakomod:string"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "nyakomod:present_wrapper",
+    "count": 1
+  }
+}

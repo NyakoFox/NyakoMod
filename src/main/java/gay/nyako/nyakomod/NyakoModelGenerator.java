@@ -30,6 +30,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         registerBlueprintWorkbench(blockStateModelGenerator);
         registerNoteBlockPlus(blockStateModelGenerator);
+        registerPresentWrapper(blockStateModelGenerator);
 
         // Shop block
         blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoBlocks.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
@@ -65,6 +66,18 @@ public class NyakoModelGenerator extends FabricModelProvider {
                 .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_front"))
                 .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.NOTE_BLOCK_PLUS, "_west"));
         blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.NOTE_BLOCK_PLUS, Models.CUBE.upload(NyakoBlocks.NOTE_BLOCK_PLUS, textureMap, blockStateModelGenerator.modelCollector)));
+    }
+
+    private void registerPresentWrapper(BlockStateModelGenerator blockStateModelGenerator) {
+        TextureMap textureMap = (new TextureMap())
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
+                .put(TextureKey.EAST, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.PRESENT_WRAPPER, Models.CUBE.upload(NyakoBlocks.PRESENT_WRAPPER, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {
