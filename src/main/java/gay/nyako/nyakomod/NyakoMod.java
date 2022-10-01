@@ -213,6 +213,7 @@ public class NyakoMod implements ModInitializer {
             ShopCommand.register(dispatcher);
             DumpJsonCommand.register(dispatcher);
             DumpNbtCommand.register(dispatcher);
+            HelpCommand.register(dispatcher);
         });
     }
 
