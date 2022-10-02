@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -53,7 +54,9 @@ public class FakeCountCommand {
             var nbt = heldStack.getOrCreateNbt();
             nbt.putString("customCount", newCount.getString());
             heldStack.setNbt(nbt);
-            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item now has the count of " + newCount + "."), false);
+
+            var startingText = (MutableText) TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item now has the count of ");
+            context.getSource().sendFeedback(startingText.append(newCount).append("."), false);
         }
         return 1;
     }

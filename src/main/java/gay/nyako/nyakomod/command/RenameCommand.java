@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -56,7 +57,8 @@ public final class RenameCommand {
             context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't rename nothing.</white>"));
         } else {
             heldStack.setCustomName(newName);
-            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item has been renamed to " + newName + "."), false);
+            var startingText = (MutableText) TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item has been renamed to ");
+            context.getSource().sendFeedback(startingText.append(newName).append("."), false);
         }
         return 1;
     }
