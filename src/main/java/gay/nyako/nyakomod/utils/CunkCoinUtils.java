@@ -340,7 +340,7 @@ public class CunkCoinUtils {
         }
 
         var trinketBag = getTrinketCoinBag(player);
-        if (trinketBag != null) {
+        if (trinketBag != null && trinketBag.isOf(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM)) {
             NbtCompound tag = trinketBag.getOrCreateNbt();
             if (!tag.getBoolean("using")) {
                 return trinketBag;
