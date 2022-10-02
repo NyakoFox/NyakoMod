@@ -137,6 +137,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
                 ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
 
                 NbtCompound nbt = milkStack.getOrCreateNbt();
+                nbt.putBoolean("isFromPlayer", true);
+                nbt.putUuid("playerUuid", this.getUuid());
                 NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
                 NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
                 nbtLore.add(NbtString.of(Text.Serializer.toJson(Text.translatable("item.nyakomod.milk_bucket.tooltip", this.getName()).formatted(Formatting.GRAY))));

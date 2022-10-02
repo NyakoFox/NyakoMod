@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,10 +23,15 @@ public abstract class MilkBucketItemMixin extends Item {
 
     @Inject(method = "finishUsing(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z"))
     private void injected(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
-        if (user instanceof PlayerEntity) {
+        if (user instanceof PlayerEntity player) {
             var access = (PlayerEntityAccess) user;
             access.addMilk(5);
             access.addMilkSaturation(1);
+
+            var nbt = stack.getOrCreateNbt();
+            if (nbt.getBoolean("isFromPlayer") && !world.isClient()) {
+                player.getScoreboard().forEachScore(NyakoMod.TIMES_MILKED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
+            }
         }
     }
 }
