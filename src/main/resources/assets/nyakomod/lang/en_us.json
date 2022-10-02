@@ -124,6 +124,7 @@
     "item.minecraft.splash_potion.effect.blindness": "Splash Potion of Blindness",
     "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
     "item.minecraft.tipped_arrow.effect.blindness": "Tipped Arrow of Blindness",
+    "item.nyakomod.milk_bucket.tooltip": "Freshly milked from: %s",
 
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",

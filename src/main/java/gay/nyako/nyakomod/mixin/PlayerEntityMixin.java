@@ -19,11 +19,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -128,10 +133,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             if (casted.getMilk() >= 5) {
                 casted.setMilk(casted.getMilk() - 5);
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0f, 1.0f);
-                ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, Items.MILK_BUCKET.getDefaultStack());
+                var milkStack = Items.MILK_BUCKET.getDefaultStack();
+                ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
+
+                NbtCompound nbt = milkStack.getOrCreateNbt();
+                NbtCompound nbtDisplay = nbt.getCompound(ItemStack.DISPLAY_KEY);
+                NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
+                nbtLore.add(NbtString.of(Text.Serializer.toJson(Text.translatable("item.nyakomod.milk_bucket.tooltip", this.getName()).formatted(Formatting.GRAY))));
+                nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
+                nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
+                milkStack.setNbt(nbt);
+
                 player.setStackInHand(hand, itemStack2);
                 if (!this.world.isClient) {
                     NyakoCriteria.PLAYER_MILKED.trigger((ServerPlayerEntity) (Object) this);
+                    player.getScoreboard().forEachScore(NyakoMod.TIMES_MILKED_CRITERIA, this.getEntityName(), score -> score.setScore(score.getScore() + 1));
+                    player.getScoreboard().forEachScore(NyakoMod.PLAYERS_MILKED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
                 }
                 this.emitGameEvent(GameEvent.ENTITY_INTERACT);
                 return ActionResult.success(this.world.isClient);

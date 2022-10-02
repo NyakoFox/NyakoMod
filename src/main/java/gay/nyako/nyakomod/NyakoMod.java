@@ -48,6 +48,8 @@ public class NyakoMod implements ModInitializer {
     public static SlimeSkyManager SLIME_SKY_MANAGER;
     public static final ArmorMaterial NYAKO_ARMOR_MATERIAL = new NyakoArmorMaterial();
     public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
+    public static final ScoreboardCriterion TIMES_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:times_milked");
+    public static final ScoreboardCriterion PLAYERS_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:players_milked");
     public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
 
     @Environment(EnvType.SERVER)

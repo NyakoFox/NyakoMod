@@ -23,7 +23,8 @@
     "CreditsScreenMixin",
     "PlayerEntityMixin",
     "MilkBucketItemMixin",
-    "PlayerManagerMixin"
+    "PlayerManagerMixin",
+    "FarmlandBlockMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
