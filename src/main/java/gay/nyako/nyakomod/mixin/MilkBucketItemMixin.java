@@ -32,6 +32,10 @@ public abstract class MilkBucketItemMixin extends Item {
             if (nbt.getBoolean("isFromPlayer") && !world.isClient()) {
                 player.getScoreboard().forEachScore(NyakoMod.PLAYER_MILK_CONSUMED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
             }
+
+            if (!world.isClient()) {
+                player.getScoreboard().forEachScore(NyakoMod.MILK_CONSUMED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
+            }
         }
     }
 }
