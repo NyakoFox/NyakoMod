@@ -85,7 +85,7 @@ public class SlimeSkyManager extends PersistentState {
                 // We're done slime rain
                 if (stateLength <= 0) {
                     state = SlimeSkyState.INACTIVE;
-                    stateLength = world.getRandom().nextBetween((7 * 24000), (20 * 24000)); // 7 - 20 days
+                    stateLength = world.getRandom().nextBetween((40 * 24000), (80 * 24000)); // 40 - 80 days
                     var prefix = (MutableText) TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
                     world.getServer().getPlayerManager().broadcast(prefix.append(Text.literal("Slime has stopped falling from the sky.").setStyle(Style.EMPTY.withColor(0x32FF82))), false);
                     markDirty();
