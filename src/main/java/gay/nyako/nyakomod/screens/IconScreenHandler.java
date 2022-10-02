@@ -93,7 +93,7 @@ public class IconScreenHandler extends ScreenHandler {
                     return;
                 }
 
-                inputNbt = onSlotsChanged();
+                inputNbt = onSlotsChanged(inputStack, copyStack);
                 inputStack.setNbt(inputNbt);
                 super.setStack(inputStack);
             }
@@ -103,7 +103,7 @@ public class IconScreenHandler extends ScreenHandler {
                 context.run((world, pos) -> {
                     long l = world.getTime();
                     if (lastTakeTime != l) {
-                        world.playSound(null, (BlockPos)pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                        world.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
                         lastTakeTime = l;
                     }
                 });
@@ -121,7 +121,8 @@ public class IconScreenHandler extends ScreenHandler {
             public void setStack(ItemStack copyStack) {
                 super.setStack(copyStack);
 
-                onSlotsChanged();
+                var inputStack = inventory.getStack(0);
+                onSlotsChanged(inputStack, copyStack);
             }
 
             @Override
@@ -147,13 +148,11 @@ public class IconScreenHandler extends ScreenHandler {
         }
     }
 
-    public NbtCompound onSlotsChanged() {
-        var inputStack = inventory.getStack(0);
-        var copyStack = inventory.getStack(1);
+    public NbtCompound onSlotsChanged(ItemStack inputStack, ItemStack copyStack) {
         var inputNbt = inputStack.getOrCreateNbt();
-        var copyNbt = copyStack.getOrCreateNbt();
+        var copyNbt = copyStack.getNbt();
 
-        if (copyStack.isOf(NyakoItems.BLUEPRINT) && copyNbt.contains("blueprint")) {
+        if ((copyNbt != null) && !copyStack.isEmpty() && copyStack.isOf(NyakoItems.BLUEPRINT) && copyNbt.contains("blueprint")) {
             var blueprint = copyNbt.getCompound("blueprint");
             if (blueprint.contains("tag")) {
                 var tag = blueprint.getCompound("tag");
@@ -195,16 +194,25 @@ public class IconScreenHandler extends ScreenHandler {
                 inputNbt.remove("modelId");
             } else {
                 String model = Registry.ITEM.getId(copyStack.getItem()).toString();
-                if (copyNbt.contains("modelId")) {
-                    model = copyNbt.getString("modelId");
+                if (copyNbt != null) {
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
+                    }
+                    if (copyNbt.contains("CustomModelData")) {
+                        inputNbt.putString("CustomModelData", copyNbt.getString("CustomModelData"));
+                    }
                 }
 
                 inputNbt.putString("modelId", model);
             }
         }
 
-        inputStack.setNbt(inputNbt);
+        if (inputNbt.isEmpty()) {
+            inputStack.setNbt(null);
+            return null;
+        }
 
+        inputStack.setNbt(inputNbt);
         return inputNbt;
     }
 
