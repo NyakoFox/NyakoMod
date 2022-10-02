@@ -190,12 +190,17 @@ public class IconScreenHandler extends ScreenHandler {
                 }
             }
         } else {
-            if ((copyNbt == null) || copyStack.isEmpty()) {
+            if (copyStack.isEmpty()) {
                 inputNbt.remove("modelId");
             } else {
                 String model = Registry.ITEM.getId(copyStack.getItem()).toString();
-                if (copyNbt.contains("modelId")) {
-                    model = copyNbt.getString("modelId");
+                if (copyNbt != null) {
+                    if (copyNbt.contains("modelId")) {
+                        model = copyNbt.getString("modelId");
+                    }
+                    if (copyNbt.contains("CustomModelData")) {
+                        inputNbt.putString("CustomModelData", copyNbt.getString("CustomModelData"));
+                    }
                 }
 
                 inputNbt.putString("modelId", model);
