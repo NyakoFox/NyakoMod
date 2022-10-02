@@ -9,6 +9,7 @@ import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import net.minecraft.SharedConstants;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -133,8 +134,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             if (casted.getMilk() >= 5) {
                 casted.setMilk(casted.getMilk() - 5);
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0f, 1.0f);
+
                 var milkStack = Items.MILK_BUCKET.getDefaultStack();
-                ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
 
                 NbtCompound nbt = milkStack.getOrCreateNbt();
                 nbt.putBoolean("isFromPlayer", true);
@@ -145,6 +146,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
                 nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
                 nbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
                 milkStack.setNbt(nbt);
+
+                ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
 
                 player.setStackInHand(hand, itemStack2);
                 if (!this.world.isClient) {
