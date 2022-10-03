@@ -24,7 +24,8 @@
     "PlayerEntityMixin",
     "MilkBucketItemMixin",
     "PlayerManagerMixin",
-    "FarmlandBlockMixin"
+    "FarmlandBlockMixin",
+    "BucketItemMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
