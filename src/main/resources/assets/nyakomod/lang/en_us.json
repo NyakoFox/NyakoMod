@@ -17,8 +17,12 @@
     "block.nyakomod.true_block": "True!",
     "block.nyakomod.note_block_plus": "Note Block+™",
     "block.nyakomod.present_wrapper": "Present Wrapper",
+    "block.nyakomod.bookshelf_stairs": "Bookshelf Stairs",
+
     "category.nyakomod.binds": "NyakoMod",
+
     "enchantment.nyakomod.cunkless_curse": "Curse of Cunkless",
+
     "item.nyakomod.bag_of_coins": "Bag of Coins",
     "item.nyakomod.copper_coin": "§6Copper CunkCoin™",
     "item.nyakomod.diamond_coin": "§bDiamond CunkCoin™",
@@ -66,6 +70,8 @@
     "item.nyakomod.two_tall": "Rose Bush",
     "item.nyakomod.nether_portal_bucket": "Nether Portal Bucket",
     "item.nyakomod.nether_portal_structure": "Nether Portal",
+    "item.nyakomod.left_diamond": "Diamond (Left Half)",
+    "item.nyakomod.right_diamond": "Diamond (Right Half)",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",

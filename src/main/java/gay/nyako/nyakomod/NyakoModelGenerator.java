@@ -177,6 +177,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+
         // Coins
         itemModelGenerator.register(NyakoItems.COPPER_COIN_ITEM, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.GOLD_COIN_ITEM, Models.GENERATED);
@@ -209,6 +210,9 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
 
         itemModelGenerator.register(NyakoItems.NETHER_PORTAL_BUCKET, Models.HANDHELD);
+
+        itemModelGenerator.register(NyakoItems.LEFT_DIAMOND, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.RIGHT_DIAMOND, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

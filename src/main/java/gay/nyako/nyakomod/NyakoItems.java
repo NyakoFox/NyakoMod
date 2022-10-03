@@ -69,6 +69,9 @@ public class NyakoItems {
     public static final Item PRESENT_WRAPPER            = register("present_wrapper",           new BlockItem(NyakoBlocks.PRESENT_WRAPPER, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item NETHER_PORTAL_BUCKET       = register("nether_portal_bucket",      new NetherPortalBucketItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item NETHER_PORTAL_STRUCTURE    = register("nether_portal_structure",   new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item LEFT_DIAMOND               = register("left_diamond",              new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item RIGHT_DIAMOND              = register("right_diamond",             new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item BOOKSHELF_STAIRS           = register("bookshelf_stairs",          new BlockItem(NyakoBlocks.BOOKSHELF_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
