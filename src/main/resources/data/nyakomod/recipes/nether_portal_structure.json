@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OOO",
+    "ONO",
+    "OOO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "N": {
+      "item": "minecraft:nether_portal"
+    }
+  },
+  "result": {
+    "item": "nyakomod:nether_portal_structure",
+    "count": 1
+  }
+}
