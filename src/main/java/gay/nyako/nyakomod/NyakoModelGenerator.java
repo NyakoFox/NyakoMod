@@ -209,7 +209,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
 
-        itemModelGenerator.register(NyakoItems.NETHER_PORTAL_BUCKET, Models.HANDHELD);
+        itemModelGenerator.register(NyakoItems.NETHER_PORTAL_BUCKET, Models.GENERATED);
 
         itemModelGenerator.register(NyakoItems.LEFT_DIAMOND, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.RIGHT_DIAMOND, Models.GENERATED);

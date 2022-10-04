@@ -33,7 +33,8 @@
     "ItemStackMixin",
     "InGameHudMixin",
     "WorldRendererMixin",
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "MusicTrackerMixin"
   ],
   "server": [
 
