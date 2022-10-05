@@ -88,6 +88,9 @@ dependencies {
 	// sentinel will warn them and give the option to download it automatically
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
 
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	modImplementation files("libs/discord4fabric-1.19.2-1.10.1.jar")
+
 	shadow(implementation('org.json:json:20220320'))
 
 	modImplementation(include("io.github.tropheusj:milk-lib:1.0.48"))

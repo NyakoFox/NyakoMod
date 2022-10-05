@@ -13,6 +13,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +24,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import me.reimnop.d4f.Discord4Fabric;
 
 import java.util.Map;
 
@@ -33,6 +39,8 @@ public abstract class LivingEntityMixin extends Entity {
 	public PlayerEntity attackingPlayer;
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
+
+	@Shadow public abstract void endCombat();
 
 	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V")
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
@@ -133,6 +141,28 @@ public abstract class LivingEntityMixin extends Entity {
 			ItemStack stack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
 			stack.setCount(netherite);
 			dropStack(stack);
+		}
+	}
+
+	@Inject(at = @At("HEAD"), method = "onDeath(Lnet/minecraft/entity/damage/DamageSource;)V")
+	private void onDeath(DamageSource source, CallbackInfo ci) {
+		var entity = (LivingEntity)(Object)this;
+
+		if (entity instanceof PlayerEntity) {
+			return;
+		}
+
+		if (!entity.world.isClient()) {
+			var message = source.getDeathMessage(entity);
+			var serverWorld = (ServerWorld)entity.world;
+			var server = serverWorld.getServer();
+			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+				player.sendMessage(message);
+			}
+
+			if (Discord4Fabric.DISCORD != null) {
+				Discord4Fabric.DISCORD.sendPlainMessage(message);
+			}
 		}
 	}
 }
