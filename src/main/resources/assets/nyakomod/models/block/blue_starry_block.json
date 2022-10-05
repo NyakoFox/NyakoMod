@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "nyakomod:block/blue_starry_block",
+    "particle": "nyakomod:block/blue_starry_block"
+  }
+}

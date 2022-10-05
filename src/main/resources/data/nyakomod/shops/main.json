@@ -95,7 +95,40 @@
       ],
       "name": "Plasteel Plating",
       "description": "Looking for some new metal to spice up your house? Your towers? Your shrines? Plasteel might just be the material for you! Aside from looking really good, it can also be put into a stonecutter (note: it is NOT stone) to make a variety of different blocks, including Plasteel Casing, Plasteel Smooth Casing and Plasteel Pillars! And maybe more in the future, if we get the budget.",
-      "price": 3200
+      "price": 800
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:titanstone",
+          "Count": 32
+        }
+      ],
+      "name": "Titanstone",
+      "description": "Straight from another dimension, right to you. As a mix of stone and titanium ore, this block is really hard.",
+      "price": 800
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:blue_starry_block",
+          "Count": 16
+        }
+      ],
+      "name": "Blue Starry Block",
+      "description": "The Blue Starry Block is an animated decorative block type which shows twinkling blue stars on a black background. It is the blue-themed variant of the Gold Starry Block.",
+      "price": 800
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:gold_starry_block",
+          "Count": 16
+        }
+      ],
+      "name": "Gold Starry Block",
+      "description": "The Gold Starry Block is an animated decorative block. When placed it shows twinkling, gold stars on a black background. It is the gold-themed variant of the Blue Starry Block.",
+      "price": 800
     },
     {
       "items": [

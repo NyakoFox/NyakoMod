@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-04T00:00:55.7092922	Models
+// 1.19.2	2022-10-04T21:27:43.2684696	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 b5a03d9854ec29f97e2a3e137c26835fb96d873a assets\nyakomod\models\block\emerald_coin_fifty_four.json
 ccfeb056c70060b8325db1faa9b3620ecd5244d4 assets\nyakomod\models\block\copper_coin_fifteen.json
@@ -120,6 +120,7 @@ e21e710b1beea75f2f5e837e82d77d9a6b0bf167 assets\nyakomod\blockstates\gold_coin.j
 e175e3a1029fd0868b87e244c62a3a5b569bc92e assets\nyakomod\models\block\emerald_coin_twenty_three.json
 54e7aa4c23b1eed5ab9685f06bc43749c5e5fabb assets\nyakomod\models\block\netherite_coin_thirty_eight.json
 0208d5127e94b95a3885bcec34add4af2a48d0e4 assets\nyakomod\models\block\diamond_coin_nine.json
+568f7d1d14c77bb836257dd0b6ee9dfbd004a500 assets\nyakomod\models\item\titanstone.json
 508613b2526ecc3593e1f5f39e6327643addb113 assets\nyakomod\models\block\copper_coin_forty_five.json
 0184d09ed11488131ff1bddf171714f9befacf0e assets\nyakomod\models\block\gold_coin_forty_six.json
 dd71b9ce9ef074380511e904f2796553655bd8f6 assets\nyakomod\models\block\netherite_coin_fourteen.json
@@ -216,6 +217,7 @@ a9bcf5700319eafedbc78e623c8659398c4f1810 assets\nyakomod\models\block\emerald_co
 81b9ee16bbf49caea462a185c3c5fb2e30cba33e assets\nyakomod\models\block\copper_coin_twenty_nine.json
 4d922ba0a0538a036f3d4e5e7d80d7ba816f18ab assets\nyakomod\models\block\diamond_coin_sixty_one.json
 3258eb79a05f1c1976d4d0da2f92c99b826d8804 assets\nyakomod\models\block\present_wrapper.json
+6b0dc4c1730dbf77f8e35d82b6a08b4fbe1923b0 assets\nyakomod\blockstates\titanstone.json
 86dd122c67a421050545f8dbdae4860104f89253 assets\nyakomod\models\block\copper_coin_six.json
 1baa16c30913d460fa72a755152d2129f2fc0889 assets\nyakomod\models\block\gold_coin_twenty_eight.json
 82e81287f6d89c1848bef7c73ea7f982b41afe78 assets\nyakomod\models\block\copper_coin_forty_seven.json
@@ -365,6 +367,7 @@ f3edfc629c178547a577b87219a2b79c62a873ba assets\nyakomod\models\block\netherite_
 fb1111b69a535774d55cba3196796d796367d826 assets\nyakomod\models\block\gold_coin_thirty_one.json
 85aa1367c4973f670950d3edcca402031386f8b5 assets\nyakomod\blockstates\plasteel_smooth_casing.json
 b200db0ace5abc7dd6cba639cb258f35869744cd assets\nyakomod\models\block\diamond_coin_thirty_eight.json
+308db7c3aa09eff87e3439aab7b078c8c0a3d80c assets\nyakomod\models\block\titanstone.json
 05c1489791e5811e65a1b18839a24e7bfe721650 assets\nyakomod\models\block\diamond_coin_twenty_four.json
 8068e79c31eb5ebfaf07d7c4fe7f5ccfa41bc050 assets\nyakomod\models\block\plasteel_pillar_horizontal.json
 72d211e64dc96873454953ba3f0a0cadda8f5a15 assets\nyakomod\models\block\copper_coin_sixty_one.json
