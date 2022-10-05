@@ -152,7 +152,7 @@ public abstract class LivingEntityMixin extends Entity {
 			return;
 		}
 
-		if (!entity.world.isClient()) {
+		if (!entity.world.isClient() && entity.hasCustomName()) {
 			var message = source.getDeathMessage(entity);
 			var serverWorld = (ServerWorld)entity.world;
 			var server = serverWorld.getServer();
