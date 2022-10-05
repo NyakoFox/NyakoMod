@@ -3,6 +3,7 @@
   "values": [
     "nyakomod:blueprint_workbench",
     "nyakomod:drafting_table",
-    "nyakomod:note_block_plus"
+    "nyakomod:note_block_plus",
+    "nyakomod:bookshelf_stairs"
   ]
 }

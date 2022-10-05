@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:left_diamond"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:right_diamond",
+    "count": 1
+  }
+}

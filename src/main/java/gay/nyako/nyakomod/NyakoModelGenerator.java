@@ -42,6 +42,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.FIREBLU);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TRUE_BLOCK);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TITANSTONE);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -177,6 +179,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+
         // Coins
         itemModelGenerator.register(NyakoItems.COPPER_COIN_ITEM, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.GOLD_COIN_ITEM, Models.GENERATED);
@@ -207,6 +210,11 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
 
         itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
+
+        itemModelGenerator.register(NyakoItems.NETHER_PORTAL_BUCKET, Models.GENERATED);
+
+        itemModelGenerator.register(NyakoItems.LEFT_DIAMOND, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.RIGHT_DIAMOND, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

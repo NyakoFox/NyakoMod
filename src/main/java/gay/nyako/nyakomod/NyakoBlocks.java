@@ -30,6 +30,10 @@ public class NyakoBlocks {
     public static final Block TRUE_BLOCK                = register("true_block",                new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool(), NyakoSoundEvents.TRUE_BLOCK));
     public static final Block NOTE_BLOCK_PLUS           = register("note_block_plus",           new NoteBlockPlusBlock(FabricBlockSettings.copy(Blocks.NOTE_BLOCK)));
     public static final Block PRESENT_WRAPPER           = register("present_wrapper",           new PresentWrapperBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
+    public static final Block BOOKSHELF_STAIRS          = register("bookshelf_stairs",          new CustomStairsBlock(Blocks.BOOKSHELF.getDefaultState(), AbstractBlock.Settings.copy(Blocks.BOOKSHELF)));
+    public static final Block GOLD_STARRY_BLOCK         = register("gold_starry_block",         new Block(FabricBlockSettings.copy(Blocks.AMETHYST_BLOCK).requiresTool()));
+    public static final Block BLUE_STARRY_BLOCK         = register("blue_starry_block",         new Block(FabricBlockSettings.copy(Blocks.AMETHYST_BLOCK).requiresTool()));
+    public static final Block TITANSTONE                = register("titanstone",                new Block(FabricBlockSettings.copy(Blocks.DEEPSLATE).requiresTool()));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

@@ -67,6 +67,14 @@ public class NyakoItems {
     public static final Item LAVA                       = registerMC("lava",                    new BlockItem(Blocks.LAVA,          new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item NOTE_BLOCK_PLUS            = register("note_block_plus",           new BlockItem(NyakoBlocks.NOTE_BLOCK_PLUS, new FabricItemSettings().group(ItemGroup.REDSTONE)));
     public static final Item PRESENT_WRAPPER            = register("present_wrapper",           new BlockItem(NyakoBlocks.PRESENT_WRAPPER, new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item NETHER_PORTAL_BUCKET       = register("nether_portal_bucket",      new NetherPortalBucketItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item NETHER_PORTAL_STRUCTURE    = register("nether_portal_structure",   new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item LEFT_DIAMOND               = register("left_diamond",              new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item RIGHT_DIAMOND              = register("right_diamond",             new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item BOOKSHELF_STAIRS           = register("bookshelf_stairs",          new BlockItem(NyakoBlocks.BOOKSHELF_STAIRS, new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item GOLD_STARRY_BLOCK          = register("gold_starry_block",         new BlockItem(NyakoBlocks.GOLD_STARRY_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item BLUE_STARRY_BLOCK          = register("blue_starry_block",         new BlockItem(NyakoBlocks.BLUE_STARRY_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item TITANSTONE                 = register("titanstone",                new BlockItem(NyakoBlocks.TITANSTONE, new FabricItemSettings().group(ItemGroup.MISC)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

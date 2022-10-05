@@ -24,7 +24,8 @@
     "PlayerEntityMixin",
     "MilkBucketItemMixin",
     "PlayerManagerMixin",
-    "FarmlandBlockMixin"
+    "FarmlandBlockMixin",
+    "BucketItemMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
@@ -32,7 +33,8 @@
     "ItemStackMixin",
     "InGameHudMixin",
     "WorldRendererMixin",
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "MusicTrackerMixin"
   ],
   "server": [
 
