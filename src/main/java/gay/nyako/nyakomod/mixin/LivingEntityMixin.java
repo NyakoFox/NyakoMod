@@ -115,33 +115,12 @@ public abstract class LivingEntityMixin extends Entity {
 		Integer diamond = map.get(CunkCoinUtils.CoinValue.DIAMOND);
 		Integer netherite = map.get(CunkCoinUtils.CoinValue.NETHERITE);
 
-		// drop the coins
-		// this is super ugly but i didnt wanna make a function for some reason lol
-		if (copper > 0) {
-			ItemStack stack = new ItemStack(NyakoItems.COPPER_COIN_ITEM);
-			stack.setCount(copper);
-			dropStack(stack);
-		}
-		if (gold > 0) {
-			ItemStack stack = new ItemStack(NyakoItems.GOLD_COIN_ITEM);
-			stack.setCount(gold);
-			dropStack(stack);
-		}
-		if (emerald > 0) {
-			ItemStack stack = new ItemStack(NyakoItems.EMERALD_COIN_ITEM);
-			stack.setCount(emerald);
-			dropStack(stack);
-		}
-		if (diamond > 0) {
-			ItemStack stack = new ItemStack(NyakoItems.DIAMOND_COIN_ITEM);
-			stack.setCount(diamond);
-			dropStack(stack);
-		}
-		if (netherite > 0) {
-			ItemStack stack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
-			stack.setCount(netherite);
-			dropStack(stack);
-		}
+		// drop coins
+		if (copper    > 0) dropStack(new ItemStack(NyakoItems.COPPER_COIN_ITEM,    copper));
+		if (gold      > 0) dropStack(new ItemStack(NyakoItems.GOLD_COIN_ITEM,      gold));
+		if (emerald   > 0) dropStack(new ItemStack(NyakoItems.EMERALD_COIN_ITEM,   emerald));
+		if (diamond   > 0) dropStack(new ItemStack(NyakoItems.DIAMOND_COIN_ITEM,   diamond));
+		if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN_ITEM, netherite));
 	}
 
 	@Inject(at = @At("HEAD"), method = "onDeath(Lnet/minecraft/entity/damage/DamageSource;)V")

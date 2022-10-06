@@ -5,15 +5,22 @@ import gay.nyako.nyakomod.NyakoItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
@@ -22,6 +29,23 @@ public abstract class EnderDragonEntityMixin extends LivingEntity {
 
     protected EnderDragonEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void injected(CallbackInfo ci) {
+        this.setCustomName(Text.literal("Jender Jragon"));
+    }
+
+    /**
+     * @author NyakoFox
+     * @reason Change attributes
+     */
+    @Overwrite
+    public static DefaultAttributeContainer.Builder createEnderDragonAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 400.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.20);
     }
 
     @Redirect(method= "updatePostDeath()V", at=@At(value="INVOKE", target="Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
@@ -35,36 +59,11 @@ public abstract class EnderDragonEntityMixin extends LivingEntity {
         Integer diamond = map.get(CunkCoinUtils.CoinValue.DIAMOND);
         Integer netherite = map.get(CunkCoinUtils.CoinValue.NETHERITE);
 
-        if (copper > 0) {
-            ItemStack itemStack = new ItemStack(NyakoItems.COPPER_COIN_ITEM);
-            itemStack.setCount(copper);
-            dropStack(itemStack);
-        }
+        if (copper    > 0) dropStack(new ItemStack(NyakoItems.COPPER_COIN_ITEM,    copper));
+        if (gold      > 0) dropStack(new ItemStack(NyakoItems.GOLD_COIN_ITEM,      gold));
+        if (emerald   > 0) dropStack(new ItemStack(NyakoItems.EMERALD_COIN_ITEM,   emerald));
+        if (diamond   > 0) dropStack(new ItemStack(NyakoItems.DIAMOND_COIN_ITEM,   diamond));
+        if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN_ITEM, netherite));
 
-        if (gold > 0) {
-            ItemStack itemStack = new ItemStack(NyakoItems.GOLD_COIN_ITEM);
-            itemStack.setCount(gold);
-            dropStack(itemStack);
-        }
-
-        if (emerald > 0) {
-            ItemStack itemStack = new ItemStack(NyakoItems.EMERALD_COIN_ITEM);
-            itemStack.setCount(emerald);
-            dropStack(itemStack);
-        }
-
-        if (diamond > 0) {
-            ItemStack itemStack = new ItemStack(NyakoItems.DIAMOND_COIN_ITEM);
-            itemStack.setCount(diamond);
-            dropStack(itemStack);
-        }
-
-        if (netherite > 0) {
-            ItemStack itemStack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
-            itemStack.setCount(netherite);
-            dropStack(itemStack);
-        }
-
-        return;
     }
 }
