@@ -1,4 +1,10 @@
 {
+    "super_luigi": {
+        "subtitle": "subtitles.nyakomod.super_luigi",
+        "sounds": [
+            "nyakomod:super_luigi"
+        ]
+    },
     "vine_boom": {
         "subtitle": "subtitles.nyakomod.vine_boom",
         "sounds": [

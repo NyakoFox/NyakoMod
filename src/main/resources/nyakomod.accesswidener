@@ -8,3 +8,6 @@ accessible    field    net/minecraft/data/client/ItemModelGenerator    writer   
 accessible    field    net/minecraft/entity/player/PlayerEntity    abilities    Lnet/minecraft/entity/player/PlayerAbilities;
 accessible    field    net/minecraft/entity/player/PlayerEntity    hungerManager    Lnet/minecraft/entity/player/HungerManager;
 accessible    field    net/minecraft/entity/Entity    lastNetherPortalPosition    Lnet/minecraft/util/math/BlockPos;
+accessible    class    net/minecraft/client/gui/screen/CreditsScreen$CreditsReader
+accessible    field    net/minecraft/client/gui/screen/CreditsScreen    time    F
+accessible    field    net/minecraft/client/sound/MusicTracker    timeUntilNextSong    I

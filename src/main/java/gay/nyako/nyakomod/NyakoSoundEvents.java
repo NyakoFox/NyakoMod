@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class NyakoSoundEvents {
+    public static final SoundEvent SUPER_LUIGI          = register("super_luigi");
     public static final SoundEvent DISCORD              = register("discord");
     public static final SoundEvent WOLVES               = register("wolves");
     public static final SoundEvent COIN_COLLECT         = register("coin_collect");

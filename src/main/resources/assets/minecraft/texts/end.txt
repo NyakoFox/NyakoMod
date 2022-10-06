@@ -52,8 +52,39 @@
 
 
 
-§2i dont know how to end the credits so you should press escape
 
 
 
+
+
+
+
+
+
+
+§fReal credits, for real this time:
+
+§3Nyakorita§f - §bCreated this mod (and the server)
+§3stupid cat§f - §bDeveloped some really cool stuff in the mod, helps a lot with the server
+§3mothbeanie§f - §bMade most of the textures, helped with design decisions
+§3galaxii§f - §bFeedback and keeping me sane by driving me crazy
+§3Sylvi§f - §bFeedback and moral support
+§3kouneyagami, Ragemaster§f - §bFeedback
+
+§fMusic used:
+§3Super Mario World§f - §bCredits theme (current song!)
+§3Fabrizio Fornaci, Piero Montanari§f - §bWhat's So Funny?
+§3Kanye West§f - §bWolves
+§3Clay (Dream)§f - §bMask
+§3Super Mario 64§f - §bMerry-Go-Round
+§3James Primate§f - §bBlack Moonlight
+§3Garoad§f - §bWelcome to VA-11 HALL-A
+
+
+
+§fFrom the bottom of my heart, thank you for choosing to play on my dumb little server, and giving me the opportunity to just make some really dumb stuff.
+
+§fI hope this isn't goodbye. I hope this is just the beginning.
+
+§fI'll see you soon.
 
