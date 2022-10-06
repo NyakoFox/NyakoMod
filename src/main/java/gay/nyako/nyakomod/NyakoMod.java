@@ -13,6 +13,7 @@ import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
+import gay.nyako.nyakomod.utils.ChatUtils;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.EnvType;
@@ -141,12 +142,10 @@ public class NyakoMod implements ModInitializer {
             // Pick a random array from the pool
             String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-            handler.player.sendMessage(TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!"), false);
+            ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
 
             for (String string : randomTextArray) {
-                var formatted = TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> " + string);
-                var parsed = Placeholders.parseText(formatted, PlaceholderContext.of(handler.player));
-                handler.player.sendMessage(parsed, false);
+                ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
             }
         }));
 

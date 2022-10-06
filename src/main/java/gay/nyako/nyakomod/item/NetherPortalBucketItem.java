@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;

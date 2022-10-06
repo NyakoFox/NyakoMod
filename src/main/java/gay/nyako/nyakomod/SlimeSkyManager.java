@@ -56,8 +56,7 @@ public class SlimeSkyManager extends PersistentState {
                 if (stateLength <= 0) {
                     state = SlimeSkyState.ACTIVE;
                     stateLength = (world.getRandom().nextBetween(9, 15) * 60L) * 20;
-                    var prefix = (MutableText) TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
-                    world.getServer().getPlayerManager().broadcast(prefix.append(Text.literal("Slime is falling from the sky!").setStyle(Style.EMPTY.withColor(0x32FF82))), false);
+                    world.getServer().getPlayerManager().broadcast(ChatPrefixes.SLIME.apply("<color:#32FF82>Slime is falling from the sky!</color>"), false);
                     markDirty();
                 }
                 break;
@@ -85,9 +84,8 @@ public class SlimeSkyManager extends PersistentState {
                 // We're done slime rain
                 if (stateLength <= 0) {
                     state = SlimeSkyState.INACTIVE;
-                    stateLength = world.getRandom().nextBetween((40 * 24000), (80 * 24000)); // 40 - 80 days
-                    var prefix = (MutableText) TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> ");
-                    world.getServer().getPlayerManager().broadcast(prefix.append(Text.literal("Slime has stopped falling from the sky.").setStyle(Style.EMPTY.withColor(0x32FF82))), false);
+                    stateLength = world.getRandom().nextBetween((80 * 24000), (120 * 24000)); // 80 - 120 days
+                    world.getServer().getPlayerManager().broadcast(ChatPrefixes.SLIME.apply("<color:#32FF82>Slime has stopped falling from the sky.</color>"), false);
                     markDirty();
                 }
                 break;
