@@ -4,7 +4,6 @@ import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -25,9 +24,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 
 @Mixin(EnderDragonEntity.class)
-public abstract class EnderDragonEntityMixin extends LivingEntity {
+public abstract class EnderDragonEntityMixin extends MobEntity {
 
-    protected EnderDragonEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+
+    protected EnderDragonEntityMixin(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -64,6 +64,5 @@ public abstract class EnderDragonEntityMixin extends LivingEntity {
         if (emerald   > 0) dropStack(new ItemStack(NyakoItems.EMERALD_COIN_ITEM,   emerald));
         if (diamond   > 0) dropStack(new ItemStack(NyakoItems.DIAMOND_COIN_ITEM,   diamond));
         if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN_ITEM, netherite));
-
     }
 }
