@@ -11,6 +11,7 @@
     "ZombieEntityMixin",
     "ScoreboardCriterionMixin",
     "VillagerEntityMixin",
+    "WanderingTraderEntityMixin",
     "MobSpawnerLogicMixin",
     "EntityMixin",
     "EnderDragonEntityMixin",
