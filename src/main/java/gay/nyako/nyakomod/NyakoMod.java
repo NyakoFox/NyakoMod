@@ -180,16 +180,6 @@ public class NyakoMod implements ModInitializer {
                     }
                     if (access.getMilk() > 0) {
                         access.setMilk(access.getMilk() - 1);
-                        continue;
-                    }
-                }
-
-                if (access.getMilk() >= 18) {
-                    var currentSpeed = player.getStatusEffect(StatusEffects.SPEED);
-                    if (currentSpeed == null) {
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
-                    } else if (currentSpeed.getDuration() < 20) {
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
                     }
                 }
             }

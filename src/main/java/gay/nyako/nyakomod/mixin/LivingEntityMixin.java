@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoItems;
@@ -9,6 +10,10 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +23,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.reimnop.d4f.Discord4Fabric;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -35,8 +42,16 @@ public abstract class LivingEntityMixin extends Entity {
 		super(type, world);
 	}
 
+	private static final UUID MILK_BOOST_ID = UUID.fromString("4cfe098c-ef25-462e-8c06-41964634ab1a");
+	private static final UUID MILK_ATTACK_SPEED_ID = UUID.fromString("8959b2d5-086d-4d00-8fb0-e7cd7bc75342");
+	private static final EntityAttributeModifier MILK_BOOST = new EntityAttributeModifier(MILK_BOOST_ID, "Milk speed boost", 0.2f, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static final EntityAttributeModifier MILK_ATTACK_SPEED = new EntityAttributeModifier(MILK_ATTACK_SPEED_ID, "Milk attack speed", 0.4f, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+
 	@Shadow
-	public PlayerEntity attackingPlayer;
+	public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
+
+	@Shadow
+	protected PlayerEntity attackingPlayer;
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
@@ -141,6 +156,46 @@ public abstract class LivingEntityMixin extends Entity {
 
 			if (Discord4Fabric.DISCORD != null) {
 				Discord4Fabric.DISCORD.sendPlainMessage(message);
+			}
+		}
+	}
+
+	@Inject(at = @At("HEAD"), method = "applyMovementEffects(Lnet/minecraft/util/math/BlockPos;)V")
+	private void onDeath(BlockPos pos, CallbackInfo ci) {
+		var entity = (LivingEntity)(Object)this;
+
+		if (!(entity instanceof PlayerEntity player)) {
+			return;
+		}
+
+		if (player.world.isClient()) {
+			return;
+		}
+
+		EntityAttributeInstance entityAttributeSpeedInstance = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+		if (entityAttributeSpeedInstance == null) {
+			return;
+		}
+		EntityAttributeInstance entityAttributeAttackSpeedInstance = getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
+		if (entityAttributeAttackSpeedInstance == null) {
+			return;
+		}
+
+		var playerAccess = (PlayerEntityAccess)player;
+
+		if (playerAccess.getMilk() >= 18) {
+			if (!entityAttributeSpeedInstance.hasModifier(MILK_BOOST)) {
+				entityAttributeSpeedInstance.addTemporaryModifier(MILK_BOOST);
+			}
+			if (!entityAttributeAttackSpeedInstance.hasModifier(MILK_ATTACK_SPEED)) {
+				entityAttributeAttackSpeedInstance.addTemporaryModifier(MILK_ATTACK_SPEED);
+			}
+		} else {
+			if (entityAttributeSpeedInstance.hasModifier(MILK_BOOST)) {
+				entityAttributeSpeedInstance.removeModifier(MILK_BOOST);
+			}
+			if (entityAttributeAttackSpeedInstance.hasModifier(MILK_ATTACK_SPEED)) {
+				entityAttributeAttackSpeedInstance.removeModifier(MILK_ATTACK_SPEED);
 			}
 		}
 	}
