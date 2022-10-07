@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import eu.pb4.placeholders.api.TextParserUtils;
+import gay.nyako.nyakomod.ChatPrefixes;
 import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -72,11 +73,11 @@ public final class BackCommand implements Command<ServerCommandSource> {
 
         p.teleport(previousLocation.world, previousLocation.x, 
           previousLocation.y, previousLocation.z, previousLocation.yaw, previousLocation.pitch);
-        ctx.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Woo!"), false);
+        ctx.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("Woo!"), false);
 
         previousLocations.replace(id, newLocation);
       } else {
-        ctx.getSource().sendFeedback(TextParserUtils.formatText("<red>[❌]</red> <bold>>></bold> You don't have a previous location."), false);
+        ctx.getSource().sendFeedback(ChatPrefixes.ERROR.apply("You don't have a previous location."), false);
       }
     } catch (CommandSyntaxException e) {
       ctx.getSource().sendFeedback(Text.of("Only players can use this command >:("), false);

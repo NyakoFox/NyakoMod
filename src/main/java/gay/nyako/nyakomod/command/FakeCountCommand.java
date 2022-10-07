@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import eu.pb4.placeholders.api.TextParserUtils;
+import gay.nyako.nyakomod.ChatPrefixes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
@@ -32,10 +33,10 @@ public class FakeCountCommand {
         }
         ItemStack heldStack = player.getMainHandStack();
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't set the count of nothing.</white>"));
+            context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>You can't set the count of nothing.</white>"));
         } else {
             heldStack.removeSubNbt("customCount");
-            context.getSource().sendFeedback(TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item's count has been reset."), false);
+            context.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("Your item's count has been reset."), false);
         }
         return 1;
     }
@@ -49,7 +50,7 @@ public class FakeCountCommand {
         ItemStack heldStack = player.getMainHandStack();
         Text newCount = TextParserUtils.formatText(context.getArgument("count", String.class));
         if (heldStack.isEmpty()) {
-            context.getSource().sendError(TextParserUtils.formatText("<red>[❌]</red> <white><bold>>></bold> You can't set the count of air.</white>"));
+            context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>You can't set the count of nothing.</white>"));
         } else {
             var nbt = heldStack.getOrCreateNbt();
             nbt.putString("customCount", newCount.getString());

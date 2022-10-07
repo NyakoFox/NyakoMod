@@ -13,6 +13,7 @@ import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
+import gay.nyako.nyakomod.utils.ChatUtils;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.EnvType;
@@ -141,12 +142,10 @@ public class NyakoMod implements ModInitializer {
             // Pick a random array from the pool
             String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-            handler.player.sendMessage(TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!"), false);
+            ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
 
             for (String string : randomTextArray) {
-                var formatted = TextParserUtils.formatText("<aqua>[i]</aqua> <bold>>></bold> " + string);
-                var parsed = Placeholders.parseText(formatted, PlaceholderContext.of(handler.player));
-                handler.player.sendMessage(parsed, false);
+                ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
             }
         }));
 
@@ -181,16 +180,6 @@ public class NyakoMod implements ModInitializer {
                     }
                     if (access.getMilk() > 0) {
                         access.setMilk(access.getMilk() - 1);
-                        continue;
-                    }
-                }
-
-                if (access.getMilk() >= 18) {
-                    var currentSpeed = player.getStatusEffect(StatusEffects.SPEED);
-                    if (currentSpeed == null) {
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
-                    } else if (currentSpeed.getDuration() < 20) {
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, (5 * 20), 0, false, false, false));
                     }
                 }
             }
