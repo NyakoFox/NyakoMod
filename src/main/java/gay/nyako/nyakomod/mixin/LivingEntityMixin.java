@@ -15,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.MagmaCubeEntity;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -67,7 +68,7 @@ public abstract class LivingEntityMixin extends Entity {
 		// get the amount of coins to give based off of the entity type
 		double baseCoinAmount = CunkCoinUtils.getCoinValue(type);
 
-		if (type == EntityType.SLIME) {
+		if (type == EntityType.SLIME || type == EntityType.MAGMA_CUBE) {
 			SlimeEntity slime = (SlimeEntity) (Object) this;
 			baseCoinAmount *= (slime.getSize() / 5d);
 		}
