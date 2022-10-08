@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
 import eu.pb4.placeholders.api.TextParserUtils;
+import gay.nyako.nyakomod.NyakoItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
@@ -37,21 +38,7 @@ public abstract class EnderDragonPartMixin extends Entity {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.BUCKET)) {
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0f, 1.0f);
-            var milkStack = Items.MILK_BUCKET.getDefaultStack();
-            var milkNbt = milkStack.getOrCreateNbt();
-
-            NbtCompound nbtDisplay = milkNbt.getCompound(ItemStack.DISPLAY_KEY);
-            NbtList nbtLore = nbtDisplay.getList(ItemStack.LORE_KEY, NbtElement.STRING_TYPE);
-            nbtLore.add(NbtString.of(Text.Serializer.toJson(TextParserUtils.formatText("<gradient:blue:green>Milk from the void.</gradient>"))));
-            nbtDisplay.put(ItemStack.LORE_KEY, nbtLore);
-            // Add name
-            nbtDisplay.putString(ItemStack.NAME_KEY, Text.Serializer.toJson(TextParserUtils.formatText("<gradient:light_purple:dark_purple>Dragon Milk</gradient>")));
-            milkNbt.put(ItemStack.DISPLAY_KEY, nbtDisplay);
-
-            milkNbt.putBoolean("Authentic", true);
-
-            milkStack.setNbt(milkNbt);
-
+            var milkStack = NyakoItems.DRAGON_MILK_BUCKET.getDefaultStack();
             ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
             player.setStackInHand(hand, itemStack2);
 

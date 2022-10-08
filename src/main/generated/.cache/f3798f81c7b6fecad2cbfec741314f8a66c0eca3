@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-04T21:27:43.2684696	Models
+// 1.19.2	2022-10-08T20:31:31.8408158	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 b5a03d9854ec29f97e2a3e137c26835fb96d873a assets\nyakomod\models\block\emerald_coin_fifty_four.json
 ccfeb056c70060b8325db1faa9b3620ecd5244d4 assets\nyakomod\models\block\copper_coin_fifteen.json
@@ -194,6 +194,7 @@ c04a5bb249661d28a9d385b543c27d0fc793f02a assets\nyakomod\models\block\emerald_co
 1b1ba20d39c15a5ec5691abd2246ffa3d37f82a4 assets\nyakomod\models\block\copper_coin_thirty_eight.json
 be30be7f4d3711b78ef865950e0300e00a0c031d assets\nyakomod\models\block\gold_coin_fifty_seven.json
 1c6c1360a3e640f1d38a8fb8f67c5bad772b9a67 assets\nyakomod\models\block\copper_coin_twenty_three.json
+d39d733c03c947eccc0646c98c32b60ea421b6be assets\nyakomod\models\item\dragon_milk_bucket.json
 55204d87c0121bc7460285c4464b997266369467 assets\nyakomod\models\block\emerald_coin_twenty.json
 a6d8fe6f353acbf75b9e762fe3721d11f5eff952 assets\nyakomod\models\block\gold_coin_ten.json
 989126e3317f8901e2261a435609e264c35093fd assets\nyakomod\blockstates\plasteel_casing.json

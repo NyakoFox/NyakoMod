@@ -216,6 +216,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.LEFT_DIAMOND, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.RIGHT_DIAMOND, Models.GENERATED);
 
+        itemModelGenerator.register(NyakoItems.DRAGON_MILK_BUCKET, Models.GENERATED);
+
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/fire_0", Blocks.FIRE);
