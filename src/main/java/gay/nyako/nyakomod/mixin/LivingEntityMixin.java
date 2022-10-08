@@ -1,10 +1,10 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.access.EntityAccess;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.NyakoItems;
-import gay.nyako.nyakomod.access.EntityAccess;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -15,14 +15,9 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MagmaCubeEntity;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,8 +26,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import me.reimnop.d4f.Discord4Fabric;
 
 import java.util.Map;
 import java.util.UUID;
@@ -139,30 +132,8 @@ public abstract class LivingEntityMixin extends Entity {
 		if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN_ITEM, netherite));
 	}
 
-	@Inject(at = @At("HEAD"), method = "onDeath(Lnet/minecraft/entity/damage/DamageSource;)V")
-	private void onDeath(DamageSource source, CallbackInfo ci) {
-		var entity = (LivingEntity)(Object)this;
-
-		if (entity instanceof PlayerEntity) {
-			return;
-		}
-
-		if (!entity.world.isClient() && entity.hasCustomName()) {
-			var message = source.getDeathMessage(entity);
-			var serverWorld = (ServerWorld)entity.world;
-			var server = serverWorld.getServer();
-			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-				player.sendMessage(message);
-			}
-
-			if (Discord4Fabric.DISCORD != null) {
-				Discord4Fabric.DISCORD.sendPlainMessage(message);
-			}
-		}
-	}
-
 	@Inject(at = @At("HEAD"), method = "applyMovementEffects(Lnet/minecraft/util/math/BlockPos;)V")
-	private void onDeath(BlockPos pos, CallbackInfo ci) {
+	private void applyMovementEffects(BlockPos pos, CallbackInfo ci) {
 		var entity = (LivingEntity)(Object)this;
 
 		if (!(entity instanceof PlayerEntity player)) {

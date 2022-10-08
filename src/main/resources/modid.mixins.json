@@ -39,7 +39,7 @@
     "MusicTrackerMixin"
   ],
   "server": [
-
+    "ServerLivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
