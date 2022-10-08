@@ -3,11 +3,17 @@ package gay.nyako.nyakomod.item;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import gay.nyako.nyakomod.entity.PetEntity;
+import gay.nyako.nyakomod.screens.PetSpriteScreen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 
 public class PetSummonItem<T extends PetEntity> extends TrinketItem {
     public EntityType<T> entityType;
@@ -22,6 +28,23 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
 
         this.createPetMethod = createPet;
         this.entityType = entityType;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        if (canUse(world, player, hand)) {
+            return performAction(world, player, hand);
+        } else {
+            return super.use(world, player, hand);
+        }
+    }
+
+    public TypedActionResult<ItemStack> performAction(World world, PlayerEntity player, Hand hand) {
+        return TypedActionResult.success(player.getStackInHand(hand));
+    }
+
+    public boolean canUse(World world, PlayerEntity player, Hand hand) {
+        return false;
     }
 
     @Override

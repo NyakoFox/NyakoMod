@@ -24,14 +24,17 @@ public class PetSpriteSummonItem extends PetSummonItem<PetSpriteEntity> {
 
     @Environment(EnvType.CLIENT)
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if (player.isSneaking()) {
-            if (player.world.isClient()) {
-                MinecraftClient.getInstance().setScreen(new PetSpriteScreen(player.getStackInHand(hand)));
-            }
+    public TypedActionResult<ItemStack> performAction(World world, PlayerEntity player, Hand hand) {
+        if (world.isClient()) {
+            MinecraftClient.getInstance().setScreen(new PetSpriteScreen(player.getStackInHand(hand)));
         }
 
         return TypedActionResult.success(player.getStackInHand(hand));
+    }
+
+    @Override
+    public boolean canUse(World world, PlayerEntity player, Hand hand) {
+        return player.isSneaking();
     }
 
     @Override
