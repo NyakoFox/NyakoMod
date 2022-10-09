@@ -48,7 +48,11 @@ public class DespawnPetGoal
                 var petSlot = headGroup.get("pet");
                 var stack = petSlot.getStack(0);
                 if (stack.getCount() > 0 && stack.getItem() instanceof PetSummonItem<?> item) {
-                    return !tameable.getType().equals(item.entityType);
+                    if (!tameable.getType().equals(item.entityType)) {
+                        return true;
+                    }
+
+                    return item.getSummonedPet() != this.tameable;
                 }
             }
         }

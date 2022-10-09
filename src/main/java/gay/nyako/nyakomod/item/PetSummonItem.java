@@ -19,6 +19,8 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
     public EntityType<T> entityType;
     CreatePet createPetMethod;
 
+    PetEntity summonedPet;
+
     public interface CreatePet {
         PetEntity create(ItemStack stack, LivingEntity entity);
     }
@@ -43,6 +45,10 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
         return TypedActionResult.success(player.getStackInHand(hand));
     }
 
+    public PetEntity getSummonedPet() {
+        return summonedPet;
+    }
+
     public boolean canUse(World world, PlayerEntity player, Hand hand) {
         return false;
     }
@@ -50,17 +56,20 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.world.isClient()) {
-            var entities = entity.world.getEntitiesByType(entityType,
-                    new Box(entity.getX() - 200, entity.getY() - 100, entity.getZ() - 100, entity.getX() + 100, entity.getY() + 100, entity.getZ() + 100),
-                    (e) -> e.getOwnerUuid() != null && e.getOwnerUuid().equals(entity.getUuid()));
+            boolean shouldResummonPet = false;
 
-            if (entities.size() == 0) {
+            if (summonedPet == null || !summonedPet.isAlive()) {
+                shouldResummonPet = true;
+            } else if (summonedPet.world != entity.world) {
+                shouldResummonPet = true;
+                summonedPet.remove(Entity.RemovalReason.DISCARDED);
+            }
+
+            if (shouldResummonPet) {
                 var pet = createPetMethod.create(stack, entity);
                 entity.world.spawnEntity(pet);
-            } else if (entities.size() > 1) {
-                for (var e : entities.subList(1, entities.size())) {
-                    e.remove(Entity.RemovalReason.DISCARDED);
-                }
+
+                summonedPet = pet;
             }
         }
         super.tick(stack, slot, entity);
