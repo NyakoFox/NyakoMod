@@ -76,7 +76,7 @@ public class NyakoItems {
     public static final Item GOLD_STARRY_BLOCK          = register("gold_starry_block",         new BlockItem(NyakoBlocks.GOLD_STARRY_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item BLUE_STARRY_BLOCK          = register("blue_starry_block",         new BlockItem(NyakoBlocks.BLUE_STARRY_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item TITANSTONE                 = register("titanstone",                new BlockItem(NyakoBlocks.TITANSTONE, new FabricItemSettings().group(ItemGroup.MISC)));
-    public static final Item DRAGON_MILK_BUCKET         = register("dragon_milk_bucket",        new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
+    public static final Item DRAGON_MILK_BUCKET         = register("dragon_milk_bucket",        new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
