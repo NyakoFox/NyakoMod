@@ -8,6 +8,7 @@
     "CreditsScreenMixin",
     "CreeperExplodeMixin",
     "EnderDragonEntityMixin",
+    "EnderDragonFightMixin",
     "EnderDragonPartMixin",
     "EntityAccessor",
     "EntityMixin",
