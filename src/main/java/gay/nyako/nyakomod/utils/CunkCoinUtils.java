@@ -71,7 +71,7 @@ public class CunkCoinUtils {
         registerCoinAmount(EntityType.EVOKER,     0, 2, 0, 0,0);
 
         // Minibosses
-        registerCoinAmount(EntityType.IRON_GOLEM, 0, 50, 0, 0, 0);
+        registerCoinAmount(EntityType.IRON_GOLEM, 0, 2, 0, 0, 0);
 
         // Bosses
         registerCoinAmount(EntityType.WITHER,         0, 0,  4,  0,0);
@@ -124,7 +124,7 @@ public class CunkCoinUtils {
 
         registerCoinAmount(EntityType.TURTLE, 40, 0, 0, 0,0);
         registerCoinAmount(EntityType.VILLAGER, 60, 0, 0, 0,0);
-        registerCoinAmount(EntityType.WANDERING_TRADER, 60, 0, 0, 0,0);
+        registerCoinAmount(EntityType.WANDERING_TRADER, 60, 5, 0, 0,0);
         registerCoinAmount(EntityType.WOLF, 25, 0, 0, 0,0);
 
         registerCoinAmount(EntityType.ZOMBIFIED_PIGLIN, 50, 1, 0, 0,0);
