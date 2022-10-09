@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:nyakomod/player_milked",
+  "criteria": {
+    "inventory_changed": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "nyakomod:dragon_milk_bucket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "Milk the Jender Jragon"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "nyakomod:dragon_milk_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Mommy Milked"
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}
