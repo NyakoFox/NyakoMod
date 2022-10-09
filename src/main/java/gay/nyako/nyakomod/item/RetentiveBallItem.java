@@ -146,6 +146,7 @@ public class RetentiveBallItem extends Item {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         var fuel = getFuel(stack);
         var xp = getXp(stack);
+        var levels = calculateStoredLevels(stack);
 
         tooltip.add(Text.literal("XP is stored in the ball."));
         tooltip.add(Text.literal("Requires fuel. Right click with ").append(Text.literal("Ender Eyes").formatted(Formatting.DARK_AQUA)).append(" to refuel."));
@@ -153,6 +154,7 @@ public class RetentiveBallItem extends Item {
 
         tooltip.add(Text.literal("Fuel: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(fuel)).formatted(Formatting.GOLD)));
         tooltip.add(Text.literal("XP: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(xp)).formatted(Formatting.GOLD)));
+        tooltip.add(Text.literal("Effective Levels: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(levels)).formatted(Formatting.GOLD)));
     }
 
     public int getXp(ItemStack stack) {
@@ -162,6 +164,24 @@ public class RetentiveBallItem extends Item {
         }
 
         return 0;
+    }
+
+    public int calculateStoredLevels(ItemStack stack) {
+        int xp = getXp(stack);
+        int level = 0;
+
+        while (true) {
+            var neededXp = calculateLevelExperienceCost(level);
+
+            if (neededXp > xp) {
+                break;
+            } else {
+                level++;
+                xp -= neededXp;
+            }
+        }
+
+        return level;
     }
 
     public int getFuel(ItemStack stack) {
