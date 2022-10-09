@@ -69,6 +69,10 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
                 var pet = createPetMethod.create(stack, entity);
                 entity.world.spawnEntity(pet);
 
+                if (stack.hasCustomName()) {
+                    pet.setCustomName(stack.getName());
+                }
+
                 summonedPet = pet;
             }
         }
