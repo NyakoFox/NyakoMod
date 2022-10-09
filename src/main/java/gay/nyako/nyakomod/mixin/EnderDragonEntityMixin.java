@@ -7,6 +7,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonFight;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -14,8 +15,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -25,7 +29,7 @@ import java.util.Map;
 
 @Mixin(EnderDragonEntity.class)
 public abstract class EnderDragonEntityMixin extends MobEntity {
-
+    @Shadow @Final @Nullable private EnderDragonFight fight;
 
     protected EnderDragonEntityMixin(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -51,7 +55,14 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     @Redirect(method= "updatePostDeath()V", at=@At(value="INVOKE", target="Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
     public void redirect(ServerWorld world, Vec3d pos, int amount) {
         ExperienceOrbEntity.spawn(world, pos, amount);
-        Map<CunkCoinUtils.CoinValue, Integer> map = CunkCoinUtils.valueToSplit(MathHelper.ceil(amount * 0.5));
+
+        float cunkFactor = 2f * world.getServer().getPlayerManager().getCurrentPlayerCount();
+        if (fight != null && fight.hasPreviouslyKilled()) {
+            var players = world.getPlayers().size();
+            cunkFactor = 7.5f * players;
+        }
+
+        Map<CunkCoinUtils.CoinValue, Integer> map = CunkCoinUtils.valueToSplit(MathHelper.ceil(amount * cunkFactor));
 
         Integer copper = map.get(CunkCoinUtils.CoinValue.COPPER);
         Integer gold = map.get(CunkCoinUtils.CoinValue.GOLD);
