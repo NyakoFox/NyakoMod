@@ -1,8 +1,5 @@
 package gay.nyako.nyakomod;
 
-import eu.pb4.placeholders.api.PlaceholderContext;
-import eu.pb4.placeholders.api.Placeholders;
-import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.behavior.CoinBagItemDispenserBehavior;
@@ -27,8 +24,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
