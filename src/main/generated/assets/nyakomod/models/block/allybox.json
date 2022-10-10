@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nyakomod:block/allybox_bottom",
+    "east": "nyakomod:block/allybox_east",
+    "north": "nyakomod:block/allybox_north",
+    "particle": "nyakomod:block/allybox_top",
+    "south": "nyakomod:block/allybox_south",
+    "up": "nyakomod:block/allybox_top",
+    "west": "nyakomod:block/allybox_west"
+  }
+}
