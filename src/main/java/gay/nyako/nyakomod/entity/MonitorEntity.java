@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.entity;
 
+import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoSoundEvents;
@@ -28,6 +29,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -38,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 public class MonitorEntity extends AbstractDecorationEntity {
 
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
+
+    public Identifier identifier;
 
     public MonitorEntity(EntityType<? extends AbstractDecorationEntity> entityType, World world) {
         super(entityType, world);
@@ -59,12 +63,26 @@ public class MonitorEntity extends AbstractDecorationEntity {
         this.dataTracker.startTracking(TEXTURE_URL, "");
     }
 
+    @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        if (TEXTURE_URL.equals(data)) {
+            setURL(this.dataTracker.get(TEXTURE_URL));
+        }
+        super.onTrackedDataSet(data);
+    }
+
     public String getURL() {
         return this.dataTracker.get(TEXTURE_URL);
     }
 
-    public void setURL(@Nullable String newURL) {
+    public void setURL(String newURL) {
         this.dataTracker.set(TEXTURE_URL, newURL);
+        if (world.isClient()) {
+            identifier = null;
+            if (!newURL.equals("")) {
+                identifier = NyakoClientMod.downloadSprite(newURL);
+            }
+        }
     }
 
     @Override
@@ -216,4 +234,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         return SoundEvents.ENTITY_ITEM_FRAME_BREAK;
     }
 
+    public Identifier getIdentifier() {
+        return identifier;
+    }
 }

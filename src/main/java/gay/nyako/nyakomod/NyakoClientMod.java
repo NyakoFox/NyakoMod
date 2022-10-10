@@ -127,7 +127,7 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 	}
 
-	private static final List<String> downloadedUrls = new ArrayList<>();
+	public static final List<String> downloadedUrls = new ArrayList<>();
 
 	public static BufferedImage downloadImage(String urlPath) {
 		BufferedImage image = null;

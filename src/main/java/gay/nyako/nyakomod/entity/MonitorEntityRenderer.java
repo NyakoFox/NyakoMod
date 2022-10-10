@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -16,7 +17,9 @@ import org.lwjgl.opengl.GL11;
 
 public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
     private final ModelPart base;
-    public Identifier identifier;
+
+    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/entity/monitor/monitor.png");
+    private static final Identifier TEXTURE_ON = new Identifier("nyakomod", "textures/entity/monitor/monitor_on.png");
 
     public MonitorEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
@@ -26,7 +29,11 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
 
     @Override
     public Identifier getTexture(MonitorEntity entity) {
-        return new Identifier("nyakomod", "textures/entity/monitor/monitor.png");
+        if (entity.getIdentifier() != null) {
+            return TEXTURE_ON;
+        } else {
+            return TEXTURE;
+        }
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -38,11 +45,7 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
 
     @Override
     public void render(MonitorEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (!entity.getURL().equals("")) {
-            identifier = NyakoClientMod.downloadSprite(entity.getURL());
-        } else {
-            identifier = null;
-        }
+        Identifier identifier = entity.getIdentifier();
 
         matrices.push();
         float pitch = entity.getPitch();
