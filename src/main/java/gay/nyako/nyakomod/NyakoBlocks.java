@@ -34,6 +34,7 @@ public class NyakoBlocks {
     public static final Block GOLD_STARRY_BLOCK         = register("gold_starry_block",         new Block(FabricBlockSettings.copy(Blocks.AMETHYST_BLOCK).requiresTool()));
     public static final Block BLUE_STARRY_BLOCK         = register("blue_starry_block",         new Block(FabricBlockSettings.copy(Blocks.AMETHYST_BLOCK).requiresTool()));
     public static final Block TITANSTONE                = register("titanstone",                new Block(FabricBlockSettings.copy(Blocks.DEEPSLATE).requiresTool()));
+    public static final Block ALLYBOX                   = register("allybox",                  new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).requiresTool()));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

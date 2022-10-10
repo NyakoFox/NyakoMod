@@ -44,6 +44,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TRUE_BLOCK);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TITANSTONE);
+        registerAllybox(blockStateModelGenerator);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -80,6 +81,18 @@ public class NyakoModelGenerator extends FabricModelProvider {
                 .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"))
                 .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.PRESENT_WRAPPER, "_side"));
         blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.PRESENT_WRAPPER, Models.CUBE.upload(NyakoBlocks.PRESENT_WRAPPER, textureMap, blockStateModelGenerator.modelCollector)));
+    }
+
+    private void registerAllybox(BlockStateModelGenerator blockStateModelGenerator) {
+        TextureMap textureMap = (new TextureMap())
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_top"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_bottom"))
+                .put(TextureKey.UP, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_north"))
+                .put(TextureKey.EAST, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_east"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_south"))
+                .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_west"));
+        blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.ALLYBOX, Models.CUBE.upload(NyakoBlocks.ALLYBOX, textureMap, blockStateModelGenerator.modelCollector)));
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {
