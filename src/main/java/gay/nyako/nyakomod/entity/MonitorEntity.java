@@ -217,7 +217,6 @@ public class MonitorEntity extends AbstractDecorationEntity {
             Direction direction = this.facing.rotateYCounterclockwise();
             this.setPos(e += h * (double)direction.getOffsetX(), f += i, g += h * (double)direction.getOffsetZ());
         } else {
-            Direction direction = this.facing.getOpposite();
             this.setPos(e += h, f, g += h);
         }
 

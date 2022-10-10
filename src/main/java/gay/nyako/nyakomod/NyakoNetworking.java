@@ -9,6 +9,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.core.jmx.Server;
 
 import java.net.URL;
@@ -79,8 +80,8 @@ public class NyakoNetworking {
 
                         if (entity instanceof MonitorEntity monitorEntity) {
                             monitorEntity.setURL(string);
-                            monitorEntity.setMonitorWidth(width);
-                            monitorEntity.setMonitorHeight(height);
+                            monitorEntity.setMonitorWidth(MathHelper.clamp(width, 1, 16));
+                            monitorEntity.setMonitorHeight(MathHelper.clamp(height, 1, 16));
                         }
                     });
                 }
