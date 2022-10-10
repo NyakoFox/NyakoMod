@@ -3,12 +3,15 @@ package gay.nyako.nyakomod.entity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.utils.NyakoUtils;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
@@ -54,12 +57,45 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
 
         matrices.translate(0f, -1f, 0.5f - (1d/16d)/2);
         VertexConsumer vertices = vertexConsumers.getBuffer(getLayer(entity));
-        base.render(matrices, vertices, light, OverlayTexture.DEFAULT_UV);
+        matrices.push();
+        matrices.translate(0f, -(entity.getMonitorHeight() - 1), 0f);
+        matrices.scale(entity.getMonitorWidth(), entity.getMonitorHeight(), 1f);
+
+        base.render(matrices, vertices, 255, OverlayTexture.DEFAULT_UV);
+        matrices.pop();
         if (identifier != null) {
+            var image = ((NativeImageBackedTexture) MinecraftClient.getInstance().getTextureManager().getTexture(identifier)).getImage();
+            var width = (float)image.getWidth();
+            var height = (float)image.getHeight();
             matrices.translate(0f, 1f, -0.5f + (1d / 16d) / 2);
-            matrices.translate(-0.5f, -0.5, -0.55d / 16d);
+
+            var distanceFromModel = 1d;
+            matrices.translate(-0.5f, -0.5, -distanceFromModel / 16d);
+
+            matrices.translate((float)(-entity.getMonitorWidth()) / 2f, (float)(-entity.getMonitorHeight()) / 2f, 0f);
+
+            matrices.translate(0.5f, 0.5f, 0f);
+
             RenderSystem.setShaderTexture(0, identifier);
-            drawTexture(matrices, 0, 0, 0, 0f, 0f, 1, 1, 1, 1);
+            // keep aspect ratio while keeping coordinates between 0-1
+            var x = 0f;
+            var y = 0f;
+            var outputWidth = 1f;
+            var outputHeight = 1f;
+            if (width > height) {
+                outputHeight = height / width;
+                y = (1f - outputHeight) / 2f;
+            } else {
+                outputWidth = width / height;
+                x = (1f - outputWidth) / 2f;
+            }
+
+            outputWidth *= entity.getMonitorWidth();
+            outputHeight *= entity.getMonitorHeight();
+            x *= entity.getMonitorWidth();
+            y *= entity.getMonitorHeight();
+
+            drawTexture(matrices, x, y, 0f, 0f, 0f, outputWidth, outputHeight, outputWidth, outputHeight);
         }
         matrices.pop();
     }
@@ -69,15 +105,15 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
         return RenderLayer.getArmorCutoutNoCull(getTexture(entity));
     }
 
-    public static void drawTexture(MatrixStack matrices, int x, int y, int z, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+    public static void drawTexture(MatrixStack matrices, float x, float y, float z, float u, float v, float width, float height, float textureWidth, float textureHeight) {
         drawTexture(matrices, x, x + width, y, y + height, z, width, height, u, v, textureWidth, textureHeight);
     }
 
-    private static void drawTexture(MatrixStack matrices, int x0, int x1, int y0, int y1, int z, int regionWidth, int regionHeight, float u, float v, int textureWidth, int textureHeight) {
-        drawTexturedQuad(matrices.peek().getPositionMatrix(), x0, x1, y0, y1, z, (u + 0.0f) / (float)textureWidth, (u + (float)regionWidth) / (float)textureWidth, (v + 0.0f) / (float)textureHeight, (v + (float)regionHeight) / (float)textureHeight);
+    private static void drawTexture(MatrixStack matrices, float x0, float x1, float y0, float y1, float z, float regionWidth, float regionHeight, float u, float v, float textureWidth, float textureHeight) {
+        drawTexturedQuad(matrices.peek().getPositionMatrix(), x0, x1, y0, y1, z, (u + 0.0f) / textureWidth, (u + regionWidth) / textureWidth, (v + 0.0f) / textureHeight, (v + regionHeight) / textureHeight);
     }
 
-    private static void drawTexturedQuad(Matrix4f matrix, int x0, int x1, int y0, int y1, int z, float u0, float u1, float v0, float v1) {
+    private static void drawTexturedQuad(Matrix4f matrix, float x0, float x1, float y0, float y1, float z, float u0, float u1, float v0, float v1) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);

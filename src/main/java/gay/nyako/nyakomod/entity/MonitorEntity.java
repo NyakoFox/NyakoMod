@@ -40,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 public class MonitorEntity extends AbstractDecorationEntity {
 
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
+    protected static final TrackedData<Integer> WIDTH = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    protected static final TrackedData<Integer> HEIGHT = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public Identifier identifier;
 
@@ -61,14 +63,35 @@ public class MonitorEntity extends AbstractDecorationEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(TEXTURE_URL, "");
+        this.dataTracker.startTracking(WIDTH, 1);
+        this.dataTracker.startTracking(HEIGHT, 1);
     }
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
-        if (TEXTURE_URL.equals(data)) {
-            setURL(this.dataTracker.get(TEXTURE_URL));
-        }
+        if (TEXTURE_URL.equals(data)) setURL(this.dataTracker.get(TEXTURE_URL));
+        if (WIDTH.equals(data)) setMonitorWidth(this.dataTracker.get(WIDTH));
+        if (HEIGHT.equals(data)) setMonitorHeight(this.dataTracker.get(HEIGHT));
+
         super.onTrackedDataSet(data);
+    }
+
+    public int getMonitorWidth() {
+        return this.dataTracker.get(WIDTH);
+    }
+
+    public int getMonitorHeight() {
+        return this.dataTracker.get(HEIGHT);
+    }
+
+    public void setMonitorWidth(int width) {
+        this.dataTracker.set(WIDTH, width);
+        updateAttachmentPosition();
+    }
+
+    public void setMonitorHeight(int height) {
+        this.dataTracker.set(HEIGHT, height);
+        updateAttachmentPosition();
     }
 
     public String getURL() {
@@ -105,7 +128,6 @@ public class MonitorEntity extends AbstractDecorationEntity {
     @Environment(EnvType.CLIENT)
     public void openGUI() {
         var client = MinecraftClient.getInstance();
-        client.player.playSound(NyakoSoundEvents.SPUNCH_BLOCK, 1.0f, 1.0f);
         client.setScreen(new MonitorScreen(this));
     }
 
@@ -127,12 +149,12 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public int getWidthPixels() {
-        return 16;
+        return 16 * getMonitorWidth();
     }
 
     @Override
     public int getHeightPixels() {
-        return 16;
+        return 16 * getMonitorHeight();
     }
 
     @Override
@@ -161,6 +183,8 @@ public class MonitorEntity extends AbstractDecorationEntity {
         super.writeCustomDataToNbt(nbt);
         nbt.putByte("Facing", (byte)this.facing.getId());
         nbt.putString("URL", getURL());
+        nbt.putInt("Width", getMonitorWidth());
+        nbt.putInt("Height", getMonitorHeight());
     }
 
     @Override
@@ -168,6 +192,8 @@ public class MonitorEntity extends AbstractDecorationEntity {
         super.readCustomDataFromNbt(nbt);
         this.setFacing(Direction.byId(nbt.getByte("Facing")));
         setURL(nbt.getString("URL"));
+        setMonitorWidth(nbt.getInt("Width"));
+        setMonitorHeight(nbt.getInt("Height"));
     }
 
     @Override
@@ -175,13 +201,30 @@ public class MonitorEntity extends AbstractDecorationEntity {
         if (this.facing == null) {
             return;
         }
-        double e = (double)this.attachmentPos.getX() + 0.5 - (double)this.facing.getOffsetX() * 0.46875;
-        double f = (double)this.attachmentPos.getY() + 0.5 - (double)this.facing.getOffsetY() * 0.46875;
-        double g = (double)this.attachmentPos.getZ() + 0.5 - (double)this.facing.getOffsetZ() * 0.46875;
-        this.setPos(e, f, g);
-        double h = this.getWidthPixels();
-        double i = this.getHeightPixels();
+        double add = 0.5;
+
+        double e = (double)this.attachmentPos.getX() + 0.5;
+        double f = (double)this.attachmentPos.getY() + 0.5;
+        double g = (double)this.attachmentPos.getZ() + 0.5;
+
+        double h = this.method_6893(this.getWidthPixels());
+        double i = this.method_6893(this.getHeightPixels());
+        e -= (double)this.facing.getOffsetX() * 0.46875;
+        f -= (double)this.facing.getOffsetY() * 0.46875;
+        g -= (double)this.facing.getOffsetZ() * 0.46875;
+
+        if (this.facing.getAxis().isHorizontal()) {
+            Direction direction = this.facing.rotateYCounterclockwise();
+            this.setPos(e += h * (double)direction.getOffsetX(), f += i, g += h * (double)direction.getOffsetZ());
+        } else {
+            Direction direction = this.facing.getOpposite();
+            this.setPos(e += h, f, g += h);
+        }
+
+        h = this.getWidthPixels();
+        i = this.getHeightPixels();
         double j = this.getWidthPixels();
+
         Direction.Axis axis = this.facing.getAxis();
         switch (axis) {
             case X -> h = 1.0;
@@ -189,6 +232,10 @@ public class MonitorEntity extends AbstractDecorationEntity {
             case Z -> j = 1.0;
         }
         this.setBoundingBox(new Box(e - (h /= 32.0), f - (i /= 32.0), g - (j /= 32.0), e + h, f + i, g + j));
+    }
+
+    private double method_6893(int i) {
+        return i % 32 == 0 ? 0.5 : 0.0;
     }
 
     @Override
@@ -228,6 +275,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
     @Override
     public void onBreak(@Nullable Entity entity) {
         this.playSound(this.getBreakSound(), 1.0f, 1.0f);
+        this.dropStack(this.getAsItemStack());
     }
 
     public SoundEvent getBreakSound() {

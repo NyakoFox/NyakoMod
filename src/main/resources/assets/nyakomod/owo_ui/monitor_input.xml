@@ -14,6 +14,64 @@
                             </sizing>
                         </text-box>
 
+
+                        <label>
+                            <text>Width:</text>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                        </label>
+                        <text-box id="width-box">
+                            <text>1</text>
+                            <sizing>
+                                <horizontal method="fixed">250</horizontal>
+                            </sizing>
+                        </text-box>
+
+
+                        <label>
+                            <text>Height:</text>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                        </label>
+                        <text-box id="height-box">
+                            <text>1</text>
+                            <sizing>
+                                <horizontal method="fixed">250</horizontal>
+                            </sizing>
+                        </text-box>
+
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <button id="left">
+                                    <text>Left</text>
+                                </button>
+                                <button id="right">
+                                    <text>Right</text>
+                                    <sizing>
+                                        <horizontal method="content">2</horizontal>
+                                    </sizing>
+                                </button>
+                                <button id="up">
+                                    <text>Up</text>
+                                    <sizing>
+                                        <horizontal method="content">2</horizontal>
+                                    </sizing>
+                                </button>
+                                <button id="down">
+                                    <text>Down</text>
+                                    <sizing>
+                                        <horizontal method="content">2</horizontal>
+                                    </sizing>
+                                </button>
+                            </children>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                            <horizontal-alignment>center</horizontal-alignment>
+                        </flow-layout>
+
                         <button id="submit">
                             <text>Save URL</text>
                             <margins>

@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
     MonitorEntity monitorEntity;
@@ -26,18 +27,75 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
     protected void build(FlowLayout rootComponent) {
         var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
         var textElement = rootComponent.childById(TextFieldWidget.class, "url-box");
-        assert textElement != null;
+        var widthElement = rootComponent.childById(TextFieldWidget.class, "width-box");
+        var heightElement = rootComponent.childById(TextFieldWidget.class, "height-box");
+
+        var leftButton = rootComponent.childById(ButtonWidget.class, "left");
+        var rightButton = rootComponent.childById(ButtonWidget.class, "right");
+        var upButton = rootComponent.childById(ButtonWidget.class, "up");
+        var downButton = rootComponent.childById(ButtonWidget.class, "down");
+
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());
+        widthElement.setText(String.valueOf(monitorEntity.getMonitorWidth()));
+        heightElement.setText(String.valueOf(monitorEntity.getMonitorHeight()));
+
+        leftButton.onPress(button -> {
+            var buf = PacketByteBufs.create();
+            buf.writeUuid(monitorEntity.getUuid());
+            buf.writeDouble(-1f);
+            buf.writeDouble(0);
+            buf.writeDouble(0);
+            ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
+        });
+
+        rightButton.onPress(button -> {
+            var buf = PacketByteBufs.create();
+            buf.writeUuid(monitorEntity.getUuid());
+            buf.writeDouble(1f);
+            buf.writeDouble(0);
+            buf.writeDouble(0);
+            ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
+        });
+
+        upButton.onPress(button -> {
+            var buf = PacketByteBufs.create();
+            buf.writeUuid(monitorEntity.getUuid());
+            buf.writeDouble(0);
+            buf.writeDouble(1f);
+            buf.writeDouble(0);
+            ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
+        });
+
+        downButton.onPress(button -> {
+            var buf = PacketByteBufs.create();
+            buf.writeUuid(monitorEntity.getUuid());
+            buf.writeDouble(0);
+            buf.writeDouble(-1f);
+            buf.writeDouble(0);
+            ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
+        });
 
         assert submitButton != null;
         submitButton.onPress(button -> {
             var value = textElement.getText();
             if (value.startsWith("https://") && value.endsWith(".png")) {
-                monitorEntity.setURL(textElement.getText());
+                //monitorEntity.setURL(textElement.getText());
                 var buf = PacketByteBufs.create();
                 buf.writeString(textElement.getText());
                 buf.writeUuid(monitorEntity.getUuid());
+
+                try {
+                    buf.writeInt(Integer.parseInt(widthElement.getText()));
+                } catch (Exception e) {
+                    buf.writeInt(1);
+                }
+
+                try {
+                    buf.writeInt(Integer.parseInt(heightElement.getText()));
+                } catch (Exception e) {
+                    buf.writeInt(1);
+                }
 
                 ClientPlayNetworking.send(NyakoNetworking.MONITOR_SET_URL, buf);
 
