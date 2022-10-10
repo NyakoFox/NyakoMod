@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.entity.MonitorEntityRenderer;
 import gay.nyako.nyakomod.entity.TickerEntityRenderer;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
@@ -43,6 +44,7 @@ import java.util.List;
 
 public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
+	public static final EntityModelLayer MODEL_MONITOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "monitor"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -70,6 +72,9 @@ public class NyakoClientMod implements ClientModInitializer {
 		EntityRendererRegistry.register(NyakoEntities.TICKER, TickerEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.PET_DRAGON, PetDragonRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DRAGON_LAYER, PetDragonModel::getTexturedModelData);
+		EntityRendererRegistry.register(NyakoEntities.MONITOR, MonitorEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_MONITOR_LAYER, MonitorEntityRenderer::getTexturedModelData);
+
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
 		{
@@ -122,7 +127,7 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 	}
 
-	private static final List<String> downloadedUrls = new ArrayList<>();
+	public static final List<String> downloadedUrls = new ArrayList<>();
 
 	public static BufferedImage downloadImage(String urlPath) {
 		BufferedImage image = null;

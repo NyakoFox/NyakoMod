@@ -21,6 +21,11 @@
     "block.nyakomod.gold_starry_block": "Gold Starry Block",
     "block.nyakomod.blue_starry_block": "Blue Starry Block",
     "block.nyakomod.titanstone": "Titanstone",
+    "block.nyakomod.copper_coin": "Placed Copper Coins",
+    "block.nyakomod.gold_coin": "Placed Gold Coins",
+    "block.nyakomod.emerald_coin": "Placed Emerald Coins",
+    "block.nyakomod.diamond_coin": "Placed Diamond Coins",
+    "block.nyakomod.netherite_coin": "Placed Netherite Coins",
     "block.nyakomod.allybox": "Allybox",
 
     "category.nyakomod.binds": "NyakoMod",
@@ -77,6 +82,7 @@
     "item.nyakomod.left_diamond": "Diamond (Left Half)",
     "item.nyakomod.right_diamond": "Diamond (Right Half)",
     "item.nyakomod.dragon_milk_bucket": "Dragon Milk Bucket",
+    "item.nyakomod.monitor": "Monitor",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
@@ -158,5 +164,6 @@
     "key.nyakomod.killbind": "Kill player",
 
     "entity.nyakomod.petdragon": "Dragon Hatchling",
-    "entity.nyakomod.petsprite": "Sprite"
+    "entity.nyakomod.petsprite": "Sprite",
+    "entity.nyakomod.monitor": "Monitor"
 }
