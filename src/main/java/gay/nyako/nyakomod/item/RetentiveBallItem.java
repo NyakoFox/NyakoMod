@@ -149,7 +149,10 @@ public class RetentiveBallItem extends Item {
         var levels = calculateStoredLevels(stack);
 
         tooltip.add(Text.literal("XP is stored in the ball.").formatted(Formatting.GRAY));
-        tooltip.add(Text.literal("Requires fuel. Right click with ").formatted(Formatting.GRAY).append(Text.literal("Ender Eyes").formatted(Formatting.DARK_AQUA)).append(Text.literal(" to refuel.").formatted(Formatting.GRAY)));
+        tooltip.add(Text.literal("Requires fuel. Right click").formatted(Formatting.GRAY));
+        tooltip.add(Text.literal("with ").formatted(Formatting.GRAY)
+                .append(Text.literal("Ender Eyes").formatted(Formatting.DARK_AQUA))
+                .append(Text.literal(" to refuel.").formatted(Formatting.GRAY)));
         tooltip.add(Text.literal(""));
 
         tooltip.add(Text.literal("Fuel: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(fuel)).formatted(Formatting.GOLD)));
