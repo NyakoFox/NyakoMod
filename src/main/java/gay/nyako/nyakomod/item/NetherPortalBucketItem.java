@@ -34,10 +34,8 @@ public class NetherPortalBucketItem extends Item {
             stack.decrement(1);
         }
         if (!world.isClient) {
-            user.clearStatusEffects();
-            RegistryKey<World> registryKey;
             MinecraftServer minecraftServer = world.getServer();
-            ServerWorld serverWorld2 = minecraftServer.getWorld(registryKey = world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
+            ServerWorld serverWorld2 = minecraftServer.getWorld(world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
             user.dismountVehicle();
             if (serverWorld2 != null && minecraftServer.isNetherAllowed()) {
                 world.getProfiler().push("portal");
