@@ -8,6 +8,7 @@ import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -130,7 +131,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.BUCKET)) {
-            if (this.isBlocking()) {
+            if (NyakoUtils.blockedByShield(this, player.getPos())) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
                 player.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
                 return ActionResult.success(this.world.isClient);
