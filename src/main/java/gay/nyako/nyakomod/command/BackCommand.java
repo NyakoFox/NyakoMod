@@ -27,7 +27,6 @@ public final class BackCommand implements Command<ServerCommandSource> {
   }
 
   public static void registerPreviousLocation(ServerPlayerEntity p) {
-    System.out.println("Registering previous location");
     var payload = new PlayerTeleportPayload() {
       {
         player = p;

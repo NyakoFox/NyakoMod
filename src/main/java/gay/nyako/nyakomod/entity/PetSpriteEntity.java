@@ -107,4 +107,9 @@ public class PetSpriteEntity extends PetEntity {
     public void setPetSize(Double size) {
         this.dataTracker.set(PET_SIZE, Optional.of(size));
     }
+
+    @Override
+    public boolean shouldRender(double distance) {
+        return super.shouldRender(distance);
+    }
 }

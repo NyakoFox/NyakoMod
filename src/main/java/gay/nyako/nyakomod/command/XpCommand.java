@@ -17,8 +17,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 public final class XpCommand implements Command<ServerCommandSource> {
-    public static HashMap<Integer, PlayerTeleportPayload> previousLocations = new HashMap<>();
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("xpreset")
                 // .requires(Permissions.require("nyakomod.command.xpreset"))

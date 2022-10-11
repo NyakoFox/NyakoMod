@@ -18,20 +18,19 @@ import java.util.EnumSet;
 public class DespawnPetGoal
         extends Goal {
     private final PetEntity tameable;
-    private LivingEntity owner;
-    private final WorldView world;
-    private int updateCountdownTicks;
-    private float oldWaterPathfindingPenalty;
 
     public DespawnPetGoal(PetEntity tameable) {
         this.tameable = tameable;
-        this.world = tameable.world;
     }
 
     @Override
     public boolean canStart() {
         LivingEntity livingEntity = this.tameable.getOwner();
         if (livingEntity == null) {
+            return false;
+        }
+
+        if (livingEntity.world.isClient()) {
             return false;
         }
 
@@ -42,7 +41,7 @@ public class DespawnPetGoal
                 return true;
             }
 
-            return item.getSummonedPet() != this.tameable;
+            return item.getSummonedPet(stack, livingEntity) != this.tameable;
         }
 
         return true;

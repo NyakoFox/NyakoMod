@@ -4,12 +4,16 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import gay.nyako.nyakomod.entity.PetEntity;
 import gay.nyako.nyakomod.screens.PetSpriteScreen;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
@@ -18,8 +22,6 @@ import net.minecraft.world.World;
 public class PetSummonItem<T extends PetEntity> extends TrinketItem {
     public EntityType<T> entityType;
     CreatePet createPetMethod;
-
-    PetEntity summonedPet;
 
     public interface CreatePet {
         PetEntity create(ItemStack stack, LivingEntity entity);
@@ -45,8 +47,29 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
         return TypedActionResult.success(player.getStackInHand(hand));
     }
 
-    public PetEntity getSummonedPet() {
-        return summonedPet;
+    public PetEntity getSummonedPet(ItemStack stack, LivingEntity entity) {
+        var nbt = stack.getNbt();
+        if (nbt != null && nbt.contains("entity")) {
+            var uuid = nbt.getUuid("entity");
+
+            if (entity.world instanceof ServerWorld serverWorld) {
+                for (var world : serverWorld.getServer().getWorlds()) {
+                    var e = world.getEntity(uuid);
+                    if (e instanceof PetEntity petEntity) {
+                        return petEntity;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void setSummonedPet(ItemStack stack, PetEntity entity) {
+        var nbt = stack.getOrCreateNbt();
+        nbt.putUuid("entity", entity.getUuid());
+
+        stack.setNbt(nbt);
     }
 
     public boolean canUse(World world, PlayerEntity player, Hand hand) {
@@ -57,6 +80,8 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.world.isClient()) {
             boolean shouldResummonPet = false;
+
+            var summonedPet = getSummonedPet(stack, entity);
 
             if (summonedPet == null || !summonedPet.isAlive()) {
                 shouldResummonPet = true;
@@ -73,7 +98,7 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
                     pet.setCustomName(stack.getName());
                 }
 
-                summonedPet = pet;
+                setSummonedPet(stack, pet);
             }
         }
         super.tick(stack, slot, entity);

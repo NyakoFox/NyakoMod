@@ -84,12 +84,13 @@ public class PetChangeSummonItem<T extends PetEntity> extends PetSummonItem<T> {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         NbtCompound tag = itemStack.getOrCreateNbt();
-        PetVariation variation;
+        PetVariation variation = variations.get(0);
 
         if (tag.contains("variation")) {
-            variation = variations.get(tag.getInt("variation"));
-        } else {
-            variation = variations.get(0);
+            var index = tag.getInt("variation");
+            if (index < variations.size()) {
+                variation = variations.get(index);
+            }
         }
 
         tooltip.add(Text.translatable("item.nyakomod.pet_change_summon.tooltip.variation", variation.name));
