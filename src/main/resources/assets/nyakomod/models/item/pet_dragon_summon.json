@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "nyakomod:item/pet_dragon_summon"
+  },
+  "overrides": [
+    { "predicate": { "nyakomod:variation": 0 }, "model": "nyakomod:item/pet_dragon_summon" },
+    { "predicate": { "nyakomod:variation": 0.01 }, "model": "nyakomod:item/pet_dragon_summon_01" },
+    { "predicate": { "nyakomod:variation": 0.02 }, "model": "nyakomod:item/pet_dragon_summon_02" }
+  ]
+}

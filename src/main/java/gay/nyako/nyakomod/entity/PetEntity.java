@@ -1,7 +1,9 @@
 package gay.nyako.nyakomod.entity;
 
+import dev.emi.trinkets.api.TrinketsApi;
 import gay.nyako.nyakomod.entity.goal.DespawnPetGoal;
 import gay.nyako.nyakomod.entity.goal.PetFollowOwnerGoal;
+import gay.nyako.nyakomod.item.PetSummonItem;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,6 +15,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.util.math.BlockPos;
@@ -57,6 +60,30 @@ public abstract class PetEntity extends PathAwareEntity implements Tameable {
             return 10.0f;
         }
         return world.getPhototaxisFavor(pos);
+    }
+
+    public ItemStack getSummonItem() {
+        LivingEntity livingEntity = this.getOwner();
+        if (livingEntity == null) {
+            return null;
+        }
+
+        var comp = TrinketsApi.getTrinketComponent(livingEntity);
+        if (comp.isEmpty()) {
+            return null;
+        }
+
+        var c = comp.get();
+        var inventory = c.getInventory();
+        if (inventory.containsKey("head")) {
+            var headGroup = inventory.get("head");
+            if (headGroup.containsKey("pet")) {
+                var petSlot = headGroup.get("pet");
+                return petSlot.getStack(0);
+            }
+        }
+
+        return null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.entity.renderer;
 import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
+import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,12 @@ public class PetDragonRenderer extends MobEntityRenderer<PetDragonEntity, PetDra
 
     @Override
     public Identifier getTexture(PetDragonEntity entity) {
+        var stack = entity.getSummonItem();
+        var item = stack.getItem();
+        if (item instanceof PetChangeSummonItem<?> petItem) {
+            return petItem.getVariation(stack).texture;
+        }
+
         return new Identifier("nyakomod", "textures/entity/pet/dragon.png");
     }
 }
