@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.behavior.CoinBagItemDispenserBehavior;
+import gay.nyako.nyakomod.behavior.NetherPortalStructureItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.SoulJarItemDispenserBehavior;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
@@ -78,6 +79,8 @@ public class NyakoMod implements ModInitializer {
         DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.NETHER_PORTAL_STRUCTURE, new NetherPortalStructureItemDispenserBehavior());
+
 
         CunkCoinUtils.registerCoinAmounts();
         registerCommands();
