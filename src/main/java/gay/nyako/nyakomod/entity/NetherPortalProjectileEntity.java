@@ -23,6 +23,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.OptionalInt;
@@ -49,13 +50,11 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
         super(NyakoEntities.NETHER_PORTAL, world);
         this.life = 0;
         this.setPosition(x, y, z);
-        int i = 1;
         if (!stack.isEmpty() && stack.hasNbt()) {
             this.dataTracker.set(ITEM, stack.copy());
-            i += stack.getOrCreateSubNbt("Fireworks").getByte("Flight");
         }
         this.setVelocity(this.random.nextTriangular(0.0, 0.002297), 0.05, this.random.nextTriangular(0.0, 0.002297));
-        this.lifeTime = 10 * i + this.random.nextInt(6) + this.random.nextInt(7);
+        this.lifeTime = 30;
     }
 
     public NetherPortalProjectileEntity(World world, ItemStack stack, double x, double y, double z) {
@@ -117,7 +116,8 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
             this.world.addParticle(ParticleTypes.FIREWORK, this.getX(), this.getY(), this.getZ(), this.random.nextGaussian() * 0.05, -this.getVelocity().y * 0.5, this.random.nextGaussian() * 0.05);
         }
         if (!this.world.isClient && this.life > this.lifeTime) {
-            //this.explodeAndRemove();
+            this.remove(RemovalReason.DISCARDED);
+            this.discard();
         }
     }
 
@@ -142,6 +142,11 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
 
         MinecraftServer minecraftServer = world.getServer();
         if (minecraftServer == null) return;
+
+        if (world.getRegistryKey() == World.END) {
+            world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 5f, Explosion.DestructionType.NONE);
+            return;
+        }
 
         ServerWorld serverWorld2 = minecraftServer.getWorld(world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
         entity.dismountVehicle();
