@@ -35,6 +35,12 @@
             "nyakomod:discord"
         ]
     },
+    "nether_portal_launch": {
+        "subtitle": "subtitles.nyakomod.nether_portal_launch",
+        "sounds": [
+            "nyakomod:nether_portal_launch"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {
