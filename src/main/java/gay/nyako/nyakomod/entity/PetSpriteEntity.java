@@ -1,6 +1,8 @@
 package gay.nyako.nyakomod.entity;
 
 import gay.nyako.nyakomod.NyakoEntities;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,6 +18,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,8 +32,8 @@ public class PetSpriteEntity extends PetEntity {
     }
 
     public Identifier customTextureId;
-    protected static final TrackedData<Optional<Text>> TEXTURE_URL = DataTracker.registerData(PetEntity.class, TrackedDataHandlerRegistry.OPTIONAL_TEXT_COMPONENT);
-    protected static final TrackedData<Optional<Double>> PET_SIZE = DataTracker.registerData(PetEntity.class, OPTIONAL_DOUBLE_COMPONENT);
+    protected static final TrackedData<Optional<Text>> TEXTURE_URL = DataTracker.registerData(PetSpriteEntity.class, TrackedDataHandlerRegistry.OPTIONAL_TEXT_COMPONENT);
+    protected static final TrackedData<Optional<Double>> PET_SIZE = DataTracker.registerData(PetSpriteEntity.class, OPTIONAL_DOUBLE_COMPONENT);
 
     public PetSpriteEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -61,6 +64,12 @@ public class PetSpriteEntity extends PetEntity {
     }
 
     @Override
+    public EntityDimensions getDimensions(EntityPose pose) {
+        var size = getPetSize();
+        return super.getDimensions(pose).scaled(1f, size.floatValue());
+    }
+
+    @Override
     public void tick() {
         super.tick();
     }
@@ -77,6 +86,7 @@ public class PetSpriteEntity extends PetEntity {
         super.writeCustomDataToNbt(nbt);
         if (this.getCustomSprite() != null) {
             nbt.putString("custom_sprite", this.getCustomSprite().getString());
+            nbt.putDouble("pet_size", this.getPetSize());
         }
     }
 
@@ -106,6 +116,14 @@ public class PetSpriteEntity extends PetEntity {
 
     public void setPetSize(Double size) {
         this.dataTracker.set(PET_SIZE, Optional.of(size));
+
+        this.calculateDimensions();
+    }
+
+    @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        calculateDimensions();
+        super.onTrackedDataSet(data);
     }
 
     @Override
