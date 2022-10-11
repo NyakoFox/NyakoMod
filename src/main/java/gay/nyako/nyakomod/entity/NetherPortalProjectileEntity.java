@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.entity;
 import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoSoundEvents;
+import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -129,11 +130,22 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
 
         var owner = this.getOwner();
 
-        if (entity instanceof LivingEntity livingEntity) {
-            if (livingEntity != owner && livingEntity instanceof PlayerEntity && owner instanceof ServerPlayerEntity && !this.isSilent()) {
-                ((ServerPlayerEntity)owner).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0));
-            }
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
         }
+
+        if (NyakoUtils.blockedByShield(livingEntity, this.getPos())) {
+            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+            dropStack(getStack());
+            this.remove(RemovalReason.DISCARDED);
+            this.discard();
+            return;
+        }
+
+        if (livingEntity != owner && livingEntity instanceof PlayerEntity && owner instanceof ServerPlayerEntity && !this.isSilent()) {
+            ((ServerPlayerEntity)owner).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0));
+        }
+
         this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0f, 1.2f / (this.random.nextFloat() * 0.2f + 0.9f));
 
         if (this.world.isClient) {
