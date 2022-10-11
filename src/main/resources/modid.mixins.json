@@ -7,6 +7,7 @@
     "BucketItemMixin",
     "CreditsScreenMixin",
     "CreeperExplodeMixin",
+    "CrossbowItemMixin",
     "EnderDragonEntityMixin",
     "EnderDragonFightMixin",
     "EnderDragonPartMixin",
