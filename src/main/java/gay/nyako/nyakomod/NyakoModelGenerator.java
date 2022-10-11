@@ -221,18 +221,14 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.DRIP_JACKET, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.PRESENT_ITEM, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.RETENTIVE_BALL_ITEM, Models.GENERATED);
-
         itemModelGenerator.register(NyakoItems.TEST_ITEM, Models.GENERATED);
         registerPetChangeSummoner(itemModelGenerator, (PetChangeSummonItem<?>) NyakoItems.PET_DRAGON_SUMMON_ITEM);
-
         itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
-
         itemModelGenerator.register(NyakoItems.NETHER_PORTAL_BUCKET, Models.GENERATED);
-
         itemModelGenerator.register(NyakoItems.LEFT_DIAMOND, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.RIGHT_DIAMOND, Models.GENERATED);
-
         itemModelGenerator.register(NyakoItems.DRAGON_MILK_BUCKET, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.FLINT_AND_STEEL_PLUS, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

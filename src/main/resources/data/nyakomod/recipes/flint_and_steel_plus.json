@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF",
+    "FSF",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "nyakomod:flint_and_steel_plus",
+    "count": 1
+  }
+}

@@ -29,6 +29,7 @@
     "ScoreboardCriterionMixin",
     "ServerPlayerEntityMixin",
     "SlimeEntityMixin",
+    "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
     "ZombieEntityMixin"
@@ -40,6 +41,7 @@
     "ItemRendererMixin",
     "ItemStackMixin",
     "MusicTrackerMixin",
+    "TntEntityRendererMixin",
     "WorldRendererMixin"
   ],
   "server": [

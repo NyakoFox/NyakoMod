@@ -83,6 +83,7 @@ public class NyakoItems {
     public static final Item ALLYBOX                    = register("allybox",                   new BlockItem(NyakoBlocks.ALLYBOX, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item DRAGON_MILK_BUCKET         = register("dragon_milk_bucket",        new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item MONITOR                    = register("monitor",                   new MonitorItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(64)));
+    public static final Item FLINT_AND_STEEL_PLUS       = register("flint_and_steel_plus",      new FlintAndSteelPlusItem(new FabricItemSettings().maxDamage(64).group(ItemGroup.TOOLS)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
