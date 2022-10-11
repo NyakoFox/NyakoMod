@@ -125,9 +125,4 @@ public class PetSpriteEntity extends PetEntity {
         calculateDimensions();
         super.onTrackedDataSet(data);
     }
-
-    @Override
-    public boolean shouldRender(double distance) {
-        return super.shouldRender(distance);
-    }
 }
