@@ -1,14 +1,17 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 import static net.minecraft.data.client.BlockStateModelGenerator.createSingletonBlockState;
@@ -220,7 +223,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.RETENTIVE_BALL_ITEM, Models.GENERATED);
 
         itemModelGenerator.register(NyakoItems.TEST_ITEM, Models.GENERATED);
-        itemModelGenerator.register(NyakoItems.PET_DRAGON_SUMMON_ITEM, Models.GENERATED);
+        registerPetChangeSummoner(itemModelGenerator, (PetChangeSummonItem<?>) NyakoItems.PET_DRAGON_SUMMON_ITEM);
 
         itemModelGenerator.register(NyakoItems.PIAMOND_DICKAXE, Models.HANDHELD);
 
@@ -242,5 +245,11 @@ public class NyakoModelGenerator extends FabricModelProvider {
     public final void registerMinecraftBlockItem(ItemModelGenerator itemModelGenerator, String texture, Block block) {
         TextureMap layer0 = new TextureMap().put(TextureKey.LAYER0, Identifier.tryParse(texture));
         Models.GENERATED.upload(ModelIds.getItemModelId(block.asItem()), layer0, itemModelGenerator.writer);
+    }
+
+    public final void registerPetChangeSummoner(ItemModelGenerator generator, PetChangeSummonItem<?> item) {
+        for (var i = 1; i < item.variations.size(); i++) {
+            generator.register(item, String.format(Locale.ROOT, "_%02d", i), Models.GENERATED);
+        }
     }
 }

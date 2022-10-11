@@ -130,6 +130,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.BUCKET)) {
+            if (this.isBlocking()) {
+                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
+                return ActionResult.success(this.world.isClient);
+            }
             var casted = (PlayerEntityAccess) this;
             if (casted.getMilk() >= 5) {
                 casted.setMilk(casted.getMilk() - 5);

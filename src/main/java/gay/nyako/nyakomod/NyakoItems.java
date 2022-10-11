@@ -12,6 +12,8 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.math.ColorHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
@@ -58,7 +60,9 @@ public class NyakoItems {
     public static final Item DISCORD_GACHA_ITEM         = register("discord_gacha",             new DiscordGachaItem(new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item STAFF_OF_VORBULATION_ITEM  = register("staff_of_vorbulation",      new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.EPIC)));
     public static final Item PET_SPRITE_SUMMON_ITEM     = register("pet_sprite_summon",         new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof()));
-    public static final Item PET_DRAGON_SUMMON_ITEM     = register("pet_dragon_summon",         new PetSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoEntities.PET_DRAGON, PetDragonEntity::createPet));
+    public static final Item PET_DRAGON_SUMMON_ITEM     = register("pet_dragon_summon",         new PetChangeSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoEntities.PET_DRAGON, PetDragonEntity::createPet)
+            .addVariation(Text.literal("Fire Dragon"), "dragon")
+    );
     public static final Item PIAMOND_DICKAXE            = register("piamond_dickaxe",           new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item TWO_TALL                   = register("two_tall",                  new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item NETHER_PORTAL              = registerMC("nether_portal",           new BlockItem(Blocks.NETHER_PORTAL, new FabricItemSettings().group(ItemGroup.MISC)));

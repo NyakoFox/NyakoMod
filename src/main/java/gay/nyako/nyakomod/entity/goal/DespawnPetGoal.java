@@ -35,26 +35,14 @@ public class DespawnPetGoal
             return false;
         }
 
-        var comp = TrinketsApi.getTrinketComponent(livingEntity);
-        if (comp.isEmpty()) {
-            return true;
-        }
+        var stack = this.tameable.getSummonItem();
 
-        var c = comp.get();
-        var inventory = c.getInventory();
-        if (inventory.containsKey("head")) {
-            var headGroup = inventory.get("head");
-            if (headGroup.containsKey("pet")) {
-                var petSlot = headGroup.get("pet");
-                var stack = petSlot.getStack(0);
-                if (stack.getCount() > 0 && stack.getItem() instanceof PetSummonItem<?> item) {
-                    if (!tameable.getType().equals(item.entityType)) {
-                        return true;
-                    }
-
-                    return item.getSummonedPet() != this.tameable;
-                }
+        if (stack != null && stack.getCount() > 0 && stack.getItem() instanceof PetSummonItem<?> item) {
+            if (!this.tameable.getType().equals(item.entityType)) {
+                return true;
             }
+
+            return item.getSummonedPet() != this.tameable;
         }
 
         return true;

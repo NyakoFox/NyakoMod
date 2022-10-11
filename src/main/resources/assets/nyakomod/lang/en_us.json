@@ -69,6 +69,7 @@
     "item.nyakomod.custom": "When You See It",
     "item.nyakomod.pet_sprite_summon": "Pet Summoner (Sprite)",
     "item.nyakomod.pet_dragon_summon": "Pet Summoner (Dragon)",
+    "item.nyakomod.pet_change_summon.tooltip.variation": "§7Variation: %s",
     "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
     "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
     "item.nyakomod.dev_null": "/dev/null",

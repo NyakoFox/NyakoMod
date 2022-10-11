@@ -6,6 +6,7 @@ import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.NetherPortalProjetileEntityRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
+import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import io.netty.buffer.Unpooled;
@@ -39,6 +40,7 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -100,6 +102,16 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		ModelPredicateProviderRegistry.register(Items.CROSSBOW, new Identifier("portal"), (stack, world, entity, seed) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasProjectile(stack, NyakoItems.NETHER_PORTAL_STRUCTURE) ? 1.0f : 0.0f);
+
+		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "variation"), (stack, world, entity, i) ->
+		{
+			var nbt = stack.getOrCreateNbt();
+			if (nbt.contains("variation")) {
+				return (float)nbt.getInt("variation") / 100f;
+			}
+
+			return 0;
+		});
 
 		HandledScreens.register(NyakoScreenHandlers.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
