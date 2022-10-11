@@ -132,6 +132,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         if (itemStack.isOf(Items.BUCKET)) {
             if (this.isBlocking()) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
+                player.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
                 return ActionResult.success(this.world.isClient);
             }
             var casted = (PlayerEntityAccess) this;

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.core.jmx.Server;
 
 import java.net.URL;
@@ -98,7 +99,7 @@ public class NyakoNetworking {
                 var entity = world.getEntity(UUID);
 
                 if (entity instanceof MonitorEntity monitorEntity) {
-                    monitorEntity.setPosition(monitorEntity.getPos().add(offX, offY, offZ));
+                    monitorEntity.setOffset(offX, offY, offZ);
                 }
             });
         });

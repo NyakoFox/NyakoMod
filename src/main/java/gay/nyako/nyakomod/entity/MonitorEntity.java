@@ -33,6 +33,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
@@ -283,5 +284,22 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     public Identifier getIdentifier() {
         return identifier;
+    }
+
+    public void setOffset(double offX, double offY, double offZ) {
+        Vec3d vec = new Vec3d(offX, offY, offZ);
+
+        switch (facing) {
+            case NORTH -> vec = vec.rotateY((float) Math.toRadians(180));
+            case EAST  -> vec = vec.rotateY((float) Math.toRadians(90));
+            case SOUTH -> vec = vec.rotateY((float) Math.toRadians(0));
+            case WEST  -> vec = vec.rotateY((float) Math.toRadians(270));
+            case UP    -> vec = vec.rotateX((float) Math.toRadians(90));
+            case DOWN  -> vec = vec.rotateX((float) Math.toRadians(270));
+        }
+
+        var blockPos = getDecorationBlockPos();
+        this.setPosition(blockPos.getX() + vec.x, blockPos.getY() + vec.y, blockPos.getZ() + vec.z);
+
     }
 }
