@@ -1,6 +1,7 @@
-package gay.nyako.nyakomod.entity;
+package gay.nyako.nyakomod.entity.renderer;
 
 import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.entity.TickerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;

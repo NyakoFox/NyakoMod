@@ -1,12 +1,11 @@
 package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.entity.MonitorEntityRenderer;
-import gay.nyako.nyakomod.entity.TickerEntityRenderer;
+import gay.nyako.nyakomod.entity.renderer.MonitorEntityRenderer;
+import gay.nyako.nyakomod.entity.renderer.TickerEntityRenderer;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.entity.renderer.NetherPortalProjetileEntityRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
 import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
-import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import io.netty.buffer.Unpooled;
@@ -40,7 +39,6 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;

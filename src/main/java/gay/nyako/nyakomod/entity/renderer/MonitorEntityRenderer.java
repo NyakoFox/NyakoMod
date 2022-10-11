@@ -1,7 +1,8 @@
-package gay.nyako.nyakomod.entity;
+package gay.nyako.nyakomod.entity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.entity.MonitorEntity;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;

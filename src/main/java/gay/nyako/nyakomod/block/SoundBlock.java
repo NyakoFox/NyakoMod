@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

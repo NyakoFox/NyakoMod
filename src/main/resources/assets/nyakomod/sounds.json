@@ -41,6 +41,12 @@
             "nyakomod:nether_portal_launch"
         ]
     },
+    "samsung": {
+        "subtitle": "subtitles.nyakomod.samsung",
+        "sounds": [
+            "nyakomod:samsung"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {
