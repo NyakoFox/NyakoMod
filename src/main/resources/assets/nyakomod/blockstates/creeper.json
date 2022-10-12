@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nyakomod:block/creeper",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/creeper"
+    },
+    "facing=south": {
+      "model": "nyakomod:block/creeper",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nyakomod:block/creeper",
+      "y": 270
+    }
+  }
+}
