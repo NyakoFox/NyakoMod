@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-11T22:25:55.1415792	Models
+// 1.19.2	2022-10-11T22:36:04.7312671	Models
 87fae775c4b50b90f29f2db5b533ddebfdd5fd55 assets\nyakomod\models\block\netherite_coin_five.json
 2ae16258cb382a3cdcc1fa06ecf624fec32a327a assets\nyakomod\models\block\gold_coin_twenty_three.json
 5ba678f176e7ccb9a0a4156a17e5e157d85e3bb1 assets\nyakomod\blockstates\copper_coin.json
@@ -321,6 +321,7 @@ eca9e0b3581bd1ca06be3af9c8076108d6622ab9 assets\nyakomod\models\block\diamond_co
 ab83799e96343013ad5a454f8b5ad0e510ed1ffd assets\nyakomod\models\block\gold_coin_twenty_six.json
 9e565aa52bef21505ed4d2d8a887e06b42797d68 assets\nyakomod\blockstates\blueprint_workbench.json
 5f153674a4be10b3a4e3d806e64a4238f795dae8 assets\nyakomod\models\block\gold_coin_fifty_nine.json
+bcb02f71ec5c07a4c39f1175fa6c3eebd8472988 assets\nyakomod\models\item\flint_and_steel_plus.json
 e9489cd0c971ab25983a733bfccf68a31f1083a3 assets\nyakomod\models\block\diamond_coin_twenty_one.json
 312e64645beda9f71c6b6dc42c0c039516122f5d assets\nyakomod\models\item\pet_dragon_summon_01.json
 ccfef65bcc21d7c5416fa4191afefbbbf8b66261 assets\nyakomod\models\block\gold_coin_thirteen.json
