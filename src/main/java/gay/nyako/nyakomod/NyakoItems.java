@@ -61,7 +61,16 @@ public class NyakoItems {
     public static final Item STAFF_OF_VORBULATION_ITEM  = register("staff_of_vorbulation",      new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.EPIC)));
     public static final Item PET_SPRITE_SUMMON_ITEM     = register("pet_sprite_summon",         new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof()));
     public static final Item PET_DRAGON_SUMMON_ITEM     = register("pet_dragon_summon",         new PetChangeSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoEntities.PET_DRAGON, PetDragonEntity::createPet)
-            .addVariation(Text.literal("Fire Dragon"), "dragon")
+            .addVariation(Text.literal("Red Dragon"), "dragonpet_red")
+            .addVariation(Text.literal("Lavender Dragon"), "dragonpet_lavender")
+            .addVariation(Text.literal("Blue Dragon"), "dragonpet_blue")
+            .addVariation(Text.literal("Green Dragon"), "dragonpet_green")
+            .addVariation(Text.literal("Flame Dragon"), "dragonpet_flame")
+            .addVariation(Text.literal("Gray Dragon"), "dragonpet_gray")
+            .addVariation(Text.literal("Golden Dragon"), "dragonpet_golden")
+            .addVariation(Text.literal("Diamond Dragon"), "dragonpet_diamond")
+            .addVariation(Text.literal("Ashen Dragon"), "dragonpet_ashen")
+            .addVariation(Text.literal("Trans Dragon"), "dragonpet_trans")
     );
     public static final Item PIAMOND_DICKAXE            = register("piamond_dickaxe",           new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item TWO_TALL                   = register("two_tall",                  new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
