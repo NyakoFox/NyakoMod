@@ -1,7 +1,6 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoEntities;
-import gay.nyako.nyakomod.SyncingBlockEntity;
 import gay.nyako.nyakomod.screens.NBPScreenHandler;
 import gay.nyako.nyakomod.SongPlayer;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;

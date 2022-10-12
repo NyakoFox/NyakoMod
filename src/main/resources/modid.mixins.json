@@ -22,12 +22,14 @@
     "MobEntityMixin",
     "MobSpawnerLogicMixin",
     "NetherPortalBlockMixin",
+    "PistonBlockEntityMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
     "PlayerManagerMixin",
     "ScoreboardCriterionMixin",
     "ServerPlayerEntityMixin",
     "SlimeEntityMixin",
+    "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
     "ZombieEntityMixin"
@@ -39,6 +41,7 @@
     "ItemRendererMixin",
     "ItemStackMixin",
     "MusicTrackerMixin",
+    "TntEntityRendererMixin",
     "WorldRendererMixin"
   ],
   "server": [

@@ -27,6 +27,7 @@
     "block.nyakomod.diamond_coin": "Placed Diamond Coins",
     "block.nyakomod.netherite_coin": "Placed Netherite Coins",
     "block.nyakomod.allybox": "Allybox",
+    "block.nyakomod.creeper": "Creeper",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -84,6 +85,7 @@
     "item.nyakomod.right_diamond": "Diamond (Right Half)",
     "item.nyakomod.dragon_milk_bucket": "Dragon Milk Bucket",
     "item.nyakomod.monitor": "Monitor",
+    "item.nyakomod.flint_and_steel_plus": "Flint and Steel+™",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
@@ -158,6 +160,7 @@
     "subtitles.nyakomod.moonlight": "James Primate - Black Moonlight",
     "subtitles.nyakomod.instrument": "Note Block plays",
     "subtitles.nyakomod.nether_portal_launch": "Nether Portal launches",
+    "subtitles.nyakomod.samsung": "Ice",
     "subtitles.nyakomod.true": "True!",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
