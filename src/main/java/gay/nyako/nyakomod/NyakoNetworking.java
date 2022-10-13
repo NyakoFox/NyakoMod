@@ -4,14 +4,17 @@ import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import gay.nyako.nyakomod.utils.InventoryUtils;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import org.apache.logging.log4j.core.jmx.Server;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -19,19 +22,20 @@ import java.nio.charset.StandardCharsets;
 
 public class NyakoNetworking {
     // Killbind packet
-    public static final Identifier KILL_PLAYER_PACKET_ID = new Identifier("nyakomod", "killplayer");
+    public static final Identifier KILL_PLAYER = new Identifier("nyakomod", "killplayer");
     // Purchase packet
-    public static final Identifier CUNK_SHOP_PURCHASE_PACKET_ID = new Identifier("nyakomod", "purchase");
+    public static final Identifier CUNK_SHOP_PURCHASE = new Identifier("nyakomod", "purchase");
     // Player smite packet
-    public static final Identifier PLAYER_SMITE_PACKET_ID = new Identifier("nyakomod", "player_smite");
+    public static final Identifier PLAYER_SMITE = new Identifier("nyakomod", "player_smite");
     // Setting pet sprite URLs
     public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
     // Setting monitor URLs
     public static final Identifier MONITOR_SET_URL = new Identifier("nyakomod", "set_monitor_sprite");
     public static final Identifier MONITOR_MOVE = new Identifier("nyakomod", "monitor_move");
     // Creating a model
-    public static final Identifier MODEL_CREATE_PACKET = new Identifier("nyakomod", "create_model");
-    public static final Identifier NOTE_BLOCK_PLUS_SAVE_PACKET = new Identifier("nyakomod", "note_block_plus_save");
+    public static final Identifier MODEL_CREATE = new Identifier("nyakomod", "create_model");
+    public static final Identifier NOTE_BLOCK_PLUS_SAVE = new Identifier("nyakomod", "note_block_plus_save");
+    public static final Identifier RIGHT_CLICK_INVENTORY = new Identifier("nyakomod", "right_click_inventory");
 
     public static void registerGlobalReceivers() {
         registerServerGlobalReceivers();
@@ -40,10 +44,22 @@ public class NyakoNetworking {
     public static void registerServerGlobalReceivers() {
 
         // Kill bind
-        ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER_PACKET_ID,
+        ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER,
                 (server, player, handler, buffer, sender) -> server.execute(() -> {
                     player.damage(DamageSource.MAGIC, 3.4028235E38F);
                 }));
+
+        // Super Cool Packet Thats Get Sent When Right Clikcing A Super Neat Inventory Like An Ender Chest In Your EInvnetory.
+        ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_INVENTORY,
+                (server, player, handler, buffer, sender) -> {
+                    var stack = buffer.readItemStack();
+                    server.execute(() -> {
+                        if (stack.isOf(Items.ENDER_CHEST)) {
+                            InventoryUtils.openEnderChest(stack, player);
+                        }
+                    });
+                }
+        );
 
         // Custom Sprite Setting
         ServerPlayNetworking.registerGlobalReceiver(PET_SPRITE_SET_URL,
@@ -104,7 +120,7 @@ public class NyakoNetworking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(MODEL_CREATE_PACKET,
+        ServerPlayNetworking.registerGlobalReceiver(MODEL_CREATE,
                 (server, player, handler, buffer, sender) -> {
                     var name = buffer.readString();
                     var type = buffer.readString();
@@ -117,7 +133,7 @@ public class NyakoNetworking {
         );
 
         // Cunk shop purchasing
-        ServerPlayNetworking.registerGlobalReceiver(CUNK_SHOP_PURCHASE_PACKET_ID,
+        ServerPlayNetworking.registerGlobalReceiver(CUNK_SHOP_PURCHASE,
                 (server, player, handler, buffer, sender) -> {
                     var shopId = buffer.readIdentifier();
                     var entry = buffer.readInt();
@@ -158,7 +174,7 @@ public class NyakoNetworking {
                     });
                 });
 
-        ServerPlayNetworking.registerGlobalReceiver(NOTE_BLOCK_PLUS_SAVE_PACKET,
+        ServerPlayNetworking.registerGlobalReceiver(NOTE_BLOCK_PLUS_SAVE,
                 (server, player, handler, buffer, sender) -> {
                     var blockPos = buffer.readBlockPos();
                     var url = buffer.readString();
@@ -195,5 +211,9 @@ public class NyakoNetworking {
         }
 
         return null;
+    }
+
+    public static PacketByteBuf getBuf() {
+        return new PacketByteBuf(Unpooled.buffer());
     }
 }

@@ -49,7 +49,7 @@ public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
                 buf.writeString(name);
                 buf.writeString(chosenType);
                 buf.writeString(value);
-                ClientPlayNetworking.send(NyakoNetworking.MODEL_CREATE_PACKET, buf);
+                ClientPlayNetworking.send(NyakoNetworking.MODEL_CREATE, buf);
 
                 MinecraftClient.getInstance().setScreen(null);
             }

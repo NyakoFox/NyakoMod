@@ -104,7 +104,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
             passedData.writeIdentifier(handler.shopId);
             passedData.writeInt(selectedEntry);
             passedData.writeInt(purchaseAmount);
-            ClientPlayNetworking.send(NyakoNetworking.CUNK_SHOP_PURCHASE_PACKET_ID, passedData);
+            ClientPlayNetworking.send(NyakoNetworking.CUNK_SHOP_PURCHASE, passedData);
             player.getInventory().markDirty();
 
         });

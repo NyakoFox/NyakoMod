@@ -64,11 +64,11 @@ public class NyakoClientMod implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-				ClientPlayNetworking.send(NyakoNetworking.KILL_PLAYER_PACKET_ID, passedData);
+				ClientPlayNetworking.send(NyakoNetworking.KILL_PLAYER, passedData);
 			}
 		});
 
-		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.PLAYER_SMITE_PACKET_ID,
+		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.PLAYER_SMITE,
 				(client, handler, buffer, sender) -> client.execute(() -> {
 					client.player.addVelocity(0D, 5D, 0D);
 				}));

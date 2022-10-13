@@ -22,7 +22,7 @@ public class StaffOfSmitingItem extends Item {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof PlayerEntity) {
             PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-            ServerPlayNetworking.send((ServerPlayerEntity) target, NyakoNetworking.PLAYER_SMITE_PACKET_ID, passedData);
+            ServerPlayNetworking.send((ServerPlayerEntity) target, NyakoNetworking.PLAYER_SMITE, passedData);
         }
         LightningEntity lightningBolt = new LightningEntity(EntityType.LIGHTNING_BOLT, target.world);
         lightningBolt.setCosmetic(true);
