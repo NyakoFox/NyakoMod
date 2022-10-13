@@ -47,7 +47,7 @@ public class NBPHandledScreen extends BaseUIModelHandledScreen<FlowLayout, NBPSc
                 buf.writeBlockPos(handler.blockPos);
                 buf.writeString(value);
 
-                ClientPlayNetworking.send(NyakoNetworking.NOTE_BLOCK_PLUS_SAVE_PACKET, buf);
+                ClientPlayNetworking.send(NyakoNetworking.NOTE_BLOCK_PLUS_SAVE, buf);
 
                 MinecraftClient.getInstance().setScreen(null);
             }
