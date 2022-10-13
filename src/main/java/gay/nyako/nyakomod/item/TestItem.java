@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

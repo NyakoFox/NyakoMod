@@ -36,12 +36,19 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class MonitorEntity extends AbstractDecorationEntity {
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
     protected static final TrackedData<Integer> WIDTH = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
     protected static final TrackedData<Integer> HEIGHT = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    boolean dirty;
+    protected final Predicate<Entity> PREDICATE = entity -> {
+        if (entity instanceof MonitorEntity) {
+            return facing.equals(((MonitorEntity) entity).facing);
+        }
+        return entity instanceof AbstractDecorationEntity;
+    };
 
     public Identifier identifier;
 
@@ -72,8 +79,6 @@ public class MonitorEntity extends AbstractDecorationEntity {
         if (TEXTURE_URL.equals(data)) setURL(this.dataTracker.get(TEXTURE_URL));
         if (WIDTH.equals(data)) setMonitorWidth(this.dataTracker.get(WIDTH));
         if (HEIGHT.equals(data)) setMonitorHeight(this.dataTracker.get(HEIGHT));
-
-        dirty = true;
 
         super.onTrackedDataSet(data);
     }
@@ -112,13 +117,8 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        var canModify = true;
-
-        if (!canModify) return ActionResult.FAIL;
-
         if (player.isSneaking()) {
             if (world.isClient()) {
-                // Open GUI here
                 openGUI();
             }
             return ActionResult.SUCCESS;
@@ -200,12 +200,6 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     protected void updateAttachmentPosition() {
-//        if (!dirty) {
-//            return;
-//        }
-
-        dirty = false;
-
         if (this.facing == null) {
             return;
         }
@@ -221,32 +215,26 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
         double widthOffset = this.calculateSize(width);
         double heightOffset = this.calculateSize(height);
-        x -= (double)this.facing.getOffsetX() * 0.46875;
-        y -= (double)this.facing.getOffsetY() * 0.46875;
-        z -= (double)this.facing.getOffsetZ() * 0.46875;
+        x -= (double)this.facing.getOffsetX() * (15d/32d);
+        y -= (double)this.facing.getOffsetY() * (15d/32d);
+        z -= (double)this.facing.getOffsetZ() * (15d/32d);
 
-        double xOffset = 0;
+        double xOffset;
         double yOffset = 0;
-        double zOffset = 0;
+        double zOffset;
 
         if (this.facing.getAxis().isHorizontal()) {
             Direction direction = this.facing.rotateYCounterclockwise();
-//            x += (width / 2d - widthOffset) * direction.getOffsetX();
-//            z += (width / 2d - widthOffset) * direction.getOffsetZ();
-//            y += (height / 2d) - heightOffset;
-            var width2 = width / 2;
-            xOffset = direction.getOffsetX() * (width2 - widthOffset);
-            zOffset = direction.getOffsetZ() * (width2 - widthOffset);
+            var halfWidth = width / 2;
+            xOffset = direction.getOffsetX() * (halfWidth - widthOffset);
+            zOffset = direction.getOffsetZ() * (halfWidth - widthOffset);
 
-            yOffset = height / -2 + heightOffset;
-
-            this.setPos(x + xOffset, y + yOffset, z + zOffset);
+            yOffset = (double)(height / -2) + heightOffset;
         } else {
-            xOffset = width / 2 - widthOffset;
-            zOffset = height / 2 - heightOffset;
-
-            this.setPos(x + xOffset, y + yOffset, z + zOffset);
+            xOffset = (double)(width  / 2) - widthOffset;
+            zOffset = (double)(height / 2) - heightOffset;
         }
+        this.setPos(x + xOffset, y + yOffset, z + zOffset);
 
         widthOffset = this.getWidthPixels();
         heightOffset = this.getHeightPixels();
@@ -258,12 +246,12 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
         Direction.Axis axis = this.facing.getAxis();
         switch (axis) {
-            case X -> widthOffset = 1.0;
+            case X -> widthOffset  = 1.0;
             case Y -> heightOffset = 1.0;
             case Z -> j = 1.0;
         }
 
-        widthOffset /= 32.0;
+        widthOffset  /= 32.0;
         heightOffset /= 32.0;
 
         var box = new Box(
@@ -368,6 +356,5 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
         var blockPos = getDecorationBlockPos();
         this.setPosition(blockPos.getX() + vec.x, blockPos.getY() + vec.y, blockPos.getZ() + vec.z);
-
     }
 }
