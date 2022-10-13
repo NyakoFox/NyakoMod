@@ -56,8 +56,6 @@ public class FlintAndSteelPlusItem extends Item {
 
             LootContext.Builder builder = new LootContext.Builder(serverWorld).random(serverWorld.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockPos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, playerEntity);
 
-            builder.parameter(LootContextParameters.EXPLOSION_RADIUS, 5f);
-
             ObjectArrayList<Pair<ItemStack, BlockPos>> objectArrayList = new ObjectArrayList<>();
 
             blockState.onStacksDropped(serverWorld, blockPos, ItemStack.EMPTY, false);

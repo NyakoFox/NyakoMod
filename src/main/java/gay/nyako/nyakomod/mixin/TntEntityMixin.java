@@ -9,6 +9,9 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Final;
@@ -45,6 +48,24 @@ public abstract class TntEntityMixin extends Entity implements TntEntityAccess {
     @Override
     public BlockState getCopyBlockState() {
         return dataTracker.get(BLOCKSTATE_TYPE).orElse(Blocks.TNT.getDefaultState());
+    }
+
+    @Inject(method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("TAIL"))
+    private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+        nbt.putBoolean("modifiedBlockState", modifiedBlockState);
+        nbt.putString("blockState", Registry.BLOCK.getId(getCopyBlockState().getBlock()).toString());
+    }
+
+    @Inject(method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("TAIL"))
+    private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+        modifiedBlockState = nbt.getBoolean("modifiedBlockState");
+        if (modifiedBlockState) {
+            var identifier = Identifier.tryParse(nbt.getString("blockState"));
+            if (identifier != null) {
+                var state = Registry.BLOCK.get(identifier);
+                setCopyBlockState(state.getDefaultState());
+            }
+        }
     }
 
     @Redirect(method = "explode()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;createExplosion(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/world/explosion/Explosion$DestructionType;)Lnet/minecraft/world/explosion/Explosion;"))
