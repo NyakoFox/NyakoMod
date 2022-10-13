@@ -1,12 +1,11 @@
 package gay.nyako.nyakomod.entity;
 
-import gay.nyako.nyakomod.NyakoClientMod;
-import gay.nyako.nyakomod.NyakoEntities;
-import gay.nyako.nyakomod.NyakoItems;
-import gay.nyako.nyakomod.NyakoSoundEvents;
+import gay.nyako.nyakomod.*;
 import gay.nyako.nyakomod.screens.MonitorScreen;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.AbstractRedstoneGateBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -21,37 +20,43 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 
-public class MonitorEntity extends AbstractDecorationEntity {
+public class MonitorEntity extends Entity {
 
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
+    protected static final TrackedData<Direction> FACING = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.FACING);
     protected static final TrackedData<Integer> WIDTH = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
     protected static final TrackedData<Integer> HEIGHT = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public Identifier identifier;
 
-    public MonitorEntity(EntityType<? extends AbstractDecorationEntity> entityType, World world) {
+    private static final double THICKNESS = 1D / 16D;
+    private static final int MAX_WIDTH = 8;
+    private static final int MAX_HEIGHT = 8;
+
+    public MonitorEntity(EntityType<? extends Entity> entityType, World world) {
         super(entityType, world);
+        setBoundingBox(new Box(0D, 0D, 0D, 0D, 0D, 0D));
     }
 
     public MonitorEntity(World world, BlockPos pos, Direction direction) {
-        super(NyakoEntities.MONITOR, world, pos);
+        super(NyakoEntities.MONITOR, world);
+        this.setPosition(pos.getX(), pos.getY(), pos.getZ());
         this.setFacing(direction);
     }
 
@@ -62,8 +67,8 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     protected void initDataTracker() {
-        super.initDataTracker();
         this.dataTracker.startTracking(TEXTURE_URL, "");
+        this.dataTracker.startTracking(FACING, Direction.NORTH);
         this.dataTracker.startTracking(WIDTH, 1);
         this.dataTracker.startTracking(HEIGHT, 1);
     }
@@ -71,6 +76,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         if (TEXTURE_URL.equals(data)) setURL(this.dataTracker.get(TEXTURE_URL));
+        if (FACING.equals(data)) setFacing(this.dataTracker.get(FACING));
         if (WIDTH.equals(data)) setMonitorWidth(this.dataTracker.get(WIDTH));
         if (HEIGHT.equals(data)) setMonitorHeight(this.dataTracker.get(HEIGHT));
 
@@ -85,15 +91,41 @@ public class MonitorEntity extends AbstractDecorationEntity {
         return this.dataTracker.get(HEIGHT);
     }
 
-    public void setMonitorWidth(int width) {
+    public boolean setMonitorWidth(int width) {
+        width = MathHelper.clamp(width, 1, MAX_WIDTH);
+
+        var oldWidth = getMonitorWidth();
         this.dataTracker.set(WIDTH, width);
-        updateAttachmentPosition();
+        return width != oldWidth;
     }
 
-    public void setMonitorHeight(int height) {
+    public boolean setMonitorHeight(int height) {
+        height = MathHelper.clamp(height, 1, MAX_HEIGHT);
+
+        var oldHeight = getMonitorHeight();
         this.dataTracker.set(HEIGHT, height);
-        updateAttachmentPosition();
+
+        return height != oldHeight;
+        //updateClient();
     }
+
+    /*public void updateClient() {
+        if (world.isClient()) return;
+        ServerWorld serverWorld = (ServerWorld) world;
+        for (PlayerEntity player : world.getPlayers()) {
+            System.out.println("sending packet to " + player.getName().getString());
+            PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
+            passedData.writeInt(this.getId());
+            passedData.writeBlockPos(this.getBlockPos());
+            passedData.writeDouble(this.getPos().x);
+            passedData.writeDouble(this.getPos().y);
+            passedData.writeDouble(this.getPos().z);
+            passedData.writeBlockPos(this.getDecorationBlockPos());
+            passedData.writeInt(this.getMonitorWidth());
+            passedData.writeInt(this.getMonitorHeight());
+            ServerPlayNetworking.send((ServerPlayerEntity) player, NyakoNetworking.MONITOR_UPDATE, passedData);
+        }
+    }*/
 
     public String getURL() {
         return this.dataTracker.get(TEXTURE_URL);
@@ -132,33 +164,14 @@ public class MonitorEntity extends AbstractDecorationEntity {
         client.setScreen(new MonitorScreen(this));
     }
 
-    @Override
-    protected void setFacing(Direction facing) {
-        Validate.notNull(facing);
-        this.facing = facing;
-        if (facing.getAxis().isHorizontal()) {
-            this.setPitch(0.0f);
-            this.setYaw(this.facing.getHorizontal() * 90);
-        } else {
-            this.setPitch(-90 * facing.getDirection().offset());
-            this.setYaw(0.0f);
-        }
-        this.prevPitch = this.getPitch();
-        this.prevYaw = this.getYaw();
-        this.updateAttachmentPosition();
-    }
-
-    @Override
     public int getWidthPixels() {
         return 16 * getMonitorWidth();
     }
 
-    @Override
     public int getHeightPixels() {
         return 16 * getMonitorHeight();
     }
 
-    @Override
     public void onPlace() {
         this.playSound(this.getPlaceSound(), 1.0f, 1.0f);
     }
@@ -167,10 +180,56 @@ public class MonitorEntity extends AbstractDecorationEntity {
         return SoundEvents.ENTITY_ITEM_FRAME_PLACE;
     }
 
+    public void setFacing(Direction facing) {
+        dataTracker.set(FACING, facing);
+        updateBoundingBox();
+    }
+
+    public Direction getFacing() {
+        return dataTracker.get(FACING);
+    }
+
+    private void updateBoundingBox() {
+        Direction facing = getFacing();
+
+        if (facing.getAxis().isHorizontal()) {
+            setPitch(0.0f);
+            setYaw(facing.getHorizontal() * 90);
+        } else {
+            setPitch(-90 * facing.getDirection().offset());
+            setYaw(0.0f);
+        }
+        prevYaw = getYaw();
+        prevPitch = getPitch();
+        setBoundingBox(calculateBoundingBox());
+    }
+
+    @Override
+    protected Box calculateBoundingBox() {
+        return calculateBoundingBox(getBlockPos(), getFacing(), getMonitorWidth(), getMonitorHeight());
+    }
+
+    private Box calculateBoundingBox(BlockPos pos, Direction facing, double width, double height) {
+        return switch (facing) {
+            default -> new Box(pos.getX() + 1D, pos.getY(), pos.getZ() + 1D - THICKNESS, pos.getX() - width + 1D, pos.getY() + height, pos.getZ() + 1D);
+            case SOUTH -> new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + width, pos.getY() + height, pos.getZ() + THICKNESS);
+            case WEST -> new Box(pos.getX() + 1D - THICKNESS, pos.getY(), pos.getZ(), pos.getX() + 1D, pos.getY() + height, pos.getZ() + width);
+            case EAST -> new Box(pos.getX(), pos.getY(), pos.getZ() + 1D, pos.getX() + THICKNESS, pos.getY() + height, pos.getZ() - width + 1D);
+        };
+    }
+
+    public BlockPos getCenterPosition() {
+        Vec3d center = getCenter(getBoundingBox());
+        return new BlockPos(center.x, center.y, center.z);
+    }
+
+    public Vec3d getCenter(Box aabb) {
+        return new Vec3d(aabb.minX + (aabb.maxX - aabb.minX) * 0.5D, aabb.minY + (aabb.maxY - aabb.minY) * 0.5D, aabb.minZ + (aabb.maxZ - aabb.minZ) * 0.5D);
+    }
 
     @Override
     public Packet<?> createSpawnPacket() {
-        return new EntitySpawnS2CPacket(this, this.facing.getId(), this.getDecorationBlockPos());
+        return new EntitySpawnS2CPacket(this, getFacing().getId(), getBlockPos());
     }
 
     @Override
@@ -181,8 +240,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putByte("Facing", (byte)this.facing.getId());
+        nbt.putByte("Facing", (byte)getFacing().getId());
         nbt.putString("URL", getURL());
         nbt.putInt("Width", getMonitorWidth());
         nbt.putInt("Height", getMonitorHeight());
@@ -190,7 +248,6 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
         this.setFacing(Direction.byId(nbt.getByte("Facing")));
         setURL(nbt.getString("URL"));
         setMonitorWidth(nbt.getInt("Width"));
@@ -198,56 +255,25 @@ public class MonitorEntity extends AbstractDecorationEntity {
     }
 
     @Override
-    protected void updateAttachmentPosition() {
-        if (this.facing == null) {
-            return;
-        }
-        double add = 0.5;
-
-        double e = (double)this.attachmentPos.getX() + 0.5;
-        double f = (double)this.attachmentPos.getY() + 0.5;
-        double g = (double)this.attachmentPos.getZ() + 0.5;
-
-        double h = this.method_6893(this.getWidthPixels());
-        double i = this.method_6893(this.getHeightPixels());
-        e -= (double)this.facing.getOffsetX() * 0.46875;
-        f -= (double)this.facing.getOffsetY() * 0.46875;
-        g -= (double)this.facing.getOffsetZ() * 0.46875;
-
-        if (this.facing.getAxis().isHorizontal()) {
-            Direction direction = this.facing.rotateYCounterclockwise();
-            this.setPos(e += h * (double)direction.getOffsetX(), f += i, g += h * (double)direction.getOffsetZ());
-        } else {
-            this.setPos(e += h, f, g += h);
-        }
-
-        h = this.getWidthPixels();
-        i = this.getHeightPixels();
-        double j = this.getWidthPixels();
-
-        Direction.Axis axis = this.facing.getAxis();
-        switch (axis) {
-            case X -> h = 1.0;
-            case Y -> i = 1.0;
-            case Z -> j = 1.0;
-        }
-        this.setBoundingBox(new Box(e - (h /= 32.0), f - (i /= 32.0), g - (j /= 32.0), e + h, f + i, g + j));
+    public void tick() {
+        updateBoundingBox();
+        super.tick();
+        checkValid();
     }
 
-    private double method_6893(int i) {
-        return i % 32 == 0 ? 0.5 : 0.0;
+    public boolean isValid() {
+        return world.canCollide(this, getBoundingBox()) && world.getEntitiesByClass(MonitorEntity.class, getBoundingBox().contract(getFacing().getOffsetX() == 0 ? 2D / 16D : 0D, getFacing().getOffsetY() == 0 ? 2D / 16D : 0D, getFacing().getOffsetZ() == 0 ? 2D / 16D : 0D), image -> image != this).isEmpty();
+    }
+
+    public void checkValid() {
+        if (!isValid()) {
+            removeMonitor(null);
+        }
     }
 
     @Override
-    public boolean canStayAttached() {
-        if (!this.world.isSpaceEmpty(this)) {
-            return false;
-        }
-        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
-        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
-            return false;
-        }
-        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
+    protected boolean shouldSetPositionOnLoad() {
+        return false;
     }
 
     @Override
@@ -271,10 +297,20 @@ public class MonitorEntity extends AbstractDecorationEntity {
         return new ItemStack(NyakoItems.MONITOR);
     }
 
+    public void removeMonitor(Entity entity) {
+        if (!isRemoved() && !world.isClient()) {
+            onBreak(entity);
+            kill();
+        }
+    }
 
-    @Override
     public void onBreak(@Nullable Entity entity) {
         this.playSound(this.getBreakSound(), 1.0f, 1.0f);
+        if (entity instanceof PlayerEntity playerEntity) {
+            if (playerEntity.isCreative()) {
+                return;
+            }
+        }
         this.dropStack(this.getAsItemStack());
     }
 
@@ -286,20 +322,39 @@ public class MonitorEntity extends AbstractDecorationEntity {
         return identifier;
     }
 
-    public void setOffset(double offX, double offY, double offZ) {
-        Vec3d vec = new Vec3d(offX, offY, offZ);
-
-        switch (facing) {
-            case NORTH -> vec = vec.rotateY((float) Math.toRadians(180));
-            case EAST  -> vec = vec.rotateY((float) Math.toRadians(90));
-            case SOUTH -> vec = vec.rotateY((float) Math.toRadians(0));
-            case WEST  -> vec = vec.rotateY((float) Math.toRadians(270));
-            case UP    -> vec = vec.rotateX((float) Math.toRadians(90));
-            case DOWN  -> vec = vec.rotateX((float) Math.toRadians(270));
+    public void resize(MonitorDirection direction, boolean larger) {
+        int amount = larger ? 1 : -1;
+        switch (direction) {
+            case UP:
+                setMonitorHeight(getMonitorHeight() + amount);
+                break;
+            case DOWN:
+                if (setMonitorHeight(getMonitorHeight() + amount)) {
+                    setImagePosition(getBlockPos().offset(Direction.DOWN, amount));
+                }
+                break;
+            case RIGHT:
+                setMonitorWidth(getMonitorWidth() + amount);
+                break;
+            case LEFT:
+                if (setMonitorWidth(getMonitorWidth() + amount)) {
+                    setImagePosition(getBlockPos().offset(getResizeOffset(), amount));
+                }
+                break;
         }
+    }
 
-        var blockPos = getDecorationBlockPos();
-        this.setPosition(blockPos.getX() + vec.x, blockPos.getY() + vec.y, blockPos.getZ() + vec.z);
+    public void setImagePosition(BlockPos position) {
+        updatePositionAndAngles(position.getX() + 0.5D, position.getY(), position.getZ() + 0.5D, getPitch(), getYaw());
+        updateBoundingBox();
+    }
 
+    private Direction getResizeOffset() {
+        return switch (getFacing()) {
+            case WEST -> Direction.NORTH;
+            case NORTH -> Direction.EAST;
+            case SOUTH -> Direction.WEST;
+            default -> Direction.SOUTH;
+        };
     }
 }

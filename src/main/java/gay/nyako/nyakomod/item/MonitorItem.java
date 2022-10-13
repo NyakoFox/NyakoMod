@@ -34,7 +34,7 @@ public class MonitorItem extends Item {
             if (compoundTag != null)
                 EntityType.loadFromEntityNbt(world, playerEntity, monitorEntity, compoundTag);
 
-            if (monitorEntity.canStayAttached()) {
+            if (monitorEntity.isValid()) {
                 if (!world.isClient) {
                     monitorEntity.onPlace();
                     world.spawnEntity(monitorEntity);

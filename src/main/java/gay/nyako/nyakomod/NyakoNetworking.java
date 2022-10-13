@@ -1,14 +1,21 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.NoteBlockPlusBlockEntity;
+import gay.nyako.nyakomod.entity.MonitorDirection;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.core.jmx.Server;
@@ -29,14 +36,51 @@ public class NyakoNetworking {
     // Setting monitor URLs
     public static final Identifier MONITOR_SET_URL = new Identifier("nyakomod", "set_monitor_sprite");
     public static final Identifier MONITOR_MOVE = new Identifier("nyakomod", "monitor_move");
+    public static final Identifier MONITOR_UPDATE = new Identifier("nyakomod", "monitor_update");
     // Creating a model
     public static final Identifier MODEL_CREATE_PACKET = new Identifier("nyakomod", "create_model");
     public static final Identifier NOTE_BLOCK_PLUS_SAVE_PACKET = new Identifier("nyakomod", "note_block_plus_save");
 
-    public static void registerGlobalReceivers() {
-        registerServerGlobalReceivers();
-    }
+    public static void registerClientGlobalReceivers() {
 
+        ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.PLAYER_SMITE_PACKET_ID,
+                (client, handler, buffer, sender) -> client.execute(() -> {
+                    client.player.addVelocity(0D, 5D, 0D);
+                })
+        );
+
+        ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.MONITOR_UPDATE,
+                (client, handler, buffer, sender) -> {
+                    int entityId = buffer.readInt();
+                    BlockPos pos = buffer.readBlockPos();
+                    double x = buffer.readDouble();
+                    double y = buffer.readDouble();
+                    double z = buffer.readDouble();
+                    BlockPos attachmentPos = buffer.readBlockPos();
+                    int width = buffer.readInt();
+                    int height = buffer.readInt();
+                    client.execute(() -> {
+                        if (client.world == null) return;
+                        Entity entity = client.world.getEntityById(entityId);
+                        if (entity instanceof MonitorEntity monitorEntity) {
+                            //System.out.println("-----");
+                            monitorEntity.setPos(x, y, z);
+                            //monitorEntity.attachmentPos = attachmentPos;
+                            //System.out.println(pos.toString());
+                            //monitorEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+                            //monitorEntity.setMonitorWidth(width);
+                            //monitorEntity.setMonitorHeight(height);
+                            //System.out.println(monitorEntity.getBlockPos().toString());
+                            //System.out.println(monitorEntity.getDecorationBlockPos().toString());
+                            //System.out.println(monitorEntity.getPos().toString());
+                        } else {
+                            System.out.println("no entity (what)");
+                        }
+                    });
+                }
+        );
+
+    }
     public static void registerServerGlobalReceivers() {
 
         // Kill bind
@@ -99,7 +143,10 @@ public class NyakoNetworking {
                 var entity = world.getEntity(UUID);
 
                 if (entity instanceof MonitorEntity monitorEntity) {
-                    monitorEntity.setOffset(offX, offY, offZ);
+                    if (offX < 0) monitorEntity.resize(MonitorDirection.LEFT, true);
+                    if (offX > 0) monitorEntity.resize(MonitorDirection.RIGHT, true);
+                    if (offY < 0) monitorEntity.resize(MonitorDirection.DOWN, true);
+                    if (offY > 0) monitorEntity.resize(MonitorDirection.UP, true);
                 }
             });
         });

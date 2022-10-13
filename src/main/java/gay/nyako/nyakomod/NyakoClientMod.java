@@ -61,17 +61,14 @@ public class NyakoClientMod implements ClientModInitializer {
 				"category.nyakomod.binds" // The translation key of the keybinding's category.
 		));
 
+		NyakoNetworking.registerClientGlobalReceivers();
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (killBinding.wasPressed()) {
 				PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
 				ClientPlayNetworking.send(NyakoNetworking.KILL_PLAYER_PACKET_ID, passedData);
 			}
 		});
-
-		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.PLAYER_SMITE_PACKET_ID,
-				(client, handler, buffer, sender) -> client.execute(() -> {
-					client.player.addVelocity(0D, 5D, 0D);
-				}));
 
 		EntityRendererRegistry.register(NyakoEntities.TICKER, TickerEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.PET_DRAGON, PetDragonRenderer::new);

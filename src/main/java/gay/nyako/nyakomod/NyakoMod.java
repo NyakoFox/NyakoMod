@@ -65,7 +65,7 @@ public class NyakoMod implements ModInitializer {
         Milk.finiteMilkFluid();
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
-        NyakoNetworking.registerGlobalReceivers();
+        NyakoNetworking.registerServerGlobalReceivers();
         NyakoLoot.register();
         NyakoGacha.register();
         InstrumentRegistry.register();
