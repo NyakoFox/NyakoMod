@@ -28,9 +28,9 @@ public class MonitorItem extends Item {
             return ActionResult.FAIL;
         } else {
             World world = context.getWorld();
-            var nbt = itemStack.getOrCreateNbt();
+            var nbt = itemStack.getNbt();
             MonitorEntity monitorEntity = new MonitorEntity(world, blockPos2, direction);
-            if (nbt.contains("monitor")) {
+            if (nbt != null && nbt.contains("monitor")) {
                 var monitor = nbt.getCompound("monitor");
                 monitorEntity.setMonitorWidth(monitor.getInt("width"));
                 monitorEntity.setMonitorHeight(monitor.getInt("height"));
