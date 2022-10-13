@@ -3,7 +3,6 @@ package gay.nyako.nyakomod.entity;
 import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.NyakoEntities;
 import gay.nyako.nyakomod.NyakoItems;
-import gay.nyako.nyakomod.NyakoSoundEvents;
 import gay.nyako.nyakomod.screens.MonitorScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +20,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -39,10 +37,11 @@ import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 
 public class MonitorEntity extends AbstractDecorationEntity {
-
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
     protected static final TrackedData<Integer> WIDTH = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
     protected static final TrackedData<Integer> HEIGHT = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    boolean dirty;
 
     public Identifier identifier;
 
@@ -74,6 +73,8 @@ public class MonitorEntity extends AbstractDecorationEntity {
         if (WIDTH.equals(data)) setMonitorWidth(this.dataTracker.get(WIDTH));
         if (HEIGHT.equals(data)) setMonitorHeight(this.dataTracker.get(HEIGHT));
 
+        dirty = true;
+
         super.onTrackedDataSet(data);
     }
 
@@ -86,13 +87,17 @@ public class MonitorEntity extends AbstractDecorationEntity {
     }
 
     public void setMonitorWidth(int width) {
-        this.dataTracker.set(WIDTH, width);
-        updateAttachmentPosition();
+        if (width != getMonitorWidth()) {
+            this.dataTracker.set(WIDTH, width);
+            updateAttachmentPosition();
+        }
     }
 
     public void setMonitorHeight(int height) {
-        this.dataTracker.set(HEIGHT, height);
-        updateAttachmentPosition();
+        if (height != getMonitorHeight()) {
+            this.dataTracker.set(HEIGHT, height);
+            updateAttachmentPosition();
+        }
     }
 
     public String getURL() {
@@ -199,55 +204,93 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     protected void updateAttachmentPosition() {
+//        if (!dirty) {
+//            return;
+//        }
+
+        dirty = false;
+
         if (this.facing == null) {
             return;
         }
-        double add = 0.5;
 
-        double e = (double)this.attachmentPos.getX() + 0.5;
-        double f = (double)this.attachmentPos.getY() + 0.5;
-        double g = (double)this.attachmentPos.getZ() + 0.5;
+        var pos = this.attachmentPos;
 
-        double h = this.method_6893(this.getWidthPixels());
-        double i = this.method_6893(this.getHeightPixels());
-        e -= (double)this.facing.getOffsetX() * 0.46875;
-        f -= (double)this.facing.getOffsetY() * 0.46875;
-        g -= (double)this.facing.getOffsetZ() * 0.46875;
+        double x = (double)pos.getX() + 0.5;
+        double y = (double)pos.getY() + 0.5;
+        double z = (double)pos.getZ() + 0.5;
+
+        var width = this.getMonitorWidth();
+        var height = this.getMonitorHeight();
+
+        double widthOffset = this.calculateSize(width);
+        double heightOffset = this.calculateSize(height);
+        x -= (double)this.facing.getOffsetX() * 0.46875;
+        y -= (double)this.facing.getOffsetY() * 0.46875;
+        z -= (double)this.facing.getOffsetZ() * 0.46875;
+
+        double xOffset = 0;
+        double yOffset = 0;
+        double zOffset = 0;
 
         if (this.facing.getAxis().isHorizontal()) {
             Direction direction = this.facing.rotateYCounterclockwise();
-            this.setPos(e += h * (double)direction.getOffsetX(), f += i, g += h * (double)direction.getOffsetZ());
+//            x += (width / 2d - widthOffset) * direction.getOffsetX();
+//            z += (width / 2d - widthOffset) * direction.getOffsetZ();
+//            y += (height / 2d) - heightOffset;
+            var width2 = width / 2;
+            xOffset = -direction.getOffsetX() * (width2 - widthOffset);
+            zOffset = direction.getOffsetZ() * (width2);
+
+            this.setPos(x + xOffset, y, z + zOffset);
         } else {
-            this.setPos(e += h, f, g += h);
+//            this.setPos(x += widthOffset, y, z += widthOffset);
+            this.setPos(x, y, z);
+
         }
 
-        h = this.getWidthPixels();
-        i = this.getHeightPixels();
+        System.out.println("C: %.1f,%.1f,%.1f | %.1f,%.1f,%.1f".formatted(x, y, z, xOffset, yOffset, zOffset));
+        System.out.println("P: %s | %s".formatted(attachmentPos.toShortString(), getBlockPos().toShortString()));
+
+        widthOffset = this.getWidthPixels();
+        heightOffset = this.getHeightPixels();
         double j = this.getWidthPixels();
 
         Direction.Axis axis = this.facing.getAxis();
         switch (axis) {
-            case X -> h = 1.0;
-            case Y -> i = 1.0;
+            case X -> widthOffset = 1.0;
+            case Y -> heightOffset = 1.0;
             case Z -> j = 1.0;
         }
-        this.setBoundingBox(new Box(e - (h /= 32.0), f - (i /= 32.0), g - (j /= 32.0), e + h, f + i, g + j));
+
+        widthOffset /= 32.0;
+        heightOffset /= 32.0;
+
+        var box = new Box(
+                x - widthOffset,
+                y - heightOffset,
+                z - (j /= 32.0),
+                x + widthOffset,
+                y + heightOffset,
+                z + j);
+        this.setBoundingBox(box);
     }
 
-    private double method_6893(int i) {
-        return i % 32 == 0 ? 0.5 : 0.0;
+    private double calculateSize(int i) {
+        return i % 2 == 0 ? 0.5 : 0;
     }
 
     @Override
     public boolean canStayAttached() {
-        if (!this.world.isSpaceEmpty(this)) {
-            return false;
-        }
-        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
-        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
-            return false;
-        }
-        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
+        return true;
+//        if (!this.world.isSpaceEmpty(this)) {
+//            return false;
+//        }
+//        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
+//        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
+//            return false;
+//        }
+//        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
     }
 
     @Override
