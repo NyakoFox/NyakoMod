@@ -87,17 +87,13 @@ public class MonitorEntity extends AbstractDecorationEntity {
     }
 
     public void setMonitorWidth(int width) {
-        if (width != getMonitorWidth()) {
-            this.dataTracker.set(WIDTH, width);
-            updateAttachmentPosition();
-        }
+        this.dataTracker.set(WIDTH, width);
+        updateAttachmentPosition();
     }
 
     public void setMonitorHeight(int height) {
-        if (height != getMonitorHeight()) {
-            this.dataTracker.set(HEIGHT, height);
-            updateAttachmentPosition();
-        }
+        this.dataTracker.set(HEIGHT, height);
+        updateAttachmentPosition();
     }
 
     public String getURL() {
@@ -239,22 +235,26 @@ public class MonitorEntity extends AbstractDecorationEntity {
 //            z += (width / 2d - widthOffset) * direction.getOffsetZ();
 //            y += (height / 2d) - heightOffset;
             var width2 = width / 2;
-            xOffset = -direction.getOffsetX() * (width2 - widthOffset);
-            zOffset = direction.getOffsetZ() * (width2);
+            xOffset = direction.getOffsetX() * (width2 - widthOffset);
+            zOffset = direction.getOffsetZ() * (width2 - widthOffset);
 
-            this.setPos(x + xOffset, y, z + zOffset);
+            yOffset = height / -2 + heightOffset;
+
+            this.setPos(x + xOffset, y + yOffset, z + zOffset);
         } else {
-//            this.setPos(x += widthOffset, y, z += widthOffset);
-            this.setPos(x, y, z);
+            xOffset = width / 2 - widthOffset;
+            zOffset = height / 2 - heightOffset;
 
+            this.setPos(x + xOffset, y + yOffset, z + zOffset);
         }
-
-        System.out.println("C: %.1f,%.1f,%.1f | %.1f,%.1f,%.1f".formatted(x, y, z, xOffset, yOffset, zOffset));
-        System.out.println("P: %s | %s".formatted(attachmentPos.toShortString(), getBlockPos().toShortString()));
 
         widthOffset = this.getWidthPixels();
         heightOffset = this.getHeightPixels();
         double j = this.getWidthPixels();
+
+        if (this.facing.getAxis().isVertical()) {
+            j = this.getHeightPixels();
+        }
 
         Direction.Axis axis = this.facing.getAxis();
         switch (axis) {
@@ -267,13 +267,28 @@ public class MonitorEntity extends AbstractDecorationEntity {
         heightOffset /= 32.0;
 
         var box = new Box(
-                x - widthOffset,
-                y - heightOffset,
-                z - (j /= 32.0),
-                x + widthOffset,
-                y + heightOffset,
-                z + j);
+                x - widthOffset + xOffset,
+                y - heightOffset + yOffset,
+                z - (j /= 32.0) + zOffset,
+                x + widthOffset + xOffset,
+                y + heightOffset + yOffset,
+                z + j + zOffset);
         this.setBoundingBox(box);
+    }
+
+    @Override
+    public Vec3d getSyncedPos() {
+        return Vec3d.of(this.attachmentPos);
+    }
+
+    @Override
+    public void refreshPositionAndAngles(double x, double y, double z, float yaw, float pitch) {
+        this.setPosition(x, y, z);
+    }
+
+    @Override
+    public void updateTrackedPositionAndAngles(double x, double y, double z, float yaw, float pitch, int interpolationSteps, boolean interpolate) {
+        this.setPosition(x, y, z);
     }
 
     private double calculateSize(int i) {
@@ -282,15 +297,14 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public boolean canStayAttached() {
-        return true;
-//        if (!this.world.isSpaceEmpty(this)) {
-//            return false;
-//        }
-//        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
-//        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
-//            return false;
-//        }
-//        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
+        if (!this.world.isSpaceEmpty(this)) {
+            return false;
+        }
+        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
+        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
+            return false;
+        }
+        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
     }
 
     @Override
@@ -311,7 +325,18 @@ public class MonitorEntity extends AbstractDecorationEntity {
     }
 
     protected ItemStack getAsItemStack() {
-        return new ItemStack(NyakoItems.MONITOR);
+        var stack = new ItemStack(NyakoItems.MONITOR);
+
+        if (!(getMonitorHeight() == 1 && getMonitorWidth() == 1 && getURL().equals(""))) {
+            var nbt = stack.getOrCreateNbt();
+            var monitor = new NbtCompound();
+            monitor.putInt("width", getMonitorWidth());
+            monitor.putInt("height", getMonitorHeight());
+            monitor.putString("url", getURL());
+            nbt.put("monitor", monitor);
+            stack.setNbt(nbt);
+        }
+        return stack;
     }
 
 

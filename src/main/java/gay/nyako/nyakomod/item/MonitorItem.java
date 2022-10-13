@@ -28,13 +28,16 @@ public class MonitorItem extends Item {
             return ActionResult.FAIL;
         } else {
             World world = context.getWorld();
+            var nbt = itemStack.getOrCreateNbt();
             MonitorEntity monitorEntity = new MonitorEntity(world, blockPos2, direction);
+            if (nbt.contains("monitor")) {
+                var monitor = nbt.getCompound("monitor");
+                monitorEntity.setMonitorWidth(monitor.getInt("width"));
+                monitorEntity.setMonitorHeight(monitor.getInt("height"));
+                monitorEntity.setURL(monitor.getString("url"));
+            }
 
-            NbtCompound compoundTag = itemStack.getNbt();
-            if (compoundTag != null)
-                EntityType.loadFromEntityNbt(world, playerEntity, monitorEntity, compoundTag);
-
-            if (true || monitorEntity.canStayAttached()) {
+            if (monitorEntity.canStayAttached()) {
                 if (!world.isClient) {
                     monitorEntity.onPlace();
                     world.spawnEntity(monitorEntity);
