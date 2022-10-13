@@ -65,38 +65,43 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
         base.render(matrices, vertices, 255, OverlayTexture.DEFAULT_UV);
         matrices.pop();
         if (identifier != null) {
-            var image = ((NativeImageBackedTexture) MinecraftClient.getInstance().getTextureManager().getTexture(identifier)).getImage();
-            var width = (float)image.getWidth();
-            var height = (float)image.getHeight();
-            matrices.translate(0f, 1f, -0.5f + (1d / 16d) / 2);
+            var texture = MinecraftClient.getInstance().getTextureManager().getTexture(identifier);
+            if (texture instanceof NativeImageBackedTexture nativeImageBackedTexture) {
+                var image = nativeImageBackedTexture.getImage();
+                if (image != null) {
+                    var width = (float) image.getWidth();
+                    var height = (float) image.getHeight();
+                    matrices.translate(0f, 1f, -0.5f + (1d / 16d) / 2);
 
-            var distanceFromModel = 1d;
-            matrices.translate(-0.5f, -0.5, -distanceFromModel / 16d);
+                    var distanceFromModel = 1d;
+                    matrices.translate(-0.5f, -0.5, -distanceFromModel / 16d);
 
-            matrices.translate((float)(-entity.getMonitorWidth()) / 2f, (float)(-entity.getMonitorHeight()) / 2f, 0f);
+                    matrices.translate((float) (-entity.getMonitorWidth()) / 2f, (float) (-entity.getMonitorHeight()) / 2f, 0f);
 
-            matrices.translate(0.5f, 0.5f, 0f);
+                    matrices.translate(0.5f, 0.5f, 0f);
 
-            RenderSystem.setShaderTexture(0, identifier);
-            // keep aspect ratio while keeping coordinates between 0-1
-            var x = 0f;
-            var y = 0f;
-            var outputWidth = 1f;
-            var outputHeight = 1f;
-            if (width > height) {
-                outputHeight = height / width;
-                y = (1f - outputHeight) / 2f;
-            } else {
-                outputWidth = width / height;
-                x = (1f - outputWidth) / 2f;
+                    RenderSystem.setShaderTexture(0, identifier);
+                    // keep aspect ratio while keeping coordinates between 0-1
+                    var x = 0f;
+                    var y = 0f;
+                    var outputWidth = 1f;
+                    var outputHeight = 1f;
+                    if (width > height) {
+                        outputHeight = height / width;
+                        y = (1f - outputHeight) / 2f;
+                    } else {
+                        outputWidth = width / height;
+                        x = (1f - outputWidth) / 2f;
+                    }
+
+                    outputWidth *= entity.getMonitorWidth();
+                    outputHeight *= entity.getMonitorHeight();
+                    x *= entity.getMonitorWidth();
+                    y *= entity.getMonitorHeight();
+
+                    drawTexture(matrices, x, y, 0f, 0f, 0f, outputWidth, outputHeight, outputWidth, outputHeight);
+                }
             }
-
-            outputWidth *= entity.getMonitorWidth();
-            outputHeight *= entity.getMonitorHeight();
-            x *= entity.getMonitorWidth();
-            y *= entity.getMonitorHeight();
-
-            drawTexture(matrices, x, y, 0f, 0f, 0f, outputWidth, outputHeight, outputWidth, outputHeight);
         }
         matrices.pop();
     }
