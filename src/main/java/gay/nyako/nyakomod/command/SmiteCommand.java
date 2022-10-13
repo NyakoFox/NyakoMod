@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
@@ -34,11 +35,7 @@ public final class SmiteCommand {
 
                     if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
                         Entity entity = entityHitResult.getEntity();
-                        entity.damage(DamageSource.LIGHTNING_BOLT, 5);
-                        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
-                        lightning.setPosition(entity.getPos());
-                        player.world.spawnEntity(lightning);
-                        lightning.setCosmetic(true);
+                        smiteEntity(entity);
                         return 1;
                     }
 
@@ -51,6 +48,23 @@ public final class SmiteCommand {
                     }
                     return 1;
                 })
+                .then(CommandManager.argument("target", EntityArgumentType.entities())
+                        .executes(context -> {
+                            var entities = EntityArgumentType.getEntities(context, "target");
+                            for (var entity : entities) {
+                                smiteEntity(entity);
+                            }
+                            return 1;
+                        })
+                )
         );
+    }
+
+    private static void smiteEntity(Entity entity) {
+        entity.damage(DamageSource.LIGHTNING_BOLT, 5);
+        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, entity.world);
+        lightning.setPosition(entity.getPos());
+        entity.world.spawnEntity(lightning);
+        lightning.setCosmetic(true);
     }
 }
