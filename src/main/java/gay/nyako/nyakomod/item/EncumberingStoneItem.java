@@ -1,11 +1,13 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoSoundEvents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Formatting;
@@ -40,6 +42,12 @@ public class EncumberingStoneItem extends Item {
                 nbt.putBoolean("locked", !nbt.getBoolean("locked"));
             } else {
                 nbt.putBoolean("locked", false);
+            }
+
+            if (nbt.getBoolean("locked")) {
+                player.playSound(NyakoSoundEvents.UNLOCK, SoundCategory.BLOCKS, 1f, 0.9f);
+            } else {
+                player.playSound(NyakoSoundEvents.UNLOCK, SoundCategory.BLOCKS, 1f, 1.1f);
             }
 
             return true;

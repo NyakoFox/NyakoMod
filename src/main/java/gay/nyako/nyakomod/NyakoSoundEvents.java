@@ -15,6 +15,7 @@ public class NyakoSoundEvents {
     public static final SoundEvent TRUE_BLOCK           = register("true");
     public static final SoundEvent NETHER_PORTAL_LAUNCH = register("nether_portal_launch");
     public static final SoundEvent SAMSUNG              = register("samsung");
+    public static final SoundEvent UNLOCK              = register("unlock");
 
     public static final SoundEvent MUSIC_DISC_WOLVES    = NyakoDiscs.WOLVES.soundEvent();
     public static final SoundEvent MUSIC_DISC_MASK      = NyakoDiscs.MASK.soundEvent();

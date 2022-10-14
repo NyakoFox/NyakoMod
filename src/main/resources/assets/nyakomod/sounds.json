@@ -47,6 +47,12 @@
             "nyakomod:samsung"
         ]
     },
+    "unlock": {
+        "subtitle": "subtitles.nyakomod.unlock",
+        "sounds": [
+            "nyakomod:unlock"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {
