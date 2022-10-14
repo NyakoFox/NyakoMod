@@ -2,11 +2,11 @@ package gay.nyako.nyakomod.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +22,18 @@ public class MagnetItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!isEnabled(stack)) return;
+
+        if (world.getTime() % 20 == 0) {
+            var broken = stack.damage(1, world.random, null);
+            if (broken) {
+                if (entity instanceof LivingEntity livingEntity) {
+                    livingEntity.playEquipmentBreakEffects(stack);
+                }
+                stack.decrement(1);
+                return;
+            }
+        }
+
 
         var pos = entity.getPos();
         var pos1 = new BlockPos(pos.x - 8, pos.y - 8, pos.z - 8);
