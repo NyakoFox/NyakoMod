@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BucketItemMixin",
-    "HorseEntityMixin",
     "CreditsScreenMixin",
     "CreeperExplodeMixin",
     "CrossbowItemMixin",
@@ -18,8 +17,10 @@
     "FishingBobberEntityMixin",
     "GrindstoneScreenHandlerMixin",
     "GrindstoneSlotsScreenHandlerMixin",
+    "HorseEntityMixin",
     "LivingEntityMixin",
     "MilkBucketItemMixin",
+    "MilkMixin",
     "MobEntityMixin",
     "MobSpawnerLogicMixin",
     "NetherPortalBlockMixin",

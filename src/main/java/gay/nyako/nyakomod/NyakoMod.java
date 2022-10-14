@@ -63,6 +63,7 @@ public class NyakoMod implements ModInitializer {
         Milk.enableCauldron();
         Milk.enableMilkPlacing();
         Milk.finiteMilkFluid();
+        Milk.enableAllMilkBottles();
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
         NyakoNetworking.registerGlobalReceivers();
