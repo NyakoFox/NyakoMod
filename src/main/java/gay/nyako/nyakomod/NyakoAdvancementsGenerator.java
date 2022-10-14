@@ -53,6 +53,19 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                 .criterion("player_milked", PlayerMilkCriterion.Conditions.any())
                 .build(consumer, "nyakomod/player_milked");
 
+        Advancement milkHorseAdvancement = Advancement.Builder.create()
+                .display(NyakoItems.HORSE_MILK_BUCKET, Text.literal("BRO?????"),
+                        Text.translatable("Milk a horse??? What the fuck?????"),
+                        null,
+                        AdvancementFrame.GOAL,
+                        true,
+                        true,
+                        true
+                )
+                .parent(getMilkedAdvancement)
+                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.HORSE_MILK_BUCKET))
+                .build(consumer, "nyakomod/horse_milked");
+
         Advancement milkDragonAdvancement = Advancement.Builder.create()
                 .display(NyakoItems.DRAGON_MILK_BUCKET, Text.literal("Mommy Milked"),
                         Text.translatable("Milk the Jender Jragon"),
@@ -62,7 +75,7 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                         true,
                         true
                 )
-                .parent(getMilkedAdvancement)
+                .parent(milkHorseAdvancement)
                 .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.DRAGON_MILK_BUCKET))
                 .build(consumer, "nyakomod/dragon_milked");
 
