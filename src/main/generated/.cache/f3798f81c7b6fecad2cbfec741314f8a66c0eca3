@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-13T21:47:08.3444324	Models
+// 1.19.2	2022-10-14T00:37:33.7839354	Models
 5a4e776effee05123e4fdf63fd69cb201405314f assets\nyakomod\models\block\netherite_coin_sixty_one.json
 b5a03d9854ec29f97e2a3e137c26835fb96d873a assets\nyakomod\models\block\emerald_coin_fifty_four.json
 ccfeb056c70060b8325db1faa9b3620ecd5244d4 assets\nyakomod\models\block\copper_coin_fifteen.json
@@ -209,6 +209,7 @@ eac5b30d5bb73ffb07093dc38476d9a2ff41697b assets\nyakomod\models\block\netherite_
 bf2292e8116eb8028bb40828a0865fc91f8572bd assets\nyakomod\models\block\emerald_coin_thirty_seven.json
 b5af65b63df263b26a75a0f712570eedea24287c assets\nyakomod\models\item\staff_of_smiting.json
 c7da3604b1a8e10ff0a09640f52f91f3948bc244 assets\nyakomod\models\block\diamond_coin_forty_seven.json
+ff8ffed734aca1d4f51132538144a505ffe07002 assets\nyakomod\models\item\magnet.json
 338f33051bf2d3a67b7142696e8ee1091fd6963e assets\nyakomod\models\block\gold_coin_eight.json
 6d1d8c793d76ab124e56b0ae66aeae422b9b3a4e assets\nyakomod\models\block\emerald_coin_eight.json
 9fd69524d622fa8c671818e8ec76450b0240b83f assets\nyakomod\models\block\gold_coin_sixty_one.json
