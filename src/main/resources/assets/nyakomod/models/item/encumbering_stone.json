@@ -1,0 +1,10 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "nyakomod:item/encumbering_stone"
+  },
+  "overrides": [
+    { "predicate": { "nyakomod:locked": 0 }, "model": "nyakomod:item/encumbering_stone" },
+    { "predicate": { "nyakomod:locked": 1 }, "model": "nyakomod:item/encumbering_stone_unlocked" }
+  ]
+}

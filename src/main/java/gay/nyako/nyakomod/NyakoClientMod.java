@@ -100,6 +100,14 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		ModelPredicateProviderRegistry.register(Items.CROSSBOW, new Identifier("portal"), (stack, world, entity, seed) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasProjectile(stack, NyakoItems.NETHER_PORTAL_STRUCTURE) ? 1.0f : 0.0f);
+		ModelPredicateProviderRegistry.register(NyakoItems.ENCUMBERING_STONE, new Identifier("nyakomod", "locked"), (stack, world, entity, seed) -> {
+			var nbt = stack.getNbt();
+			if (nbt != null && nbt.contains("locked") && !nbt.getBoolean("locked")) {
+				return 1;
+			}
+
+			return 0;
+		});
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "variation"), (stack, world, entity, i) ->
 		{

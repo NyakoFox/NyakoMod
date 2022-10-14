@@ -39,6 +39,37 @@ public abstract class PlayerInventoryMixin {
 
 	@Inject(at = @At("HEAD"), method = "insertStack(ILnet/minecraft/item/ItemStack;)Z", cancellable = true)
 	private void insertStack(int slot, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+		var inventory = player.getInventory();
+
+		for (int i = 0; i < inventory.size(); ++i) {
+			var s = inventory.getStack(i);
+			if (s.isOf(NyakoItems.ENCUMBERING_STONE)) {
+				var nbt = s.getNbt();
+				if (nbt == null || !nbt.contains("locked") || nbt.getBoolean("locked")) {
+					cir.setReturnValue(false);
+					cir.cancel();
+				}
+			} else if (s.isOf(NyakoItems.SUPER_ENCUMBERING_STONE)) {
+				cir.setReturnValue(false);
+				cir.cancel();
+			}
+		}
+
+		for (int i = 0; i < inventory.size(); ++i) {
+			var s = inventory.getStack(i);
+			if (s.isOf(NyakoItems.DEV_NULL_ITEM)) {
+				var stored = DevNullItem.getStoredItem(s);
+				if (stored != null && ItemStack.canCombine(stack, stored)) {
+					var nbt = s.getNbt();
+					nbt.putInt("stored_count", nbt.getInt("stored_count") + stack.getCount());
+					stack.setCount(0);
+					cir.setReturnValue(true);
+					cir.cancel();
+					break;
+				}
+			}
+		}
+
 		var item = stack.getItem();
 		if (item instanceof CoinItem) {
 			var hungryBag = CunkCoinUtils.getHungryBag(player);
@@ -53,23 +84,6 @@ public abstract class PlayerInventoryMixin {
 				stack.setCount(0);
 				cir.setReturnValue(true);
 				cir.cancel();
-			}
-		}
-
-		var inventory = player.getInventory();
-
-		for (int i = 0; i < inventory.size(); ++i) {
-			var s = inventory.getStack(i);
-			if (s.isOf(NyakoItems.DEV_NULL_ITEM)) {
-				var stored = DevNullItem.getStoredItem(s);
-				if (stored != null && ItemStack.canCombine(stack, stored)) {
-					var nbt = s.getNbt();
-					nbt.putInt("stored_count", nbt.getInt("stored_count") + stack.getCount());
-					stack.setCount(0);
-					cir.setReturnValue(true);
-					cir.cancel();
-					break;
-				}
 			}
 		}
 	}

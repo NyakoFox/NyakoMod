@@ -96,6 +96,8 @@ public class NyakoItems {
     public static final Item CREEPER_HEAD               = register("creeper",                   new BlockItem(NyakoBlocks.CREEPER, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
     public static final Item HORSE_MILK_BUCKET          = register("horse_milk_bucket",         new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item MAGNET                     = register("magnet",                    new MagnetItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item ENCUMBERING_STONE          = register("encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), true));
+    public static final Item SUPER_ENCUMBERING_STONE          = register("super_encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), false));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
