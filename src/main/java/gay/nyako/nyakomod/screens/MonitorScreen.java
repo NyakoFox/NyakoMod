@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.screens;
 import gay.nyako.nyakomod.NyakoNetworking;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.DiscreteSliderComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -27,8 +28,8 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
     protected void build(FlowLayout rootComponent) {
         var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
         var textElement = rootComponent.childById(TextFieldWidget.class, "url-box");
-        var widthElement = rootComponent.childById(TextFieldWidget.class, "width-box");
-        var heightElement = rootComponent.childById(TextFieldWidget.class, "height-box");
+        var widthElement = rootComponent.childById(DiscreteSliderComponent.class, "width");
+        var heightElement = rootComponent.childById(DiscreteSliderComponent.class, "height");
 
         var leftButton = rootComponent.childById(ButtonWidget.class, "left");
         var rightButton = rootComponent.childById(ButtonWidget.class, "right");
@@ -37,8 +38,8 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
 
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());
-        widthElement.setText(String.valueOf(monitorEntity.getMonitorWidth()));
-        heightElement.setText(String.valueOf(monitorEntity.getMonitorHeight()));
+        widthElement.setFromDiscreteValue(monitorEntity.getMonitorWidth());
+        heightElement.setFromDiscreteValue(monitorEntity.getMonitorHeight());
 
         leftButton.onPress(button -> {
             var buf = PacketByteBufs.create();
@@ -76,6 +77,9 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
             ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
         });
 
+        widthElement.onChanged(value -> {
+        });
+
         assert submitButton != null;
         submitButton.onPress(button -> {
             var value = textElement.getText();
@@ -85,17 +89,9 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
                 buf.writeString(textElement.getText());
                 buf.writeUuid(monitorEntity.getUuid());
 
-                try {
-                    buf.writeInt(Integer.parseInt(widthElement.getText()));
-                } catch (Exception e) {
-                    buf.writeInt(1);
-                }
+                buf.writeInt((int) widthElement.discreteValue());
 
-                try {
-                    buf.writeInt(Integer.parseInt(heightElement.getText()));
-                } catch (Exception e) {
-                    buf.writeInt(1);
-                }
+                buf.writeInt((int) heightElement.discreteValue());
 
                 ClientPlayNetworking.send(NyakoNetworking.MONITOR_SET_URL, buf);
 

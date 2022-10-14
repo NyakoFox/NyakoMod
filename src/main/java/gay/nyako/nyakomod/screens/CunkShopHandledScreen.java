@@ -63,7 +63,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         var shopEntries = getEntries();
         for (ShopEntry entry : shopEntries) {
             rootComponent.childById(FlowLayout.class,"button_list").child(
-                    Components.button(entry.name(), button -> {
+                    Components.button(entry.name(), (ButtonWidget.PressAction) button -> {
                                 selectEntry(shopEntries.indexOf(entry), rootComponent);
                     })
                     .horizontalSizing(Sizing.fixed(88))

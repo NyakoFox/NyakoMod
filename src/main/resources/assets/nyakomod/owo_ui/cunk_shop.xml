@@ -18,7 +18,7 @@
                             </sizing>
                             <positioning type="absolute">1,126</positioning>
                             <surface>
-                                <outline>DDARK_GRAY</outline>
+                                <outline>dark-gray</outline>
                             </surface>
                             <padding>
                                 <all>2</all>
@@ -26,7 +26,7 @@
                         </scroll>
                         <label>
                             <text>The CunkShop™</text>
-                            <color>DDARK_GRAY</color>
+                            <color>dark-gray</color>
                             <margins>
                                 <bottom>4</bottom>
                             </margins>
@@ -46,14 +46,14 @@
                                         <vertical method="fixed">111</vertical>
                                     </sizing>
                                     <surface>
-                                        <outline>DDARK_GRAY</outline>
+                                        <outline>dark-gray</outline>
                                     </surface>
                                 </scroll>
                                 <flow-layout direction="vertical">
                                     <children>
                                         <label id="purchase-header">
                                             <text>Purchase</text>
-                                            <color>DDARK_GRAY</color>
+                                            <color>dark-gray</color>
                                             <margins>
                                                 <bottom>4</bottom>
                                             </margins>
@@ -74,7 +74,7 @@
                                                         </sizing>
                                                     </scroll>
                                                     <box>
-                                                        <color>DDARK_GRAY</color>
+                                                        <color>dark-gray</color>
                                                         <sizing>
                                                             <horizontal method="fill">100</horizontal>
                                                             <vertical method="fixed">1</vertical>
@@ -87,7 +87,7 @@
                                                     </box>
                                                     <label id="entry-description">
                                                         <text></text>
-                                                        <color>DDARK_GRAY</color>
+                                                        <color>dark-gray</color>
                                                         <margins>
                                                             <bottom>4</bottom>
                                                         </margins>

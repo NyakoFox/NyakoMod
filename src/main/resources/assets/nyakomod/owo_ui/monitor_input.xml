@@ -14,36 +14,57 @@
                             </sizing>
                         </text-box>
 
-
-                        <label>
-                            <text>Width:</text>
-                            <margins>
-                                <top>10</top>
-                            </margins>
-                        </label>
-                        <text-box id="width-box">
-                            <text>1</text>
-                            <sizing>
-                                <horizontal method="fixed">250</horizontal>
-                            </sizing>
-                        </text-box>
-
-
-                        <label>
-                            <text>Height:</text>
-                            <margins>
-                                <top>10</top>
-                            </margins>
-                        </label>
-                        <text-box id="height-box">
-                            <text>1</text>
-                            <sizing>
-                                <horizontal method="fixed">250</horizontal>
-                            </sizing>
-                        </text-box>
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <label>
+                                    <text>Width:</text>
+                                    <margins>
+                                        <right>10</right>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fixed">32</horizontal>
+                                    </sizing>
+                                </label>
+                                <discrete-slider id="width" max="16" min="1">
+                                    <sizing>
+                                        <horizontal method="fixed">208</horizontal>
+                                    </sizing>
+                                </discrete-slider>
+                            </children>
+                            <margins><top>10</top></margins>
+                        </flow-layout>
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <label>
+                                    <text>Height:</text>
+                                    <margins>
+                                        <right>10</right>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fixed">32</horizontal>
+                                    </sizing>
+                                </label>
+                                <discrete-slider id="height" max="16" min="1">
+                                    <value>1</value>
+                                    <sizing>
+                                        <horizontal method="fixed">208</horizontal>
+                                    </sizing>
+                                </discrete-slider>
+                            </children>
+                            <margins><top>10</top></margins>
+                        </flow-layout>
 
                         <flow-layout direction="horizontal">
                             <children>
+                                <label>
+                                    <text>Move:</text>
+                                    <margins>
+                                        <right>10</right>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fixed">32</horizontal>
+                                    </sizing>
+                                </label>
                                 <button id="left">
                                     <text>Left</text>
                                 </button>
