@@ -2,8 +2,14 @@ package gay.nyako.nyakomod;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LeafEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.function.EnchantRandomlyLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -14,6 +20,7 @@ import java.util.List;
 
 public class NyakoLoot {
     private static final List<Identifier> coinLootTables = new ArrayList<>();
+    private static final List<Identifier> itemLootTables = new ArrayList<>();
 
     private static LootPool.Builder addLootTableCoins(Item coinItem, int min, int max, int weight) {
         return LootPool.builder()
@@ -49,7 +56,25 @@ public class NyakoLoot {
         coinLootTables.add(new Identifier("minecraft", "chests/ruined_portal"));
         coinLootTables.add(new Identifier("minecraft", "chests/village/village_weaponsmith"));
 
+        itemLootTables.add(new Identifier("minecraft", "chests/simple_dungeon"));
+        itemLootTables.add(new Identifier("minecraft", "chests/abandoned_mineshaft"));
+        itemLootTables.add(new Identifier("minecraft", "chests/underwater_ruin_big"));
+        itemLootTables.add(new Identifier("minecraft", "chests/shipwreck_treasure"));
+        itemLootTables.add(new Identifier("minecraft", "chests/pillager_outpost"));
+
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (source.isBuiltin() && coinLootTables.contains(id)) {
+                tableBuilder
+                        .pool(LootPool.builder().rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
+                            .with(ItemEntry.builder(NyakoItems.MAGNET).weight(10))
+                            .with(ItemEntry.builder(NyakoItems.ENCUMBERING_STONE).weight(5))
+                            .with(ItemEntry.builder(NyakoItems.SUPER_ENCUMBERING_STONE).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.BLUEPRINT).weight(20)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WEEZED).weight(10))
+                            .build()
+                        );
+            }
+
             // Check if the loot table is one of the coin loot tables
             if (source.isBuiltin() && coinLootTables.contains(id)) {
                 // Add a random amount of copper coins to the loot table
