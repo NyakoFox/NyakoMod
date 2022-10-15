@@ -76,6 +76,16 @@ public abstract class CreditsScreenMixin extends Screen {
         //return this.time > 1000f;
     }
 
+    /**
+     * @author NyakoFo
+     * @reason Don't speed it up ty
+     */
+
+    @Overwrite
+    private float getSpeed() {
+        return this.baseSpeed;
+    }
+
     @ModifyVariable(method = "<init>(ZLjava/lang/Runnable;)V", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private static boolean injected(boolean endCredits) {
         return DEBUG || endCredits;
@@ -86,6 +96,8 @@ public abstract class CreditsScreenMixin extends Screen {
 
     @Shadow
     private void load(String id, CreditsScreen.CreditsReader reader) {};
+
+    @Shadow @Final private float baseSpeed;
 
     /**
      * @author NyakoFox
