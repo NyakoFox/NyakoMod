@@ -77,7 +77,7 @@ public abstract class CreditsScreenMixin extends Screen {
     }
 
     /**
-     * @author NyakoFo
+     * @author NyakoFox
      * @reason Don't speed it up ty
      */
 
