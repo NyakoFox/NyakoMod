@@ -168,7 +168,7 @@ public class CunkCoinUtils {
         Integer netherite = map.get(CoinValue.NETHERITE);
 
         if (copper > 0) {
-            ItemStack stack = new ItemStack(NyakoItems.COPPER_COIN_ITEM);
+            ItemStack stack = new ItemStack(NyakoItems.COPPER_COIN);
             stack.setCount(copper);
             if (inventory instanceof SimpleInventory) {
                 ((SimpleInventory) inventory).addStack(stack);
@@ -177,7 +177,7 @@ public class CunkCoinUtils {
             }
         }
         if (gold > 0) {
-            ItemStack stack = new ItemStack(NyakoItems.GOLD_COIN_ITEM);
+            ItemStack stack = new ItemStack(NyakoItems.GOLD_COIN);
             stack.setCount(gold);
             if (inventory instanceof SimpleInventory) {
                 ((SimpleInventory) inventory).addStack(stack);
@@ -186,7 +186,7 @@ public class CunkCoinUtils {
             }
         }
         if (emerald > 0) {
-            ItemStack stack = new ItemStack(NyakoItems.EMERALD_COIN_ITEM);
+            ItemStack stack = new ItemStack(NyakoItems.EMERALD_COIN);
             stack.setCount(emerald);
             if (inventory instanceof SimpleInventory) {
                 ((SimpleInventory) inventory).addStack(stack);
@@ -195,7 +195,7 @@ public class CunkCoinUtils {
             }
         }
         if (diamond > 0) {
-            ItemStack stack = new ItemStack(NyakoItems.DIAMOND_COIN_ITEM);
+            ItemStack stack = new ItemStack(NyakoItems.DIAMOND_COIN);
             stack.setCount(diamond);
             if (inventory instanceof SimpleInventory) {
                 ((SimpleInventory) inventory).addStack(stack);
@@ -204,7 +204,7 @@ public class CunkCoinUtils {
             }
         }
         if (netherite > 0) {
-            ItemStack stack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
+            ItemStack stack = new ItemStack(NyakoItems.NETHERITE_COIN);
             stack.setCount(netherite);
             if (inventory instanceof SimpleInventory) {
                 ((SimpleInventory) inventory).addStack(stack);
@@ -331,7 +331,7 @@ public class CunkCoinUtils {
         var inventory = player.getInventory();
         for (int i = 0; i < inventory.size(); ++i) {
             var stack = inventory.getStack(i);
-            if (stack.isOf(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM)) {
+            if (stack.isOf(NyakoItems.HUNGRY_BAG_OF_COINS)) {
                 NbtCompound tag = stack.getOrCreateNbt();
                 if (!tag.getBoolean("using")) {
                     return stack;
@@ -340,7 +340,7 @@ public class CunkCoinUtils {
         }
 
         var trinketBag = getTrinketCoinBag(player);
-        if (trinketBag != null && trinketBag.isOf(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM)) {
+        if (trinketBag != null && trinketBag.isOf(NyakoItems.HUNGRY_BAG_OF_COINS)) {
             NbtCompound tag = trinketBag.getOrCreateNbt();
             if (!tag.getBoolean("using")) {
                 return trinketBag;
@@ -354,13 +354,13 @@ public class CunkCoinUtils {
         var optionalComponent = TrinketsApi.getTrinketComponent(player);
         if (optionalComponent.isPresent()) {
             var component = optionalComponent.get();
-            var bags1 = component.getEquipped(NyakoItems.BAG_OF_COINS_ITEM);
-            var bags2 = component.getEquipped(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM);
+            var bags1 = component.getEquipped(NyakoItems.BAG_OF_COINS);
+            var bags2 = component.getEquipped(NyakoItems.HUNGRY_BAG_OF_COINS);
             var bags = Stream.concat(bags1.stream(), bags2.stream()).toList();
 
             for (int i = 0; i < bags.size(); ++i) {
                 var stack = bags.get(i).getRight();
-                if (stack.isOf(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM) || stack.isOf(NyakoItems.BAG_OF_COINS_ITEM)) {
+                if (stack.isOf(NyakoItems.HUNGRY_BAG_OF_COINS) || stack.isOf(NyakoItems.BAG_OF_COINS)) {
                     return stack;
                 }
             }

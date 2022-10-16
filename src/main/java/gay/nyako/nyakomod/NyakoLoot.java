@@ -2,14 +2,8 @@ package gay.nyako.nyakomod;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.EnchantRandomlyLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -87,22 +81,22 @@ public class NyakoLoot {
                     case "minecraft:chests/end_city_treasure":
                     case "minecraft:chests/jungle_temple":
                     case "minecraft:chests/igloo_chest":
-                        tableBuilder.pool(addLootTableCoins(NyakoItems.EMERALD_COIN_ITEM, 1, 2, 5).build());
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.EMERALD_COIN, 1, 2, 5).build());
                     case "minecraft:chests/buried_treasure":
                     case "minecraft:chests/pillager_outpost":
                         copperMin = 0;
                         copperMax = 100;
-                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN_ITEM, 40, 80, 10).build());
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN, 40, 80, 10).build());
                         break;
                     case "minecraft:chests/shipwreck_treasure":
                     case "minecraft:chests/desert_pyramid":
                         copperMin = 0;
                         copperMax = 100;
-                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN_ITEM, 20, 40, 10).build());
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN, 20, 40, 10).build());
                         break;
                 }
 
-                tableBuilder.pool(addLootTableCoins(NyakoItems.COPPER_COIN_ITEM, copperMin, copperMax, copperWeight).build());
+                tableBuilder.pool(addLootTableCoins(NyakoItems.COPPER_COIN, copperMin, copperMax, copperWeight).build());
             }
         });
     }

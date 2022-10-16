@@ -6,7 +6,6 @@ import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.utils.InventoryUtils;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
@@ -69,9 +68,9 @@ public class NyakoNetworking {
 
                     server.execute(() -> {
                         var stack = player.getMainHandStack();
-                        if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON_ITEM)) {
+                        if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON)) {
                             stack = player.getOffHandStack();
-                            if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON_ITEM)) {
+                            if (!stack.isOf(NyakoItems.PET_SPRITE_SUMMON)) {
                                 return;
                             }
                         }

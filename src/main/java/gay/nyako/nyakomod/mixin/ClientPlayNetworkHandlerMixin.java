@@ -25,11 +25,11 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
         if (entity instanceof ItemEntity) {
             ItemEntity itemEntity = (ItemEntity)entity;
             ItemStack itemStack = itemEntity.getStack();
-            if (itemStack.isOf(NyakoItems.COPPER_COIN_ITEM) ||
-                itemStack.isOf(NyakoItems.GOLD_COIN_ITEM) ||
-                itemStack.isOf(NyakoItems.EMERALD_COIN_ITEM) ||
-                itemStack.isOf(NyakoItems.DIAMOND_COIN_ITEM) ||
-                itemStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
+            if (itemStack.isOf(NyakoItems.COPPER_COIN) ||
+                itemStack.isOf(NyakoItems.GOLD_COIN) ||
+                itemStack.isOf(NyakoItems.EMERALD_COIN) ||
+                itemStack.isOf(NyakoItems.DIAMOND_COIN) ||
+                itemStack.isOf(NyakoItems.NETHERITE_COIN)) {
                 world.playSound(x, y, z, NyakoSoundEvents.COIN_COLLECT, category, volume * 0.7f, pitch, useDistance);
                 return;
             }

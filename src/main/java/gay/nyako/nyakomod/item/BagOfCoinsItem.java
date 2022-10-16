@@ -28,11 +28,11 @@ public class BagOfCoinsItem extends Item {
     @Override
     public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
         if (!otherStack.isEmpty()) {
-            if (otherStack.isOf(NyakoItems.COPPER_COIN_ITEM) ||
-                    otherStack.isOf(NyakoItems.GOLD_COIN_ITEM) ||
-                    otherStack.isOf(NyakoItems.EMERALD_COIN_ITEM) ||
-                    otherStack.isOf(NyakoItems.DIAMOND_COIN_ITEM) ||
-                    otherStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
+            if (otherStack.isOf(NyakoItems.COPPER_COIN) ||
+                    otherStack.isOf(NyakoItems.GOLD_COIN) ||
+                    otherStack.isOf(NyakoItems.EMERALD_COIN) ||
+                    otherStack.isOf(NyakoItems.DIAMOND_COIN) ||
+                    otherStack.isOf(NyakoItems.NETHERITE_COIN)) {
 
                 player.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.7f, 1f);
 
@@ -43,19 +43,19 @@ public class BagOfCoinsItem extends Item {
                 int diamond = tag.getInt("diamond");
                 int netherite = tag.getInt("netherite");
 
-                if (otherStack.isOf(NyakoItems.COPPER_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.COPPER_COIN)) {
                     copper += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoItems.GOLD_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.GOLD_COIN)) {
                     gold += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoItems.EMERALD_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.EMERALD_COIN)) {
                     emerald += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoItems.DIAMOND_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.DIAMOND_COIN)) {
                     diamond += otherStack.getCount();
                 }
-                if (otherStack.isOf(NyakoItems.NETHERITE_COIN_ITEM)) {
+                if (otherStack.isOf(NyakoItems.NETHERITE_COIN)) {
                     netherite += otherStack.getCount();
                 }
 
@@ -89,19 +89,19 @@ public class BagOfCoinsItem extends Item {
 
         tag.putBoolean("using", true);
 
-        ItemStack copperStack = new ItemStack(NyakoItems.COPPER_COIN_ITEM);
+        ItemStack copperStack = new ItemStack(NyakoItems.COPPER_COIN);
         copperStack.setCount(copper);
 
-        ItemStack goldStack = new ItemStack(NyakoItems.GOLD_COIN_ITEM);
+        ItemStack goldStack = new ItemStack(NyakoItems.GOLD_COIN);
         goldStack.setCount(gold);
 
-        ItemStack emeraldStack = new ItemStack(NyakoItems.EMERALD_COIN_ITEM);
+        ItemStack emeraldStack = new ItemStack(NyakoItems.EMERALD_COIN);
         emeraldStack.setCount(emerald);
 
-        ItemStack diamondStack = new ItemStack(NyakoItems.DIAMOND_COIN_ITEM);
+        ItemStack diamondStack = new ItemStack(NyakoItems.DIAMOND_COIN);
         diamondStack.setCount(diamond);
 
-        ItemStack netheriteStack = new ItemStack(NyakoItems.NETHERITE_COIN_ITEM);
+        ItemStack netheriteStack = new ItemStack(NyakoItems.NETHERITE_COIN);
         netheriteStack.setCount(netherite);
 
         if (copper    > 0) copper    = user.getInventory().addStack(copperStack);

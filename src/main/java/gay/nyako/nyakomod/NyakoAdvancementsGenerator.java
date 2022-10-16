@@ -5,7 +5,6 @@ import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.criterion.ConsumeItemCriterion;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.item.Items;
-import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -17,14 +16,14 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
     public void accept(Consumer<Advancement> consumer) {
 
         Advancement parentAdvancement = Advancement.Builder.create()
-                .display(NyakoItems.EMERALD_COIN_ITEM, Text.literal("Cunkin' it up"),
+                .display(NyakoItems.EMERALD_COIN, Text.literal("Cunkin' it up"),
                         Text.translatable("Get your first coin"),
                         new Identifier("textures/gui/advancements/backgrounds/husbandry.png"),
                         AdvancementFrame.TASK,
                         true,
                         true,
                         false)
-                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.COPPER_COIN_ITEM))
+                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.COPPER_COIN))
                 .build(consumer, "nyakomod/root");
 
         Advancement firstMilkAdvancement = Advancement.Builder.create()
@@ -80,7 +79,7 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                 .build(consumer, "nyakomod/dragon_milked");
 
         Advancement diamondCoinAdvancement = Advancement.Builder.create()
-                .display(NyakoItems.DIAMOND_COIN_ITEM, Text.literal("Moving Up"),
+                .display(NyakoItems.DIAMOND_COIN, Text.literal("Moving Up"),
                         Text.translatable("Obtain your first Diamond Coin"),
                         null,
                         AdvancementFrame.TASK,
@@ -89,11 +88,11 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                         false
                 )
                 .parent(parentAdvancement)
-                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.DIAMOND_COIN_ITEM))
+                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.DIAMOND_COIN))
                 .build(consumer, "nyakomod/diamond_coin");
 
         Advancement netheriteCoinAdvancement = Advancement.Builder.create()
-                .display(NyakoItems.NETHERITE_COIN_ITEM, Text.literal("You're Rich"),
+                .display(NyakoItems.NETHERITE_COIN, Text.literal("You're Rich"),
                         Text.translatable("Obtain your first Netherite Coin"),
                         null,
                         AdvancementFrame.GOAL,
@@ -102,7 +101,7 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                         false
                 )
                 .parent(diamondCoinAdvancement)
-                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.NETHERITE_COIN_ITEM))
+                .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.NETHERITE_COIN))
                 .build(consumer, "nyakomod/netherite_coin");
     }
 }

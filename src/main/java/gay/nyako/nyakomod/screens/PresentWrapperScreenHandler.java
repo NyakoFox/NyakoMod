@@ -9,8 +9,6 @@ import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -137,7 +135,7 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
             return;
         }
 
-        var newStack = new ItemStack(NyakoItems.PRESENT_ITEM);
+        var newStack = new ItemStack(NyakoItems.PRESENT);
 
         for (int i = 0; i < 6; i++) {
             var stack = inventory.getStack(i);

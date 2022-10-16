@@ -20,11 +20,11 @@ public class CoinBagItemDispenserBehavior extends ItemDispenserBehavior {
 
         var nbt = stack.getOrCreateNbt();
 
-        this.dispenseCoins(nbt, "copper", NyakoItems.COPPER_COIN_ITEM, direction, pos, world);
-        this.dispenseCoins(nbt, "gold", NyakoItems.GOLD_COIN_ITEM, direction, pos, world);
-        this.dispenseCoins(nbt, "emerald", NyakoItems.EMERALD_COIN_ITEM, direction, pos, world);
-        this.dispenseCoins(nbt, "diamond", NyakoItems.DIAMOND_COIN_ITEM, direction, pos, world);
-        this.dispenseCoins(nbt, "netherite", NyakoItems.NETHERITE_COIN_ITEM, direction, pos, world);
+        this.dispenseCoins(nbt, "copper", NyakoItems.COPPER_COIN, direction, pos, world);
+        this.dispenseCoins(nbt, "gold", NyakoItems.GOLD_COIN, direction, pos, world);
+        this.dispenseCoins(nbt, "emerald", NyakoItems.EMERALD_COIN, direction, pos, world);
+        this.dispenseCoins(nbt, "diamond", NyakoItems.DIAMOND_COIN, direction, pos, world);
+        this.dispenseCoins(nbt, "netherite", NyakoItems.NETHERITE_COIN, direction, pos, world);
 
         stack.setNbt(nbt);
 

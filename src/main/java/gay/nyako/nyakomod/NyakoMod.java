@@ -78,8 +78,8 @@ public class NyakoMod implements ModInitializer {
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
 
         DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
-        DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
-        DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS_ITEM, new CoinBagItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS, new CoinBagItemDispenserBehavior());
+        DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS, new CoinBagItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.NETHER_PORTAL_STRUCTURE, new NetherPortalStructureItemDispenserBehavior());
 
 

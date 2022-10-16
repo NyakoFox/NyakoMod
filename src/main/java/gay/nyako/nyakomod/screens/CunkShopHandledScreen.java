@@ -180,13 +180,13 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
                                 .margins(new Insets(0, 0, 0, 4))
                 );
-                var item = NyakoItems.COPPER_COIN_ITEM;
+                var item = NyakoItems.COPPER_COIN;
                 switch (key) {
-                    case COPPER -> item = NyakoItems.COPPER_COIN_ITEM;
-                    case GOLD -> item = NyakoItems.GOLD_COIN_ITEM;
-                    case EMERALD -> item = NyakoItems.EMERALD_COIN_ITEM;
-                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN_ITEM;
-                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN_ITEM;
+                    case COPPER -> item = NyakoItems.COPPER_COIN;
+                    case GOLD -> item = NyakoItems.GOLD_COIN;
+                    case EMERALD -> item = NyakoItems.EMERALD_COIN;
+                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN;
+                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN;
                 }
                 price.child(
                         Components.item(new ItemStack(item))
@@ -224,13 +224,13 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
                                 .margins(new Insets(0, 0, 0, 4))
                 );
-                var item = NyakoItems.COPPER_COIN_ITEM;
+                var item = NyakoItems.COPPER_COIN;
                 switch (key) {
-                    case COPPER -> item = NyakoItems.COPPER_COIN_ITEM;
-                    case GOLD -> item = NyakoItems.GOLD_COIN_ITEM;
-                    case EMERALD -> item = NyakoItems.EMERALD_COIN_ITEM;
-                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN_ITEM;
-                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN_ITEM;
+                    case COPPER -> item = NyakoItems.COPPER_COIN;
+                    case GOLD -> item = NyakoItems.GOLD_COIN;
+                    case EMERALD -> item = NyakoItems.EMERALD_COIN;
+                    case DIAMOND -> item = NyakoItems.DIAMOND_COIN;
+                    case NETHERITE -> item = NyakoItems.NETHERITE_COIN;
                 }
                 currentMoney.child(
                         Components.item(new ItemStack(item))

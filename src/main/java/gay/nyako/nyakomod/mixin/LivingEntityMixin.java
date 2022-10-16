@@ -125,11 +125,11 @@ public abstract class LivingEntityMixin extends Entity {
 		Integer netherite = map.get(CunkCoinUtils.CoinValue.NETHERITE);
 
 		// drop coins
-		if (copper    > 0) dropStack(new ItemStack(NyakoItems.COPPER_COIN_ITEM,    copper));
-		if (gold      > 0) dropStack(new ItemStack(NyakoItems.GOLD_COIN_ITEM,      gold));
-		if (emerald   > 0) dropStack(new ItemStack(NyakoItems.EMERALD_COIN_ITEM,   emerald));
-		if (diamond   > 0) dropStack(new ItemStack(NyakoItems.DIAMOND_COIN_ITEM,   diamond));
-		if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN_ITEM, netherite));
+		if (copper    > 0) dropStack(new ItemStack(NyakoItems.COPPER_COIN,    copper));
+		if (gold      > 0) dropStack(new ItemStack(NyakoItems.GOLD_COIN,      gold));
+		if (emerald   > 0) dropStack(new ItemStack(NyakoItems.EMERALD_COIN,   emerald));
+		if (diamond   > 0) dropStack(new ItemStack(NyakoItems.DIAMOND_COIN,   diamond));
+		if (netherite > 0) dropStack(new ItemStack(NyakoItems.NETHERITE_COIN, netherite));
 	}
 
 	@Inject(at = @At("HEAD"), method = "applyMovementEffects(Lnet/minecraft/util/math/BlockPos;)V")

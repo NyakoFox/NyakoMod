@@ -57,7 +57,7 @@ public abstract class PlayerInventoryMixin {
 
 		for (int i = 0; i < inventory.size(); ++i) {
 			var s = inventory.getStack(i);
-			if (s.isOf(NyakoItems.DEV_NULL_ITEM)) {
+			if (s.isOf(NyakoItems.DEV_NULL)) {
 				var stored = DevNullItem.getStoredItem(s);
 				if (stored != null && ItemStack.canCombine(stack, stored)) {
 					var nbt = s.getNbt();
@@ -94,19 +94,19 @@ public abstract class PlayerInventoryMixin {
 		var item = stack.getItem();
 
 		if (item instanceof CoinItem) {
-			if (!stack.isOf(NyakoItems.NETHERITE_COIN_ITEM) &&
+			if (!stack.isOf(NyakoItems.NETHERITE_COIN) &&
 					(itemStack.getCount() + stack.getCount()) >= stack.getMaxCount()) {
 				int left = (stack.getCount() + itemStack.getCount()) - stack.getMaxCount();
 
-				Item type = NyakoItems.COPPER_COIN_ITEM;
-				if (stack.isOf(NyakoItems.COPPER_COIN_ITEM)) {
-					type = NyakoItems.GOLD_COIN_ITEM;
-				} else if (stack.isOf(NyakoItems.GOLD_COIN_ITEM)) {
-					type = NyakoItems.EMERALD_COIN_ITEM;
-				} else if (stack.isOf(NyakoItems.EMERALD_COIN_ITEM)) {
-					type = NyakoItems.DIAMOND_COIN_ITEM;
-				} else if (stack.isOf(NyakoItems.DIAMOND_COIN_ITEM)) {
-					type = NyakoItems.NETHERITE_COIN_ITEM;
+				Item type = NyakoItems.COPPER_COIN;
+				if (stack.isOf(NyakoItems.COPPER_COIN)) {
+					type = NyakoItems.GOLD_COIN;
+				} else if (stack.isOf(NyakoItems.GOLD_COIN)) {
+					type = NyakoItems.EMERALD_COIN;
+				} else if (stack.isOf(NyakoItems.EMERALD_COIN)) {
+					type = NyakoItems.DIAMOND_COIN;
+				} else if (stack.isOf(NyakoItems.DIAMOND_COIN)) {
+					type = NyakoItems.NETHERITE_COIN;
 				}
 
 				setStack(slot, ItemStack.EMPTY);

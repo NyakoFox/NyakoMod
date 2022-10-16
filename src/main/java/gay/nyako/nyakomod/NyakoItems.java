@@ -12,8 +12,6 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Arrays;
@@ -37,30 +35,30 @@ public class NyakoItems {
     public static final Item TRUE_BLOCK                 = register("true_block",                new BlockItem(NyakoBlocks.TRUE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
     public static final Item DRIP_JACKET                = register("drip_jacket",               new ArmorItem(NyakoMod.NYAKO_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
-    public static final Item STAFF_OF_SMITING_ITEM      = register("staff_of_smiting",          new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.RARE)));
-    public static final Item PRESENT_ITEM               = register("present",                   new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item STAFF_OF_SMITING           = register("staff_of_smiting",          new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.RARE)));
+    public static final Item PRESENT                    = register("present",                   new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item CUSTOM_ITEM                = register("custom",                    new CustomItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(69).rarity(Rarity.EPIC)));
-    public static final Item DEV_NULL_ITEM              = register("dev_null",                  new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
-    public static final Item RETENTIVE_BALL_ITEM        = register("retentive_ball",            new RetentiveBallItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
-    public static final Item BLUEPRINT_WORKBENCH_ITEM   = register("blueprint_workbench",       new BlockItem(NyakoBlocks.BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC)));
-    public static final Item COPPER_COIN_ITEM           = register("copper_coin",               new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.COPPER_SINGLE_COIN, "copper", 1));
-    public static final Item GOLD_COIN_ITEM             = register("gold_coin",                 new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.GOLD_SINGLE_COIN, "gold", 100));
-    public static final Item EMERALD_COIN_ITEM          = register("emerald_coin",              new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.EMERALD_SINGLE_COIN, "emerald", 10000));
-    public static final Item DIAMOND_COIN_ITEM          = register("diamond_coin",              new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.DIAMOND_SINGLE_COIN, "diamond", 1000000));
-    public static final Item NETHERITE_COIN_ITEM        = register("netherite_coin",            new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), NyakoBlocks.NETHERITE_SINGLE_COIN, "netherite", 100000000));
-    public static final Item BAG_OF_COINS_ITEM          = register("bag_of_coins",              new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
-    public static final Item HUNGRY_BAG_OF_COINS_ITEM   = register("hungry_bag_of_coins",       new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item DEV_NULL                   = register("dev_null",                  new DevNullItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item RETENTIVE_BALL             = register("retentive_ball",            new RetentiveBallItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item BLUEPRINT_WORKBENCH        = register("blueprint_workbench",       new BlockItem(NyakoBlocks.BLUEPRINT_WORKBENCH, new Item.Settings().group(ItemGroup.MISC)));
+    public static final Item COPPER_COIN                = register("copper_coin",               new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.COPPER_SINGLE_COIN, "copper", 1));
+    public static final Item GOLD_COIN                  = register("gold_coin",                 new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.GOLD_SINGLE_COIN, "gold", 100));
+    public static final Item EMERALD_COIN               = register("emerald_coin",              new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.EMERALD_SINGLE_COIN, "emerald", 10000));
+    public static final Item DIAMOND_COIN               = register("diamond_coin",              new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100), NyakoBlocks.DIAMOND_SINGLE_COIN, "diamond", 1000000));
+    public static final Item NETHERITE_COIN             = register("netherite_coin",            new CoinItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(100).fireproof(), NyakoBlocks.NETHERITE_SINGLE_COIN, "netherite", 100000000));
+    public static final Item BAG_OF_COINS               = register("bag_of_coins",              new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item HUNGRY_BAG_OF_COINS        = register("hungry_bag_of_coins",       new BagOfCoinsItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item TIME_IN_A_BOTTLE           = register("time_in_a_bottle",          new TimeInABottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item SOUL_JAR                   = register("soul_jar",                  new SoulJarItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item TEST_ITEM                  = register("test_item",                 new TestItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item BLUEPRINT                  = register("blueprint",                 new BlueprintItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
-    public static final Item DIAMOND_GACHA_ITEM         = register("diamond_gacha",             new GachaItem(new FabricItemSettings().group(ItemGroup.MISC).food(FoodComponents.GOLDEN_CARROT), 2, Arrays.asList((MutableText) Text.of("You can't make tools out of these,"), (MutableText) Text.of("but at least they're healthy!"))));
-    public static final Item MARIO_GACHA_ITEM           = register("mario_gacha",               new GachaItem(new FabricItemSettings().group(ItemGroup.MISC), 4, (MutableText) Text.of("The lovable plumber!")));
-    public static final Item LUIGI_GACHA_ITEM           = register("luigi_gacha",               new GachaItem(new FabricItemSettings().group(ItemGroup.MISC), 4, (MutableText) Text.of("The lovable plumber's brother!")));
-    public static final Item DISCORD_GACHA_ITEM         = register("discord_gacha",             new DiscordGachaItem(new FabricItemSettings().group(ItemGroup.MISC)));
-    public static final Item STAFF_OF_VORBULATION_ITEM  = register("staff_of_vorbulation",      new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.EPIC)));
-    public static final Item PET_SPRITE_SUMMON_ITEM     = register("pet_sprite_summon",         new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof()));
-    public static final Item PET_DRAGON_SUMMON_ITEM     = register("pet_dragon_summon",         new PetChangeSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoEntities.PET_DRAGON, PetDragonEntity::createPet)
+    public static final Item DIAMOND_GACHA              = register("diamond_gacha",             new GachaItem(new FabricItemSettings().group(ItemGroup.MISC).food(FoodComponents.GOLDEN_CARROT), 2, Arrays.asList((MutableText) Text.of("You can't make tools out of these,"), (MutableText) Text.of("but at least they're healthy!"))));
+    public static final Item MARIO_GACHA                = register("mario_gacha",               new GachaItem(new FabricItemSettings().group(ItemGroup.MISC), 4, (MutableText) Text.of("The lovable plumber!")));
+    public static final Item LUIGI_GACHA                = register("luigi_gacha",               new GachaItem(new FabricItemSettings().group(ItemGroup.MISC), 4, (MutableText) Text.of("The lovable plumber's brother!")));
+    public static final Item DISCORD_GACHA              = register("discord_gacha",             new DiscordGachaItem(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item STAFF_OF_VORBULATION       = register("staff_of_vorbulation",      new StaffOfVorbulationItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.EPIC)));
+    public static final Item PET_SPRITE_SUMMON          = register("pet_sprite_summon",         new PetSpriteSummonItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof()));
+    public static final Item PET_DRAGON_SUMMON          = register("pet_dragon_summon",         new PetChangeSummonItem<>(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof(), NyakoEntities.PET_DRAGON, PetDragonEntity::createPet)
             .addVariation(Text.literal("Red Dragon"), "dragonpet_red")
             .addVariation(Text.literal("Lavender Dragon"), "dragonpet_lavender")
             .addVariation(Text.literal("Blue Dragon"), "dragonpet_blue")
@@ -97,7 +95,8 @@ public class NyakoItems {
     public static final Item HORSE_MILK_BUCKET          = register("horse_milk_bucket",         new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item MAGNET                     = register("magnet",                    new MagnetItem(new FabricItemSettings().group(ItemGroup.MISC).maxDamage(60 * 4)));
     public static final Item ENCUMBERING_STONE          = register("encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), true));
-    public static final Item SUPER_ENCUMBERING_STONE          = register("super_encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), false));
+    public static final Item SUPER_ENCUMBERING_STONE    = register("super_encumbering_stone",   new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), false));
+    public static final Item DRAGON_SCALE               = register("dragon_scale",              new DragonScaleItem(new FabricItemSettings().group(ItemGroup.MISC)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
