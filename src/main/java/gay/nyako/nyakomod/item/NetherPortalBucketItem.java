@@ -40,6 +40,7 @@ public class NetherPortalBucketItem extends Item {
                 if (stack.isEmpty()) {
                     return new ItemStack(Items.BUCKET);
                 }
+                return stack;
             }
             ServerWorld serverWorld2 = minecraftServer.getWorld(world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
             user.dismountVehicle();
