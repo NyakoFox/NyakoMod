@@ -16,6 +16,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 
 public class NetherPortalBucketItem extends Item {
 
@@ -25,8 +26,7 @@ public class NetherPortalBucketItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (user instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
+        if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
@@ -35,6 +35,12 @@ public class NetherPortalBucketItem extends Item {
         }
         if (!world.isClient) {
             MinecraftServer minecraftServer = world.getServer();
+            if (world.getRegistryKey() == World.END) {
+                world.createExplosion(null, user.getX(), user.getY(), user.getZ(), 5.0f, Explosion.DestructionType.BREAK);
+                if (stack.isEmpty()) {
+                    return new ItemStack(Items.BUCKET);
+                }
+            }
             ServerWorld serverWorld2 = minecraftServer.getWorld(world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
             user.dismountVehicle();
             if (serverWorld2 != null && minecraftServer.isNetherAllowed()) {
