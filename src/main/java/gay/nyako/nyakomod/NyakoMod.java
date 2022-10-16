@@ -43,7 +43,8 @@ public class NyakoMod implements ModInitializer {
 
     public static final IntProperty COINS_PROPERTY = IntProperty.of("coins", 1, SingleCoinBlock.MAX_COINS);
     public static SlimeSkyManager SLIME_SKY_MANAGER;
-    public static final ArmorMaterial NYAKO_ARMOR_MATERIAL = new NyakoArmorMaterial();
+    public static final ArmorMaterial DRIP_ARMOR_MATERIAL = new DripArmorMaterial();
+    public static final ArmorMaterial JEAN_ARMOR_MATERIAL = new JeanArmorMaterial();
     public static final ScoreboardCriterion COIN_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:coins");
     public static final ScoreboardCriterion TIMES_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:times_milked");
     public static final ScoreboardCriterion PLAYERS_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:players_milked");

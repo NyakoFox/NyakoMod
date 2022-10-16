@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JJJ",
+    "J J"
+  ],
+  "key": {
+    "J": {
+      "item": "nyakomod:dragon_scale"
+    }
+  },
+  "result": {
+    "item": "nyakomod:jean_hat",
+    "count": 1
+  }
+}

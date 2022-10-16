@@ -34,7 +34,7 @@ public class NyakoItems {
     public static final Item MATTER_VORTEX              = register("matter_vortex",             new BlockItem(NyakoBlocks.MATTER_VORTEX, new FabricItemSettings().group(ItemGroup.MISC).rarity(Rarity.RARE)));
     public static final Item TRUE_BLOCK                 = register("true_block",                new BlockItem(NyakoBlocks.TRUE_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)));
 
-    public static final Item DRIP_JACKET                = register("drip_jacket",               new ArmorItem(NyakoMod.NYAKO_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item DRIP_JACKET                = register("drip_jacket",               new ArmorItem(NyakoMod.DRIP_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
     public static final Item STAFF_OF_SMITING           = register("staff_of_smiting",          new StaffOfSmitingItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).fireproof().rarity(Rarity.RARE)));
     public static final Item PRESENT                    = register("present",                   new PresentItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item CUSTOM_ITEM                = register("custom",                    new CustomItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(69).rarity(Rarity.EPIC)));
@@ -97,6 +97,10 @@ public class NyakoItems {
     public static final Item ENCUMBERING_STONE          = register("encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), true));
     public static final Item SUPER_ENCUMBERING_STONE    = register("super_encumbering_stone",   new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), false));
     public static final Item DRAGON_SCALE               = register("dragon_scale",              new DragonScaleItem(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item JEAN_JACKET                = register("jean_jacket",               new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEAN_HAT                   = register("jean_hat",                  new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.HEAD,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEANS                      = register("jeans",                     new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.LEGS,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEAN_SOCKS                 = register("jean_socks",                new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.FEET,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
