@@ -17,7 +17,7 @@ public abstract class WorldRendererMixin {
     public void redirect(ClientWorld clientWorld, double x, double y, double z, SoundEvent sound, SoundCategory category, float volume, float pitch, boolean useDistance, int eventId) {
         clientWorld.playSound(x, y, z, sound, category, volume, pitch, true);
         if (eventId == WorldEvents.ENDER_DRAGON_DIES) {
-            clientWorld.playSound(x, y, z, NyakoSoundEvents.WOLVES, category, volume, pitch, true);
+            // clientWorld.playSound(x, y, z, NyakoSoundEvents.WOLVES, category, volume, pitch, true);
         }
         return;
     }
