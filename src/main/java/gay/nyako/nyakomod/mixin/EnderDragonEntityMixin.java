@@ -110,6 +110,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 }
                 possibleTargets.add(player);
             }
+            if (possibleTargets.isEmpty()) {
+                return null;
+            }
             var randomPlayer = possibleTargets.get(this.random.nextInt(possibleTargets.size()));
 
             var closestPlayer = this.world.getClosestPlayer(this, 128);
