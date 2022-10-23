@@ -66,6 +66,14 @@ public abstract class LivingEntityMixin extends Entity {
 			baseCoinAmount *= (slime.getSize() / 5d);
 		}
 
+		if (type == EntityType.ENDERMAN) {
+			if (this.world.getRegistryKey() == World.END) {
+				baseCoinAmount *= 0.1;
+			} else if (this.world.getRegistryKey() == World.NETHER) {
+				baseCoinAmount *= 0.5;
+			}
+		}
+
 		// pick a random number between 0.8 and 1.2
 		double randomRange = ((Math.random() * (1.2 - 0.8)) + 0.8);
 
