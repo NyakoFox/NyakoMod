@@ -142,10 +142,13 @@ public class NyakoMod implements ModInitializer {
             // Pick a random array from the pool
             String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-            ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
+            if (server.getServerIp() != null && server.getServerIp().equals("51.222.14.126"))
+            {
+                ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
 
-            for (String string : randomTextArray) {
-                ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
+                for (String string : randomTextArray) {
+                    ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
+                }
             }
         }));
 
@@ -196,8 +199,6 @@ public class NyakoMod implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             BackCommand.register(dispatcher);
             XpCommand.register(dispatcher);
-            LoreCommand.register(dispatcher);
-            RenameCommand.register(dispatcher);
             FakeCountCommand.register(dispatcher);
             PackCommand.register(dispatcher);
             SmiteCommand.register(dispatcher);

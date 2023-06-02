@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod.mixin;
 
-import me.reimnop.d4f.Discord4Fabric;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,10 +26,6 @@ public abstract class ServerLivingEntityMixin  {
 			var server = serverWorld.getServer();
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				player.sendMessage(message);
-			}
-
-			if (Discord4Fabric.DISCORD != null) {
-				Discord4Fabric.DISCORD.sendPlainMessage(message);
 			}
 		}
 	}
