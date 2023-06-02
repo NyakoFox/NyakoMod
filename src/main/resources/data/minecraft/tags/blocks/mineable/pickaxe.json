@@ -18,6 +18,7 @@
     "nyakomod:gold_starry_block",
     "nyakomod:blue_starry_block",
     "nyakomod:titanstone",
-    "nyakomod:creeper"
+    "nyakomod:creeper",
+    "minecraft:end_portal_frame"
   ]
 }

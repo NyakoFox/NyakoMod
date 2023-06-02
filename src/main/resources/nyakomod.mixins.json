@@ -4,6 +4,7 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlocksMixin",
     "BucketItemMixin",
     "CreeperExplodeMixin",
     "CrossbowItemMixin",
@@ -11,6 +12,7 @@
     "EnderDragonEntityMixin",
     "EnderDragonFightMixin",
     "EnderDragonPartMixin",
+    "EndPortalFrameBlockMixin",
     "EntityAccessor",
     "EntityMixin",
     "FarmlandBlockMixin",

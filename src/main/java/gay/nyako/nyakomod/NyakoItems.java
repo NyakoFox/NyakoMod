@@ -101,6 +101,7 @@ public class NyakoItems {
     public static final Item JEAN_HAT                   = register("jean_hat",                  new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.HEAD,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
     public static final Item JEANS                      = register("jeans",                     new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.LEGS,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
     public static final Item JEAN_SOCKS                 = register("jean_socks",                new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.FEET,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item TOTEM_OF_DYING             = register("totem_of_dying",            new TotemOfDyingItem(new Item.Settings().maxCount(1).group(ItemGroup.COMBAT).rarity(Rarity.UNCOMMON)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

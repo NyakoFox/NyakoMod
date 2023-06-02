@@ -1,4 +1,4 @@
-// 1.19.2	2023-02-23T21:40:18.152692	Models
+// 1.19.2	2023-06-02T12:40:56.9567101	Models
 b4458a0c1e24cd6bba6e6807cc3e4e0bfb834616 assets\nyakomod\models\item\test_item.json
 453ac43a2a5321d18c90233147a63ac17b07ca4f assets\nyakomod\models\block\gold_coin_three.json
 5831d27dbae61dc7b32c8ad1ba2f2af670d5ec0f assets\nyakomod\models\block\gold_coin_forty_seven.json
@@ -386,6 +386,7 @@ cf0fd80b3f2c38e6c1cefd7e9e080c1161e4821e assets\nyakomod\models\block\copper_coi
 33cee06dae70e1cc53f527ce4f5e4a2eb1fb1fdb assets\nyakomod\models\block\copper_coin_thirteen.json
 d5c98ddf17c682d845f3dfa269320c3761485381 assets\nyakomod\models\block\copper_coin_twenty_six.json
 7171fe61eded829bbe7e9e1b690c14b28f8d093b assets\nyakomod\models\block\gold_coin_sixty_two.json
+9756bc6b2f9e9fb658f1e13c2a9a734fcef68882 assets\nyakomod\models\item\totem_of_dying.json
 370598232a61addcb6e7fec4c4583482052d225f assets\nyakomod\models\block\emerald_coin_seventeen.json
 0157e3f3dd2ace0a374229dbc8c2968317b49293 assets\nyakomod\models\block\diamond_coin_twenty.json
 ac978d9c07c8a65f1724a6a62d11ae674d480bd6 assets\nyakomod\models\item\nether_portal_bucket.json

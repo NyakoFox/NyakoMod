@@ -6,6 +6,7 @@ import gay.nyako.nyakomod.NyakoNetworking;
 import io.netty.buffer.Unpooled;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.Components;
 import io.wispforest.owo.ui.component.LabelComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
@@ -27,6 +28,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, CunkShopScreenHandler> {
     public int selectedEntry = 0;
@@ -61,13 +63,16 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
     protected void build(FlowLayout rootComponent) {
         layout = rootComponent;
         var shopEntries = getEntries();
+
         for (ShopEntry entry : shopEntries) {
+            Consumer<ButtonComponent> shopButtonPress = button -> {
+                selectEntry(shopEntries.indexOf(entry), rootComponent);
+            };
+
             rootComponent.childById(FlowLayout.class,"button_list").child(
-                    Components.button(entry.name(), (ButtonWidget.PressAction) button -> {
-                                selectEntry(shopEntries.indexOf(entry), rootComponent);
-                    })
-                    .horizontalSizing(Sizing.fixed(88))
-                    .cursorStyle(CursorStyle.POINTER)
+                    Components.button(entry.name(), shopButtonPress)
+                            .horizontalSizing(Sizing.fixed(88))
+                            .cursorStyle(CursorStyle.POINTER)
             );
         }
 
@@ -178,7 +183,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                 price.child(
                         Components.label(Text.of(String.valueOf(split.get(key))))
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
-                                .margins(new Insets(0, 0, 0, 4))
+                                .margins(Insets.of(0, 0, 0, 4))
                 );
                 var item = NyakoItems.COPPER_COIN;
                 switch (key) {
@@ -190,7 +195,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                 }
                 price.child(
                         Components.item(new ItemStack(item))
-                                .margins(new Insets(0, 0, 0, 8))
+                                .margins(Insets.of(0, 0, 0, 8))
                 );
             }
         }
@@ -222,7 +227,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                 currentMoney.child(
                         Components.label(Text.of(String.valueOf(split.get(key))))
                                 .color(Color.ofFormatting(Formatting.DARK_GRAY))
-                                .margins(new Insets(0, 0, 0, 4))
+                                .margins(Insets.of(0, 0, 0, 4))
                 );
                 var item = NyakoItems.COPPER_COIN;
                 switch (key) {
@@ -234,7 +239,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                 }
                 currentMoney.child(
                         Components.item(new ItemStack(item))
-                                .margins(new Insets(0, 0, 0, 8))
+                                .margins(Insets.of(0, 0, 0, 8))
                 );
             }
         }
@@ -249,11 +254,11 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
 
         rootComponent.childById(FlowLayout.class, "result-list").child(
                 Components.item(stack)
-                        .margins(new Insets(0, 0, 0, 4))
+                        .margins(Insets.of(0, 0, 0, 4))
                         .tooltip(tooltipComponents)
         ).child(
                 Components.label(Text.literal("x " + stack.getCount()).formatted(Formatting.DARK_GRAY))
-                        .margins(new Insets(0, 0, 0, 4))
+                        .margins(Insets.of(0, 0, 0, 4))
         );
     }
 }

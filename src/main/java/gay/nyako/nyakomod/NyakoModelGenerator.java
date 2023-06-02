@@ -237,6 +237,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.ENCUMBERING_STONE, String.format(Locale.ROOT, "_%s", "unlocked"), Models.GENERATED);
         itemModelGenerator.register(NyakoItems.SUPER_ENCUMBERING_STONE, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.DRAGON_SCALE, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.TOTEM_OF_DYING, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);
