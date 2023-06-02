@@ -25,10 +25,14 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.*;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -183,6 +187,23 @@ public class NyakoMod implements ModInitializer {
                     }
                     if (access.getMilk() > 0) {
                         access.setMilk(access.getMilk() - 1);
+                    }
+                }
+            }
+
+            // Loop through all entities in all loaded worlds
+            for (ServerWorld serverWorld : world.getServer().getWorlds()) {
+                for (ItemEntity entity : serverWorld.getEntitiesByType(EntityType.ITEM, entity -> entity instanceof ItemEntity)) {
+                    if (entity.isSubmergedInWater())
+                    {
+                        ItemStack stack = entity.getStack();
+                        if (stack.getItem() == NyakoItems.FOAM_ZOMBIE) {
+                            // Change the item to a grown foam zombie
+                            ItemStack newStack = new ItemStack(NyakoItems.GROWN_FOAM_ZOMBIE);
+                            newStack.setCount(stack.getCount());
+                            newStack.setNbt(stack.getNbt());
+                            entity.setStack(newStack);
+                        }
                     }
                 }
             }

@@ -133,6 +133,17 @@
     {
       "items": [
         {
+          "id": "nyakomod:foam_zombie",
+          "Count": 1
+        }
+      ],
+      "name": "Foam Zombie",
+      "description": "The Growable FoamUps! ™ Zombie is a fun, interactive toy that grows when you put it in water! It's a great way to teach your kids about the undead, and it's fun for the whole family! Just don't let it get too big, or it might start eating your brains! (Note: FoamUps! ™ is not responsible for any injuries or deaths caused by the Growable FoamUps! ™ Zombie. Please use responsibly.)",
+      "price": 800
+    },
+    {
+      "items": [
+        {
           "id": "minecraft:slime_ball",
           "Count": 1,
           "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"

@@ -62,21 +62,23 @@ public class CunkShop {
             var stacks = new ArrayList<ItemStack>();
             entryJson.getAsJsonArray("items").forEach(item -> {
                 var jsonObject = item.getAsJsonObject();
+
+                var stack = new ItemStack(Registry.ITEM.get(new Identifier(jsonObject.get("id").getAsString())));
+                if (jsonObject.has("count")) {
+                    stack.setCount(jsonObject.get("count").getAsInt());
+                } else if (jsonObject.has("Count")) {
+                    stack.setCount(jsonObject.get("Count").getAsInt());
+                }
+
                 if (jsonObject.has("nbt")) {
                     var snbt = jsonObject.get("nbt").getAsString();
-                    var stack = new ItemStack(Registry.ITEM.get(new Identifier(jsonObject.get("id").getAsString())));
-                    if (jsonObject.has("count")) {
-                        stack.setCount(jsonObject.get("count").getAsInt());
-                    } else if (jsonObject.has("Count")) {
-                        stack.setCount(jsonObject.get("Count").getAsInt());
-                    }
                     try {
                         stack.setNbt(NbtHelper.fromNbtProviderString(snbt));
                     } catch (CommandSyntaxException e) {
                         e.printStackTrace();
                     }
-                    stacks.add(stack);
                 }
+                stacks.add(stack);
             });
             shopData.add(
                     new ShopEntry(
