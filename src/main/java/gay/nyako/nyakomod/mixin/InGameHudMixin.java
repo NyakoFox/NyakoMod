@@ -25,14 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin extends DrawableHelper {
-
-    @Redirect(method="renderHeldItemTooltip(Lnet/minecraft/client/util/math/MatrixStack;)V", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;hasCustomName()Z"))
-    public boolean redirect(ItemStack stack) {
-        // Never turn italic
-        return false;
-    }
-
-    private static final Identifier CUSTOM_GUI_ICONS_TEXTURE = new Identifier("nyakomod", "textures/gui/icons.png");
+private static final Identifier CUSTOM_GUI_ICONS_TEXTURE = new Identifier("nyakomod", "textures/gui/icons.png");
 
     @Shadow
     protected abstract PlayerEntity getCameraPlayer();

@@ -197,7 +197,7 @@ public class NyakoMod implements ModInitializer {
 
     public static void registerCommands() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            BackCommand.register(dispatcher);
+            //BackCommand.register(dispatcher);
             XpCommand.register(dispatcher);
             FakeCountCommand.register(dispatcher);
             PackCommand.register(dispatcher);

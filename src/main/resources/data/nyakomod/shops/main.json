@@ -152,6 +152,17 @@
       "name": "Staff of Smiting",
       "description": "Let's just put it this way... do you want to learn how to fly?",
       "price": 40000000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:launcher",
+          "Count": 1
+        }
+      ],
+      "name": "Launcher",
+      "description": "It's like the Staff of Smiting, but no friends are required!",
+      "price": 60000000
     }
   ]
 }

@@ -76,18 +76,6 @@ public class CunkShop {
                         e.printStackTrace();
                     }
                     stacks.add(stack);
-                } else {
-                    // Convert Name from json to a string
-                    // Lore needs something like this as well
-                    /*if ((jsonObject.get("tag") != null) &&
-                            (jsonObject.get("tag").getAsJsonObject().get("display") != null) &&
-                            (jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject().get("Name") != null)) {
-                        var display = jsonObject.get("tag").getAsJsonObject().get("display").getAsJsonObject();
-                        var string = gson.toJson(display.get("Name"));
-                        display.addProperty("Name",  string);
-                    }*/
-                    NbtCompound converted = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject);
-                    stacks.add(ItemStack.fromNbt(converted));
                 }
             });
             shopData.add(
