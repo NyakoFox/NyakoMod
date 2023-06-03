@@ -25,7 +25,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.*;

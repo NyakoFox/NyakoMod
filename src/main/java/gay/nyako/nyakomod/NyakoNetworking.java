@@ -45,7 +45,7 @@ public class NyakoNetworking {
         // Kill bind
         ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER,
                 (server, player, handler, buffer, sender) -> server.execute(() -> {
-                    player.damage(DamageSource.MAGIC, 3.4028235E38F);
+                    player.damage(NyakoDamageSources.KILLBIND, Float.MAX_VALUE);
                 }));
 
         // Super Cool Packet Thats Get Sent When Right Clikcing A Super Neat Inventory Like An Ender Chest In Your EInvnetory.

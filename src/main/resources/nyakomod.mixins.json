@@ -15,7 +15,6 @@
     "EndPortalFrameBlockMixin",
     "EntityAccessor",
     "EntityMixin",
-    "FarmlandBlockMixin",
     "FishingBobberEntityMixin",
     "GrindstoneScreenHandlerMixin",
     "GrindstoneSlotsScreenHandlerMixin",

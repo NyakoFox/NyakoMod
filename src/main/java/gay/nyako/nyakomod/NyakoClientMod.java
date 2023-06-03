@@ -141,15 +141,7 @@ public class NyakoClientMod implements ClientModInitializer {
 			}));
 		});
 
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			int waterColor;
-			if (client.world != null && client.player != null) {
-				waterColor = BiomeColors.getWaterColor(client.world, client.player.getBlockPos());
-			} else {
-				waterColor = 4159204;
-			}
-			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> waterColor, NyakoItems.WATER);
-		});
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 4159204, NyakoItems.WATER);
 	}
 
 	public static final List<String> downloadedUrls = new ArrayList<>();
