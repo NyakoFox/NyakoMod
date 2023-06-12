@@ -70,7 +70,7 @@ public class NyakoItems {
             .addVariation(Text.literal("Ashen Dragon"), "dragonpet_ashen")
             .addVariation(Text.literal("Trans Dragon"), "dragonpet_trans")
     );
-    public static final Item PIAMOND_DICKAXE            = register("piamond_dickaxe",           new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
+    public static final Item PIAMOND_DICKAXE            = register("piamond_dickaxe",           new PiamondDickaxeItem(NyakoToolMaterials.DIAMOND_WOOD, 1, -2.8f, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item TWO_TALL                   = register("two_tall",                  new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item NETHER_PORTAL              = registerMC("nether_portal",           new BlockItem(Blocks.NETHER_PORTAL, new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item FIRE                       = registerMC("fire",                    new BlockItem(Blocks.FIRE,          new FabricItemSettings().group(ItemGroup.MISC)));
@@ -104,6 +104,7 @@ public class NyakoItems {
     public static final Item TOTEM_OF_DYING             = register("totem_of_dying",            new TotemOfDyingItem(new Item.Settings().maxCount(1).group(ItemGroup.COMBAT).rarity(Rarity.UNCOMMON)));
     public static final Item FOAM_ZOMBIE                = register("foam_zombie",               new FoamZombieItem(new Item.Settings().group(ItemGroup.MISC)));
     public static final Item GROWN_FOAM_ZOMBIE          = register("grown_foam_zombie",         new GrownFoamZombieItem(new Item.Settings().group(ItemGroup.MISC)));
+    public static final Item MEGA_DIAMOND_PICKAXE       = register("mega_diamond_pickaxe",      new MegaDiamondPickaxeItem(new Item.Settings().group(ItemGroup.TOOLS)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

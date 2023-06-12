@@ -17,7 +17,7 @@ public abstract class CreeperExplodeMixin extends HostileEntity {
 
     @ModifyArg(method = "explode()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;createExplosion(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/world/explosion/Explosion$DestructionType;)Lnet/minecraft/world/explosion/Explosion;"), index = 5)
     private Explosion.DestructionType injected(Explosion.DestructionType x) {
-        return Explosion.DestructionType.BREAK;
+        return Explosion.DestructionType.NONE;
     }
 
 }

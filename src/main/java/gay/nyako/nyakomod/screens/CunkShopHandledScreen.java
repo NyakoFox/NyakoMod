@@ -78,20 +78,20 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
 
         selectEntry(0, rootComponent);
 
-        rootComponent.childById(ButtonWidget.class, "remove_16").onPress(button -> {
+        rootComponent.childById(ButtonComponent.class, "remove_16").onPress(button -> {
             changePurchaseAmount(rootComponent, -16);
         });
-        rootComponent.childById(ButtonWidget.class, "remove_1").onPress(button -> {
+        rootComponent.childById(ButtonComponent.class, "remove_1").onPress(button -> {
             changePurchaseAmount(rootComponent, -1);
         });
-        rootComponent.childById(ButtonWidget.class, "add_1").onPress(button -> {
+        rootComponent.childById(ButtonComponent.class, "add_1").onPress(button -> {
             changePurchaseAmount(rootComponent, 1);
         });
-        rootComponent.childById(ButtonWidget.class, "add_16").onPress(button -> {
+        rootComponent.childById(ButtonComponent.class, "add_16").onPress(button -> {
             changePurchaseAmount(rootComponent, 16);
         });
 
-        rootComponent.childById(ButtonWidget.class, "buy").onPress(button -> {
+        rootComponent.childById(ButtonComponent.class, "buy").onPress(button -> {
             var entry = shopEntries.get(selectedEntry);
             var amount = entry.price() * purchaseAmount;
             if (amount < 0) {

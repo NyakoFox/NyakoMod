@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BlocksMixin",
+    "BoatEntityMixin",
     "BucketItemMixin",
     "CreeperExplodeMixin",
     "CrossbowItemMixin",
@@ -38,6 +39,7 @@
     "ZombieEntityMixin"
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
     "InGameHudMixin",
     "ItemModelsMixin",

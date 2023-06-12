@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.screens;
 
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.CheckboxComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -24,7 +25,7 @@ public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
 
     @Override
     protected void build(FlowLayout rootComponent) {
-        var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
+        var submitButton = rootComponent.childById(ButtonComponent.class, "submit");
         var urlElement = rootComponent.childById(TextFieldWidget.class, "url-box");
         var nameElement = rootComponent.childById(TextFieldWidget.class, "name-box");
         var itemBoxElement = rootComponent.childById(CheckboxComponent.class, "item-checkbox");

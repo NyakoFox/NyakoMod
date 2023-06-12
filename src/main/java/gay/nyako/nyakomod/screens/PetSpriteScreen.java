@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.screens;
 
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -22,7 +23,7 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
 
     @Override
     protected void build(FlowLayout rootComponent) {
-        var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
+        var submitButton = rootComponent.childById(ButtonComponent.class, "submit");
         var textElement = rootComponent.childById(TextFieldWidget.class, "url-box");
         var petSizeElement = rootComponent.childById(TextFieldWidget.class, "pet-size-box");
         textElement.setMaxLength(250);

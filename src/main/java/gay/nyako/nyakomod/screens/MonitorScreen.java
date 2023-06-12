@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.screens;
 import gay.nyako.nyakomod.NyakoNetworking;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.DiscreteSliderComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 
@@ -26,15 +27,15 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
 
     @Override
     protected void build(FlowLayout rootComponent) {
-        var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
+        var submitButton = rootComponent.childById(ButtonComponent.class, "submit");
         var textElement = rootComponent.childById(TextFieldWidget.class, "url-box");
         var widthElement = rootComponent.childById(DiscreteSliderComponent.class, "width");
         var heightElement = rootComponent.childById(DiscreteSliderComponent.class, "height");
 
-        var leftButton = rootComponent.childById(ButtonWidget.class, "left");
-        var rightButton = rootComponent.childById(ButtonWidget.class, "right");
-        var upButton = rootComponent.childById(ButtonWidget.class, "up");
-        var downButton = rootComponent.childById(ButtonWidget.class, "down");
+        var leftButton = rootComponent.childById(ButtonComponent.class, "left");
+        var rightButton = rootComponent.childById(ButtonComponent.class, "right");
+        var upButton = rootComponent.childById(ButtonComponent.class, "up");
+        var downButton = rootComponent.childById(ButtonComponent.class, "down");
 
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());

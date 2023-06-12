@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.screens;
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
+import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -29,7 +30,7 @@ public class NBPHandledScreen extends BaseUIModelHandledScreen<FlowLayout, NBPSc
     @Override
     protected void build(FlowLayout rootComponent) {
         layout = rootComponent;
-        var submitButton = rootComponent.childById(ButtonWidget.class, "submit");
+        var submitButton = rootComponent.childById(ButtonComponent.class, "submit");
         var urlElement = rootComponent.childById(TextFieldWidget.class, "url-box");
 
         urlElement.setMaxLength(250);
