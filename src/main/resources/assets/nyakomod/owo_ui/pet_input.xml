@@ -27,6 +27,16 @@
                             </sizing>
                         </text-box>
 
+                        <label>
+                            <text>Should it be still?</text>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                        </label>
+                        <checkbox id="still-box">
+                            <text>Yes</text>
+                        </checkbox>
+
                         <button id="submit">
                             <text>Save URL</text>
                             <margins>

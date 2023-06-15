@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -26,16 +27,23 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
         var submitButton = rootComponent.childById(ButtonComponent.class, "submit");
         var textElement = rootComponent.childById(TextFieldWidget.class, "url-box");
         var petSizeElement = rootComponent.childById(TextFieldWidget.class, "pet-size-box");
+        var checkboxWidget = rootComponent.childById(CheckboxWidget.class, "still-box");
         textElement.setMaxLength(250);
 
         var nbt = item.getOrCreateNbt();
         if (nbt.contains("custom_sprite")) {
             textElement.setText(nbt.getString("custom_sprite"));
+            textElement.setCursorToStart();
         }
         if (nbt.contains("pet_size")) {
             petSizeElement.setText(String.valueOf(nbt.getDouble("pet_size")));
         } else {
             petSizeElement.setText("2.0");
+        }
+        petSizeElement.setCursorToStart();
+
+        if (nbt.contains("still")) {
+            checkboxWidget.checked = nbt.getBoolean("still");
         }
 
         submitButton.onPress(button -> {
@@ -50,6 +58,8 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
                 } catch (Exception e) {
                     buf.writeDouble(2);
                 }
+
+                buf.writeBoolean(checkboxWidget.isChecked());
 
                 ClientPlayNetworking.send(NyakoNetworking.PET_SPRITE_SET_URL, buf);
 

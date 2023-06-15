@@ -73,6 +73,7 @@
     "item.nyakomod.pet_change_summon.tooltip.variation": "§7Variation: %s",
     "item.nyakomod.pet_sprite_summon.tooltip": "URL: %s",
     "item.nyakomod.pet_sprite_summon.tooltip.size": "Size: %s",
+    "item.nyakomod.pet_sprite_summon.tooltip.still": "Still AI",
     "item.nyakomod.dev_null": "/dev/null",
     "item.nyakomod.blueprint": "Blueprint",
     "item.nyakomod.blueprint.filled": "Blueprint (%s)",

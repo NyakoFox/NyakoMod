@@ -12,3 +12,4 @@ accessible    class    net/minecraft/client/gui/screen/CreditsScreen$CreditsRead
 accessible    field    net/minecraft/client/gui/screen/CreditsScreen    time    F
 accessible    field    net/minecraft/client/sound/MusicTracker    timeUntilNextSong    I
 accessible    method    net/minecraft/entity/LivingEntity    playEquipmentBreakEffects    (Lnet/minecraft/item/ItemStack;)V
+accessible field net/minecraft/client/gui/widget/CheckboxWidget checked Z

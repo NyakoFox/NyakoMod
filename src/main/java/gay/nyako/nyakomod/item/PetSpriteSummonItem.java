@@ -49,5 +49,9 @@ public class PetSpriteSummonItem extends PetSummonItem<PetSpriteEntity> {
         if (tag.contains("pet_size")) {
             tooltip.add(Text.translatable("item.nyakomod.pet_sprite_summon.tooltip.size", tag.getDouble("pet_size")));
         }
+
+        if (tag.contains("still")) {
+            tooltip.add(Text.translatable("item.nyakomod.pet_sprite_summon.tooltip.still"));
+        }
     }
 }

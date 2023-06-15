@@ -65,6 +65,7 @@ public class NyakoNetworking {
                 (server, player, handler, buffer, sender) -> {
                     var string = buffer.readString();
                     var size = buffer.readDouble();
+                    var still = buffer.readBoolean();
 
                     server.execute(() -> {
                         var stack = player.getMainHandStack();
@@ -78,6 +79,8 @@ public class NyakoNetworking {
                         var nbt = stack.getOrCreateNbt();
                         nbt.putString("custom_sprite", string);
                         nbt.putDouble("pet_size", size);
+                        nbt.putBoolean("still", still);
+
                         stack.setNbt(nbt);
                     });
                 }

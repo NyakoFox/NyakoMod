@@ -84,7 +84,6 @@ public class IconScreenHandler extends ScreenHandler {
                 var copyStack = inventory.getStack(1);
 
                 var inputNbt = inputStack.getOrCreateNbt();
-                var copyNbt = copyStack.getOrCreateNbt();
 
                 if (inputNbt.contains("fromButton") && inputNbt.getBoolean("fromButton")) {
                     inputNbt.remove("fromButton");
@@ -130,10 +129,10 @@ public class IconScreenHandler extends ScreenHandler {
                 context.run((world, pos) -> {
                     var stack2 = inventory.getStack(0);
                     var nbt = stack2.getNbt();
-                    if (nbt.contains("modelId")) {
+                    if (nbt != null && nbt.contains("modelId")) {
                         nbt.remove("modelId");
+                        stack2.setNbt(nbt);
                     }
-                    stack2.setNbt(nbt);
                 });
                 super.onTakeItem(player, stack);
             }
