@@ -35,6 +35,7 @@
     "SlimeEntityMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",
+    "SmithingTableBlockMixin",
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",

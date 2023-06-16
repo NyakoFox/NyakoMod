@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.mixin;
 import gay.nyako.nyakomod.DoubleSizedSlot;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.access.SlotAccess;
+import gay.nyako.nyakomod.access.SmithingScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SmithingScreenHandler.class)
-public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
+public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler implements SmithingScreenHandlerAccess {
     public SmithingScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(type, syncId, playerInventory, context);
     }
@@ -32,22 +33,17 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
         }
     };
 
+    public Slot hammerSlot;
+
+    public Slot getHammerSlot() {
+        return hammerSlot;
+    }
+
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
     private void injected(CallbackInfo ci) {
         Slot slot = new Slot(hammerInventory, 0, 15, 7);
         ((SlotAccess) slot).setScale(2);
         slot.setStack(new ItemStack(NyakoItems.SMITHING_HAMMER));
-        addSlot(slot);
-    }
-
-    @Override
-    public void close(PlayerEntity player) {
-        super.close(player);
-        this.context.run((world, pos) -> this.dropInventory(player, this.input));
-        this.context.run((world, pos) -> {
-            if (this.hammerInventory.getStack(0).getItem() != NyakoItems.SMITHING_HAMMER) {
-                this.dropInventory(player, hammerInventory);
-            }
-        });
+        hammerSlot = addSlot(slot);
     }
 }

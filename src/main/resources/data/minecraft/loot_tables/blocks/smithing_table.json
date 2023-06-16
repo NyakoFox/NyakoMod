@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "type": "nyakomod:smithing_table",
+              "entries": [
+                {
+                  "type": "minecraft:dynamic",
+                  "name": "minecraft:contents"
+                }
+              ],
+              "function": "minecraft:set_contents"
+            }
+          ],
+          "name": "minecraft:smithing_table"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
