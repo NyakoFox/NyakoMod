@@ -1,47 +1,78 @@
 package gay.nyako.nyakomod.entity.renderer;
 
-import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.entity.TickerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.*;
 
 public class TickerEntityRenderer extends EntityRenderer<TickerEntity> {
-    private final ItemRenderer itemRenderer;
+
+    private static final Identifier RING_TEXTURE = Identifier.of("nyakomod", "textures/time_ring.png");
+
     public TickerEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.itemRenderer = context.getItemRenderer();
     }
     @Override
     public Identifier getTexture(TickerEntity entity) {
-        return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+        return RING_TEXTURE;
     }
+
     @Override
     public void render(TickerEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        ItemStack tiabStack = new ItemStack(NyakoItems.TIME_IN_A_BOTTLE);
-        for (Direction direction : Direction.values()) {
-            if (direction == direction.UP || direction == direction.DOWN) continue;
+        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(entity)));
+        matrices.push();
+        matrices.translate(0, 0.5, 0);
+
+        Vector4f vec1, vec2, vec3, vec4;
+        for (Direction dir : Direction.values()) {
             matrices.push();
+            Vec3i dirVector = dir.getVector();
+            float angle = entity.age+tickDelta;
+            matrices.multiply(new Quaternion(new Vec3f(dirVector.getX(), dirVector.getY(), dirVector.getZ()), angle, true));
+            MatrixStack.Entry entry = matrices.peek();
 
-            // center in block
-            matrices.translate(direction.getOffsetX()/1.95f, (direction.getOffsetY()/1.95f + 0.5), direction.getOffsetZ()/1.95f);
+            float offset = 0.5001f * (dir.getDirection() == Direction.AxisDirection.NEGATIVE ? -1 : 1); // 0.5001 is to prevent Z-fighting
+            if (dir.getAxis() == Direction.Axis.X) {
+                vec1 = new Vector4f(offset, -0.5f, -0.5f, 1.0f);
+                vec2 = new Vector4f(offset,  0.5f, -0.5f, 1.0f);
+                vec3 = new Vector4f(offset,  0.5f,  0.5f, 1.0f);
+                vec4 = new Vector4f(offset, -0.5f,  0.5f, 1.0f);
+            } else if (dir.getAxis() == Direction.Axis.Y) {
+                vec1 = new Vector4f(-0.5f, offset, -0.5f, 1.0f);
+                vec2 = new Vector4f(-0.5f, offset,  0.5f, 1.0f);
+                vec3 = new Vector4f( 0.5f, offset,  0.5f, 1.0f);
+                vec4 = new Vector4f( 0.5f, offset, -0.5f, 1.0f);
+            } else {
+                vec1 = new Vector4f(-0.5f, -0.5f, offset, 1.0f);
+                vec2 = new Vector4f(-0.5f,  0.5f, offset, 1.0f);
+                vec3 = new Vector4f( 0.5f,  0.5f, offset, 1.0f);
+                vec4 = new Vector4f( 0.5f, -0.5f, offset, 1.0f);
+            }
 
-            // align to block sides
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(direction.asRotation()));
+            vec1.transform(entry.getPositionMatrix());
+            vec2.transform(entry.getPositionMatrix());
+            vec3.transform(entry.getPositionMatrix());
+            vec4.transform(entry.getPositionMatrix());
 
-            //MinecraftClient.getInstance().getItemRenderer().renderItem(tiabStack, ModelTransformation.Mode.GROUND, 242, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
-            this.itemRenderer.renderItem(tiabStack, ModelTransformation.Mode.GROUND, 242, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers,entity.getId());
-            //this.itemRenderer.renderItem(itemStack, ModelTransformation.Mode.FIXED, i, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, itemFrameEntity.getId());
+            int frame = Math.min(entity.getSpeed(), 5);
+
+            float minU = frame / 6f;
+            float maxU = (frame + 1) / 6f;
+
+            consumer.vertex(vec1.getX(), vec1.getY(), vec1.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 1.0f)
+                    .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
+            consumer.vertex(vec2.getX(), vec2.getY(), vec2.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 0.0f)
+                    .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
+            consumer.vertex(vec3.getX(), vec3.getY(), vec3.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 0.0f)
+                    .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
+            consumer.vertex(vec4.getX(), vec4.getY(), vec4.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 1.0f)
+                    .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
             matrices.pop();
         }
+        matrices.pop();
     }
 }
