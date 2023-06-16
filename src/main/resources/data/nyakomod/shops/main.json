@@ -9,7 +9,7 @@
       ],
       "name": "Bag of Coins",
       "description": "Tired of loose change in your pocket? Want an easier way to store your precious money? The Bag of Coins can help with that, providing a way to store all of your CunkCoin™ without wasting your precious inventory space! It also makes it easier to share coins with someone else -- just throw them in a bag! You can also put the bag in a dispenser and all of the coins will shoot out at once!",
-      "price": 2500
+      "price": 500
     },
     {
       "items": [
@@ -21,7 +21,7 @@
       ],
       "name": "Potion of Luck",
       "description": "A potion that may make your chances of getting something good a little higher.\n\nFUN FACT: Did you know that 80% of people who gamble quit right before they're about to hit it big?",
-      "price": 5000
+      "price": 500
     },
     {
       "items": [
@@ -33,7 +33,7 @@
       ],
       "name": "Potion of Unluck",
       "description": "You might not want to drink this, however it might be fun to trick a friend into trying.",
-      "price": 5000
+      "price": 500
     },
     {
       "items": [
@@ -45,7 +45,7 @@
       ],
       "name": "Potion of Nausea",
       "description": "A potion that makes you feel sick. It's not very fun, but maybe it's a good way to get rid of unwanted guests.",
-      "price": 2500
+      "price": 750
     },
     {
       "items": [
@@ -89,7 +89,7 @@
       ],
       "name": "Plasteel Plating",
       "description": "Looking for some new metal to spice up your house? Your towers? Your shrines? Plasteel might just be the material for you! Aside from looking really good, it can also be put into a stonecutter (note: it is NOT stone) to make a variety of different blocks, including Plasteel Casing, Plasteel Smooth Casing and Plasteel Pillars! And maybe more in the future, if we get the budget.",
-      "price": 800
+      "price": 500
     },
     {
       "items": [
@@ -100,7 +100,7 @@
       ],
       "name": "Titanstone",
       "description": "Straight from another dimension, right to you. As a mix of stone and titanium ore, this block is really hard.",
-      "price": 800
+      "price": 500
     },
     {
       "items": [
@@ -111,7 +111,7 @@
       ],
       "name": "Blue Starry Block",
       "description": "The Blue Starry Block is an animated decorative block type which shows twinkling blue stars on a black background. It is the blue-themed variant of the Gold Starry Block.",
-      "price": 800
+      "price": 500
     },
     {
       "items": [
@@ -122,7 +122,7 @@
       ],
       "name": "Gold Starry Block",
       "description": "The Gold Starry Block is an animated decorative block. When placed it shows twinkling, gold stars on a black background. It is the gold-themed variant of the Blue Starry Block.",
-      "price": 800
+      "price": 500
     },
     {
       "items": [
@@ -145,7 +145,7 @@
       ],
       "name": "KB Slimeball",
       "description": "Well... let's not dwell on the past.",
-      "price": 10000000
+      "price": 1000000
     },
     {
       "items": [
@@ -156,7 +156,7 @@
       ],
       "name": "Staff of Smiting",
       "description": "Let's just put it this way... do you want to learn how to fly?",
-      "price": 40000000
+      "price": 4000000
     },
     {
       "items": [
@@ -167,7 +167,7 @@
       ],
       "name": "Launcher",
       "description": "It's like the Staff of Smiting, but no friends are required!",
-      "price": 60000000
+      "price": 6000000
     }
   ]
 }

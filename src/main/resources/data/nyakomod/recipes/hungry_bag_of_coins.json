@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " SL",
-    "LES",
-    "LL "
-  ],
-  "key": {
-    "L": {
-      "item": "minecraft:leather"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:bag_of_coins"
     },
-    "E": {
+    {
       "item": "minecraft:ender_pearl"
-    },
-    "S": {
-      "item": "minecraft:string"
     }
-  },
+  ],
   "result": {
     "item": "nyakomod:hungry_bag_of_coins",
     "count": 1

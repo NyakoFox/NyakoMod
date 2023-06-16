@@ -4,6 +4,7 @@ import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoGacha;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 
 public class MatterVortexBlock extends Block {
 
-    public static long USAGE_PRICE = 2000L; // 20 gold coins
+    public static long USAGE_PRICE = 500L; // 5 gold coins
 
     public MatterVortexBlock(Settings settings) {
         super(settings);
@@ -51,17 +52,16 @@ public class MatterVortexBlock extends Block {
         }
         NyakoGacha.GachaEntry gachaEntry = NyakoGacha.GACHA_ENTRIES.get(idx);
 
-        String starText = "";
+        StringBuilder starText = new StringBuilder();
         // Let's use Math.max in case we accidentally use something... over 5.
         for (int i = 0; i < Math.max(5, gachaEntry.rarity()); i++) {
             if (i < (gachaEntry.rarity())) {
-                starText += "★";
+                starText.append("★");
             } else {
-                starText += "☆";
+                starText.append("☆");
             }
         }
-        MutableText starMutableText = Texts.setStyleIfAbsent((MutableText) Text.of(starText), Style.EMPTY.withColor(Formatting.YELLOW));
-
+        MutableText starMutableText = Texts.setStyleIfAbsent((MutableText) Text.of(starText.toString()), Style.EMPTY.withColor(Formatting.YELLOW));
 
         MutableText actionBarText = (MutableText) Text.of("You have been given ");
         actionBarText.append(gachaEntry.name());
@@ -69,8 +69,10 @@ public class MatterVortexBlock extends Block {
         actionBarText.append(starMutableText);
         player.sendMessage(actionBarText, true);
 
-        if (!player.giveItemStack(gachaEntry.itemStack().copy())) {
-            player.dropItem(gachaEntry.itemStack().copy(), true);
+        var stack = gachaEntry.itemStack().copy();
+        EnchantmentHelper.enchant(world.random, stack, world.random.nextBetween(10,25), true);
+        if (!player.giveItemStack(stack)) {
+            player.dropItem(stack, true);
         };
 
         player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.BLOCKS, 1f, 1f);
