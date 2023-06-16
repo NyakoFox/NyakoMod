@@ -240,6 +240,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.TOTEM_OF_DYING, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.FOAM_ZOMBIE, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.SMITHING_HAMMER, Models.HANDHELD);
+        itemModelGenerator.register(NyakoItems.ROD_OF_DISCORD, Models.HANDHELD);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

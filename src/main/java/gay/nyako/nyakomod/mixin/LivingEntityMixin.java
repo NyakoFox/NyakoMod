@@ -72,6 +72,12 @@ public abstract class LivingEntityMixin extends Entity {
 			} else if (this.world.getRegistryKey() == World.NETHER) {
 				baseCoinAmount *= 0.5;
 			}
+
+			if (this.world.getRegistryKey() != World.END) {
+				if (random.nextBetween(1, 500) == 1) {
+					this.dropItem(NyakoItems.ROD_OF_DISCORD);
+				}
+			}
 		}
 
 		// pick a random number between 0.8 and 1.2

@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-15T18:32:59.8619619	Models
+// 1.19.2	2023-06-16T15:37:00.8289548	Models
 b4458a0c1e24cd6bba6e6807cc3e4e0bfb834616 assets\nyakomod\models\item\test_item.json
 453ac43a2a5321d18c90233147a63ac17b07ca4f assets\nyakomod\models\block\gold_coin_three.json
 5831d27dbae61dc7b32c8ad1ba2f2af670d5ec0f assets\nyakomod\models\block\gold_coin_forty_seven.json
@@ -179,6 +179,7 @@ d5a4d7e223931ceb53676030b7fe70ee2db44151 assets\nyakomod\models\block\emerald_co
 341b5daacb51f2f4e6d277d514a8aa0f1e27870f assets\nyakomod\models\block\diamond_coin_nineteen.json
 f96aee04fdb6ac8d6f578e1e6dccde466158e305 assets\nyakomod\models\block\diamond_coin_fifty_nine.json
 f3c59eabf00a1ee29f637598ba576c1bdb11336c assets\nyakomod\models\block\gold_coin_forty_one.json
+683b8a84cf733f424654a5cf700d5ea4f3218203 assets\nyakomod\models\item\rod_of_discord.json
 90f0e44f2432a4ca087c035812c9c58088e2b07e assets\nyakomod\models\block\gold_coin_twenty.json
 12394f74cb2de1fe245dbafd229a5c6f24c8dca0 assets\nyakomod\models\item\plasteel_smooth_casing.json
 ccfef65bcc21d7c5416fa4191afefbbbf8b66261 assets\nyakomod\models\block\gold_coin_thirteen.json

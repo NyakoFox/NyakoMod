@@ -106,6 +106,7 @@ public class NyakoItems {
     public static final Item GROWN_FOAM_ZOMBIE          = register("grown_foam_zombie",         new GrownFoamZombieItem(new FabricItemSettings().group(ItemGroup.MISC)));
     public static final Item MEGA_DIAMOND_PICKAXE       = register("mega_diamond_pickaxe",      new MegaDiamondPickaxeItem(new FabricItemSettings().group(ItemGroup.TOOLS)));
     public static final Item SMITHING_HAMMER            = register("smithing_hammer",           new SmithingHammerItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxDamage(250)));
+    public static final Item ROD_OF_DISCORD             = register("rod_of_discord",            new RodOfDiscordItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
