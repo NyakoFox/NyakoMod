@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-02T13:06:47.4062189	Models
+// 1.19.2	2023-06-15T18:32:59.8619619	Models
 b4458a0c1e24cd6bba6e6807cc3e4e0bfb834616 assets\nyakomod\models\item\test_item.json
 453ac43a2a5321d18c90233147a63ac17b07ca4f assets\nyakomod\models\block\gold_coin_three.json
 5831d27dbae61dc7b32c8ad1ba2f2af670d5ec0f assets\nyakomod\models\block\gold_coin_forty_seven.json
@@ -48,6 +48,7 @@ fa7be35414a4fcdedf74b02ce22e5aceb8c4db76 assets\nyakomod\models\block\copper_coi
 1b1ba20d39c15a5ec5691abd2246ffa3d37f82a4 assets\nyakomod\models\block\copper_coin_thirty_eight.json
 6b0dc4c1730dbf77f8e35d82b6a08b4fbe1923b0 assets\nyakomod\blockstates\titanstone.json
 d805d2851d14e2ec44cfa4a26ee27e3a3b047220 assets\nyakomod\models\block\diamond_coin_fifteen.json
+2e8af17ca709f80d2cab8d737f4a5d2c00689f18 assets\nyakomod\models\item\smithing_hammer.json
 88810c9ec0aec6ebee6783d367cda68620a38351 assets\nyakomod\models\block\netherite_coin_fifty_three.json
 7721d041c423bb217799275c1751937f955b8f01 assets\nyakomod\blockstates\note_block_plus.json
 5f153674a4be10b3a4e3d806e64a4238f795dae8 assets\nyakomod\models\block\gold_coin_fifty_nine.json

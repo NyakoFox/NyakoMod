@@ -33,6 +33,8 @@
     "ScoreboardCriterionMixin",
     "ServerPlayerEntityMixin",
     "SlimeEntityMixin",
+    "SlotMixin",
+    "SmithingScreenHandlerMixin",
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
@@ -41,6 +43,7 @@
   "client": [
     "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
+    "HandledScreenMixin",
     "InGameHudMixin",
     "ItemModelsMixin",
     "ItemRendererMixin",

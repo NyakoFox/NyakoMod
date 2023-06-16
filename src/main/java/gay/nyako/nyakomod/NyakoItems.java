@@ -97,14 +97,15 @@ public class NyakoItems {
     public static final Item ENCUMBERING_STONE          = register("encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), true));
     public static final Item SUPER_ENCUMBERING_STONE    = register("super_encumbering_stone",   new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), false));
     public static final Item DRAGON_SCALE               = register("dragon_scale",              new DragonScaleItem(new FabricItemSettings().group(ItemGroup.MISC)));
-    public static final Item JEAN_JACKET                = register("jean_jacket",               new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
-    public static final Item JEAN_HAT                   = register("jean_hat",                  new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.HEAD,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
-    public static final Item JEANS                      = register("jeans",                     new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.LEGS,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
-    public static final Item JEAN_SOCKS                 = register("jean_socks",                new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.FEET,  new Item.Settings().group(ItemGroup.COMBAT).fireproof()));
-    public static final Item TOTEM_OF_DYING             = register("totem_of_dying",            new TotemOfDyingItem(new Item.Settings().maxCount(1).group(ItemGroup.COMBAT).rarity(Rarity.UNCOMMON)));
-    public static final Item FOAM_ZOMBIE                = register("foam_zombie",               new FoamZombieItem(new Item.Settings().group(ItemGroup.MISC)));
-    public static final Item GROWN_FOAM_ZOMBIE          = register("grown_foam_zombie",         new GrownFoamZombieItem(new Item.Settings().group(ItemGroup.MISC)));
-    public static final Item MEGA_DIAMOND_PICKAXE       = register("mega_diamond_pickaxe",      new MegaDiamondPickaxeItem(new Item.Settings().group(ItemGroup.TOOLS)));
+    public static final Item JEAN_JACKET                = register("jean_jacket",               new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.CHEST, new FabricItemSettings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEAN_HAT                   = register("jean_hat",                  new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.HEAD,  new FabricItemSettings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEANS                      = register("jeans",                     new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.LEGS,  new FabricItemSettings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item JEAN_SOCKS                 = register("jean_socks",                new ArmorItem(NyakoMod.JEAN_ARMOR_MATERIAL, EquipmentSlot.FEET,  new FabricItemSettings().group(ItemGroup.COMBAT).fireproof()));
+    public static final Item TOTEM_OF_DYING             = register("totem_of_dying",            new TotemOfDyingItem(new FabricItemSettings().maxCount(1).group(ItemGroup.COMBAT).rarity(Rarity.UNCOMMON)));
+    public static final Item FOAM_ZOMBIE                = register("foam_zombie",               new FoamZombieItem(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item GROWN_FOAM_ZOMBIE          = register("grown_foam_zombie",         new GrownFoamZombieItem(new FabricItemSettings().group(ItemGroup.MISC)));
+    public static final Item MEGA_DIAMOND_PICKAXE       = register("mega_diamond_pickaxe",      new MegaDiamondPickaxeItem(new FabricItemSettings().group(ItemGroup.TOOLS)));
+    public static final Item SMITHING_HAMMER            = register("smithing_hammer",           new SmithingHammerItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxDamage(250)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

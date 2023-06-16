@@ -4,12 +4,15 @@ accessWidener	v1  named
 accessible    class     net/minecraft/server/command/TeleportCommand$LookTarget
 accessible    method    net/minecraft/entity/player/PlayerInventory   addStack   (Lnet/minecraft/item/ItemStack;)I
 accessible    method    net/minecraft/potion/Potions    register    (Ljava/lang/String;Lnet/minecraft/potion/Potion;)Lnet/minecraft/potion/Potion;
-accessible    field    net/minecraft/data/client/ItemModelGenerator    writer    Ljava/util/function/BiConsumer;
-accessible    field    net/minecraft/entity/player/PlayerEntity    abilities    Lnet/minecraft/entity/player/PlayerAbilities;
-accessible    field    net/minecraft/entity/player/PlayerEntity    hungerManager    Lnet/minecraft/entity/player/HungerManager;
-accessible    field    net/minecraft/entity/Entity    lastNetherPortalPosition    Lnet/minecraft/util/math/BlockPos;
-accessible    class    net/minecraft/client/gui/screen/CreditsScreen$CreditsReader
-accessible    field    net/minecraft/client/gui/screen/CreditsScreen    time    F
-accessible    field    net/minecraft/client/sound/MusicTracker    timeUntilNextSong    I
+accessible    field     net/minecraft/data/client/ItemModelGenerator    writer    Ljava/util/function/BiConsumer;
+accessible    field     net/minecraft/entity/player/PlayerEntity    abilities    Lnet/minecraft/entity/player/PlayerAbilities;
+accessible    field     net/minecraft/entity/player/PlayerEntity    hungerManager    Lnet/minecraft/entity/player/HungerManager;
+accessible    field     net/minecraft/entity/Entity    lastNetherPortalPosition    Lnet/minecraft/util/math/BlockPos;
+accessible    class     net/minecraft/client/gui/screen/CreditsScreen$CreditsReader
+accessible    field     net/minecraft/client/gui/screen/CreditsScreen    time    F
+accessible    field     net/minecraft/client/sound/MusicTracker    timeUntilNextSong    I
 accessible    method    net/minecraft/entity/LivingEntity    playEquipmentBreakEffects    (Lnet/minecraft/item/ItemStack;)V
-accessible field net/minecraft/client/gui/widget/CheckboxWidget checked Z
+accessible    field     net/minecraft/client/gui/widget/CheckboxWidget checked Z
+accessible    method    net/minecraft/client/render/item/ItemRenderer renderGuiQuad (Lnet/minecraft/client/render/BufferBuilder;IIIIIIII)V
+accessible    field     net/minecraft/client/gui/screen/ingame/HandledScreen focusedSlot Lnet/minecraft/screen/slot/Slot;
+accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen isPointWithinBounds (IIIIDD)Z

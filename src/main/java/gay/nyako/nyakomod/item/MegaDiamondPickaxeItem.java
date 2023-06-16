@@ -1,5 +1,6 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoToolMaterials;
 import net.minecraft.item.*;
 
 public class MegaDiamondPickaxeItem extends PickaxeItem {
