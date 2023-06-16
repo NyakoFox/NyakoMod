@@ -107,6 +107,9 @@ public class NyakoItems {
     public static final Item MEGA_DIAMOND_PICKAXE       = register("mega_diamond_pickaxe",      new MegaDiamondPickaxeItem(new FabricItemSettings().group(ItemGroup.TOOLS)));
     public static final Item SMITHING_HAMMER            = register("smithing_hammer",           new SmithingHammerItem(new FabricItemSettings().group(ItemGroup.TOOLS).maxDamage(250)));
     public static final Item ROD_OF_DISCORD             = register("rod_of_discord",            new RodOfDiscordItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item DIAMOND_APPLE              = register("diamond_apple",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).rarity(Rarity.RARE).food(NyakoFoodComponents.DIAMOND_APPLE)));
+    public static final Item EMERALD_APPLE              = register("emerald_apple",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).rarity(Rarity.RARE).food(NyakoFoodComponents.EMERALD_APPLE)));
+    public static final Item GREEN_APPLE                = register("green_apple",               new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(FoodComponents.APPLE)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

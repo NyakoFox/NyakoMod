@@ -1,8 +1,12 @@
 package gay.nyako.nyakomod;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.minecraft.block.Blocks;
+import net.minecraft.data.server.BlockLootTableGenerator;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
@@ -57,6 +61,21 @@ public class NyakoLoot {
         itemLootTables.add(new Identifier("minecraft", "chests/pillager_outpost"));
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (source.isBuiltin() && (new Identifier("minecraft", "blocks/oak_leaves")).equals(id)) {
+                LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
+                        .conditionally(BlockLootTableGenerator.WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                        .with(
+                                ItemEntry.builder(NyakoItems.GREEN_APPLE)
+                        //.with(
+                        //        BlockLootTableGenerator.addSurvivesExplosionCondition(Blocks.OAK_LEAVES, ItemEntry.builder(NyakoItems.GREEN_APPLE))
+                        ).conditionally(
+                                TableBonusLootCondition.builder(Enchantments.FORTUNE, 0.005f, 0.0055555557f, 0.00625f, 0.008333334f, 0.025f)
+                        );
+                tableBuilder.pool(poolBuilder);
+            }
+
+
+            // Add a few random NyakoMod items to loot tables
             if (source.isBuiltin() && coinLootTables.contains(id)) {
                 tableBuilder
                         .pool(LootPool.builder().rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
@@ -64,7 +83,13 @@ public class NyakoLoot {
                             .with(ItemEntry.builder(NyakoItems.ENCUMBERING_STONE).weight(5))
                             .with(ItemEntry.builder(NyakoItems.SUPER_ENCUMBERING_STONE).weight(2))
                             .with(ItemEntry.builder(NyakoItems.BLUEPRINT).weight(20)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WEEZED).weight(10))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WEEZED).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WOLVES).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MERRY).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MOONLIGHT).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WELCOME).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MASK).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_CLUNK).weight(2))
                             .build()
                         );
             }

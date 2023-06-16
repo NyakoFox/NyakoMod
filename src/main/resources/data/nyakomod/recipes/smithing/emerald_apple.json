@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:apple"
+  },
+  "addition": {
+    "item": "minecraft:emerald_block"
+  },
+  "result": {
+    "item": "nyakomod:emerald_apple"
+  }
+}
