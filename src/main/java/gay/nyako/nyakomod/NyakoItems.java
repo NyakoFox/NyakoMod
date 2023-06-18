@@ -110,6 +110,8 @@ public class NyakoItems {
     public static final Item DIAMOND_APPLE              = register("diamond_apple",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).rarity(Rarity.RARE).food(NyakoFoodComponents.DIAMOND_APPLE)));
     public static final Item EMERALD_APPLE              = register("emerald_apple",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).rarity(Rarity.RARE).food(NyakoFoodComponents.EMERALD_APPLE)));
     public static final Item GREEN_APPLE                = register("green_apple",               new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(FoodComponents.APPLE)));
+    public static final Item SPECULAR_FISH              = register("specular_fish",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(NyakoFoodComponents.SPECULAR_FISH)));
+    public static final Item RECALL_POTION              = register("recall_potion",             new RecallPotionItem(new FabricItemSettings().group(ItemGroup.BREWING).maxCount(1)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

@@ -6,6 +6,7 @@
   "mixins": [
     "BlocksMixin",
     "BoatEntityMixin",
+    "BrewingRecipeRegistryMixin",
     "BucketItemMixin",
     "CreeperExplodeMixin",
     "CrossbowItemMixin",
@@ -21,6 +22,7 @@
     "GrindstoneSlotsScreenHandlerMixin",
     "HorseEntityMixin",
     "LivingEntityMixin",
+    "LootTableBuilderAccessor",
     "MilkBucketItemMixin",
     "MilkMixin",
     "MobEntityMixin",

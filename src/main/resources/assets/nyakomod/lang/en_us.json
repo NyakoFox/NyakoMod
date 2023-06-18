@@ -106,6 +106,8 @@
     "item.nyakomod.green_apple": "Green Apple",
     "item.nyakomod.diamond_apple": "Diamond Apple",
     "item.nyakomod.emerald_apple": "Emerald Apple",
+    "item.nyakomod.specular_fish": "Specular Fish",
+    "item.nyakomod.recall_potion": "Potion of Recall",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
@@ -173,7 +175,7 @@
     "subtitles.nyakomod.vine_boom": "Vine boom",
     "subtitles.nyakomod.wolves": "Kanye West - Wolves",
     "subtitles.nyakomod.clunk": "The Clown - What's So Funny?",
-    "subtitles.nyakomod.merry": "Kanye West - Good bye, Merry-Go-Round",
+    "subtitles.nyakomod.merry": "Super Mario 64 - Merry-Go-Round",
     "subtitles.nyakomod.weezed": "Weezer - Say It Ain't So",
     "subtitles.nyakomod.discord": "Discord notification",
     "subtitles.nyakomod.welcome": "Garoad - Welcome to VA-11 HALL-A",
@@ -182,6 +184,7 @@
     "subtitles.nyakomod.nether_portal_launch": "Nether Portal launches",
     "subtitles.nyakomod.samsung": "Ice",
     "subtitles.nyakomod.true": "True!",
+    "subtitles.nyakomod.unlock": "Lock/Unlock Encumbering Stone",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
 
