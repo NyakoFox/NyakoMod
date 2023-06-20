@@ -20,9 +20,11 @@ public class PetDragonRenderer extends MobEntityRenderer<PetDragonEntity, PetDra
     @Override
     public Identifier getTexture(PetDragonEntity entity) {
         var stack = entity.getSummonItem();
-        var item = stack.getItem();
-        if (item instanceof PetChangeSummonItem<?> petItem) {
-            return petItem.getVariation(stack).texture;
+        if (stack != null) {
+            var item = stack.getItem();
+            if (item instanceof PetChangeSummonItem<?> petItem) {
+                return petItem.getVariation(stack).texture;
+            }
         }
 
         return new Identifier("nyakomod", "textures/entity/pet/dragon.png");
