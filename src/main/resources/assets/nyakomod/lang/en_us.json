@@ -170,6 +170,15 @@
     "item.minecraft.tipped_arrow.effect.blindness": "Tipped Arrow of Blindness",
     "item.nyakomod.milk_bucket.tooltip": "Freshly milked from: %s",
 
+    "item.minecraft.potion.effect.hunter": "Potion of the Hunt",
+    "item.minecraft.potion.effect.hunter_long": "Potion of the Hunt",
+    "item.minecraft.splash_potion.effect.hunter": "Splash Potion of the Hunt",
+    "item.minecraft.splash_potion.effect.hunter_long": "Splash Potion of the Hunt",
+    "item.minecraft.lingering_potion.effect.hunter": "Lingering Potion of the Hunt",
+    "item.minecraft.lingering_potion.effect.hunter_long": "Lingering Potion of the Hunt",
+    "item.minecraft.tipped_arrow.effect.hunter": "Arrow of the Hunt",
+    "item.minecraft.tipped_arrow.effect.hunter_long": "Arrow of the Hunt",
+
     "subtitles.nyakomod.super_luigi": "\"Super Luigi Galaxy!\"",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
@@ -197,5 +206,7 @@
 
     "death.attack.totemOfDying": "%s used a Totem of Dying",
     "death.attack.killbind": "%s used their killbind",
-    "death.attack.eatPickaxe": "%s ate a pickaxe"
+    "death.attack.eatPickaxe": "%s ate a pickaxe",
+
+    "effect.nyakomod.hunter": "Hunter"
 }

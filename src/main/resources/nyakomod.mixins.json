@@ -6,6 +6,7 @@
   "mixins": [
     "BlocksMixin",
     "BoatEntityMixin",
+    "BrewingRecipeRegistryInvoker",
     "BrewingRecipeRegistryMixin",
     "BucketItemMixin",
     "CreeperExplodeMixin",
@@ -54,7 +55,8 @@
     "MusicTrackerMixin",
     "TntEntityRendererMixin",
     "VillagerEntityRendererMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "ClientEntityMixin"
   ],
   "server": [
     "ServerLivingEntityMixin"

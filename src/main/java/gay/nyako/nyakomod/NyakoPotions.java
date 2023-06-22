@@ -1,7 +1,9 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.mixin.BrewingRecipeRegistryInvoker;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
 
@@ -18,4 +20,12 @@ public class NyakoPotions {
     public static final Potion GLOWING = Potions.register("glowing", new Potion("glowing", new StatusEffectInstance(StatusEffects.GLOWING, 1200))); // 1 minute
     public static final Potion DOLPHINS_GRACE = Potions.register("dolphins_grace", new Potion("dolphins_grace", new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 1200))); // 1 minute
     public static final Potion DARKNESS = Potions.register("darkness", new Potion("darkness", new StatusEffectInstance(StatusEffects.DARKNESS, 600))); // 30 seconds
+    public static final Potion HUNTER = Potions.register("hunter", new Potion(new StatusEffectInstance(NyakoStatusEffects.HUNTER_STATUS_EFFECT, 3600))); // 3 minute
+    public static final Potion LONG_HUNTER = Potions.register("hunter_long", new Potion(new StatusEffectInstance(NyakoStatusEffects.HUNTER_STATUS_EFFECT, 9600))); // 8 minutes
+
+    public static void registerPotionsRecipes(){
+        BrewingRecipeRegistryInvoker.invokeRegisterPotionRecipe(Potions.NIGHT_VISION, Items.ENDER_EYE, HUNTER);
+        BrewingRecipeRegistryInvoker.invokeRegisterPotionRecipe(Potions.LONG_NIGHT_VISION, Items.ENDER_EYE, LONG_HUNTER);
+        BrewingRecipeRegistryInvoker.invokeRegisterPotionRecipe(HUNTER, Items.REDSTONE, LONG_HUNTER);
+    }
 }

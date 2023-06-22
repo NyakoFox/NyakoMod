@@ -87,6 +87,7 @@ public class NyakoMod implements ModInitializer {
         DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS, new CoinBagItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.NETHER_PORTAL_STRUCTURE, new NetherPortalStructureItemDispenserBehavior());
 
+        NyakoPotions.registerPotionsRecipes();
 
         CunkCoinUtils.registerCoinAmounts();
         registerCommands();
