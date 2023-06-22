@@ -1,12 +1,15 @@
 package gay.nyako.nyakomod.utils;
 
 import gay.nyako.nyakomod.NyakoNetworking;
+import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -31,7 +34,25 @@ public class InventoryUtils {
     }
 
     public static void openShulkerBox(ItemStack stack, PlayerEntity player) {
+        // ShulkerBoxBlock
+        EnderChestInventory enderChestInventory = player.getEnderChestInventory();
+        // ShulkerBoxScreenHandler
+        var pos = player.getPos();
+        var world = player.world;
 
+        world.playSound(player, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SHULKER_BOX_OPEN, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
+
+        if (world.isClient) {
+            sendPacket(stack);
+            return;
+        }
+
+        var nbt = stack.getOrCreateNbt();
+        nbt.putBoolean("ShulkerBoxOpen", true);
+
+        player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, inventory, player2) ->
+                new ShulkerBoxScreenHandler(syncId, inventory, new ShulkerBoxInventory(stack)), Text.translatable("container.shulkerBox")));
+        player.incrementStat(Stats.OPEN_SHULKER_BOX);
     }
 
     static void sendPacket(ItemStack stack) {
