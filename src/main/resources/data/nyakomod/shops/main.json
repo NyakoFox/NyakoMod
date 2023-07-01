@@ -78,7 +78,7 @@
       ],
       "name": "/dev/null",
       "description": "A miraculous innovation in technology! Leveraging a miniature black hole, this handy item can store any amount of an item you put into it. You can even place blocks that are held from within!\n\nNote: this device is somewhat unstable, and removing more than one item from it at once will cause the hole to collapse, ejecting all of your items onto the floor.",
-      "price": 1250000
+      "price": 125000
     },
     {
       "items": [
@@ -145,7 +145,7 @@
       ],
       "name": "KB Slimeball",
       "description": "Well... let's not dwell on the past.",
-      "price": 1000000
+      "price": 100000
     },
     {
       "items": [
@@ -156,7 +156,7 @@
       ],
       "name": "Staff of Smiting",
       "description": "Let's just put it this way... do you want to learn how to fly?",
-      "price": 4000000
+      "price": 400000
     },
     {
       "items": [
@@ -167,7 +167,7 @@
       ],
       "name": "Launcher",
       "description": "It's like the Staff of Smiting, but no friends are required!",
-      "price": 6000000
+      "price": 600000
     }
   ]
 }
