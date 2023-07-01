@@ -227,7 +227,7 @@ public class NyakoMod implements ModInitializer {
             IconsCommand.register(dispatcher);
             SlimeDebugCommand.register(dispatcher);
             ShopCommand.register(dispatcher);
-            DumpJsonCommand.register(dispatcher);
+            AFKCommand.register(dispatcher);
             DumpNbtCommand.register(dispatcher);
             HelpCommand.register(dispatcher);
         });
