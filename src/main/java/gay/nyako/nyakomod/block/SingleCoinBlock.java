@@ -6,11 +6,16 @@ import gay.nyako.nyakomod.item.CoinItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -19,9 +24,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class SingleCoinBlock extends Block {
+public class SingleCoinBlock extends Block implements Waterloggable {
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final int MAX_COINS = 64;
     public static final IntProperty COINS = NyakoMod.COINS_PROPERTY;
     protected static final VoxelShape ONE_COIN_SHAPE               = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 1.0,  12.0);
@@ -46,7 +53,11 @@ public class SingleCoinBlock extends Block {
 
     public SingleCoinBlock(Settings settings) {
         super(settings.nonOpaque());
-        this.setDefaultState(this.stateManager.getDefaultState().with(COINS, 1));
+        this.setDefaultState(
+                this.stateManager.getDefaultState()
+                        .with(COINS, 1)
+                        .with(WATERLOGGED, false)
+        );
     }
 
     @Override
@@ -93,11 +104,30 @@ public class SingleCoinBlock extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
         if (blockState.isOf(this)) {
-            return blockState.with(COINS, Math.min(MAX_COINS, blockState.get(COINS) + 1));
+            return blockState
+                    .with(COINS, Math.min(MAX_COINS, blockState.get(COINS) + 1))
+                    .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
         }
-        return super.getPlacementState(ctx);
+
+        return this.getDefaultState()
+                .with(COINS, 1)
+                .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
     }
 
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            // This is for 1.17 and below: world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
@@ -179,7 +209,7 @@ public class SingleCoinBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(COINS);
+        builder.add(COINS, WATERLOGGED);
     }
 
 }
