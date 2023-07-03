@@ -36,9 +36,12 @@ public class HandledScreenMixin extends Screen {
     private static void injected(MatrixStack matrixStack, int startX, int startY, int endX, int endY, int colorStart, int colorEnd, int z) {
         var width = endX - startX;
         var height = endY - startY;
-        var scale = ((SlotAccess) ((HandledScreen) MinecraftClient.getInstance().currentScreen).focusedSlot).getScale();
-        width *= scale;
-        height *= scale;
+        SlotAccess slot = (SlotAccess) ((HandledScreen) MinecraftClient.getInstance().currentScreen).focusedSlot;
+        if (slot != null) {
+            var scale = slot.getScale();
+            width *= scale;
+            height *= scale;
+        }
         HandledScreen.fillGradient(matrixStack, startX, startY, startX + width, startY + height, colorStart, colorEnd, z);
     }
 
