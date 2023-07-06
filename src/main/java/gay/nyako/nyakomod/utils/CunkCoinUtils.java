@@ -20,13 +20,8 @@ public class CunkCoinUtils {
 
     public static Map<EntityType<?>, Integer> coinMap = new HashMap<>();
 
-    public static int getCoinValue(EntityType<?> entity) {
-        Integer value = coinMap.get(entity);
-        if (value == null) {
-            return 0;
-        }
-
-        return value;
+    public static Integer getCoinValue(EntityType<?> entity) {
+        return coinMap.get(entity);
     }
 
     public static void registerCoinAmounts() {

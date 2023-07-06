@@ -49,17 +49,25 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
-	@Shadow public abstract void endCombat();
+	@Shadow public abstract int getXpToDrop();
 
 	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V")
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		if (!causedByPlayer) return;
 		if (attackingPlayer == null) return;
 
-		EntityType<?> type = this.getType();
+		EntityType<?> type = getType();
 
 		// get the amount of coins to give based off of the entity type
-		double baseCoinAmount = CunkCoinUtils.getCoinValue(type);
+		Integer coinValue = CunkCoinUtils.getCoinValue(type);
+
+		if (coinValue == null) {
+			coinValue = getXpToDrop() * 1000 / 5;
+
+			if (coinValue == 0) return;
+		}
+
+		double baseCoinAmount = coinValue.doubleValue();
 
 		if (type == EntityType.SLIME || type == EntityType.MAGMA_CUBE) {
 			SlimeEntity slime = (SlimeEntity) (Object) this;
