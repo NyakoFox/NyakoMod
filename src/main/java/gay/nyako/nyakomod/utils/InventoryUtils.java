@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.utils;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -34,8 +35,6 @@ public class InventoryUtils {
     }
 
     public static void openShulkerBox(ItemStack stack, PlayerEntity player) {
-        // ShulkerBoxBlock
-        EnderChestInventory enderChestInventory = player.getEnderChestInventory();
         // ShulkerBoxScreenHandler
         var pos = player.getPos();
         var world = player.world;

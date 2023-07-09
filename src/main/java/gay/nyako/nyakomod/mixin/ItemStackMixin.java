@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.utils.InventoryUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -26,6 +27,7 @@ public abstract class ItemStackMixin {
             } else if (stack.isOf(Items.SHULKER_BOX)) {
                 InventoryUtils.openShulkerBox(stack, player);
                 cir.setReturnValue(true);
+                cir.cancel();
             }
         }
 
@@ -33,6 +35,7 @@ public abstract class ItemStackMixin {
             var nbt = stack.getNbt();
             if (nbt != null && nbt.contains("ShulkerBoxOpen") && nbt.getBoolean("ShulkerBoxOpen")) {
                 cir.setReturnValue(true);
+                cir.cancel();
             }
         }
     }

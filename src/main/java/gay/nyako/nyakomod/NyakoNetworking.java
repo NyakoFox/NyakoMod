@@ -55,6 +55,8 @@ public class NyakoNetworking {
                     server.execute(() -> {
                         if (stack.isOf(Items.ENDER_CHEST)) {
                             InventoryUtils.openEnderChest(stack, player);
+                        } else if (stack.isOf(Items.SHULKER_BOX)) {
+                            InventoryUtils.openShulkerBox(stack, player);
                         }
                     });
                 }
