@@ -5,9 +5,11 @@ import gay.nyako.nyakomod.entity.MonitorEntity;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.utils.InventoryUtils;
+import gay.nyako.nyakomod.utils.ShulkerUtils;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
@@ -51,12 +53,14 @@ public class NyakoNetworking {
         // Super Cool Packet Thats Get Sent When Right Clikcing A Super Neat Inventory Like An Ender Chest In Your EInvnetory.
         ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_INVENTORY,
                 (server, player, handler, buffer, sender) -> {
-                    var stack = buffer.readItemStack();
+                    var slotIndex = buffer.readInt();
+                    var slot = player.currentScreenHandler.getSlot(slotIndex);
+                    var stack = slot.getStack();
                     server.execute(() -> {
                         if (stack.isOf(Items.ENDER_CHEST)) {
-                            InventoryUtils.openEnderChest(stack, player);
-                        } else if (stack.isOf(Items.SHULKER_BOX)) {
-                            InventoryUtils.openShulkerBox(stack, player);
+                            InventoryUtils.openEnderChest(slot, player);
+                        } else if (ShulkerUtils.IsShulkerBox(stack)) {
+                            InventoryUtils.openShulkerBox(slot, player);
                         }
                     });
                 }

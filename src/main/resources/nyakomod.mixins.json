@@ -35,6 +35,7 @@
     "PlayerManagerMixin",
     "ScoreboardCriterionMixin",
     "ServerPlayerEntityMixin",
+    "ShulkerBoxScreenHandlerAccessor",
     "SlimeEntityMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",

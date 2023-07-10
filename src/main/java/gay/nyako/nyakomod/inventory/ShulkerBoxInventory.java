@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.inventory;
 
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
@@ -11,7 +12,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ShulkerBoxInventory extends SimpleInventory {
-    protected final ItemStack itemStack;
+    public final ItemStack itemStack;
     protected static final int SIZE = 27;
 
     static final String NBT_TAG = "BlockEntityTag";
@@ -44,20 +45,25 @@ public class ShulkerBoxInventory extends SimpleInventory {
 
     @Override
     public void markDirty() {
-        super.markDirty();
-
-
-        var nbt = itemStack.getOrCreateSubNbt(NBT_TAG);
+        var nbt = itemStack.getOrCreateNbt();
 
         if (!isEmpty()) {
             var contents = defaultContents();
             for (int i = 0; i < size(); i++) {
                 contents.set(i, getStack(i));
             }
-            Inventories.writeNbt(nbt, contents);
+            var subNbt = nbt.getCompound(NBT_TAG);
+            Inventories.writeNbt(subNbt, contents);
+            nbt.put(NBT_TAG, subNbt);
         } else if (hasItemsNbt(nbt)) {
             nbt.remove(NBT_TAG);
         }
+
+        NyakoMod.LOGGER.info(nbt.contains(NBT_TAG));
+
+        itemStack.setNbt(nbt);
+
+        super.markDirty();
     }
 
     @Override
@@ -65,12 +71,7 @@ public class ShulkerBoxInventory extends SimpleInventory {
         var pos = player.getPos();
         var world = player.world;
 
-        world.playSound(player, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
-
-        var nbt = itemStack.getNbt();
-        if (nbt != null && nbt.contains("ShulkerBoxOpen")) {
-            nbt.remove("ShulkerBoxOpen");
-        }
+        world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
 
         markDirty();
     }

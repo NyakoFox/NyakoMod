@@ -7,11 +7,14 @@ import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.command.BackCommand;
 import gay.nyako.nyakomod.command.XpCommand;
+import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -25,6 +28,10 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -37,11 +44,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.OptionalInt;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAccess {
@@ -49,6 +61,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     private static final TrackedData<Integer> MILK = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_SATURATION = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_TIMER = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    @Shadow
+    public ScreenHandler currentScreenHandler;
+
+    @Shadow public abstract OptionalInt openHandledScreen(@Nullable NamedScreenHandlerFactory factory);
+
+    @Shadow @Final public PlayerScreenHandler playerScreenHandler;
+
+    @Shadow protected abstract void closeHandledScreen();
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -121,7 +142,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         this.dataTracker.set(MILK_TIMER, milkTimer);
     }
 
+    @Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;")
+    private void dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> cir) {
+        if (this.currentScreenHandler instanceof ShulkerBoxScreenHandler handler) {
+            NyakoMod.LOGGER.info("Two!");
+            var inventory = ((ShulkerBoxScreenHandlerAccessor)handler).getInventory();
+            NyakoMod.LOGGER.info("Three!");
+            if (inventory instanceof ShulkerBoxInventory inv) {
+                NyakoMod.LOGGER.info("Four!");
+                if (inv.itemStack.isOf(Items.AIR)) {
+                    NyakoMod.LOGGER.info("CLOSE THAT SHIT NOW!!!!");
 
+                    closeHandledScreen();
+                }
+            }
+        }
+    }
 
     @Override
     public final ActionResult interact(PlayerEntity player, Hand hand) {
