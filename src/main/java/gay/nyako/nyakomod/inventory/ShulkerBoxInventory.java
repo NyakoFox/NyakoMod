@@ -45,23 +45,17 @@ public class ShulkerBoxInventory extends SimpleInventory {
 
     @Override
     public void markDirty() {
-        var nbt = itemStack.getOrCreateNbt();
+        var nbt = itemStack.getOrCreateSubNbt(NBT_TAG);
 
         if (!isEmpty()) {
             var contents = defaultContents();
             for (int i = 0; i < size(); i++) {
                 contents.set(i, getStack(i));
             }
-            var subNbt = nbt.getCompound(NBT_TAG);
-            Inventories.writeNbt(subNbt, contents);
-            nbt.put(NBT_TAG, subNbt);
+            Inventories.writeNbt(nbt, contents);
         } else if (hasItemsNbt(nbt)) {
-            nbt.remove(NBT_TAG);
+            itemStack.removeSubNbt(NBT_TAG);
         }
-
-        NyakoMod.LOGGER.info(nbt.contains(NBT_TAG));
-
-        itemStack.setNbt(nbt);
 
         super.markDirty();
     }
