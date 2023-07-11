@@ -36,6 +36,7 @@ public class NyakoBlocks {
     public static final Block TITANSTONE                = register("titanstone",                new Block(FabricBlockSettings.copy(Blocks.DEEPSLATE).requiresTool()));
     public static final Block ALLYBOX                   = register("allybox",                   new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).requiresTool()));
     public static final Block CREEPER                   = register("creeper",                   new CreeperBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block WITHER                    = register("wither",                    new WitherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

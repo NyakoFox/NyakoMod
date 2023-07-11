@@ -91,7 +91,8 @@ public class NyakoItems {
     public static final Item DRAGON_MILK_BUCKET         = register("dragon_milk_bucket",        new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item MONITOR                    = register("monitor",                   new MonitorItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(64)));
     public static final Item FLINT_AND_STEEL_PLUS       = register("flint_and_steel_plus",      new FlintAndSteelPlusItem(new FabricItemSettings().maxDamage(16).group(ItemGroup.TOOLS)));
-    public static final Item CREEPER_HEAD               = register("creeper",                   new BlockItem(NyakoBlocks.CREEPER, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+    public static final Item CREEPER                    = register("creeper",                   new BlockItem(NyakoBlocks.CREEPER, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+    public static final Item WITHER                     = register("wither",                    new BlockItem(NyakoBlocks.WITHER, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
     public static final Item HORSE_MILK_BUCKET          = register("horse_milk_bucket",         new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
     public static final Item MAGNET                     = register("magnet",                    new MagnetItem(new FabricItemSettings().group(ItemGroup.MISC).maxDamage(60 * 4)));
     public static final Item ENCUMBERING_STONE          = register("encumbering_stone",         new EncumberingStoneItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC), true));

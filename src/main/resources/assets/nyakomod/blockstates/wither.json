@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nyakomod:block/wither",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/wither"
+    },
+    "facing=south": {
+      "model": "nyakomod:block/wither",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nyakomod:block/wither",
+      "y": 270
+    }
+  }
+}
