@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,22 +35,20 @@ public class MagnetItem extends Item {
             }
         }
 
-
         var pos = entity.getPos();
         var pos1 = new BlockPos(pos.x - 8, pos.y - 8, pos.z - 8);
         var pos2 = new BlockPos(pos.x + 8, pos.y + 8, pos.z + 8);
         var vecPos = new Vec3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5);
-        var entities = world.getOtherEntities(entity, new Box(pos1, pos2), e -> e instanceof ItemEntity);
+        var entities = world.getOtherEntities(entity, new Box(pos1, pos2), e -> e instanceof ItemEntity || e instanceof ExperienceOrbEntity);
 
         for (var currentEntity : entities) {
-            var itemEntity = (ItemEntity) currentEntity;
-            var itemPos = itemEntity.getPos();
+            var itemPos = currentEntity.getPos();
             var vecItemPos = new Vec3d(itemPos.x + 0.5, itemPos.y + 0.5, itemPos.z + 0.5);
             var vec = vecPos.subtract(vecItemPos);
             var distance = vec.length();
             var vecNormalized = vec.normalize();
             var vecNormalizedScaled = vecNormalized.multiply(0.04 * Math.max(8 - distance, 0));
-            itemEntity.setVelocity(vecNormalizedScaled);
+            currentEntity.setVelocity(vecNormalizedScaled);
         }
     }
 
