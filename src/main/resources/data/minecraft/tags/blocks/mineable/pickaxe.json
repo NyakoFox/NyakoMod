@@ -20,6 +20,7 @@
     "nyakomod:titanstone",
     "nyakomod:creeper",
     "minecraft:end_portal_frame",
-    "nyakomod:wither"
+    "nyakomod:wither",
+    "nyakomod:nether_reactor_core"
   ]
 }
