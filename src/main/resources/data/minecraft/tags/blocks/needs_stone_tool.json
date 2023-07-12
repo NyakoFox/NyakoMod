@@ -8,7 +8,6 @@
     "nyakomod:gold_starry_block",
     "nyakomod:blue_starry_block",
     "nyakomod:titanstone",
-    "minecraft:end_portal_frame",
-    "nyakomod:nether_reactor_core"
+    "minecraft:end_portal_frame"
   ]
 }

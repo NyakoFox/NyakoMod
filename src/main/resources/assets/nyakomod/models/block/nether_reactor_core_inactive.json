@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nyakomod:block/nether_reactor_core_inactive"
+  }
+}

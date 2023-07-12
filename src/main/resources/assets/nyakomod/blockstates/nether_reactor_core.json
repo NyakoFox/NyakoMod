@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "stage=0": { "model": "nyakomod:block/nether_reactor_core" },
+    "stage=1": { "model": "nyakomod:block/nether_reactor_core_active" },
+    "stage=2": { "model": "nyakomod:block/nether_reactor_core_inactive" }
+  }
+}
