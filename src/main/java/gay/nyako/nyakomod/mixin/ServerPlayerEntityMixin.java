@@ -41,9 +41,16 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
 
             player.changeGameMode(previous);
             player.changeGameMode(current);
-            player.setPosition(playerAccess.getJoinPos());
+            player.refreshPositionAndAngles(
+                    playerAccess.getJoinPos().getX(),
+                    playerAccess.getJoinPos().getY(),
+                    playerAccess.getJoinPos().getZ(),
+                    player.getYaw(),
+                    player.getPitch()
+            );
             player.setVelocity(0, 0, 0);
         }
+        player.refreshPositionAfterTeleport(playerAccess.getJoinPos());
     }
 
     @Override

@@ -163,9 +163,10 @@ public class NyakoMod implements ModInitializer {
 
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             for (ServerPlayerEntity player : world.getPlayers()) {
-                if (((ServerPlayerEntityAccess)player).isInSafeMode()) {
-                    if (!((ServerPlayerEntityAccess)player).getJoinPos().equals(player.getPos())) {
-                        ((ServerPlayerEntityAccess)player).setSafeMode(false);
+                var access = (ServerPlayerEntityAccess) player;
+                if (access.isInSafeMode()) {
+                    if (!access.getJoinPos().equals(player.getPos())) {
+                        access.setSafeMode(false);
                     }
                 }
             }
