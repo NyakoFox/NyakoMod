@@ -8,8 +8,6 @@ import gay.nyako.nyakomod.utils.InventoryUtils;
 import gay.nyako.nyakomod.utils.ShulkerUtils;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
@@ -54,7 +52,7 @@ public class NyakoNetworking {
         ServerPlayNetworking.registerGlobalReceiver(RIGHT_CLICK_INVENTORY,
                 (server, player, handler, buffer, sender) -> {
                     var slotIndex = buffer.readInt();
-                    var slot = player.currentScreenHandler.getSlot(slotIndex);
+                    var slot = player.currentScreenHandler.slots.get(slotIndex);
                     var stack = slot.getStack();
                     server.execute(() -> {
                         if (stack.isOf(Items.ENDER_CHEST)) {

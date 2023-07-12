@@ -1,15 +1,10 @@
 package gay.nyako.nyakomod.utils;
 
-import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
@@ -56,7 +51,7 @@ public class InventoryUtils {
 
     static void sendPacket(Slot slot) {
         PacketByteBuf passedData = NyakoNetworking.getBuf();
-        var index = slot.getIndex();
+        var index = slot.id;
         passedData.writeInt(index);
         ClientPlayNetworking.send(NyakoNetworking.RIGHT_CLICK_INVENTORY, passedData);
     }
