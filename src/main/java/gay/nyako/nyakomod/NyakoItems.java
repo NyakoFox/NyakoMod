@@ -114,6 +114,7 @@ public class NyakoItems {
     public static final Item SPECULAR_FISH              = register("specular_fish",             new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(NyakoFoodComponents.SPECULAR_FISH)));
     public static final Item RECALL_POTION              = register("recall_potion",             new RecallPotionItem(new FabricItemSettings().group(ItemGroup.BREWING).maxCount(1)));
     public static final Item NETHER_REACTOR_CORE        = register("nether_reactor_core",       new BlockItem(NyakoBlocks.NETHER_REACTOR_CORE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+    public static final Item GLOWING_OBSIDIAN           = register("glowing_obsidian",          new BlockItem(NyakoBlocks.GLOWING_OBSIDIAN, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
 
     public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
     public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();

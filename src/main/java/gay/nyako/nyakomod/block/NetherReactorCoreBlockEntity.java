@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import gay.nyako.nyakomod.NyakoBlocks;
 import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -53,33 +54,38 @@ public class NetherReactorCoreBlockEntity extends BlockEntity {
 
         if (blockEntity.stage == 1) {
             blockEntity.timer++;
+
+            if (world.getTimeOfDay() % 24000L < 18000L) {
+                ((ServerWorld) world).setTimeOfDay(world.getTimeOfDay() + 63);
+            }
+
             switch (blockEntity.timer)
             {
                 case 20:
-                    world.setBlockState(pos.add(0, -1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(1, -1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, -1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(0, -1, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(0, -1, -1), Blocks.GLOWSTONE.getDefaultState());
+                    world.setBlockState(pos.add(0, -1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(1, -1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, -1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(0, -1, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(0, -1, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
                     break;
                 case 40:
-                    world.setBlockState(pos.add(1, 0, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, 0, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(1, 0, -1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, 0, -1), Blocks.GLOWSTONE.getDefaultState());
+                    world.setBlockState(pos.add(1, 0, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, 0, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(1, 0, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, 0, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
                     break;
                 case 60:
-                    world.setBlockState(pos.add(0, 1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(1, 1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, 1, 0), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(0, 1, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(0, 1, -1), Blocks.GLOWSTONE.getDefaultState());
+                    world.setBlockState(pos.add(0, 1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(1, 1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, 1, 0), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(0, 1, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(0, 1, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
                     break;
                 case 100:
-                    world.setBlockState(pos.add(1, -1, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, -1, 1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(1, -1, -1), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(pos.add(-1, -1, -1), Blocks.GLOWSTONE.getDefaultState());
+                    world.setBlockState(pos.add(1, -1, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, -1, 1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(1, -1, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
+                    world.setBlockState(pos.add(-1, -1, -1), NyakoBlocks.GLOWING_OBSIDIAN.getDefaultState());
                     break;
                 case 140:
                 case 180:
@@ -101,6 +107,11 @@ public class NetherReactorCoreBlockEntity extends BlockEntity {
                         double x = pos.getX() + world.getRandom().nextBetween(-6, 7) - 0.5;
                         double y = pos.getY() - 1;
                         double z = pos.getZ() + world.getRandom().nextBetween(-6, 7) - 0.5;
+                        // Make sure the x and y isn't in the core
+                        while ((x >= pos.getX() - 1) && (x <= pos.getX() + 1) && (z >= pos.getZ() - 1) && (z <= pos.getZ() + 1)) {
+                            x = pos.getX() + world.getRandom().nextBetween(-6, 7) - 0.5;
+                            z = pos.getZ() + world.getRandom().nextBetween(-6, 7) - 0.5;
+                        }
                         if (world.getRandom().nextBetween(0, 100) < 10) {
                             // Spawn a zombie pigmen
                             ZombifiedPiglinEntity piglin = EntityType.ZOMBIFIED_PIGLIN.create(world);

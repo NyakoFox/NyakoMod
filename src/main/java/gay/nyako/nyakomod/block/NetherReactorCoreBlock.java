@@ -75,7 +75,7 @@ public class NetherReactorCoreBlock extends BlockWithEntity {
 
         // Check distance of all players
         for (PlayerEntity p : world.getPlayers()) {
-            if (p.getBlockPos().getManhattanDistance(pos) > 10) {
+            if ((p.getBlockPos().getManhattanDistance(pos) > 6) || (p.getBlockPos().getY() != pos.getY() - 1)) {
                 player.sendMessage(Text.of("All players need to be close to the reactor."));
                 return ActionResult.SUCCESS;
             }

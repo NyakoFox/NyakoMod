@@ -21,6 +21,7 @@
     "nyakomod:creeper",
     "minecraft:end_portal_frame",
     "nyakomod:wither",
-    "nyakomod:nether_reactor_core"
+    "nyakomod:nether_reactor_core",
+    "nyakomod:glowing_obsidian"
   ]
 }

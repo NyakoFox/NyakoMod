@@ -46,6 +46,9 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TRUE_BLOCK);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TITANSTONE);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.GLOWING_OBSIDIAN);
+
         registerAllybox(blockStateModelGenerator);
     }
 
