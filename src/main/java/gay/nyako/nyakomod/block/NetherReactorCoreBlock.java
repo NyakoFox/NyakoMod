@@ -1,8 +1,10 @@
 package gay.nyako.nyakomod.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import gay.nyako.nyakomod.NyakoEntities;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -10,19 +12,21 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.StructureTemplate;
 import net.minecraft.structure.StructureTemplateManager;
+import net.minecraft.structure.processor.BlockRotStructureProcessor;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class NetherReactorCoreBlock extends Block {
+public class NetherReactorCoreBlock extends BlockWithEntity {
     public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);
 
     public NetherReactorCoreBlock(Settings settings) {
-        super(settings.luminance((state) -> state.get(STAGE) == 1 ? 15 : 0));
+        super(settings);
         setDefaultState(getDefaultState().with(STAGE, 0));
     }
 
@@ -58,6 +62,10 @@ public class NetherReactorCoreBlock extends Block {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (state.get(STAGE) != 0) {
+            return ActionResult.PASS;
+        }
+
         if (world.isClient()) return ActionResult.SUCCESS;
 
         if (!checkStructure(world, pos)) {
@@ -81,22 +89,27 @@ public class NetherReactorCoreBlock extends Block {
 
         player.sendMessage(Text.of("Active!"));
 
-        StructureTemplateManager structureTemplateManager = world.getServer().getStructureTemplateManager();
-
-        Optional<StructureTemplate> optional = structureTemplateManager.getTemplate(Identifier.of("nyakomod", "spire"));
-
-        optional.ifPresent(structureTemplate -> this.place(pos, (ServerWorld) world, structureTemplate));
+        place(pos, (ServerWorld) world);
 
         world.setBlockState(pos, state.with(STAGE, 1));
+        // Get block entity
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof NetherReactorCoreBlockEntity) {
+            NetherReactorCoreBlockEntity netherReactorCoreBlockEntity = (NetherReactorCoreBlockEntity) blockEntity;
+            netherReactorCoreBlockEntity.setStage(1);
+        }
 
         return ActionResult.SUCCESS;
     }
 
-    public void place(BlockPos blockPos, ServerWorld world, StructureTemplate template) {
+    public static void place(BlockPos blockPos, ServerWorld world) {
+        StructureTemplateManager structureTemplateManager = world.getServer().getStructureTemplateManager();
+        Optional<StructureTemplate> optional = structureTemplateManager.getTemplate(Identifier.of("nyakomod", "spire"));
+
+        StructureTemplate template = optional.get();
+
         StructurePlacementData structurePlacementData = new StructurePlacementData().setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(true);
-        //if (this.integrity < 1.0f) {
-        //    structurePlacementData.clearProcessors().addProcessor(new BlockRotStructureProcessor(MathHelper.clamp(this.integrity, 0.0f, 1.0f))).setRandom(StructureBlockBlockEntity.createRandom(this.seed));
-        //}
+
         BlockPos blockPos2 = blockPos.add(-8, -3, -8);
         template.place(world, blockPos2, blockPos2, structurePlacementData, world.getRandom(), 2);
     }
@@ -104,5 +117,21 @@ public class NetherReactorCoreBlock extends Block {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(STAGE);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new NetherReactorCoreBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        // With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
+    }
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, NyakoEntities.NETHER_REACTOR_ENTITY, (world1, pos, state1, be) -> NetherReactorCoreBlockEntity.tick(world1, pos, state1, be));
     }
 }
