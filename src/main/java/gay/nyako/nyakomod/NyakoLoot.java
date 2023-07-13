@@ -230,6 +230,7 @@ public class NyakoLoot {
                             .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WELCOME).weight(2))
                             .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MASK).weight(2))
                             .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_CLUNK).weight(2))
+                            .with(ItemEntry.builder(NyakoItems.ENDER_GEM).weight(1))
                             .build()
                         );
             }

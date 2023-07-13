@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:nyakomod/root",
+  "criteria": {
+    "consume_item": {
+      "conditions": {
+        "item": {
+          "items": [
+            "nyakomod:ender_gem"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "Find an Ender Gem."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "nyakomod:ender_gem"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "From The Ancients"
+    }
+  },
+  "requirements": [
+    [
+      "consume_item"
+    ]
+  ]
+}

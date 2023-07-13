@@ -1,4 +1,4 @@
-// 1.19.2	2023-07-12T09:26:55.7850005	Models
+// 1.19.2	2023-07-12T16:39:51.2095841	Models
 b4458a0c1e24cd6bba6e6807cc3e4e0bfb834616 assets\nyakomod\models\item\test_item.json
 453ac43a2a5321d18c90233147a63ac17b07ca4f assets\nyakomod\models\block\gold_coin_three.json
 5831d27dbae61dc7b32c8ad1ba2f2af670d5ec0f assets\nyakomod\models\block\gold_coin_forty_seven.json
@@ -247,6 +247,7 @@ c4b95e49d3d773afa6fc8328050f48c61c07fcaf assets\nyakomod\models\block\main_shop.
 bf5a286fe256ec3112bc02fbef12516c4eb7b8f8 assets\nyakomod\models\block\diamond_coin_thirty_seven.json
 65266ae6489155c76d6aaa1dcfd7c67569b9b9b7 assets\nyakomod\models\block\gold_coin_fifty_two.json
 4dfca3bc23827758a5afa7a412bd1abf436714b5 assets\nyakomod\models\block\netherite_coin_sixty.json
+156f3f16d6bd85728693d41bc334bea92b506130 assets\nyakomod\models\item\echo_pearl.json
 9848130e134ca0b44e6a89c82a9ba845afd44bd4 assets\nyakomod\models\item\plasteel_casing.json
 80d9d460fc29b6d724a75bd0fcd9d51bcc86b9fe assets\nyakomod\models\block\netherite_coin_thirty_five.json
 219fb23ddfd10d71b244184a4ea3eaac50a64ae3 assets\nyakomod\models\block\copper_coin_twenty_one.json
@@ -320,6 +321,7 @@ c7ac52e4c9ec54bd51c818997422b6667c0f7cbc assets\nyakomod\models\block\gold_coin_
 dbfbb1d750ccc65014c5a43f5445d03aa4b3ad06 assets\nyakomod\models\block\diamond_coin_thirty_five.json
 4ec248d296d972a4447758820800ae89caf381de assets\nyakomod\models\block\gold_coin_thirty_five.json
 8dc6bebeea20687621d718640606903b448a85a1 assets\nyakomod\models\block\netherite_coin_thirty_one.json
+73c0b7e7afcf9c95b2f3c2680dfb549a8b94e92e assets\nyakomod\models\item\ender_gem.json
 a1913ce4dc67c0dd1188fac8c97e524818d57b34 assets\nyakomod\models\block\copper_coin_twenty_seven.json
 8a9184dbdddc99ad8b07c1fa92ae8d91217cbe61 assets\nyakomod\models\block\emerald_coin_forty_two.json
 e9baea04e71e67045806581317e83006a7ae4fdb assets\nyakomod\models\block\emerald_coin_fifty_two.json

@@ -103,5 +103,18 @@ public class NyakoAdvancementsGenerator implements Consumer<Consumer<Advancement
                 .parent(diamondCoinAdvancement)
                 .criterion("inventory_changed", InventoryChangedCriterion.Conditions.items(NyakoItems.NETHERITE_COIN))
                 .build(consumer, "nyakomod/netherite_coin");
+
+        Advancement enderGemAdvancement = Advancement.Builder.create()
+                .display(NyakoItems.ENDER_GEM, Text.literal("From The Ancients"),
+                        Text.translatable("Find an Ender Gem."),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .parent(parentAdvancement)
+                .criterion("consume_item", ConsumeItemCriterion.Conditions.item(NyakoItems.ENDER_GEM))
+                .build(consumer, "nyakomod/ender_gem");
     }
 }
