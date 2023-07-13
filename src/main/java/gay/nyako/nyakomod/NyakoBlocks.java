@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.block.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -39,6 +40,7 @@ public class NyakoBlocks {
     public static final Block WITHER                    = register("wither",                    new WitherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block NETHER_REACTOR_CORE       = register("nether_reactor_core",       new NetherReactorCoreBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block GLOWING_OBSIDIAN          = register("glowing_obsidian",          new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).luminance(state -> 15).requiresTool()));
+    public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(AbstractBlock.Settings.of(Material.PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);

@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
@@ -171,7 +172,7 @@ public class EchoPearlItem extends Item {
                             var newPos = new BlockPos(x, y, z);
                             if (world.getBlockState(newPos).getBlock() == Blocks.AIR)
                             {
-                                BlockState portalState = Blocks.NETHER_PORTAL.getDefaultState().with(NetherPortalBlock.AXIS, isXAxis ? Direction.Axis.X : Direction.Axis.Z);
+                                BlockState portalState = NyakoBlocks.ECHO_PORTAL.getDefaultState().with(NetherPortalBlock.AXIS, isXAxis ? Direction.Axis.X : Direction.Axis.Z);
                                 world.setBlockState(newPos, portalState);
                             }
                         }

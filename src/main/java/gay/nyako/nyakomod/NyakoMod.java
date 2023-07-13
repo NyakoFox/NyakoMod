@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
@@ -34,7 +35,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,6 +57,8 @@ public class NyakoMod implements ModInitializer {
     public static final ScoreboardCriterion PLAYER_MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:player_milk_consumed");
     public static final ScoreboardCriterion MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:milk_consumed");
     public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
+
+    public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier("nyakomod", "echolands"));
 
     @Environment(EnvType.SERVER)
     public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();

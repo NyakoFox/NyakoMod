@@ -133,6 +133,8 @@ public class NyakoClientMod implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.DRAFTING_TABLE, RenderLayer.getCutout());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_PORTAL, RenderLayer.getTranslucent());
+
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
 				var client = context.getSource().getClient();
@@ -142,6 +144,8 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 4159204, NyakoItems.WATER);
+
+		NyakoParticleTypes.registerClient();
 	}
 
 	public static final List<String> downloadedUrls = new ArrayList<>();

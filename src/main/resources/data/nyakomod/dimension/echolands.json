@@ -1,0 +1,11 @@
+{
+    "type": "nyakomod:echolands",
+    "generator": {
+        "type": "minecraft:noise",
+        "settings": "minecraft:floating_islands",
+        "biome_source": {
+            "type": "multi_noise",
+            "preset": "overworld"
+        }
+    }
+}
