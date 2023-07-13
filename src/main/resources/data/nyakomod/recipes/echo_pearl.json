@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:echo_shard"
+    },
+    "G": {
+      "item": "nyakomod:ender_gem"
+    }
+  },
+  "result": {
+    "item": "nyakomod:echo_pearl",
+    "count": 1
+  }
+}
