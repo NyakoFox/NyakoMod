@@ -1,16 +1,17 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.screens.IconScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -25,6 +26,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 
@@ -54,7 +56,40 @@ public class DraftingTableBlock extends Block implements Waterloggable {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!world.isClient) {
+            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
+            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
+            NamedScreenHandlerFactory screenHandlerFactory = createScreenHandlerFactory(state, world, pos);
+
+            if (screenHandlerFactory != null) {
+                //With this call the server will request the client to open the appropriate Screenhandler
+                player.openHandledScreen(screenHandlerFactory);
+            }
+        }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return new ExtendedScreenHandlerFactory() {
+            @Override
+            public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+                var json = NyakoMod.MODEL_MANAGER.getManifest().toString();
+                var length = json.getBytes(StandardCharsets.UTF_8).length;
+                buf.writeInt(length);
+                buf.writeString(json, length);
+            }
+
+            @Override
+            public Text getDisplayName() {
+                return Text.literal("Drafting Table");
+            }
+
+            @Override
+            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                return new IconScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
+            }
+        };
     }
 
     @Override

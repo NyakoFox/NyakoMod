@@ -238,6 +238,7 @@ public class NyakoMod implements ModInitializer {
             AFKCommand.register(dispatcher);
             DumpNbtCommand.register(dispatcher);
             HelpCommand.register(dispatcher);
+            IconsCommand.register(dispatcher);
         });
     }
 

@@ -55,6 +55,7 @@
     "HandledScreenMixin",
     "InGameHudMixin",
     "ItemStackMixin",
+    "ItemModelsMixin",
     "MusicTrackerMixin",
     "TntEntityRendererMixin",
     "VillagerEntityRendererMixin",
