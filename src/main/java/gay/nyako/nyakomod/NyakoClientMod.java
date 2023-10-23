@@ -2,6 +2,7 @@ package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.entity.renderer.*;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
+import gay.nyako.nyakomod.item.MagnetItem;
 import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import io.netty.buffer.Unpooled;
@@ -95,6 +96,11 @@ public class NyakoClientMod implements ClientModInitializer {
 			}
 
 			return 0;
+		});
+
+		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "is_broken"), (stack, world, entity, i) ->
+		{
+			return MagnetItem.isUsable(stack) ? 0 : 1;
 		});
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_blueprint"), (stack, world, entity, i) ->

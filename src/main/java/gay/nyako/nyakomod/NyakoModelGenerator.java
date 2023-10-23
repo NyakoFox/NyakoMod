@@ -239,7 +239,6 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.DRAGON_MILK_BUCKET, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.FLINT_AND_STEEL_PLUS, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.HORSE_MILK_BUCKET, Models.GENERATED);
-        itemModelGenerator.register(NyakoItems.MAGNET, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.ENCUMBERING_STONE, String.format(Locale.ROOT, "_%s", "unlocked"), Models.GENERATED);
         itemModelGenerator.register(NyakoItems.SUPER_ENCUMBERING_STONE, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.DRAGON_SCALE, Models.GENERATED);

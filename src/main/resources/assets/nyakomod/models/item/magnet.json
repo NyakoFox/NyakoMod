@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nyakomod:item/magnet"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nyakomod:is_broken": 1
+      },
+      "model": "nyakomod:item/magnet_broken"
+    }
+  ]
+}

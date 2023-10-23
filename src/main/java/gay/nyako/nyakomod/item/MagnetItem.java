@@ -5,8 +5,10 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -24,13 +26,19 @@ public class MagnetItem extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!isEnabled(stack)) return;
 
+        if (!isUsable(stack)) {
+            return;
+        }
+
         if (world.getTime() % 20 == 0) {
             var broken = stack.damage(1, world.random, null);
             if (broken) {
                 if (entity instanceof LivingEntity livingEntity) {
                     livingEntity.playEquipmentBreakEffects(stack);
                 }
-                stack.decrement(1);
+
+                var nbt = stack.getOrCreateNbt();
+                nbt.putBoolean("enabled", false);
                 return;
             }
         }
@@ -53,14 +61,22 @@ public class MagnetItem extends Item {
     }
 
     @Override
+    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+        return ingredient.isOf(Items.IRON_INGOT);
+    }
+
+
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         var stack = user.getStackInHand(hand);
         var nbt = stack.getOrCreateNbt();
 
-        if (nbt.contains("enabled")) {
-            nbt.putBoolean("enabled", !nbt.getBoolean("enabled"));
-        } else {
-            nbt.putBoolean("enabled", true);
+        if (isUsable(stack)) {
+            if (nbt.contains("enabled")) {
+                nbt.putBoolean("enabled", !nbt.getBoolean("enabled"));
+            } else {
+                nbt.putBoolean("enabled", true);
+            }
         }
 
         if (isEnabled(stack)) {
@@ -72,12 +88,24 @@ public class MagnetItem extends Item {
         return TypedActionResult.success(stack);
     }
 
+    public static boolean isUsable(ItemStack stack) {
+        return stack.getDamage() < stack.getMaxDamage();
+    }
+
     @Override
     public boolean hasGlint(ItemStack stack) {
         return isEnabled(stack);
     }
 
+    @Override
+    public boolean isItemBarVisible(ItemStack stack) {
+
+        return stack.isDamaged() && isUsable(stack);
+    }
+
     public boolean isEnabled(ItemStack stack) {
+        if (!isUsable(stack)) return false;
+
         if (stack.hasNbt()) {
             var nbt = stack.getNbt();
             if (nbt != null && nbt.contains("enabled")) {
