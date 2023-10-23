@@ -1,10 +1,8 @@
 package gay.nyako.nyakomod.mixin;
 
-import gay.nyako.nyakomod.DoubleSizedSlot;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.access.SlotAccess;
 import gay.nyako.nyakomod.access.SmithingScreenHandlerAccess;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
@@ -41,7 +39,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler im
 
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
     private void injected(CallbackInfo ci) {
-        Slot slot = new Slot(hammerInventory, 0, 15, 7);
+        Slot slot = new Slot(hammerInventory, 0, 5, 7);
         ((SlotAccess) slot).setScale(2);
         slot.setStack(new ItemStack(NyakoItems.SMITHING_HAMMER));
         hammerSlot = addSlot(slot);

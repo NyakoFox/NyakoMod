@@ -55,41 +55,24 @@ public class InstrumentRegistry {
     }
 
     public static InstrumentRegister fromBlockState(BlockState state) {
-        if (state.isOf(Blocks.CLAY)) {
-            return FLUTE;
-        } else if (state.isOf(Blocks.GOLD_BLOCK)) {
-            return BELL;
-        } else if (state.isIn(BlockTags.WOOL)) {
-            return GUITAR;
-        } else if (state.isOf(Blocks.PACKED_ICE)) {
-            return CHIME;
-        } else if (state.isOf(Blocks.BONE_BLOCK)) {
-            return XYLOPHONE;
-        } else if (state.isOf(Blocks.IRON_BLOCK)) {
-            return IRON_XYLOPHONE;
-        } else if (state.isOf(Blocks.SOUL_SAND)) {
-            return COW_BELL;
-        } else if (state.isOf(Blocks.PUMPKIN)) {
-            return DIDGERIDOO;
-        } else if (state.isOf(Blocks.EMERALD_BLOCK)) {
-            return BIT;
-        } else if (state.isOf(Blocks.HAY_BLOCK)) {
-            return BANJO;
-        } else if (state.isOf(Blocks.GLOWSTONE)) {
-            return PLING;
-        } else {
-        /*    Material material = state.getMaterial();
-            if (material == Material.STONE) {
-                return BASEDRUM;
-            } else if (material == Material.AGGREGATE) {
-                return SNARE;
-            } else if (material == Material.GLASS) {
-                return HAT;
-            } else {
-                return material != Material.WOOD && material != Material.NETHER_WOOD ? HARP : BASS;
-            }
-            */
-            return HARP;
-        }
+        return switch(state.getInstrument())
+        {
+            case HARP, ZOMBIE, SKELETON, CREEPER, DRAGON, WITHER_SKELETON, PIGLIN, CUSTOM_HEAD: yield HARP;
+            case BASEDRUM: yield BASEDRUM;
+            case SNARE: yield SNARE;
+            case HAT: yield HAT;
+            case BASS: yield BASS;
+            case FLUTE: yield FLUTE;
+            case BELL: yield BELL;
+            case GUITAR: yield GUITAR;
+            case CHIME: yield CHIME;
+            case XYLOPHONE: yield XYLOPHONE;
+            case IRON_XYLOPHONE: yield IRON_XYLOPHONE;
+            case COW_BELL: yield COW_BELL;
+            case DIDGERIDOO: yield DIDGERIDOO;
+            case BIT: yield BIT;
+            case BANJO: yield BANJO;
+            case PLING: yield PLING;
+        };
     }
 }
