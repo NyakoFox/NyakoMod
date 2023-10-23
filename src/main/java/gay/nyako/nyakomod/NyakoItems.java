@@ -126,6 +126,7 @@ public class NyakoItems {
     public static final Item MUSIC_DISC_WEEZED          = NyakoDiscs.WEEZED.item();
     public static final Item MUSIC_DISC_MOONLIGHT       = NyakoDiscs.MOONLIGHT.item();
     public static final Item MUSIC_DISC_WELCOME         = NyakoDiscs.WELCOME.item();
+    public static final Item MUSIC_DISC_SKIBIDI         = NyakoDiscs.SKIBIDI.item();
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);

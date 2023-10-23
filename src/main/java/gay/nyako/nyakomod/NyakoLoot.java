@@ -223,13 +223,6 @@ public class NyakoLoot {
                             .with(ItemEntry.builder(NyakoItems.ENCUMBERING_STONE).weight(5))
                             .with(ItemEntry.builder(NyakoItems.SUPER_ENCUMBERING_STONE).weight(2))
                             .with(ItemEntry.builder(NyakoItems.BLUEPRINT).weight(20)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WEEZED).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WOLVES).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MERRY).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MOONLIGHT).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WELCOME).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MASK).weight(2))
-                            .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_CLUNK).weight(2))
                             .with(ItemEntry.builder(NyakoItems.ENDER_GEM).weight(1))
                             .build()
                         );

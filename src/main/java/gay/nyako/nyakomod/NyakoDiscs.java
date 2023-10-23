@@ -27,6 +27,7 @@ public class NyakoDiscs {
     public static final DiscGroup WEEZED = register("weezed", toSeconds(4, 19));
     public static final DiscGroup MOONLIGHT = register("moonlight", toSeconds(3, 10));
     public static final DiscGroup WELCOME = register("welcome", toSeconds(3, 8));
+    public static final DiscGroup SKIBIDI = register("skibidi", toSeconds(1, 1));
 
     public static DiscGroup register(String name, int length) {
         var soundId = new Identifier("nyakomod", "music_disc." + name);

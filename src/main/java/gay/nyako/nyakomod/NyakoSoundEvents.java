@@ -25,6 +25,7 @@ public class NyakoSoundEvents {
     public static final SoundEvent MUSIC_DISC_WEEZED    = NyakoDiscs.WEEZED.soundEvent();
     public static final SoundEvent MUSIC_DISC_MOONLIGHT = NyakoDiscs.MOONLIGHT.soundEvent();
     public static final SoundEvent MUSIC_DISC_WELCOME   = NyakoDiscs.WELCOME.soundEvent();
+    public static final SoundEvent MUSIC_DISC_SKIBIDI   = NyakoDiscs.SKIBIDI.soundEvent();
 
 
     public static final BlockSoundGroup SPUNCH_BLOCK_SOUND_GROUP = new BlockSoundGroup(1.0f, 1.2f, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_STEP, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
