@@ -186,6 +186,8 @@
     "item.minecraft.tipped_arrow.effect.hunter": "Arrow of the Hunt",
     "item.minecraft.tipped_arrow.effect.hunter_long": "Arrow of the Hunt",
 
+    "itemGroup.nyakomod.custom_items": "NyakoMod",
+
     "subtitles.nyakomod.super_luigi": "\"Super Luigi Galaxy!\"",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
