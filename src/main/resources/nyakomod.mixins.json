@@ -51,6 +51,7 @@
     "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
     "InGameHudMixin",
+    "ItemRendererMixin",
     "ItemStackMixin",
     "MusicTrackerMixin",
     "TntEntityRendererMixin",
