@@ -31,7 +31,7 @@ public abstract class MusicTrackerMixin {
 
     @Redirect(method= "tick()V", at=@At(value="INVOKE", target="Lnet/minecraft/client/sound/MusicTracker;play(Lnet/minecraft/sound/MusicSound;)V"))
     private void play(MusicTracker musicTracker, MusicSound musicSound) {
-        if (musicSound.getSound().getId().getPath().equals("music.credits")) {
+        if (musicSound.getSound().getKey().get().getValue().getPath().equals("music.credits")) {
             if (this.client.currentScreen instanceof CreditsScreen creditsScreen) {
                 if (creditsScreen.time > 100f) { // I don't know, just make sure to not play it again...
                     return;

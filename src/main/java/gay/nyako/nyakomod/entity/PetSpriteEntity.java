@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,7 +60,7 @@ public class PetSpriteEntity extends PetEntity {
     }
 
     public static PetEntity createPet(ItemStack stack, LivingEntity entity) {
-        var pet = new PetSpriteEntity(NyakoEntities.PET_SPRITE, entity.world);
+        var pet = new PetSpriteEntity(NyakoEntities.PET_SPRITE, entity.getWorld());
         pet.setOwnerUuid(entity.getUuid());
         pet.setPosition(entity.getX(), entity.getY(), entity.getZ());
         pet.setInvulnerable(true);
@@ -74,7 +75,10 @@ public class PetSpriteEntity extends PetEntity {
             pet.setStill(nbt.getBoolean("still"));
             if (pet.isStill())
             {
-                pet.goalSelector.clear();
+                //pet.goalSelector.clear(new Predicate);
+                for (var goal : pet.goalSelector.getGoals()) {
+                    pet.goalSelector.remove(goal);
+                }
                 pet.goalSelector.add(1, new LookAtEntityGoal(pet, PlayerEntity.class, 8.0f));
                 pet.goalSelector.add(0, new DespawnPetGoal(pet));
             }
@@ -136,7 +140,7 @@ public class PetSpriteEntity extends PetEntity {
     public void setCustomSprite(@Nullable String customSprite) {
         this.dataTracker.set(TEXTURE_URL, customSprite);
 
-        if (world.isClient() && customSprite != null) {
+        if (getWorld().isClient() && customSprite != null) {
             customTextureId = null;
             if (!customSprite.equals("")) {
                 customTextureId = NyakoClientMod.downloadSprite(customSprite);
@@ -171,5 +175,10 @@ public class PetSpriteEntity extends PetEntity {
         }
 
         super.onTrackedDataSet(data);
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return getWorld();
     }
 }

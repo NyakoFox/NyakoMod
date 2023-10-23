@@ -70,9 +70,9 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 onSlotChanged();
                 BlueprintWorkbenchScreenHandler.this.onTakeOutput(player, stack);
-                long l = player.world.getTime();
+                long l = player.getWorld().getTime();
                 if (lastTakeResultTime != l) {
-                    player.world.playSound(null, player.getBlockPos(), SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     lastTakeResultTime = l;
                 }
                 super.onTakeItem(player, stack);
@@ -95,7 +95,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraft(player.world, player, stack.getCount());
+        stack.onCraft(player.getWorld(), player, stack.getCount());
         this.decrementStack(1);
     }
 
@@ -112,7 +112,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
 
     // Shift + Player Inv Slot
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int invSlot) {
+    public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
         if (slot != null && slot.hasStack()) {

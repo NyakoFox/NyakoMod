@@ -7,6 +7,7 @@ import gay.nyako.nyakomod.behavior.NetherPortalStructureItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.SoulJarItemDispenserBehavior;
 import gay.nyako.nyakomod.block.*;
 import gay.nyako.nyakomod.command.*;
+import gay.nyako.nyakomod.entity.HerobrineEntity;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import gay.nyako.nyakomod.item.*;
@@ -23,21 +24,21 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,9 +57,9 @@ public class NyakoMod implements ModInitializer {
     public static final ScoreboardCriterion PLAYERS_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:players_milked");
     public static final ScoreboardCriterion PLAYER_MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:player_milk_consumed");
     public static final ScoreboardCriterion MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:milk_consumed");
-    public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registry.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
+    public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registries.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
 
-    public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier("nyakomod", "echolands"));
+    public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier("nyakomod", "echolands"));
 
     @Environment(EnvType.SERVER)
     public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
@@ -86,6 +87,7 @@ public class NyakoMod implements ModInitializer {
 
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
+        FabricDefaultAttributeRegistry.register(NyakoEntities.HEROBRINE, HerobrineEntity.createHerobrineAttributes());
 
         DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS, new CoinBagItemDispenserBehavior());
@@ -225,12 +227,11 @@ public class NyakoMod implements ModInitializer {
 
     public static void registerCommands() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            //BackCommand.register(dispatcher);
+            BackCommand.register(dispatcher);
             XpCommand.register(dispatcher);
             FakeCountCommand.register(dispatcher);
             PackCommand.register(dispatcher);
             SmiteCommand.register(dispatcher);
-            IconsCommand.register(dispatcher);
             SlimeDebugCommand.register(dispatcher);
             ShopCommand.register(dispatcher);
             AFKCommand.register(dispatcher);

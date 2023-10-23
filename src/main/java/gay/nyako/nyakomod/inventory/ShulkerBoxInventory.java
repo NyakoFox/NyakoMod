@@ -63,7 +63,7 @@ public class ShulkerBoxInventory extends SimpleInventory {
     @Override
     public void onClose(PlayerEntity player) {
         var pos = player.getPos();
-        var world = player.world;
+        var world = player.getWorld();
 
         world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
 

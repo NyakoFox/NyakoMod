@@ -58,11 +58,11 @@ public class HelpCommand {
                         return 0;
                     }
 
-                    (context.getSource()).sendFeedback(ChatPrefixes.SUCCESS.apply("Showing help for <gold>" + command + "</gold>"), false);
+                    (context.getSource()).sendFeedback(() -> ChatPrefixes.SUCCESS.apply("Showing help for <gold>" + command + "</gold>"), false);
 
                     Map<CommandNode<ServerCommandSource>, String> map = dispatcher.getSmartUsage(Iterables.getLast(parseResults.getContext().getNodes()).getNode(), context.getSource());
                     for (String string : map.values()) {
-                        (context.getSource()).sendFeedback(ChatPrefixes.INFO.apply("/" + parseResults.getReader().getString() + " " + string), false);
+                        (context.getSource()).sendFeedback(() -> ChatPrefixes.INFO.apply("/" + parseResults.getReader().getString() + " " + string), false);
                     }
                     return map.size();
                 }));
@@ -74,14 +74,15 @@ public class HelpCommand {
         page = MathHelper.clamp(page, 1, totalPages);
         int commandOffset = (page - 1) * COMMANDS_PER_PAGE;
         int commandCount = Math.min(COMMANDS_PER_PAGE, map.size() - commandOffset);
-        (context.getSource()).sendFeedback(ChatPrefixes.SUCCESS.apply("Showing page <gold>" + page + "</gold> of <gold>" + totalPages + "</gold>"), false);
+        int finalPage = page;
+        (context.getSource()).sendFeedback(() -> ChatPrefixes.SUCCESS.apply("Showing page <gold>" + finalPage + "</gold> of <gold>" + totalPages + "</gold>"), false);
 
         for (String string : map.values()) {
             if (commandOffset > 0) {
                 --commandOffset;
             } else if (commandCount > 0) {
                 --commandCount;
-                (context.getSource()).sendFeedback(ChatPrefixes.INFO.apply("/" + string), false);
+                (context.getSource()).sendFeedback(() -> ChatPrefixes.INFO.apply("/" + string), false);
             }
         }
 

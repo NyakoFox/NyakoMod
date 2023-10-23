@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -17,7 +18,7 @@ public class LauncherBlock extends Block {
         if (entity.bypassesLandingEffects()) {
             super.onLandedUpon(world, state, pos, entity, fallDistance);
         } else {
-            entity.handleFallDamage(fallDistance, 0.0F, DamageSource.FALL);
+            entity.handleFallDamage(fallDistance, 0.0F, entity.getDamageSources().fall());
         }
     }
 

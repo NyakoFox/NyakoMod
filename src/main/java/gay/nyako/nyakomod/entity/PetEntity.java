@@ -90,7 +90,7 @@ public abstract class PetEntity extends PathAwareEntity implements Tameable {
     public void tick() {
         super.tick();
 
-        if (!this.world.isClient()) {
+        if (!this.getWorld().isClient()) {
             if (this.getOwnerUuid() != null) {
                 var owner = this.getServer().getPlayerManager().getPlayer(this.getOwnerUuid());
 
@@ -142,7 +142,7 @@ public abstract class PetEntity extends PathAwareEntity implements Tameable {
             if (uUID == null) {
                 return null;
             }
-            return this.world.getPlayerByUuid(uUID);
+            return this.getWorld().getPlayerByUuid(uUID);
         }
         catch (IllegalArgumentException illegalArgumentException) {
             return null;

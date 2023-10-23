@@ -4,6 +4,8 @@
   "package": "gay.nyako.nyakomod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AbstractFireBlockMixin",
+    "BedBlockMixin",
     "BlocksMixin",
     "BoatEntityMixin",
     "BrewingRecipeRegistryInvoker",
@@ -39,25 +41,21 @@
     "SlimeEntityMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",
-    "SmithingTableBlockMixin",
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
     "ZombieEntityMixin"
   ],
   "client": [
+    "ClientEntityMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin",
-    "HandledScreenMixin",
     "InGameHudMixin",
-    "ItemModelsMixin",
-    "ItemRendererMixin",
     "ItemStackMixin",
     "MusicTrackerMixin",
     "TntEntityRendererMixin",
     "VillagerEntityRendererMixin",
-    "WorldRendererMixin",
-    "ClientEntityMixin"
+    "WorldRendererMixin"
   ],
   "server": [
     "ServerLivingEntityMixin"

@@ -7,6 +7,9 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class TickerEntityRenderer extends EntityRenderer<TickerEntity> {
 
@@ -32,7 +35,7 @@ public class TickerEntityRenderer extends EntityRenderer<TickerEntity> {
             matrices.push();
             Vec3i dirVector = dir.getVector();
             float angle = entity.age+tickDelta;
-            matrices.multiply(new Quaternion(new Vec3f(dirVector.getX(), dirVector.getY(), dirVector.getZ()), angle, true));
+            matrices.multiply(new Quaternionf().fromAxisAngleDeg(new Vector3f(dirVector.getX(), dirVector.getY(), dirVector.getZ()), angle));
             MatrixStack.Entry entry = matrices.peek();
 
             float offset = 0.5001f * (dir.getDirection() == Direction.AxisDirection.NEGATIVE ? -1 : 1); // 0.5001 is to prevent Z-fighting
@@ -53,23 +56,23 @@ public class TickerEntityRenderer extends EntityRenderer<TickerEntity> {
                 vec4 = new Vector4f( 0.5f, -0.5f, offset, 1.0f);
             }
 
-            vec1.transform(entry.getPositionMatrix());
-            vec2.transform(entry.getPositionMatrix());
-            vec3.transform(entry.getPositionMatrix());
-            vec4.transform(entry.getPositionMatrix());
+            vec1.mul(entry.getPositionMatrix());
+            vec2.mul(entry.getPositionMatrix());
+            vec3.mul(entry.getPositionMatrix());
+            vec4.mul(entry.getPositionMatrix());
 
             int frame = Math.min(entity.getSpeed(), 5);
 
             float minU = frame / 6f;
             float maxU = (frame + 1) / 6f;
 
-            consumer.vertex(vec1.getX(), vec1.getY(), vec1.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 1.0f)
+            consumer.vertex(vec1.x(), vec1.y(), vec1.z()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 1.0f)
                     .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
-            consumer.vertex(vec2.getX(), vec2.getY(), vec2.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 0.0f)
+            consumer.vertex(vec2.x(), vec2.y(), vec2.z()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(minU, 0.0f)
                     .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
-            consumer.vertex(vec3.getX(), vec3.getY(), vec3.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 0.0f)
+            consumer.vertex(vec3.x(), vec3.y(), vec3.z()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 0.0f)
                     .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
-            consumer.vertex(vec4.getX(), vec4.getY(), vec4.getZ()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 1.0f)
+            consumer.vertex(vec4.x(), vec4.y(), vec4.z()).color(1.0f, 1.0f, 1.0f, 1.0f).texture(maxU, 1.0f)
                     .overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(dirVector.getX(), dirVector.getY(), dirVector.getZ()).next();
             matrices.pop();
         }

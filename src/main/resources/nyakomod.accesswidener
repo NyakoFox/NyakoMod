@@ -13,7 +13,7 @@ accessible    field     net/minecraft/client/gui/screen/CreditsScreen    time   
 accessible    field     net/minecraft/client/sound/MusicTracker    timeUntilNextSong    I
 accessible    method    net/minecraft/entity/LivingEntity    playEquipmentBreakEffects    (Lnet/minecraft/item/ItemStack;)V
 accessible    field     net/minecraft/client/gui/widget/CheckboxWidget checked Z
-accessible    method    net/minecraft/client/render/item/ItemRenderer renderGuiQuad (Lnet/minecraft/client/render/BufferBuilder;IIIIIIII)V
 accessible    field     net/minecraft/client/gui/screen/ingame/HandledScreen focusedSlot Lnet/minecraft/screen/slot/Slot;
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen isPointWithinBounds (IIIIDD)Z
-accessible    field     net/minecraft/data/server/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
+accessible field net/minecraft/data/server/loottable/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
+accessible    class     net/minecraft/sound/SoundEvent

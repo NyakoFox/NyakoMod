@@ -12,6 +12,8 @@ import net.minecraft.entity.boss.dragon.EnderDragonFight;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.boss.dragon.phase.PhaseManager;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
@@ -73,7 +75,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
 
             // Loop through all players and check their distances
             // If they're in the correct range, add them to a list
-            for (PlayerEntity player : this.world.getPlayers()) {
+            for (PlayerEntity player : this.getWorld().getPlayers()) {
                 if (player.squaredDistanceTo(this) > maxDistance * maxDistance) {
                     continue;
                 }
@@ -87,7 +89,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             // Loop through all players again and check their distances
             // If they're within the hard max, add them to the list
             if (possibleTargets.isEmpty()) {
-                for (PlayerEntity player : this.world.getPlayers()) {
+                for (PlayerEntity player : this.getWorld().getPlayers()) {
                     if (player.squaredDistanceTo(this) > maxDistanceHard * maxDistanceHard) {
                         continue;
                     }
@@ -104,7 +106,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             return possibleTargets.get(this.random.nextInt(possibleTargets.size()));
         } else {
             ArrayList<PlayerEntity> possibleTargets = new ArrayList<>();
-            for (PlayerEntity player : this.world.getPlayers()) {
+            for (PlayerEntity player : this.getWorld().getPlayers()) {
                 if (player.squaredDistanceTo(this) > 128 * 128) {
                     continue;
                 }
@@ -115,7 +117,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             }
             var randomPlayer = possibleTargets.get(this.random.nextInt(possibleTargets.size()));
 
-            var closestPlayer = this.world.getClosestPlayer(this, 128);
+            var closestPlayer = this.getWorld().getClosestPlayer(this, 128);
             closestPlayer = closestPlayer == null ? randomPlayer : closestPlayer;
 
             return switch (this.attack) {
@@ -131,8 +133,8 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (!this.world.isClient) {
-            if (source.isExplosive() && amount >= 0.01f) {
+        if (!this.getWorld().isClient) {
+            if ((source.isOf(DamageTypes.EXPLOSION) || source.isOf(DamageTypes.PLAYER_EXPLOSION)) && amount >= 0.01f) {
                 for (int i = 0; i < this.random.nextBetween(1, 4); i++) {
                     var stack = dropStack(new ItemStack(NyakoItems.COPPER_COIN, 2));
                     if (stack != null) {
@@ -159,7 +161,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             case 1:
                 attackTimer = 20 * 4;
                 if (!this.isSilent()) {
-                    this.world.syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
+                    this.getWorld().syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
                 }
                 // Circle around the target
                 var fireballs = 12;
@@ -172,11 +174,11 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                     var y = pos.y + 64 + (i * 2);
                     var z = pos.z + radius * MathHelper.sin((float) Math.toRadians(angle * i));
 
-                    var fireball = new DragonFireballEntity(world, this, 0, (target.getBodyY(0.5) - y * 0.5), 0);
+                    var fireball = new DragonFireballEntity(getWorld(), this, 0, (target.getBodyY(0.5) - y * 0.5), 0);
                     fireball.setVelocity(0, 0, 0);
                     fireball.refreshPositionAndAngles(x, y, z, 0.0f, 0.0f);
                     ((DragonFireballEntityAccess) fireball).setFromAttack(true);
-                    world.spawnEntity(fireball);
+                    getWorld().spawnEntity(fireball);
                 }
                 break;
             case 2:
@@ -207,11 +209,11 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                         return;
                     }
                     if (!this.isSilent()) {
-                        this.world.syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
+                        this.getWorld().syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
                     }
-                    double spawnX = target.getX() + (this.world.random.nextDouble() - 0.5) * 16.0;
-                    double spawnY = target.getY() + (double) (this.world.random.nextInt(16) + 64);
-                    double spawnZ = target.getZ() + (this.world.random.nextDouble() - 0.5) * 16.0;
+                    double spawnX = target.getX() + (this.getWorld().random.nextDouble() - 0.5) * 16.0;
+                    double spawnY = target.getY() + (double) (this.getWorld().random.nextInt(16) + 64);
+                    double spawnZ = target.getZ() + (this.getWorld().random.nextDouble() - 0.5) * 16.0;
 
                     double directionX = target.getX() - spawnX;
                     double directionY = target.getBodyY(0.5) - spawnY;
@@ -221,17 +223,17 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                     directionY *= 0.5;
                     directionZ *= 0.5;
 
-                    DragonFireballEntity dragonFireballEntity = new DragonFireballEntity(this.world, this, directionX, directionY, directionZ);
+                    DragonFireballEntity dragonFireballEntity = new DragonFireballEntity(this.getWorld(), this, directionX, directionY, directionZ);
                     dragonFireballEntity.refreshPositionAndAngles(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
                     ((DragonFireballEntityAccess) dragonFireballEntity).setFromAttack(true);
-                    this.world.spawnEntity(dragonFireballEntity);
+                    this.getWorld().spawnEntity(dragonFireballEntity);
                 }
                 break;
             case 3:
                 if (attackTimer % 80 > 40) {
                     if (attackTimer % 4 == 0) {
                         if (!this.isSilent()) {
-                            this.world.syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
+                            this.getWorld().syncWorldEvent(null, WorldEvents.ENDER_DRAGON_SHOOTS, this.getBlockPos(), 0);
                         }
 
                         Vec3d vec3d3 = this.getRotationVec(1.0f);
@@ -246,10 +248,10 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                         directionY *= 0.5;
                         directionZ *= 0.5;
 
-                        DragonFireballEntity dragonFireballEntity = new DragonFireballEntity(this.world, this, directionX, directionY, directionZ);
+                        DragonFireballEntity dragonFireballEntity = new DragonFireballEntity(this.getWorld(), this, directionX, directionY, directionZ);
                         dragonFireballEntity.refreshPositionAndAngles(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
                         ((DragonFireballEntityAccess) dragonFireballEntity).setFromAttack(true);
-                        this.world.spawnEntity(dragonFireballEntity);
+                        this.getWorld().spawnEntity(dragonFireballEntity);
                     }
                 }
                 break;
@@ -260,7 +262,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     private void injected(CallbackInfo ci) {
         attackTimer--;
 
-        if (!world.isClient()) {
+        if (!getWorld().isClient()) {
             if (this.getPhaseManager().getCurrent().isSittingOrHovering() != wasPerched) {
                 wasPerched = this.getPhaseManager().getCurrent().isSittingOrHovering();
                 if (wasPerched) {
@@ -270,9 +272,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             }
             if (attackTimer <= 0 || target == null || target.isDead()) {
                 var oldAttack = attack;
-                attack = this.world.random.nextBetween(0, 3);
+                attack = this.getWorld().random.nextBetween(0, 3);
                 while (oldAttack == 0 && attack == 0) {
-                    attack = this.world.random.nextBetween(0, 3);
+                    attack = this.getWorld().random.nextBetween(0, 3);
                 }
 
                 target = pickTarget();

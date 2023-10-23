@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
 public final class BackCommand implements Command<ServerCommandSource> {
@@ -30,7 +31,7 @@ public final class BackCommand implements Command<ServerCommandSource> {
     var payload = new PlayerTeleportPayload() {
       {
         player = p;
-        world = p.getWorld();
+        world = (ServerWorld) p.getWorld();
         x = p.getX();
         y = p.getY();
         z = p.getZ();
@@ -61,7 +62,7 @@ public final class BackCommand implements Command<ServerCommandSource> {
         var newLocation = new PlayerTeleportPayload() {
           {
             player = p;
-            world = p.getWorld();
+            world = (ServerWorld) p.getWorld();
             x = p.getX();
             y = p.getY();
             z = p.getZ();
@@ -72,14 +73,14 @@ public final class BackCommand implements Command<ServerCommandSource> {
 
         p.teleport(previousLocation.world, previousLocation.x, 
           previousLocation.y, previousLocation.z, previousLocation.yaw, previousLocation.pitch);
-        ctx.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("Woo!"), false);
+        ctx.getSource().sendFeedback(() -> ChatPrefixes.SUCCESS.apply("Woo!"), false);
 
         previousLocations.replace(id, newLocation);
       } else {
-        ctx.getSource().sendFeedback(ChatPrefixes.ERROR.apply("You don't have a previous location."), false);
+        ctx.getSource().sendFeedback(() -> ChatPrefixes.ERROR.apply("You don't have a previous location."), false);
       }
     } catch (CommandSyntaxException e) {
-      ctx.getSource().sendFeedback(Text.of("Only players can use this command >:("), false);
+      ctx.getSource().sendFeedback(() -> Text.of("Only players can use this command >:("), false);
     }
 
     return Command.SINGLE_SUCCESS;

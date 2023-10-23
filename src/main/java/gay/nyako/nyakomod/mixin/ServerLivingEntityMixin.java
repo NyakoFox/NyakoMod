@@ -20,9 +20,9 @@ public abstract class ServerLivingEntityMixin  {
 			return;
 		}
 
-		if (!entity.world.isClient() && entity.hasCustomName()) {
+		if (!entity.getWorld().isClient() && entity.hasCustomName()) {
 			var message = source.getDeathMessage(entity);
-			var serverWorld = (ServerWorld)entity.world;
+			var serverWorld = (ServerWorld)entity.getWorld();
 			var server = serverWorld.getServer();
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				player.sendMessage(message);

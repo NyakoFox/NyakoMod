@@ -11,7 +11,8 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -35,9 +36,9 @@ public class TickerEntity extends Entity {
     public void tick() {
         super.tick();
 
-        BlockPos currentBlockPos = new BlockPos(getX(), getY(), getZ());
+        BlockPos currentBlockPos = new BlockPos((int) getX(), (int) getY(), (int) getZ());
 
-        if(!world.isClient()) {
+        if(!getWorld().isClient()) {
             BlockEntity blockEntity = getEntityWorld().getBlockEntity(currentBlockPos);
             if (blockEntity == null) {
                 // This... isn't even a block entity?
@@ -69,13 +70,13 @@ public class TickerEntity extends Entity {
     }
 
     public void destroyTicker() {
-        BlockPos currentBlockPos = new BlockPos(getX(), getY(), getZ());
+        BlockPos currentBlockPos = new BlockPos((int) getX(), (int) getY(), (int) getZ());
         getEntityWorld().playSound(null, currentBlockPos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 1);
         kill();
     }
 
     public void setSpeed(int speed){
-        if (!world.isClient) {
+        if (!getWorld().isClient) {
             getDataTracker().set(SPEED, speed);
         }
     }
@@ -101,7 +102,7 @@ public class TickerEntity extends Entity {
         tag.putInt("Speed", getSpeed());
     }
 
-    public Packet<?> createSpawnPacket() {
+    public Packet<ClientPlayPacketListener> createSpawnPacket() {
         return new EntitySpawnS2CPacket(this, getId());
     }
 }

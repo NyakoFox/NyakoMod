@@ -58,9 +58,9 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 onSlotChanged();
                 PresentWrapperScreenHandler.this.onTakeOutput(player, stack);
-                long l = player.world.getTime();
+                long l = player.getWorld().getTime();
                 if (lastTakeResultTime != l) {
-                    player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BUNDLE_INSERT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.ITEM_BUNDLE_INSERT, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     lastTakeResultTime = l;
                 }
                 super.onTakeItem(player, stack);
@@ -83,7 +83,7 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraft(player.world, player, stack.getCount());
+        stack.onCraft(player.getWorld(), player, stack.getCount());
         for (int i = 0; i < 6; ++i) {
             this.inventory.setStack(i, ItemStack.EMPTY);
         }
@@ -96,7 +96,7 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
 
     // Shift + Player Inv Slot
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int invSlot) {
+    public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
         if (slot != null && slot.hasStack()) {

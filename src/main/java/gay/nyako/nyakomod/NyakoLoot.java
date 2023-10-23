@@ -4,7 +4,7 @@ import gay.nyako.nyakomod.mixin.LootTableBuilderAccessor;
 import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.BlockLootTableGenerator;
+import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
@@ -206,9 +206,9 @@ public class NyakoLoot {
             if (source.isBuiltin() && (new Identifier("minecraft", "blocks/oak_leaves")).equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                         .conditionally(BlockLootTableGenerator.WITHOUT_SILK_TOUCH_NOR_SHEARS)
-                        .with(
+                        /*.with(
                                 BlockLootTableGenerator.addSurvivesExplosionCondition(Blocks.OAK_LEAVES, ItemEntry.builder(NyakoItems.GREEN_APPLE))
-                        ).conditionally(
+                        )*/.conditionally(
                                 TableBonusLootCondition.builder(Enchantments.FORTUNE, 0.005f, 0.0055555557f, 0.00625f, 0.008333334f, 0.025f)
                         );
                 tableBuilder.pool(poolBuilder);

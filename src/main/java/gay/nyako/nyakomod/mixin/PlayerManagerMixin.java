@@ -24,7 +24,7 @@ public class PlayerManagerMixin {
             ),
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void respawnPlayer(ServerPlayerEntity player, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir, BlockPos blockPos, float f, boolean bl, ServerWorld serverWorld, Optional optional, ServerWorld serverWorld2, ServerPlayerEntity serverPlayerEntity, boolean bl2, WorldProperties worldProperties) {
+    private void respawnPlayer(ServerPlayerEntity player, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir, BlockPos blockPos, float f, boolean bl, ServerWorld serverWorld, Optional optional, ServerWorld serverWorld2, ServerPlayerEntity serverPlayerEntity) {
         var manager = player.hungerManager;
 
         if (manager.getFoodLevel() < 8) {

@@ -2,11 +2,8 @@ package gay.nyako.nyakomod;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.enums.Instrument;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 
 public class InstrumentRegistry {
     public static final InstrumentRegister HARP = new InstrumentRegister("harp", SoundEvents.BLOCK_NOTE_BLOCK_HARP);
@@ -81,7 +78,7 @@ public class InstrumentRegistry {
         } else if (state.isOf(Blocks.GLOWSTONE)) {
             return PLING;
         } else {
-            Material material = state.getMaterial();
+        /*    Material material = state.getMaterial();
             if (material == Material.STONE) {
                 return BASEDRUM;
             } else if (material == Material.AGGREGATE) {
@@ -91,6 +88,8 @@ public class InstrumentRegistry {
             } else {
                 return material != Material.WOOD && material != Material.NETHER_WOOD ? HARP : BASS;
             }
+            */
+            return HARP;
         }
     }
 }

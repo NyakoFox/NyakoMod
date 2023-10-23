@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.feature.EndPortalFeature;
 import org.spongepowered.asm.mixin.Final;
@@ -30,7 +31,7 @@ public abstract class EnderDragonFightMixin {
 	)
 	protected void dragonKilled(EnderDragonEntity dragon, CallbackInfo ci) {
 		if (this.previouslyKilled) {
-			this.world.setBlockState(dragon.world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, EndPortalFeature.ORIGIN), Blocks.DRAGON_EGG.getDefaultState());
+			this.world.setBlockState(dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING, BlockPos.ORIGIN), Blocks.DRAGON_EGG.getDefaultState());
 		}
 	}
 }

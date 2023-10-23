@@ -23,12 +23,12 @@ public final class AFKCommand {
                     if (access.isInSafeMode())
                     {
                         access.setSafeMode(false);
-                        context.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("You are no longer AFK."), false);
+                        context.getSource().sendFeedback(() -> ChatPrefixes.SUCCESS.apply("You are no longer AFK."), false);
                     }
                     else
                     {
                         access.setSafeMode(true);
-                        context.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("You are now AFK."), false);
+                        context.getSource().sendFeedback(() -> ChatPrefixes.SUCCESS.apply("You are now AFK."), false);
                     }
 
                     return 0;

@@ -89,7 +89,7 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
         if (this.wasShotByEntity()) {
             if (this.shooter == null) {
                 this.dataTracker.get(SHOOTER_ENTITY_ID).ifPresent(id -> {
-                    Entity entity = this.world.getEntityById(id);
+                    Entity entity = this.getWorld().getEntityById(id);
                     if (entity instanceof LivingEntity) {
                         this.shooter = (LivingEntity)entity;
                     }
@@ -110,13 +110,13 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
         }
         this.updateRotation();
         if (this.life == 0 && !this.isSilent()) {
-            this.world.playSound(null, this.getX(), this.getY(), this.getZ(), NyakoSoundEvents.NETHER_PORTAL_LAUNCH, SoundCategory.AMBIENT, 3.0f, 1.0f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), NyakoSoundEvents.NETHER_PORTAL_LAUNCH, SoundCategory.AMBIENT, 3.0f, 1.0f);
         }
         ++this.life;
-        if (this.world.isClient) {
-            this.world.addParticle(ParticleTypes.FIREWORK, this.getX(), this.getY(), this.getZ(), this.random.nextGaussian() * 0.05, -this.getVelocity().y * 0.5, this.random.nextGaussian() * 0.05);
+        if (this.getWorld().isClient) {
+            this.getWorld().addParticle(ParticleTypes.FIREWORK, this.getX(), this.getY(), this.getZ(), this.random.nextGaussian() * 0.05, -this.getVelocity().y * 0.5, this.random.nextGaussian() * 0.05);
         }
-        if (!this.world.isClient && this.life > this.lifeTime) {
+        if (!this.getWorld().isClient && this.life > this.lifeTime) {
             this.remove(RemovalReason.DISCARDED);
             this.discard();
         }
@@ -135,7 +135,7 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
         }
 
         if (NyakoUtils.blockedByShield(livingEntity, this.getPos())) {
-            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+            this.getWorld().playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
             dropStack(getStack());
             this.remove(RemovalReason.DISCARDED);
             this.discard();
@@ -148,26 +148,26 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
 
         this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0f, 1.2f / (this.random.nextFloat() * 0.2f + 0.9f));
 
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             return;
         }
 
-        MinecraftServer minecraftServer = world.getServer();
+        MinecraftServer minecraftServer = getWorld().getServer();
         if (minecraftServer == null) return;
 
-        if (world.getRegistryKey() == World.END) {
-            world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 5f, Explosion.DestructionType.NONE);
+        if (getWorld().getRegistryKey() == World.END) {
+            getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 5f, World.ExplosionSourceType.NONE);
             return;
         }
 
-        ServerWorld serverWorld2 = minecraftServer.getWorld(world.getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
+        ServerWorld serverWorld2 = minecraftServer.getWorld(getWorld().getRegistryKey() == World.NETHER ? World.OVERWORLD : World.NETHER);
         entity.dismountVehicle();
         if (serverWorld2 != null && minecraftServer.isNetherAllowed()) {
-            world.getProfiler().push("portal");
+            getWorld().getProfiler().push("portal");
             entity.lastNetherPortalPosition = entity.getBlockPos().toImmutable();
             entity.resetPortalCooldown();
             entity.moveToWorld(serverWorld2);
-            world.getProfiler().pop();
+            getWorld().getProfiler().pop();
         }
 
         this.remove(RemovalReason.DISCARDED);
@@ -177,8 +177,8 @@ public class NetherPortalProjectileEntity extends ProjectileEntity implements Fl
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         BlockPos blockPos = new BlockPos(blockHitResult.getBlockPos());
-        this.world.getBlockState(blockPos).onEntityCollision(this.world, blockPos, this);
-        if (!this.world.isClient()) {
+        this.getWorld().getBlockState(blockPos).onEntityCollision(this.getWorld(), blockPos, this);
+        if (!this.getWorld().isClient()) {
             dropStack(getStack());
             this.remove(RemovalReason.DISCARDED);
             this.discard();

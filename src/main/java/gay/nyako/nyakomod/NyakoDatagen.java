@@ -8,9 +8,10 @@ public class NyakoDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         // ...
-        fabricDataGenerator.addProvider(NyakoModelGenerator::new);
-        fabricDataGenerator.addProvider(NyakoBlockLootTableProvider::new);
-        fabricDataGenerator.addProvider(NyakoAdvancementProvider::new);
+        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+        pack.addProvider(NyakoModelGenerator::new);
+        pack.addProvider(NyakoBlockLootTableProvider::new);
+        pack.addProvider(NyakoAdvancementProvider::new);
         // ...
     }
 }

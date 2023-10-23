@@ -1,8 +1,6 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.screens.IconScreenHandler;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,40 +48,19 @@ public class DraftingTableBlock extends Block implements Waterloggable {
     }
 
     @Override
-    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+    public boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
         return true;
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            player.openHandledScreen(new ExtendedScreenHandlerFactory() {
-                @Override
-                public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-                    var json = NyakoMod.MODEL_MANAGER.getManifest().toString();
-                    var length = json.getBytes(StandardCharsets.UTF_8).length;
-                    buf.writeInt(length);
-                    buf.writeString(json, length);
-                }
-
-                @Override
-                public Text getDisplayName() {
-                    return Text.literal("Drafting Table");
-                }
-
-                @Override
-                public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                    return new IconScreenHandler(syncId, inv, ScreenHandlerContext.create(world, player.getBlockPos()));
-                }
-            });
-        }
         return ActionResult.SUCCESS;
     }
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState()
-                .with(HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite())
+                .with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
                 .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
     }
 
@@ -123,7 +100,7 @@ public class DraftingTableBlock extends Block implements Waterloggable {
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

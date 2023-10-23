@@ -6,10 +6,11 @@ import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,11 +31,11 @@ public class NyakoDiscs {
     public static DiscGroup register(String name, int length) {
         var soundId = new Identifier("nyakomod", "music_disc." + name);
         var itemId = new Identifier("nyakomod", "music_disc_" + name);
-        var soundEvent = new SoundEvent(soundId);
-        var discItem = new CustomDiscItem(15, soundEvent, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE), length);
+        var soundEvent = SoundEvent.of(soundId);
+        var discItem = new CustomDiscItem(15, soundEvent, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), length);
 
-        Registry.register(Registry.ITEM, itemId, discItem);
-        Registry.register(Registry.SOUND_EVENT, soundId, soundEvent);
+        Registry.register(Registries.ITEM, itemId, discItem);
+        Registry.register(Registries.SOUND_EVENT, soundId, soundEvent);
 
         var discGroup = new DiscGroup(soundId, itemId, soundEvent, discItem);
         MUSIC_DISCS.add(discGroup);

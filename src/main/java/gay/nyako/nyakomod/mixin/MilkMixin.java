@@ -20,7 +20,7 @@ public abstract class MilkMixin {
             if (access.getMilk() < 20) {
                 access.addMilk(2);
 
-                if (!user.world.isClient()) {
+                if (!user.getWorld().isClient()) {
                     player.getScoreboard().forEachScore(NyakoMod.MILK_CONSUMED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
                 }
 

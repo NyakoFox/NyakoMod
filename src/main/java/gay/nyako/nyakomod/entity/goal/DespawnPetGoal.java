@@ -30,7 +30,7 @@ public class DespawnPetGoal
             return false;
         }
 
-        if (livingEntity.world.isClient()) {
+        if (livingEntity.getWorld().isClient()) {
             return false;
         }
 

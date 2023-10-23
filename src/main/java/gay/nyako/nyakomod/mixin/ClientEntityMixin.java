@@ -22,7 +22,7 @@ public class ClientEntityMixin {
     public boolean isHunterGlowing = false;
 
     private static boolean shouldGlow(Entity entity) {
-        if (!entity.world.isClient()) return false;
+        if (!entity.getWorld().isClient()) return false;
 
         if (!(entity instanceof LivingEntity)) return false;
 

@@ -1,8 +1,9 @@
 package gay.nyako.nyakomod;
 
 import net.minecraft.entity.decoration.painting.PaintingVariant;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class NyakoPaintingVariants {
     public static final PaintingVariant BOBOMB = register("bobomb", new PaintingVariant(64, 64));
@@ -13,7 +14,7 @@ public class NyakoPaintingVariants {
     public static final PaintingVariant OREO = register("oreo", new PaintingVariant(64, 64));
 
     private static PaintingVariant register(String id, PaintingVariant variant) {
-        return Registry.register(Registry.PAINTING_VARIANT, new Identifier("nyakomod", id), variant);
+        return Registry.register(Registries.PAINTING_VARIANT, new Identifier("nyakomod", id), variant);
     }
 
     public static void register() {};

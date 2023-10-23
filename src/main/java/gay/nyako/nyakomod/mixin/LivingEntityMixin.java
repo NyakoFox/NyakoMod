@@ -15,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -75,13 +76,13 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 
 		if (type == EntityType.ENDERMAN) {
-			if (this.world.getRegistryKey() == World.END) {
+			if (this.getWorld().getRegistryKey() == World.END) {
 				baseCoinAmount *= 0.1;
-			} else if (this.world.getRegistryKey() == World.NETHER) {
+			} else if (this.getWorld().getRegistryKey() == World.NETHER) {
 				baseCoinAmount *= 0.5;
 			}
 
-			if (this.world.getRegistryKey() != World.END) {
+			if (this.getWorld().getRegistryKey() != World.END) {
 				if (random.nextBetween(1, 500) == 1) {
 					this.dropItem(NyakoItems.ROD_OF_DISCORD);
 				}
@@ -94,8 +95,8 @@ public abstract class LivingEntityMixin extends Entity {
 		// multiply the coin amount by that
 		double coinAmount = baseCoinAmount * randomRange;
 
-		if (source.isMagic()) coinAmount *= 1.05; // give a 5% bonus if magic is used
-		if (source.isProjectile()) coinAmount *= 1.02; // give a 2% bonus if a projectile is used
+		if (source.isOf(DamageTypes.MAGIC) || source.isOf(DamageTypes.INDIRECT_MAGIC)) coinAmount *= 1.05; // give a 5% bonus if magic is used
+		if (source.isOf(DamageTypes.MOB_PROJECTILE) || source.isOf(DamageTypes.ARROW)) coinAmount *= 1.02; // give a 2% bonus if a projectile is used
 
 		// get item in main hand
 		ItemStack handStack = attackingPlayer.getMainHandStack();
@@ -125,7 +126,7 @@ public abstract class LivingEntityMixin extends Entity {
 		// Normal:      3% - 7%        (1.5  -  4.0)
 		// Hard:        4% - 12%       (2.25 - 6.75)
 
-		float localDifficulty = world.getLocalDifficulty(getBlockPos()).getLocalDifficulty();
+		float localDifficulty = getWorld().getLocalDifficulty(getBlockPos()).getLocalDifficulty();
 		coinAmount += coinAmount * (0.12 * (localDifficulty / 6.75));
 
 		// drop less if the player has the curse of cunkless enchant
@@ -162,7 +163,7 @@ public abstract class LivingEntityMixin extends Entity {
 			return;
 		}
 
-		if (player.world.isClient()) {
+		if (player.getWorld().isClient()) {
 			return;
 		}
 

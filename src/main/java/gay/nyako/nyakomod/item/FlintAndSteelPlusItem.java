@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -50,20 +51,20 @@ public class FlintAndSteelPlusItem extends Item {
             world.emitGameEvent(playerEntity, GameEvent.PRIME_FUSE, blockPos);
             ((TntEntityAccess) tntEntity).setCopyBlockState(blockState);
 
-            ServerWorld serverWorld = (ServerWorld) world;
+            //ServerWorld serverWorld = (ServerWorld) world;
 
-            BlockEntity blockEntity = blockState.hasBlockEntity() ? serverWorld.getBlockEntity(blockPos) : null;
+            //BlockEntity blockEntity = blockState.hasBlockEntity() ? serverWorld.getBlockEntity(blockPos) : null;
 
-            LootContext.Builder builder = new LootContext.Builder(serverWorld).random(serverWorld.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockPos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, playerEntity);
+            //LootContext.Builder builder = new LootContext.Builder(new LootContextParameterSet(serverWorld).random(serverWorld.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockPos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, playerEntity);
 
-            ObjectArrayList<Pair<ItemStack, BlockPos>> objectArrayList = new ObjectArrayList<>();
+            //ObjectArrayList<Pair<ItemStack, BlockPos>> objectArrayList = new ObjectArrayList<>();
 
-            blockState.onStacksDropped(serverWorld, blockPos, ItemStack.EMPTY, false);
-            blockState.getDroppedStacks(builder).forEach(stack -> tryMergeStack(objectArrayList, stack, blockPos));
+            //blockState.onStacksDropped(serverWorld, blockPos, ItemStack.EMPTY, false);
+            //blockState.getDroppedStacks(builder).forEach(stack -> tryMergeStack(objectArrayList, stack, blockPos));
 
-            for (Pair<ItemStack, BlockPos> pair : objectArrayList) {
-                Block.dropStack(serverWorld, pair.getSecond(), pair.getFirst());
-            }
+            //for (Pair<ItemStack, BlockPos> pair : objectArrayList) {
+            //    Block.dropStack(serverWorld, pair.getSecond(), pair.getFirst());
+            //}
 
         }
 

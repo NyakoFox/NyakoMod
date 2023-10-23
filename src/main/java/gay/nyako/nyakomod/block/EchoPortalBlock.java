@@ -1,15 +1,10 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.NyakoParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -28,10 +23,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.dimension.AreaHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -119,7 +112,7 @@ public class EchoPortalBlock extends Block {
                 d = (double)pos.getX() + 0.5 + 0.25 * (double)k;
                 g = random.nextFloat() * 2.0f * (float)k;
             }
-            world.addParticle(NyakoParticleTypes.ECHO_PORTAL, d, e, f, g, h, j);
+            //world.addParticle(NyakoParticleTypes.ECHO_PORTAL, d, e, f, g, h, j);
         }
     }
 
@@ -155,7 +148,7 @@ public class EchoPortalBlock extends Block {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction.Axis finalAxis = Direction.Axis.X;
-        switch (ctx.getPlayerFacing().getAxis()) {
+        switch (ctx.getHorizontalPlayerFacing().getAxis()) {
             case X: finalAxis = Direction.Axis.Z; break;
             case Z: finalAxis = Direction.Axis.X; break;
         }

@@ -1,11 +1,7 @@
 package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.entity.renderer.MonitorEntityRenderer;
-import gay.nyako.nyakomod.entity.renderer.TickerEntityRenderer;
+import gay.nyako.nyakomod.entity.renderer.*;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
-import gay.nyako.nyakomod.entity.renderer.NetherPortalProjetileEntityRenderer;
-import gay.nyako.nyakomod.entity.renderer.PetDragonRenderer;
-import gay.nyako.nyakomod.entity.renderer.PetSpriteRenderer;
 import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import io.netty.buffer.Unpooled;
@@ -23,11 +19,14 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -49,6 +48,9 @@ import java.util.List;
 public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
 	public static final EntityModelLayer MODEL_MONITOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "monitor"), "main");
+	public static final EntityModelLayer MODEL_HEROBRINE_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "main");
+	public static final EntityModelLayer MODEL_HEROBRINE_INNER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "inner_armor");
+	public static final EntityModelLayer MODEL_HEROBRINE_OUTER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "outer_armor");
 
 	@Override
 	public void onInitializeClient() {
@@ -79,6 +81,11 @@ public class NyakoClientMod implements ClientModInitializer {
 		EntityRendererRegistry.register(NyakoEntities.MONITOR, MonitorEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_MONITOR_LAYER, MonitorEntityRenderer::getTexturedModelData);
 		EntityRendererRegistry.register(NyakoEntities.NETHER_PORTAL, NetherPortalProjetileEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.HEROBRINE, HerobrineEntityRenderer::new);
+
+		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_LAYER, HerobrineEntityRenderer::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_INNER_ARMOR_LAYER, HerobrineEntityRenderer::getInnerArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_OUTER_ARMOR_LAYER, HerobrineEntityRenderer::getOuterArmorModelData);
 
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
@@ -118,8 +125,7 @@ public class NyakoClientMod implements ClientModInitializer {
 
 			return 0;
 		});
-
-		HandledScreens.register(NyakoScreenHandlers.ICON_SCREEN_HANDLER_TYPE, IconScreen::new);
+		
 		HandledScreens.register(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.PRESENT_WRAPPER_SCREEN_HANDLER_TYPE, PresentWrapperScreen::new);
@@ -144,8 +150,6 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 4159204, NyakoItems.WATER);
-
-		NyakoParticleTypes.registerClient();
 	}
 
 	public static final List<String> downloadedUrls = new ArrayList<>();

@@ -19,7 +19,7 @@ public class InventoryUtils {
     public static void openEnderChest(Slot slot, PlayerEntity player) {
         EnderChestInventory enderChestInventory = player.getEnderChestInventory();
         var pos = player.getPos();
-        var world = player.world;
+        var world = player.getWorld();
 
         world.playSound(player, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
 
@@ -35,7 +35,7 @@ public class InventoryUtils {
     public static void openShulkerBox(Slot slot, PlayerEntity player) {
         // ShulkerBoxScreenHandler
         var pos = player.getPos();
-        var world = player.world;
+        var world = player.getWorld();
 
         if (world.isClient) {
             sendPacket(slot);

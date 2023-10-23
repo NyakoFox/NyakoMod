@@ -30,7 +30,7 @@ public abstract class HorseEntityMixin extends MobEntity {
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0f, 1.0f);
 			ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, NyakoItems.HORSE_MILK_BUCKET.getDefaultStack());
 			player.setStackInHand(hand, itemStack2);
-			cir.setReturnValue(ActionResult.success(this.world.isClient));
+			cir.setReturnValue(ActionResult.success(this.getWorld().isClient));
 		}
 	}
 }

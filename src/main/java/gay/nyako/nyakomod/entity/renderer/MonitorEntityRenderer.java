@@ -15,8 +15,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Quaternion;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.lwjgl.opengl.GL11;
 
 public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
@@ -54,7 +54,7 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
         matrices.push();
         float pitch = entity.getPitch();
         float entityYaw = entity.getYaw();
-        matrices.multiply(new Quaternion(pitch, MathHelper.wrapDegrees(180-entityYaw), 180, true));
+        matrices.multiply(new Quaternionf().rotateXYZ(pitch, MathHelper.wrapDegrees(180-entityYaw), 180));
 
         matrices.translate(0f, -1f, 0.5f - (1d/16d)/2);
         VertexConsumer vertices = vertexConsumers.getBuffer(getLayer(entity));
@@ -119,17 +119,17 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
         drawTexturedQuad(matrices.peek().getPositionMatrix(), x0, x1, y0, y1, z, (u + 0.0f) / textureWidth, (u + regionWidth) / textureWidth, (v + 0.0f) / textureHeight, (v + regionHeight) / textureHeight);
     }
 
-    private static void drawTexturedQuad(Matrix4f matrix, float x0, float x1, float y0, float y1, float z, float u0, float u1, float v0, float v1) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    private static void drawTexturedQuad(Matrix4f matrices, float x0, float x1, float y0, float y1, float z, float u0, float u1, float v0, float v1) {
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);
         RenderSystem.enableCull();
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(matrix, x0, y1, z).texture(u0, v1).next();
-        bufferBuilder.vertex(matrix, x1, y1, z).texture(u1, v1).next();
-        bufferBuilder.vertex(matrix, x1, y0, z).texture(u1, v0).next();
-        bufferBuilder.vertex(matrix, x0, y0, z).texture(u0, v0).next();
-        BufferRenderer.drawWithShader(bufferBuilder.end());
+        bufferBuilder.vertex(matrices, x0, y1, z).texture(u0, v1).next();
+        bufferBuilder.vertex(matrices, x1, y1, z).texture(u1, v1).next();
+        bufferBuilder.vertex(matrices, x1, y0, z).texture(u1, v0).next();
+        bufferBuilder.vertex(matrices, x0, y0, z).texture(u0, v0).next();
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }
 }

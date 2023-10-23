@@ -2,6 +2,7 @@ package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import static net.minecraft.data.client.BlockStateModelGenerator.createSingletonBlockState;
 
 public class NyakoModelGenerator extends FabricModelProvider {
-    public NyakoModelGenerator(FabricDataGenerator generator) {
+    public NyakoModelGenerator(FabricDataOutput generator) {
         super(generator);
     }
 

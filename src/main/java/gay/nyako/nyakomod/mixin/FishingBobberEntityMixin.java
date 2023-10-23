@@ -25,11 +25,11 @@ public abstract class FishingBobberEntityMixin extends ProjectileEntity {
 
     @Inject(method = "use(Lnet/minecraft/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"))
     private void injected(ItemStack usedItem, CallbackInfoReturnable<Integer> cir) {
-        int rand = world.random.nextBetween(0, 100);
+        int rand = getWorld().random.nextBetween(0, 100);
         if (rand < 1) {
-            spawnItem(new ItemStack(NyakoItems.GOLD_COIN, world.random.nextBetween(1, 2)));
+            spawnItem(new ItemStack(NyakoItems.GOLD_COIN, getWorld().random.nextBetween(1, 2)));
         } else if (rand < 50) {
-            spawnItem(new ItemStack(NyakoItems.COPPER_COIN, world.random.nextBetween(1, 16)));
+            spawnItem(new ItemStack(NyakoItems.COPPER_COIN, getWorld().random.nextBetween(1, 16)));
         }
 
         // fishing up tnt
@@ -47,11 +47,11 @@ public abstract class FishingBobberEntityMixin extends ProjectileEntity {
 
     public void spawnItem(ItemStack itemStack) {
         PlayerEntity playerEntity = getPlayerOwner();
-        ItemEntity itemEntity = new ItemEntity(this.world, this.getX(), this.getY(), this.getZ(), itemStack);
+        ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), itemStack);
         double d = playerEntity.getX() - this.getX();
         double e = playerEntity.getY() - this.getY();
         double f = playerEntity.getZ() - this.getZ();
         itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
-        this.world.spawnEntity(itemEntity);
+        this.getWorld().spawnEntity(itemEntity);
     }
 }

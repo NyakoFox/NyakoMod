@@ -43,7 +43,7 @@ public abstract class EnderDragonPartMixin extends Entity {
             player.setStackInHand(hand, itemStack2);
 
             this.emitGameEvent(GameEvent.ENTITY_INTERACT);
-            return ActionResult.success(this.world.isClient);
+            return ActionResult.success(this.getWorld().isClient);
         }
 
         return super.interact(player, hand);

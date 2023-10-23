@@ -24,10 +24,10 @@ public class StaffOfSmitingItem extends Item {
             PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
             ServerPlayNetworking.send((ServerPlayerEntity) target, NyakoNetworking.PLAYER_SMITE, passedData);
         }
-        LightningEntity lightningBolt = new LightningEntity(EntityType.LIGHTNING_BOLT, target.world);
+        LightningEntity lightningBolt = new LightningEntity(EntityType.LIGHTNING_BOLT, target.getWorld());
         lightningBolt.setCosmetic(true);
         lightningBolt.setPos(target.getX(), target.getY(), target.getZ());
-        target.world.spawnEntity(lightningBolt);
+        target.getWorld().spawnEntity(lightningBolt);
         target.addVelocity(0d, 5d, 0d);
         return true;
     };

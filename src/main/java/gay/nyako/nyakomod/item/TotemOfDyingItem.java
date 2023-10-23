@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.NyakoDamageSources;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +14,7 @@ public class TotemOfDyingItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        user.damage(NyakoDamageSources.TOTEM_OF_DYING, Float.MAX_VALUE);
+        user.damage(user.getDamageSources().genericKill(), Float.MAX_VALUE);
         ItemStack stack = user.getStackInHand(hand);
         stack.decrement(1);
         user.setStackInHand(hand, stack);

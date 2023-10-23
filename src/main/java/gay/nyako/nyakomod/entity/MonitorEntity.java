@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -21,7 +22,8 @@ import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -107,7 +109,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     public void setURL(String newURL) {
         this.dataTracker.set(TEXTURE_URL, newURL);
-        if (world.isClient()) {
+        if (getWorld().isClient()) {
             identifier = null;
             if (!newURL.equals("")) {
                 identifier = NyakoClientMod.downloadSprite(newURL);
@@ -118,7 +120,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
         if (player.isSneaking()) {
-            if (world.isClient()) {
+            if (getWorld().isClient()) {
                 openGUI();
             }
             return ActionResult.SUCCESS;
@@ -170,7 +172,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
 
     @Override
-    public Packet<?> createSpawnPacket() {
+    public Packet<ClientPlayPacketListener> createSpawnPacket() {
         return new EntitySpawnS2CPacket(this, this.facing.getId(), this.getDecorationBlockPos());
     }
 
@@ -285,19 +287,19 @@ public class MonitorEntity extends AbstractDecorationEntity {
 
     @Override
     public boolean canStayAttached() {
-        if (!this.world.isSpaceEmpty(this)) {
+        if (!this.getWorld().isSpaceEmpty(this)) {
             return false;
         }
-        BlockState blockState = this.world.getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
-        if (!(blockState.getMaterial().isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
+        BlockState blockState = this.getWorld().getBlockState(this.attachmentPos.offset(this.facing.getOpposite()));
+        if (!(blockState.isSolid() || this.facing.getAxis().isHorizontal() && AbstractRedstoneGateBlock.isRedstoneGate(blockState))) {
             return false;
         }
-        return this.world.getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
+        return this.getWorld().getOtherEntities(this, this.getBoundingBox(), PREDICATE).isEmpty();
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (source == DamageSource.OUT_OF_WORLD || source.isSourceCreativePlayer()) {
+        if (source.isOf(DamageTypes.OUT_OF_WORLD) || source.isSourceCreativePlayer()) {
             return super.damage(source, amount);
         }
         if (this.isInvulnerableTo(source)) {

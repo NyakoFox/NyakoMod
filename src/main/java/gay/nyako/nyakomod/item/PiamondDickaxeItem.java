@@ -1,22 +1,17 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.NyakoDamageSources;
 import gay.nyako.nyakomod.NyakoToolMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 
 public class PiamondDickaxeItem extends PickaxeItem {
     public PiamondDickaxeItem(NyakoToolMaterials nyakoToolMaterials, int i, float v, FabricItemSettings fabricItemSettings) {
@@ -30,7 +25,7 @@ public class PiamondDickaxeItem extends PickaxeItem {
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
 
-        user.damage(NyakoDamageSources.EAT_PICKAXE, 1.0f);
+        user.damage(user.getDamageSources().genericKill(), 1.0f);
 
         if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
             stack.decrement(1);

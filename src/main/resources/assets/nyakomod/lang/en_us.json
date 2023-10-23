@@ -208,6 +208,7 @@
     "entity.nyakomod.petdragon": "Dragon Hatchling",
     "entity.nyakomod.petsprite": "Sprite",
     "entity.nyakomod.monitor": "Monitor",
+    "entity.nyakomod.herobrine": "Herobrine",
 
     "death.attack.totemOfDying": "%s used a Totem of Dying",
     "death.attack.killbind": "%s used their killbind",

@@ -170,7 +170,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             if (NyakoUtils.blockedByShield(this, player.getPos())) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
                 player.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 1.0F);
-                return ActionResult.success(this.world.isClient);
+                return ActionResult.success(this.getWorld().isClient);
             }
             var casted = (PlayerEntityAccess) this;
             if (casted.getMilk() >= 5) {
@@ -192,13 +192,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
                 ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, milkStack);
 
                 player.setStackInHand(hand, itemStack2);
-                if (!this.world.isClient) {
+                if (!this.getWorld().isClient) {
                     NyakoCriteria.PLAYER_MILKED.trigger((ServerPlayerEntity) (Object) this);
                     player.getScoreboard().forEachScore(NyakoMod.TIMES_MILKED_CRITERIA, this.getEntityName(), score -> score.setScore(score.getScore() + 1));
                     player.getScoreboard().forEachScore(NyakoMod.PLAYERS_MILKED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
                 }
                 this.emitGameEvent(GameEvent.ENTITY_INTERACT);
-                return ActionResult.success(this.world.isClient);
+                return ActionResult.success(this.getWorld().isClient);
             }
         }
 

@@ -31,7 +31,7 @@ public final class SmiteCommand {
                     Vec3d pos = player.getCameraPosVec(0.0F);
                     Vec3d ray = pos.add(player.getRotationVector().multiply(smiteDistance));
 
-                    EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.world, player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
+                    EntityHitResult entityHitResult = net.minecraft.entity.projectile.ProjectileUtil.getEntityCollision(player.getWorld(), player, pos, ray, player.getBoundingBox().expand(smiteDistance), entity -> true);
 
                     if (entityHitResult != null && entityHitResult.getType() == HitResult.Type.ENTITY) {
                         Entity entity = entityHitResult.getEntity();
@@ -42,9 +42,9 @@ public final class SmiteCommand {
                     var result = player.raycast(smiteDistance, 0, false);
                     if (result.getType() == HitResult.Type.BLOCK) {
                         BlockPos blockPos = ((BlockHitResult) result).getBlockPos();
-                        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.world);
+                        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, player.getWorld());
                         lightning.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                        player.world.spawnEntity(lightning);
+                        player.getWorld().spawnEntity(lightning);
                     }
                     return 1;
                 })
@@ -61,10 +61,10 @@ public final class SmiteCommand {
     }
 
     private static void smiteEntity(Entity entity) {
-        entity.damage(DamageSource.LIGHTNING_BOLT, 5);
-        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, entity.world);
+        entity.damage(entity.getDamageSources().lightningBolt(), 5);
+        var lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, entity.getWorld());
         lightning.setPosition(entity.getPos());
-        entity.world.spawnEntity(lightning);
+        entity.getWorld().spawnEntity(lightning);
         lightning.setCosmetic(true);
     }
 }

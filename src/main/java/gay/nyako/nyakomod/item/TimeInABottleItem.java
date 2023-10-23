@@ -65,17 +65,17 @@ public class TimeInABottleItem extends Item {
             tag.putInt("timeStored", timeStored - (600 * speed));
             switch (speed) {
                 case 2:
-                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 0.793701F);
+                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP.value(), SoundCategory.BLOCKS, 0.5F, 0.793701F);
                     break;
                 case 3:
                 case 6:
-                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 0.890899F);
+                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP.value(), SoundCategory.BLOCKS, 0.5F, 0.890899F);
                     break;
                 case 4:
-                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 1.059463F);
+                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP.value(), SoundCategory.BLOCKS, 0.5F, 1.059463F);
                     break;
                 case 5:
-                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 0.943874F);
+                    world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP.value(), SoundCategory.BLOCKS, 0.5F, 0.943874F);
                     break;
             }
             return ActionResult.success(true);
@@ -86,9 +86,9 @@ public class TimeInABottleItem extends Item {
         }
         tag.putInt("timeStored", timeStored - 600);
 
-        NyakoEntities.TICKER.spawn((ServerWorld) world, null, null, null, pos, SpawnReason.TRIGGERED, false, false);
+        NyakoEntities.TICKER.spawn((ServerWorld) world, pos, SpawnReason.TRIGGERED);
 
-        world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP, SoundCategory.BLOCKS, 0.5F, 0.749154F);
+        world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_HARP.value(), SoundCategory.BLOCKS, 0.5F, 0.749154F);
         return ActionResult.success(true);
     }
 

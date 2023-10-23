@@ -78,9 +78,6 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
             ClientPlayNetworking.send(NyakoNetworking.MONITOR_MOVE, buf);
         });
 
-        widthElement.onChanged(value -> {
-        });
-
         assert submitButton != null;
         submitButton.onPress(button -> {
             var value = textElement.getText();

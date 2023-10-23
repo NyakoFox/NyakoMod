@@ -1,10 +1,11 @@
 package gay.nyako.nyakomod;
 
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class NyakoSoundEvents {
     public static final SoundEvent SUPER_LUIGI          = register("super_luigi");
@@ -30,7 +31,7 @@ public class NyakoSoundEvents {
 
     public static SoundEvent register(String name) {
         Identifier identifier = new Identifier("nyakomod", name);
-        return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
+        return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
     }
 
     public static void register() {

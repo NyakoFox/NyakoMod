@@ -2,11 +2,14 @@ package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.command.BackCommand;
@@ -107,6 +110,13 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
         player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
     }
 
-
-
+    @Redirect(method = "trySleep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/dimension/DimensionType;natural()Z"))
+    public boolean natural(DimensionType dimensionType) {
+        var player = ((ServerPlayerEntity) (Object) this);
+        if (player.getStackInHand(player.getActiveHand()).getItem() == Items.WATER_BUCKET)
+        {
+            return true;
+        }
+        return dimensionType.natural();
+    }
 }

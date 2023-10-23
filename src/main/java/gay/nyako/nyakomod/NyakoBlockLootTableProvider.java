@@ -2,6 +2,7 @@ package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.SingleCoinBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.loot.LootPool;
@@ -16,21 +17,21 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
-    public NyakoBlockLootTableProvider(FabricDataGenerator generator) {
+    public NyakoBlockLootTableProvider(FabricDataOutput generator) {
         super(generator);
-    }
-
-    @Override
-    protected void generateBlockLootTables() {
-        registerSingleCoinBlocks(NyakoBlocks.COPPER_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoBlocks.GOLD_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoBlocks.DIAMOND_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoBlocks.EMERALD_SINGLE_COIN);
-        registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN);
     }
 
     public void registerSingleCoinBlocks(Block inputBlock) {
         List<Integer> valueList = IntStream.rangeClosed(2, SingleCoinBlock.MAX_COINS).boxed().toList();
         addDrop(inputBlock, (Block block) -> LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(block).apply(valueList, integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer.intValue())).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SingleCoinBlock.COINS, integer.intValue())))))));
+    }
+
+    @Override
+    public void generate() {
+        registerSingleCoinBlocks(NyakoBlocks.COPPER_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.GOLD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.DIAMOND_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.EMERALD_SINGLE_COIN);
+        registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN);
     }
 }

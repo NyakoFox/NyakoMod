@@ -20,7 +20,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
@@ -88,7 +87,7 @@ public abstract class DragonFireballEntityMixin extends ExplosiveProjectileEntit
         this.scheduleVelocityUpdate();
         Entity entity = source.getAttacker();
         if (entity != null) {
-            if (!this.world.isClient) {
+            if (!this.getWorld().isClient) {
                 Vec3d vec3d = entity.getRotationVector();
                 this.setVelocity(vec3d);
                 this.powerX = vec3d.x * 0.1;

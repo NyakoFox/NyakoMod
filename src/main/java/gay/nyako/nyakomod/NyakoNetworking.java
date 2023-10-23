@@ -45,7 +45,7 @@ public class NyakoNetworking {
         // Kill bind
         ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER,
                 (server, player, handler, buffer, sender) -> server.execute(() -> {
-                    player.damage(NyakoDamageSources.KILLBIND, Float.MAX_VALUE);
+                    player.damage(player.getDamageSources().genericKill(), Float.MAX_VALUE);
                 }));
 
         // Super Cool Packet Thats Get Sent When Right Clikcing A Super Neat Inventory Like An Ender Chest In Your EInvnetory.
@@ -98,7 +98,7 @@ public class NyakoNetworking {
                     var height = buffer.readInt();
 
                     server.execute(() -> {
-                        ServerWorld world = (ServerWorld) player.world;
+                        ServerWorld world = (ServerWorld) player.getWorld();
                         var entity = world.getEntity(UUID);
 
                         if (entity instanceof MonitorEntity monitorEntity) {
@@ -117,7 +117,7 @@ public class NyakoNetworking {
             var offZ = buffer.readDouble();
 
             server.execute(() -> {
-                ServerWorld world = (ServerWorld) player.world;
+                ServerWorld world = (ServerWorld) player.getWorld();
                 var entity = world.getEntity(UUID);
 
                 if (entity instanceof MonitorEntity monitorEntity) {
@@ -187,8 +187,8 @@ public class NyakoNetworking {
 
 
                     server.execute(() -> {
-                        if (!player.world.isOutOfHeightLimit(blockPos)) {
-                            var blockEntity = player.world.getBlockEntity(blockPos);
+                        if (!player.getWorld().isOutOfHeightLimit(blockPos)) {
+                            var blockEntity = player.getWorld().getBlockEntity(blockPos);
 
                             if (blockEntity instanceof NoteBlockPlusBlockEntity noteEntity) {
                                 var contents = downloadFile(url);

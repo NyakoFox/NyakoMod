@@ -18,10 +18,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +42,7 @@ public class PetDragonEntity extends PetEntity {
     }
 
     public static PetEntity createPet(ItemStack stack, LivingEntity entity) {
-        var pet = new PetDragonEntity(NyakoEntities.PET_DRAGON, entity.world);
+        var pet = new PetDragonEntity(NyakoEntities.PET_DRAGON, entity.getWorld());
         pet.setOwnerUuid(entity.getUuid());
         pet.setPosition(entity.getX(), entity.getY(), entity.getZ());
         pet.setInvulnerable(true);
@@ -76,8 +77,8 @@ public class PetDragonEntity extends PetEntity {
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (!this.world.isClient) {
-            this.world.sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+        if (!this.getWorld().isClient) {
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
         }
         return super.interactMob(player, hand);
     }
@@ -89,6 +90,11 @@ public class PetDragonEntity extends PetEntity {
 
     @Override
     protected void fall(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
     }
 
     static class FlyOntoTreeGoal
@@ -119,7 +125,7 @@ public class PetDragonEntity extends PetEntity {
             for (BlockPos blockPos2 : iterable) {
                 BlockState blockState;
                 boolean bl;
-                if (blockPos.equals(blockPos2) || !(bl = (blockState = this.mob.world.getBlockState(mutable2.set((Vec3i)blockPos2, Direction.DOWN))).getBlock() instanceof LeavesBlock || blockState.isIn(BlockTags.LOGS)) || !this.mob.world.isAir(blockPos2) || !this.mob.world.isAir(mutable.set((Vec3i)blockPos2, Direction.UP))) continue;
+                if (blockPos.equals(blockPos2) || !(bl = (blockState = this.mob.getWorld().getBlockState(mutable2.set((Vec3i)blockPos2, Direction.DOWN))).getBlock() instanceof LeavesBlock || blockState.isIn(BlockTags.LOGS)) || !this.mob.getWorld().isAir(blockPos2) || !this.mob.getWorld().isAir(mutable.set((Vec3i)blockPos2, Direction.UP))) continue;
                 return Vec3d.ofBottomCenter(blockPos2);
             }
             return null;

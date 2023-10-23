@@ -36,7 +36,7 @@ public class FakeCountCommand {
             context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>You can't set the count of nothing.</white>"));
         } else {
             heldStack.removeSubNbt("customCount");
-            context.getSource().sendFeedback(ChatPrefixes.SUCCESS.apply("Your item's count has been reset."), false);
+            context.getSource().sendFeedback(() -> ChatPrefixes.SUCCESS.apply("Your item's count has been reset."), false);
         }
         return 1;
     }
@@ -57,7 +57,7 @@ public class FakeCountCommand {
             heldStack.setNbt(nbt);
 
             var startingText = (MutableText) TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Your item now has the count of ");
-            context.getSource().sendFeedback(startingText.append(newCount).append("."), false);
+            context.getSource().sendFeedback(() -> startingText.append(newCount).append("."), false);
         }
         return 1;
     }

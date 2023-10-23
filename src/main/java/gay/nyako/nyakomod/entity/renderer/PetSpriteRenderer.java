@@ -1,17 +1,15 @@
 package gay.nyako.nyakomod.entity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import gay.nyako.nyakomod.NyakoClientMod;
-import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
@@ -31,7 +29,7 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
     @Override
     public void render(PetSpriteEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0f - entity.headYaw));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - entity.headYaw));
         float h = 0.0625f;
         matrices.scale(h, h, h);
 
@@ -52,7 +50,7 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
         Matrix3f matrix3f = entry.getNormalMatrix();
 
         if (reversed) {
-             matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(180f));
+             matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(180f));
         }
 
         int size = (int)(16 * petSize);
@@ -75,7 +73,7 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
             u1 = 1;
         }
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);
         RenderSystem.enableCull();
@@ -85,7 +83,7 @@ public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
         bufferBuilder.vertex(matrix, x1, y1, z).texture(u1, v1).light(light).next();
         bufferBuilder.vertex(matrix, x1, y0, z).texture(u1, v0).light(light).next();
         bufferBuilder.vertex(matrix, x0, y0, z).texture(u0, v0).light(light).next();
-        BufferRenderer.drawWithShader(bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         matrices.pop();
     }
 }

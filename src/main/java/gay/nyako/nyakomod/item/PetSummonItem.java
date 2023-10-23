@@ -52,7 +52,7 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
         if (nbt != null && nbt.contains("entity")) {
             var uuid = nbt.getUuid("entity");
 
-            if (entity.world instanceof ServerWorld serverWorld) {
+            if (entity.getWorld() instanceof ServerWorld serverWorld) {
                 for (var world : serverWorld.getServer().getWorlds()) {
                     var e = world.getEntity(uuid);
                     if (e instanceof PetEntity petEntity) {
@@ -78,21 +78,21 @@ public class PetSummonItem<T extends PetEntity> extends TrinketItem {
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if (!entity.world.isClient()) {
+        if (!entity.getWorld().isClient()) {
             boolean shouldResummonPet = false;
 
             var summonedPet = getSummonedPet(stack, entity);
 
             if (summonedPet == null || !summonedPet.isAlive()) {
                 shouldResummonPet = true;
-            } else if (summonedPet.world != entity.world) {
+            } else if (summonedPet.getWorld() != entity.getWorld()) {
                 shouldResummonPet = true;
                 summonedPet.remove(Entity.RemovalReason.DISCARDED);
             }
 
             if (shouldResummonPet) {
                 var pet = createPetMethod.create(stack, entity);
-                entity.world.spawnEntity(pet);
+                entity.getWorld().spawnEntity(pet);
 
                 if (stack.hasCustomName()) {
                     pet.setCustomName(stack.getName());

@@ -33,7 +33,7 @@ public class SoulJarItem extends Item {
         ItemStack newStack = captureEntity(stack,user,entity);
         if (newStack != null) {
             user.setStackInHand(hand, newStack);
-            return ActionResult.success(user.world.isClient);
+            return ActionResult.success(user.getWorld().isClient);
         }
         return ActionResult.FAIL;
     }
@@ -56,7 +56,7 @@ public class SoulJarItem extends Item {
         if (entity == null || stack == null || !entity.isAlive() || tag.contains("entity") || entity instanceof PlayerEntity) {
             return null;
         }
-        if (user != null && user.world.isClient) return null;
+        if (user != null && user.getWorld().isClient) return null;
 
 
         entity.stopRiding();

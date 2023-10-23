@@ -10,9 +10,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.projectile.FireworkRocketEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class NyakoEntities {
     public static final BlockEntityType<BlueprintWorkbenchBlockEntity> BLUEPRINT_WORKBENCH_ENTITY = register("blueprint_workbench", FabricBlockEntityTypeBuilder.create(BlueprintWorkbenchBlockEntity::new, NyakoBlocks.BLUEPRINT_WORKBENCH).build(null));
@@ -26,11 +26,13 @@ public class NyakoEntities {
     public static final EntityType<MonitorEntity> MONITOR = register("monitor", FabricEntityTypeBuilder.<MonitorEntity>create(SpawnGroup.MISC, MonitorEntity::new).dimensions(EntityDimensions.fixed(1f, 1f)).build());
     public static final EntityType<NetherPortalProjectileEntity> NETHER_PORTAL = register("nether_portal", FabricEntityTypeBuilder.<NetherPortalProjectileEntity>create(SpawnGroup.MISC, NetherPortalProjectileEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeBlocks(4).trackedUpdateRate(10).build());
 
+    public static final EntityType<HerobrineEntity> HEROBRINE = register("herobrine", FabricEntityTypeBuilder.<HerobrineEntity>create(SpawnGroup.MONSTER, HerobrineEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(8).build());
+
     public static <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
-        return Registry.register(Registry.ENTITY_TYPE, new Identifier("nyakomod", name), entityType);
+        return Registry.register(Registries.ENTITY_TYPE, new Identifier("nyakomod", name), entityType);
     }
 
     public static <T extends BlockEntityType<?>> T register(String name, T blockEntityType) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("nyakomod", name), blockEntityType);
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier("nyakomod", name), blockEntityType);
     }
 }

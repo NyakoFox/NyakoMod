@@ -29,7 +29,7 @@ public final class XpCommand implements Command<ServerCommandSource> {
             var player = ctx.getSource().getPlayerOrThrow();
             XpCommand.refreshLevels(player);
         } catch (CommandSyntaxException e) {
-            ctx.getSource().sendFeedback(Text.of("Only players can use this command >:("), false);
+            ctx.getSource().sendFeedback(() -> Text.of("Only players can use this command >:("), false);
         }
         return Command.SINGLE_SUCCESS;
     }

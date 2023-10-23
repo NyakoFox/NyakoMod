@@ -14,7 +14,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -36,7 +35,7 @@ public class NetherPortalBucketItem extends Item {
         if (!world.isClient) {
             MinecraftServer minecraftServer = world.getServer();
             if (world.getRegistryKey() == World.END) {
-                world.createExplosion(null, user.getX(), user.getY(), user.getZ(), 5.0f, Explosion.DestructionType.BREAK);
+                world.createExplosion(null, user.getX(), user.getY(), user.getZ(), 5.0f, World.ExplosionSourceType.MOB);
                 if (stack.isEmpty()) {
                     return new ItemStack(Items.BUCKET);
                 }

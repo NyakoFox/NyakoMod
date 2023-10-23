@@ -3,9 +3,12 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.block.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Colors;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class NyakoBlocks {
     public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool(), NyakoSoundEvents.SPUNCH_BLOCK));
@@ -18,12 +21,12 @@ public class NyakoBlocks {
     public static final Block PLASTEEL_SMOOTH_CASING    = register("plasteel_smooth_casing",    new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
     public static final Block PLASTEEL_PLATING          = register("plasteel_plating",          new Block(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
     public static final Block PLASTEEL_PILLAR           = register("plasteel_pillar",           new PillarBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
-    public static final Block COPPER_SINGLE_COIN        = register("copper_coin",               new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
-    public static final Block GOLD_SINGLE_COIN          = register("gold_coin",                 new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
-    public static final Block DIAMOND_SINGLE_COIN       = register("diamond_coin",              new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
-    public static final Block EMERALD_SINGLE_COIN       = register("emerald_coin",              new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
-    public static final Block NETHERITE_SINGLE_COIN     = register("netherite_coin",            new SingleCoinBlock(FabricBlockSettings.of(Material.METAL).strength(0.3f)));
-    public static final Block BRICKUS                   = register("brickus",                   new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.RED).requiresTool().strength(2.0f, 6.0f)));
+    public static final Block COPPER_SINGLE_COIN        = register("copper_coin",               new SingleCoinBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK).strength(0.3f)));
+    public static final Block GOLD_SINGLE_COIN          = register("gold_coin",                 new SingleCoinBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK).strength(0.3f)));
+    public static final Block DIAMOND_SINGLE_COIN       = register("diamond_coin",              new SingleCoinBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK).strength(0.3f)));
+    public static final Block EMERALD_SINGLE_COIN       = register("emerald_coin",              new SingleCoinBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK).strength(0.3f)));
+    public static final Block NETHERITE_SINGLE_COIN     = register("netherite_coin",            new SingleCoinBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK).strength(0.3f)));
+    public static final Block BRICKUS                   = register("brickus",                   new Block(AbstractBlock.Settings.create().mapColor(DyeColor.RED).requiresTool().strength(2.0f, 6.0f)));
     public static final Block BRICKUS_WALL              = register("brickus_wall",              new CustomWallBlock(AbstractBlock.Settings.copy(BRICKUS)));
     public static final Block BRICKUS_SLAB              = register("brickus_slab",              new CustomSlabBlock(AbstractBlock.Settings.copy(BRICKUS)));
     public static final Block BRICKUS_STAIRS            = register("brickus_stairs",            new CustomStairsBlock(BRICKUS.getDefaultState(), AbstractBlock.Settings.copy(BRICKUS)));
@@ -40,9 +43,9 @@ public class NyakoBlocks {
     public static final Block WITHER                    = register("wither",                    new WitherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block NETHER_REACTOR_CORE       = register("nether_reactor_core",       new NetherReactorCoreBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block GLOWING_OBSIDIAN          = register("glowing_obsidian",          new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).luminance(state -> 15).requiresTool()));
-    public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(AbstractBlock.Settings.of(Material.PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
+    public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
 
     public static Block register(String id, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier("nyakomod", id), block);
+        return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);
     }
 }

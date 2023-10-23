@@ -21,7 +21,7 @@ public class StaffOfVorbulationItem extends GachaItem {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        user.world.playSound(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLOCK_HONEY_BLOCK_BREAK, SoundCategory.PLAYERS, 1f, 0.8f, true);
+        user.getWorld().playSound(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLOCK_HONEY_BLOCK_BREAK, SoundCategory.PLAYERS, 1f, 0.8f, true);
         entity.setGlowing(!entity.isGlowing());
         return ActionResult.SUCCESS;
     }

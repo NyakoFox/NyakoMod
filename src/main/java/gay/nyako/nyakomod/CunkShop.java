@@ -2,8 +2,6 @@ package gay.nyako.nyakomod;
 
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import gay.nyako.nyakomod.screens.CunkShopScreenHandler;
 import gay.nyako.nyakomod.screens.ShopData;
 import gay.nyako.nyakomod.screens.ShopEntries;
@@ -12,16 +10,14 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -63,7 +59,7 @@ public class CunkShop {
             entryJson.getAsJsonArray("items").forEach(item -> {
                 var jsonObject = item.getAsJsonObject();
 
-                var stack = new ItemStack(Registry.ITEM.get(new Identifier(jsonObject.get("id").getAsString())));
+                var stack = new ItemStack(Registries.ITEM.get(new Identifier(jsonObject.get("id").getAsString())));
                 if (jsonObject.has("count")) {
                     stack.setCount(jsonObject.get("count").getAsInt());
                 } else if (jsonObject.has("Count")) {

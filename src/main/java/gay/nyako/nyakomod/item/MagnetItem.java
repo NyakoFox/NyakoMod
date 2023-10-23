@@ -36,8 +36,8 @@ public class MagnetItem extends Item {
         }
 
         var pos = entity.getPos();
-        var pos1 = new BlockPos(pos.x - 8, pos.y - 8, pos.z - 8);
-        var pos2 = new BlockPos(pos.x + 8, pos.y + 8, pos.z + 8);
+        var pos1 = new BlockPos((int) (pos.x - 8), (int) (pos.y - 8), (int) (pos.z - 8));
+        var pos2 = new BlockPos((int) (pos.x + 8), (int) (pos.y + 8), (int) (pos.z + 8));
         var vecPos = new Vec3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5);
         var entities = world.getOtherEntities(entity, new Box(pos1, pos2), e -> e instanceof ItemEntity || e instanceof ExperienceOrbEntity);
 
