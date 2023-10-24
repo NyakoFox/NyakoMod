@@ -17,3 +17,4 @@ accessible    field     net/minecraft/client/gui/screen/ingame/HandledScreen foc
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen isPointWithinBounds (IIIIDD)Z
 accessible field net/minecraft/data/server/loottable/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
 accessible    class     net/minecraft/sound/SoundEvent
+accessible field net/minecraft/client/render/DimensionEffects BY_IDENTIFIER Lit/unimi/dsi/fastutil/objects/Object2ObjectMap;

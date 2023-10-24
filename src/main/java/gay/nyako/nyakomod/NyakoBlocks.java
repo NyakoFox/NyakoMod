@@ -45,6 +45,11 @@ public class NyakoBlocks {
     public static final Block GLOWING_OBSIDIAN          = register("glowing_obsidian",          new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).luminance(state -> 15).requiresTool()));
     public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
 
+    public static final Block ECHO_DIRT                  = register("echo_dirt",                 new Block(FabricBlockSettings.copy(Blocks.DIRT)));
+    public static final Block ECHO_STONE                 = register("echo_stone",                new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block ECHO_GROWTH                = register("echo_growth",               new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)));
+    public static final Block ECHO_SLATE                 = register("echo_slate",                new Block(FabricBlockSettings.copy(Blocks.DEEPSLATE).requiresTool()));
+
     public static Block register(String id, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);
     }

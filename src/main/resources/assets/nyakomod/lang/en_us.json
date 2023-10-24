@@ -31,6 +31,10 @@
     "block.nyakomod.wither": "Wither",
     "block.nyakomod.nether_reactor_core": "Nether Reactor Core",
     "block.nyakomod.glowing_obsidian": "Glowing Obsidian",
+    "block.nyakomod.echo_dirt": "Echo Dirt",
+    "block.nyakomod.echo_stone": "Echo Stone",
+    "block.nyakomod.echo_growth": "Echo Growth",
+    "block.nyakomod.echo_slate": "Echo Slate",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -218,5 +222,11 @@
     "death.attack.killbind": "%s used their killbind",
     "death.attack.eatPickaxe": "%s ate a pickaxe",
 
-    "effect.nyakomod.hunter": "Hunter"
+    "effect.nyakomod.hunter": "Hunter",
+
+    "biome.nyakomod.echoplains": "Echo Plains",
+    "biome.nyakomod.echoshades": "Shades",
+    "biome.nyakomod.outershades": "Outer Shades",
+
+    "dimension.nyakomod.echolands": "The Echolands"
 }

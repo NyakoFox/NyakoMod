@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "nyakomod:block/echo_growth"
+      },
+      {
+        "model": "nyakomod:block/echo_growth",
+        "y": 90
+      },
+      {
+        "model": "nyakomod:block/echo_growth",
+        "y": 180
+      },
+      {
+        "model": "nyakomod:block/echo_growth",
+        "y": 270
+      }
+    ]
+  }
+}

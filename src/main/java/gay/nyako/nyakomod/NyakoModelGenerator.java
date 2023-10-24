@@ -12,9 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 import static net.minecraft.data.client.BlockStateModelGenerator.createSingletonBlockState;
 
@@ -51,6 +49,10 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.TITANSTONE);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.GLOWING_OBSIDIAN);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_DIRT);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_STONE);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_SLATE);
 
         registerAllybox(blockStateModelGenerator);
     }

@@ -1,11 +1,48 @@
 {
-    "type": "nyakomod:echolands",
-    "generator": {
-        "type": "minecraft:noise",
-        "settings": "minecraft:floating_islands",
-        "biome_source": {
-            "type": "multi_noise",
-            "preset": "overworld"
+  "type": "nyakomod:echolands",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "nyakomod:echolands",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "nyakomod:echoplains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "nyakomod:outershades",
+          "parameters": {
+            "temperature": 0.25,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "nyakomod:echoshades",
+          "parameters": {
+            "temperature": 0.5,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
         }
+      ]
     }
+  }
 }

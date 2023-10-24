@@ -128,6 +128,11 @@ public class NyakoItems {
     public static final Item MUSIC_DISC_WELCOME         = NyakoDiscs.WELCOME.item();
     public static final Item MUSIC_DISC_SKIBIDI         = NyakoDiscs.SKIBIDI.item();
 
+    public static final Item ECHO_DIRT                  = register("echo_dirt",                 new BlockItem(NyakoBlocks.ECHO_DIRT, new FabricItemSettings()));
+    public static final Item ECHO_STONE                 = register("echo_stone",                new BlockItem(NyakoBlocks.ECHO_STONE, new FabricItemSettings()));
+    public static final Item ECHO_GROWTH                = register("echo_growth",               new BlockItem(NyakoBlocks.ECHO_GROWTH, new FabricItemSettings()));
+    public static final Item ECHO_SLATE                 = register("echo_slate",                new BlockItem(NyakoBlocks.ECHO_SLATE, new FabricItemSettings()));
+
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
     }

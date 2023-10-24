@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
@@ -33,5 +34,10 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         registerSingleCoinBlocks(NyakoBlocks.DIAMOND_SINGLE_COIN);
         registerSingleCoinBlocks(NyakoBlocks.EMERALD_SINGLE_COIN);
         registerSingleCoinBlocks(NyakoBlocks.NETHERITE_SINGLE_COIN);
+
+        this.addDrop(NyakoBlocks.ECHO_DIRT);
+        this.addDrop(NyakoBlocks.ECHO_STONE);
+        this.addDrop(NyakoBlocks.ECHO_GROWTH, (Block block) -> this.drops(block, NyakoBlocks.ECHO_DIRT));
+        this.addDrop(NyakoBlocks.ECHO_SLATE);
     }
 }

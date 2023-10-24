@@ -22,6 +22,8 @@
     "minecraft:end_portal_frame",
     "nyakomod:wither",
     "nyakomod:nether_reactor_core",
-    "nyakomod:glowing_obsidian"
+    "nyakomod:glowing_obsidian",
+    "nyakomod:echo_stone",
+    "nyakomod:echo_slate"
   ]
 }

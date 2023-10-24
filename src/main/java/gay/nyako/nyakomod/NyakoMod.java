@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
+import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -40,6 +41,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,6 +62,7 @@ public class NyakoMod implements ModInitializer {
     public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registries.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
 
     public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier("nyakomod", "echolands"));
+    public static RegistryKey<DimensionType> ECHOLANDS_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, new Identifier("nyakomod", "echolands"));
 
     @Environment(EnvType.SERVER)
     public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
@@ -85,6 +88,7 @@ public class NyakoMod implements ModInitializer {
         NyakoScreenHandlers.register();
         NyakoPaintingVariants.register();
         NyakoItemGroups.register();
+        NyakoFeatures.register();
 
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());

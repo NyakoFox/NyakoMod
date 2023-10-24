@@ -113,6 +113,10 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.MUSIC_DISC_WELCOME);
                 entries.add(NyakoItems.MUSIC_DISC_SKIBIDI);
                 entries.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(NyakoMod.CUNKLESS_CURSE_ENCHANTMENT, 1)));
+                entries.add(NyakoItems.ECHO_DIRT);
+                entries.add(NyakoItems.ECHO_STONE);
+                entries.add(NyakoItems.ECHO_GROWTH);
+                entries.add(NyakoItems.ECHO_SLATE);
             })
             .build());
 

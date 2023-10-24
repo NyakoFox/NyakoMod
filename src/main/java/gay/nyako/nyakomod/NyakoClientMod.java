@@ -20,11 +20,14 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -148,6 +151,8 @@ public class NyakoClientMod implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_PORTAL, RenderLayer.getTranslucent());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_GROWTH, RenderLayer.getCutoutMipped());
+
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
 				var client = context.getSource().getClient();
@@ -157,6 +162,15 @@ public class NyakoClientMod implements ClientModInitializer {
 		});
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 4159204, NyakoItems.WATER);
+
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			if (world == null || pos == null) {
+				return GrassColors.getDefaultColor();
+			}
+			return BiomeColors.getGrassColor(world, pos);
+		}, NyakoBlocks.ECHO_GROWTH);
+
+		DimensionEffects.BY_IDENTIFIER.put(new Identifier("nyakomod", "echolands"), new EchoLandsDimensionEffects());
 	}
 
 	public static final List<String> downloadedUrls = new ArrayList<>();
