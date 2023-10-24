@@ -1,14 +1,18 @@
 package gay.nyako.nyakomod.item;
 
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 
 public class RodOfDiscordItem extends Item {
@@ -24,7 +28,8 @@ public class RodOfDiscordItem extends Item {
         double x = Math.round(result.getPos().getX()) - 0.5f;
         double y = Math.round(result.getPos().getY());
         double z = Math.round(result.getPos().getZ()) - 0.5f;
-        user.requestTeleportAndDismount(x, y, z);
+        FabricDimensions.teleport(user, (ServerWorld) user.getWorld(), new TeleportTarget(new Vec3d(x, y, z), user.getVelocity(), user.getYaw(), user.getPitch()));
+        //user.requestTeleportAndDismount(x, y, z);
         world.playSound(x, y, z, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
 
         user.getItemCooldownManager().set(this, 30);

@@ -68,7 +68,7 @@ dependencies {
 
 	modImplementation 'me.lucko:fabric-permissions-api:0.1-SNAPSHOT'
 
-	//include files("libs/stacc-1.3.4.jar")
+	include files("libs/stacc-1.5.2.jar")
 	//modRuntimeOnly(include("net.devtech:stacc:1.3.4"))
 
 	modImplementation include("eu.pb4:placeholder-api:2.0.0-beta.7+1.19")
