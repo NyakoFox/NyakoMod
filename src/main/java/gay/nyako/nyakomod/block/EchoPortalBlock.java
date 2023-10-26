@@ -1,10 +1,15 @@
 package gay.nyako.nyakomod.block;
 
 import gay.nyako.nyakomod.NyakoMod;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -20,9 +25,12 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
@@ -62,9 +70,50 @@ public class EchoPortalBlock extends Block {
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity instanceof ServerPlayerEntity serverPlayerEntity)
+        if (entity instanceof ServerPlayerEntity serverPlayerEntity && entity.canUsePortals())
         {
             ServerWorld currentWorld = (ServerWorld)world;
+            if (currentWorld.getRegistryKey() == NyakoMod.ECHOLANDS_KEY)
+            {
+                BlockPos blockPos = serverPlayerEntity.getSpawnPointPosition();
+                float spawnAngle = serverPlayerEntity.getSpawnAngle();
+                ServerWorld spawnWorld = world.getServer().getWorld(serverPlayerEntity.getSpawnPointDimension());
+
+                if (blockPos == null)
+                {
+                    blockPos = spawnWorld.getSpawnPos();
+                }
+
+                Optional<Vec3d> optional = PlayerEntity.findRespawnPosition(spawnWorld, blockPos, spawnAngle, false, true);
+
+                if (blockPos != null && optional.isEmpty()) {
+                    blockPos = spawnWorld.getSpawnPos();
+                    optional = PlayerEntity.findRespawnPosition(spawnWorld, blockPos, spawnAngle, true, true);
+                }
+
+                if (optional.isPresent()) {
+                    float yaw;
+                    BlockState blockState = spawnWorld.getBlockState(blockPos);
+                    boolean bl3 = blockState.isOf(Blocks.RESPAWN_ANCHOR);
+                    Vec3d vec3d = optional.get();
+                    if (blockState.isIn(BlockTags.BEDS) || bl3) {
+                        Vec3d vec3d2 = Vec3d.ofBottomCenter(blockPos).subtract(vec3d).normalize();
+                        yaw = (float) MathHelper.wrapDegrees(MathHelper.atan2(vec3d2.z, vec3d2.x) * 57.2957763671875 - 90.0);
+                    } else {
+                        yaw = spawnAngle;
+                    }
+                    serverPlayerEntity.refreshPositionAndAngles(vec3d.x, vec3d.y, vec3d.z, yaw, 0.0f);
+                    serverPlayerEntity.setSpawnPoint(spawnWorld.getRegistryKey(), blockPos, spawnAngle, true, false);
+                }
+                while (!spawnWorld.isSpaceEmpty(serverPlayerEntity) && serverPlayerEntity.getY() < (double)spawnWorld.getTopY()) {
+                    serverPlayerEntity.setPosition(serverPlayerEntity.getX(), serverPlayerEntity.getY() + 1.0, serverPlayerEntity.getZ());
+                }
+
+                FabricDimensions.teleport(serverPlayerEntity, spawnWorld, new TeleportTarget(serverPlayerEntity.getPos(), serverPlayerEntity.getVelocity(), serverPlayerEntity.getYaw(), serverPlayerEntity.getPitch()));
+
+                return;
+            }
+
             ServerWorld echolandsWorld = currentWorld.getServer().getWorld(NyakoMod.ECHOLANDS_KEY);
             BlockPos spawnPosition = echolandsWorld.getSpawnPos();
             serverPlayerEntity.teleport(echolandsWorld, spawnPosition.getX(), spawnPosition.getY(), spawnPosition.getZ(), 0.0f, 0);
@@ -77,7 +126,7 @@ public class EchoPortalBlock extends Block {
 
             StructurePlacementData structurePlacementData = new StructurePlacementData().setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(true);
 
-            BlockPos blockPos2 = spawnPosition.add(-11, -1, -2);
+            BlockPos blockPos2 = spawnPosition.add(-11, -1, -3);
             template.place(echolandsWorld, blockPos2, blockPos2, structurePlacementData, echolandsWorld.getRandom(), 2);
 
             // Place a spawn pad underneath the player
@@ -87,6 +136,19 @@ public class EchoPortalBlock extends Block {
                 {
                     BlockPos spawnPadPos = spawnPosition.add(x, -1, z);
                     echolandsWorld.setBlockState(spawnPadPos, Blocks.REINFORCED_DEEPSLATE.getDefaultState());
+                }
+            }
+
+            // Fill the area around the player with air
+            for (int x = -2; x <= 1; x++)
+            {
+                for (int y = 0; y <= 3; y++)
+                {
+                    for (int z = -2; z <= 1; z++)
+                    {
+                        BlockPos airPos = spawnPosition.add(x, y, z);
+                        echolandsWorld.setBlockState(airPos, Blocks.AIR.getDefaultState());
+                    }
                 }
             }
         }
