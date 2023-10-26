@@ -118,5 +118,55 @@
         ]
     },
 
+
+  "entity.decayed.ambient": {
+    "sounds": [
+      "nyakomod:mob/decayed/idle1",
+      "nyakomod:mob/decayed/idle2",
+      "nyakomod:mob/decayed/idle3"
+    ],
+    "subtitle": "subtitles.nyakomod.entity.decayed.ambient"
+  },
+  "entity.decayed.converted_to_zombie": {
+    "sounds": [
+      {
+        "name": "nyakomod:mob/decayed/convert1",
+        "volume": 0.8
+      },
+      {
+        "name": "nyakomod:mob/decayed/convert2",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.nyakomod.entity.decayed.converted_to_zombie"
+  },
+  "entity.decayed.death": {
+    "sounds": [
+      "nyakomod:mob/decayed/death1",
+      "nyakomod:mob/decayed/death2"
+    ],
+    "subtitle": "subtitles.nyakomod.entity.decayed.death"
+  },
+  "entity.decayed.hurt": {
+    "sounds": [
+      "nyakomod:mob/decayed/hurt1",
+      "nyakomod:mob/decayed/hurt2"
+    ],
+    "subtitle": "subtitles.nyakomod.entity.decayed.hurt"
+  },
+  "entity.decayed.step": {
+    "sounds": [
+      "nyakomod:mob/decayed/step1",
+      "nyakomod:mob/decayed/step2",
+      "nyakomod:mob/decayed/step3",
+      "nyakomod:mob/decayed/step4",
+      "nyakomod:mob/decayed/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
+
+
+
     "harp_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_2"]},"harp_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_3"]},"harp_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_4"]},"harp_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_6"]},"harp_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_7"]},"harp_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/harp_8"]},"bass_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_2"]},"bass_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_3"]},"bass_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_4"]},"bass_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_6"]},"bass_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_7"]},"bass_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bass_8"]},"flute_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_2"]},"flute_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_3"]},"flute_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_4"]},"flute_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_6"]},"flute_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_7"]},"flute_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/flute_8"]},"bell_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_2"]},"bell_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_3"]},"bell_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_4"]},"bell_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_6"]},"bell_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_7"]},"bell_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bell_8"]},"guitar_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_2"]},"guitar_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_3"]},"guitar_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_4"]},"guitar_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_6"]},"guitar_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_7"]},"guitar_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/guitar_8"]},"chime_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_2"]},"chime_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_3"]},"chime_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_4"]},"chime_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_6"]},"chime_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_7"]},"chime_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/chime_8"]},"xylophone_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_2"]},"xylophone_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_3"]},"xylophone_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_4"]},"xylophone_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_6"]},"xylophone_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_7"]},"xylophone_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/xylophone_8"]},"iron_xylophone_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_2"]},"iron_xylophone_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_3"]},"iron_xylophone_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_4"]},"iron_xylophone_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_6"]},"iron_xylophone_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_7"]},"iron_xylophone_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/iron_xylophone_8"]},"cow_bell_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_2"]},"cow_bell_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_3"]},"cow_bell_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_4"]},"cow_bell_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_6"]},"cow_bell_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_7"]},"cow_bell_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/cow_bell_8"]},"didgeridoo_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_2"]},"didgeridoo_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_3"]},"didgeridoo_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_4"]},"didgeridoo_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_6"]},"didgeridoo_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_7"]},"didgeridoo_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/didgeridoo_8"]},"bit_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_2"]},"bit_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_3"]},"bit_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_4"]},"bit_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_6"]},"bit_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_7"]},"bit_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bit_8"]},"banjo_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_2"]},"banjo_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_3"]},"banjo_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_4"]},"banjo_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_6"]},"banjo_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_7"]},"banjo_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/banjo_8"]},"pling_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_2"]},"pling_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_3"]},"pling_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_4"]},"pling_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_6"]},"pling_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_7"]},"pling_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/pling_8"]},"bd_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_2"]},"bd_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_3"]},"bd_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_4"]},"bd_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_6"]},"bd_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_7"]},"bd_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/bd_8"]},"snare_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_2"]},"snare_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_3"]},"snare_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_4"]},"snare_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_6"]},"snare_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_7"]},"snare_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/snare_8"]},"hat_2":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_2"]},"hat_3":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_3"]},"hat_4":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_4"]},"hat_6":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_6"]},"hat_7":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_7"]},"hat_8":{"subtitle":"subtitles.block.note_block.note","sounds":["nyakomod:instrument/hat_8"]}
 }

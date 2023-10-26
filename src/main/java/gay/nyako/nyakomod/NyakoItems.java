@@ -6,6 +6,7 @@ import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -132,6 +133,24 @@ public class NyakoItems {
     public static final Item ECHO_STONE                 = register("echo_stone",                new BlockItem(NyakoBlocks.ECHO_STONE, new FabricItemSettings()));
     public static final Item ECHO_GROWTH                = register("echo_growth",               new BlockItem(NyakoBlocks.ECHO_GROWTH, new FabricItemSettings()));
     public static final Item ECHO_SLATE                 = register("echo_slate",                new BlockItem(NyakoBlocks.ECHO_SLATE, new FabricItemSettings()));
+
+    public static final Item ECHO_SPINE                 = register("echo_spine",                new BlockItem(NyakoBlocks.ECHO_SPINE, new FabricItemSettings()));
+    public static final Item STRIPPED_ECHO_SPINE        = register("stripped_echo_spine",       new BlockItem(NyakoBlocks.STRIPPED_ECHO_SPINE, new FabricItemSettings()));
+    public static final Item ECHO_SPUR                  = register("echo_spur",                 new BlockItem(NyakoBlocks.ECHO_SPUR, new FabricItemSettings()));
+    public static final Item STRIPPED_ECHO_SPUR         = register("stripped_echo_spur",        new BlockItem(NyakoBlocks.STRIPPED_ECHO_SPUR, new FabricItemSettings()));
+    public static final Item ECHO_TRAPDOOR              = register("echo_trapdoor",             new BlockItem(NyakoBlocks.ECHO_TRAPDOOR, new FabricItemSettings()));
+    public static final Item ECHO_PLANKS                = register("echo_planks",               new BlockItem(NyakoBlocks.ECHO_PLANKS, new FabricItemSettings()));
+    public static final Item ECHO_DOOR                  = register("echo_door",                 new TallBlockItem(NyakoBlocks.ECHO_DOOR, new FabricItemSettings()));
+    public static final Item ECHO_BUTTON                = register("echo_button",               new BlockItem(NyakoBlocks.ECHO_BUTTON, new FabricItemSettings()));
+    public static final Item ECHO_FENCE                 = register("echo_fence",                new BlockItem(NyakoBlocks.ECHO_FENCE, new FabricItemSettings()));
+    public static final Item ECHO_FENCE_GATE            = register("echo_fence_gate",           new BlockItem(NyakoBlocks.ECHO_FENCE_GATE, new FabricItemSettings()));
+    public static final Item ECHO_PRESSURE_PLATE        = register("echo_pressure_plate",       new BlockItem(NyakoBlocks.ECHO_PRESSURE_PLATE, new FabricItemSettings()));
+    public static final Item ECHO_SIGN                  = register("echo_sign",                 new SignItem(new FabricItemSettings().maxCount(16), NyakoBlocks.ECHO_SIGN, NyakoBlocks.ECHO_WALL_SIGN));
+    public static final Item ECHO_HANGING_SIGN          = register("echo_hanging_sign",         new HangingSignItem(NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN, new FabricItemSettings().maxCount(16)));
+    public static final Item ECHO_SLAB                  = register("echo_slab",                 new BlockItem(NyakoBlocks.ECHO_SLAB, new FabricItemSettings()));
+    public static final Item ECHO_STAIRS                = register("echo_stairs",               new BlockItem(NyakoBlocks.ECHO_STAIRS, new FabricItemSettings()));
+
+    public static final Item DECAYED_SPAWN_EGG          = register("decayed_spawn_egg",         new SpawnEggItem(NyakoEntities.DECAYED, 0x069D9C, 0x0B3539, new FabricItemSettings()));
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);

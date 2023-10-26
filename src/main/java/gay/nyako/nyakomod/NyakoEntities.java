@@ -26,7 +26,8 @@ public class NyakoEntities {
     public static final EntityType<MonitorEntity> MONITOR = register("monitor", FabricEntityTypeBuilder.<MonitorEntity>create(SpawnGroup.MISC, MonitorEntity::new).dimensions(EntityDimensions.fixed(1f, 1f)).build());
     public static final EntityType<NetherPortalProjectileEntity> NETHER_PORTAL = register("nether_portal", FabricEntityTypeBuilder.<NetherPortalProjectileEntity>create(SpawnGroup.MISC, NetherPortalProjectileEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeBlocks(4).trackedUpdateRate(10).build());
 
-    public static final EntityType<HerobrineEntity> HEROBRINE = register("herobrine", FabricEntityTypeBuilder.<HerobrineEntity>create(SpawnGroup.MONSTER, HerobrineEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(8).build());
+    public static final EntityType<HerobrineEntity> HEROBRINE = register("herobrine", FabricEntityTypeBuilder.<HerobrineEntity>create(SpawnGroup.MONSTER, HerobrineEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
+    public static final EntityType<DecayedEntity> DECAYED = register("decayed", FabricEntityTypeBuilder.<DecayedEntity>create(SpawnGroup.MONSTER, DecayedEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
 
     public static <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
         return Registry.register(Registries.ENTITY_TYPE, new Identifier("nyakomod", name), entityType);

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "nyakomod:block/echo_door_bottom",
+    "top": "nyakomod:block/echo_door_top"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nyakomod:block/stripped_echo_spur",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "nyakomod:block/stripped_echo_spur"
+    },
+    "axis=z": {
+      "model": "nyakomod:block/stripped_echo_spur",
+      "x": 90
+    }
+  }
+}

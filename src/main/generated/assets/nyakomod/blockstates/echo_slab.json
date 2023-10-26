@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nyakomod:block/echo_slab"
+    },
+    "type=double": {
+      "model": "nyakomod:block/echo_planks"
+    },
+    "type=top": {
+      "model": "nyakomod:block/echo_slab_top"
+    }
+  }
+}

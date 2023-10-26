@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractFireBlockMixin",
+    "AxeItemMixin",
     "BedBlockMixin",
     "BlocksMixin",
     "BoatEntityMixin",
@@ -54,8 +55,8 @@
     "DrawContextMixin",
     "HandledScreenMixin",
     "InGameHudMixin",
-    "ItemStackMixin",
     "ItemModelsMixin",
+    "ItemStackMixin",
     "MusicTrackerMixin",
     "TntEntityRendererMixin",
     "VillagerEntityRendererMixin",

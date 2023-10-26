@@ -30,6 +30,12 @@ public class NyakoSoundEvents {
 
     public static final BlockSoundGroup SPUNCH_BLOCK_SOUND_GROUP = new BlockSoundGroup(1.0f, 1.2f, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_STEP, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
 
+    public static final SoundEvent ENTITY_DECAYED_AMBIENT = register("entity.decayed.ambient");
+    public static final SoundEvent ENTITY_DECAYED_CONVERTED_TO_ZOMBIE = register("entity.decayed.converted_to_zombie");
+    public static final SoundEvent ENTITY_DECAYED_DEATH = register("entity.decayed.death");
+    public static final SoundEvent ENTITY_DECAYED_HURT = register("entity.decayed.hurt");
+    public static final SoundEvent ENTITY_DECAYED_STEP = register("entity.decayed.step");
+
     public static SoundEvent register(String name) {
         Identifier identifier = new Identifier("nyakomod", name);
         return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));

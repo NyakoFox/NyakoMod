@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nyakomod:block/echo_sign"
+    }
+  }
+}

@@ -39,5 +39,21 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(NyakoBlocks.ECHO_STONE);
         this.addDrop(NyakoBlocks.ECHO_GROWTH, (Block block) -> this.drops(block, NyakoBlocks.ECHO_DIRT));
         this.addDrop(NyakoBlocks.ECHO_SLATE);
+
+        this.addDrop(NyakoBlocks.ECHO_SPINE);
+        this.addDrop(NyakoBlocks.ECHO_SPUR);
+        this.addDrop(NyakoBlocks.STRIPPED_ECHO_SPINE);
+        this.addDrop(NyakoBlocks.STRIPPED_ECHO_SPUR);
+        this.addDrop(NyakoBlocks.ECHO_PLANKS);
+        this.addDrop(NyakoBlocks.ECHO_SLAB);
+        this.addDrop(NyakoBlocks.ECHO_STAIRS);
+        this.addDrop(NyakoBlocks.ECHO_FENCE);
+        this.addDrop(NyakoBlocks.ECHO_FENCE_GATE);
+        this.addDrop(NyakoBlocks.ECHO_DOOR);
+        this.addDrop(NyakoBlocks.ECHO_TRAPDOOR);
+        this.addDrop(NyakoBlocks.ECHO_PRESSURE_PLATE);
+        this.addDrop(NyakoBlocks.ECHO_BUTTON);
+        this.addDrop(NyakoBlocks.ECHO_SIGN);
+        this.addDrop(NyakoBlocks.ECHO_HANGING_SIGN);
     }
 }

@@ -117,6 +117,22 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.ECHO_STONE);
                 entries.add(NyakoItems.ECHO_GROWTH);
                 entries.add(NyakoItems.ECHO_SLATE);
+                entries.add(NyakoItems.ECHO_SPINE);
+                entries.add(NyakoItems.STRIPPED_ECHO_SPINE);
+                entries.add(NyakoItems.ECHO_SPUR);
+                entries.add(NyakoItems.STRIPPED_ECHO_SPUR);
+                entries.add(NyakoItems.ECHO_TRAPDOOR);
+                entries.add(NyakoItems.ECHO_PLANKS);
+                entries.add(NyakoItems.ECHO_DOOR);
+                entries.add(NyakoItems.ECHO_BUTTON);
+                entries.add(NyakoItems.ECHO_FENCE);
+                entries.add(NyakoItems.ECHO_FENCE_GATE);
+                entries.add(NyakoItems.ECHO_PRESSURE_PLATE);
+                entries.add(NyakoItems.ECHO_SIGN);
+                entries.add(NyakoItems.ECHO_HANGING_SIGN);
+                entries.add(NyakoItems.ECHO_SLAB);
+                entries.add(NyakoItems.ECHO_STAIRS);
+                entries.add(NyakoItems.DECAYED_SPAWN_EGG);
             })
             .build());
 

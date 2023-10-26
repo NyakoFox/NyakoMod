@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,7 +27,7 @@ import java.util.function.Predicate;
 
 public class EchoDungeonFeature extends Feature<DefaultFeatureConfig> {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final EntityType<?>[] MOB_SPAWNER_ENTITIES = new EntityType[]{EntityType.ENDERMAN, EntityType.CREEPER, EntityType.SKELETON};
+    private static final EntityType<?>[] MOB_SPAWNER_ENTITIES = new EntityType[]{NyakoEntities.DECAYED, EntityType.ENDERMAN, EntityType.CREEPER, EntityType.SKELETON};
     private static final BlockState AIR = Blocks.CAVE_AIR.getDefaultState();
 
     public EchoDungeonFeature(Codec<DefaultFeatureConfig> codec) {

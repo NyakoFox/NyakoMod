@@ -19,6 +19,12 @@
   "spawners": {
     "monster": [
       {
+        "type": "nyakomod:decayed",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
         "type": "minecraft:creeper",
         "weight": 100,
         "minCount": 4,
@@ -38,7 +44,7 @@
       },
       {
         "type": "minecraft:warden",
-        "weight": 5,
+        "weight": 1,
         "minCount": 4,
         "maxCount": 4
       }

@@ -55,6 +55,9 @@ public class NyakoClientMod implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_HEROBRINE_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "main");
 	public static final EntityModelLayer MODEL_HEROBRINE_INNER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "inner_armor");
 	public static final EntityModelLayer MODEL_HEROBRINE_OUTER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "outer_armor");
+	public static final EntityModelLayer MODEL_DECAYED_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "main");
+	public static final EntityModelLayer MODEL_DECAYED_INNER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "inner_armor");
+	public static final EntityModelLayer MODEL_DECAYED_OUTER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "outer_armor");
 
 	@Override
 	public void onInitializeClient() {
@@ -85,11 +88,18 @@ public class NyakoClientMod implements ClientModInitializer {
 		EntityRendererRegistry.register(NyakoEntities.MONITOR, MonitorEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_MONITOR_LAYER, MonitorEntityRenderer::getTexturedModelData);
 		EntityRendererRegistry.register(NyakoEntities.NETHER_PORTAL, NetherPortalProjetileEntityRenderer::new);
+
 		EntityRendererRegistry.register(NyakoEntities.HEROBRINE, HerobrineEntityRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_LAYER, HerobrineEntityRenderer::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_INNER_ARMOR_LAYER, HerobrineEntityRenderer::getInnerArmorModelData);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_HEROBRINE_OUTER_ARMOR_LAYER, HerobrineEntityRenderer::getOuterArmorModelData);
+
+		EntityRendererRegistry.register(NyakoEntities.DECAYED, DecayedEntityRenderer::new);
+
+		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_LAYER, DecayedEntityRenderer::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_INNER_ARMOR_LAYER, DecayedEntityRenderer::getInnerArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_OUTER_ARMOR_LAYER, DecayedEntityRenderer::getOuterArmorModelData);
 
 
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->

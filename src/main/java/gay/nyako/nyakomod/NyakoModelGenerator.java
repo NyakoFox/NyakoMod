@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.data.family.BlockFamilies;
+import net.minecraft.data.family.BlockFamily;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
@@ -53,6 +55,12 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_DIRT);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_STONE);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ECHO_SLATE);
+
+        blockStateModelGenerator.registerCubeAllModelTexturePool(NyakoBlockFamilies.ECHO.getBaseBlock()).family(NyakoBlockFamilies.ECHO);
+
+        blockStateModelGenerator.registerLog(NyakoBlocks.ECHO_SPINE).stem(NyakoBlocks.ECHO_SPINE).wood(NyakoBlocks.ECHO_SPUR);
+        blockStateModelGenerator.registerLog(NyakoBlocks.STRIPPED_ECHO_SPINE).stem(NyakoBlocks.STRIPPED_ECHO_SPINE).wood(NyakoBlocks.STRIPPED_ECHO_SPUR);
+        blockStateModelGenerator.registerHangingSign(NyakoBlocks.STRIPPED_ECHO_SPINE, NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN);
 
         registerAllybox(blockStateModelGenerator);
     }

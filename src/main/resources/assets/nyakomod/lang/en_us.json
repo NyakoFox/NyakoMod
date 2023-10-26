@@ -35,6 +35,23 @@
     "block.nyakomod.echo_stone": "Echo Stone",
     "block.nyakomod.echo_growth": "Echo Growth",
     "block.nyakomod.echo_slate": "Echo Slate",
+    "block.nyakomod.echo_spine": "Echo Spine",
+    "block.nyakomod.stripped_echo_spine": "Stripped Echo Spine",
+    "block.nyakomod.echo_spur": "Echo Spur",
+    "block.nyakomod.stripped_echo_spur": "Stripped Echo Spur",
+    "block.nyakomod.echo_log": "Echo Log",
+    "block.nyakomod.stripped_echo_log": "Stripped Echo Log",
+    "block.nyakomod.echo_planks": "Echo Planks",
+    "block.nyakomod.echo_slab": "Echo Slab",
+    "block.nyakomod.echo_stairs": "Echo Stairs",
+    "block.nyakomod.echo_fence": "Echo Fence",
+    "block.nyakomod.echo_fence_gate": "Echo Fence Gate",
+    "block.nyakomod.echo_door": "Echo Door",
+    "block.nyakomod.echo_trapdoor": "Echo Trapdoor",
+    "block.nyakomod.echo_button": "Echo Button",
+    "block.nyakomod.echo_pressure_plate": "Echo Pressure Plate",
+    "block.nyakomod.echo_sign": "Echo Sign",
+    "block.nyakomod.echo_hanging_sign": "Echo Hanging Sign",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -119,6 +136,8 @@
     "item.nyakomod.recall_potion": "Potion of Recall",
     "item.nyakomod.ender_gem": "Ender Gem",
     "item.nyakomod.echo_pearl": "Echo Pearl",
+
+    "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
@@ -207,6 +226,10 @@
     "subtitles.nyakomod.samsung": "Ice",
     "subtitles.nyakomod.true": "True!",
     "subtitles.nyakomod.unlock": "Lock/Unlock Encumbering Stone",
+    "subtitles.nyakomod.entity.decayed.ambient": "Decayed groans",
+    "subtitles.nyakomod.entity.decayed.converted_to_zombie": "Decayed converts to Zombie",
+    "subtitles.nyakomod.entity.decayed.death": "Decayed dies",
+    "subtitles.nyakomod.entity.decayed.hurt": "Decayed hurts",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
 
@@ -217,6 +240,7 @@
     "entity.nyakomod.petsprite": "Sprite",
     "entity.nyakomod.monitor": "Monitor",
     "entity.nyakomod.herobrine": "Herobrine",
+    "entity.nyakomod.decayed": "Decayed",
 
     "death.attack.totemOfDying": "%s used a Totem of Dying",
     "death.attack.killbind": "%s used their killbind",

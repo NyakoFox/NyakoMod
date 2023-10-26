@@ -5,7 +5,7 @@ import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import gay.nyako.nyakomod.behavior.CoinBagItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.NetherPortalStructureItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.SoulJarItemDispenserBehavior;
-import gay.nyako.nyakomod.block.*;
+import gay.nyako.nyakomod.block.SingleCoinBlock;
 import gay.nyako.nyakomod.command.*;
 import gay.nyako.nyakomod.entity.HerobrineEntity;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
@@ -25,10 +25,10 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
-import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
@@ -93,6 +93,7 @@ public class NyakoMod implements ModInitializer {
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());
         FabricDefaultAttributeRegistry.register(NyakoEntities.HEROBRINE, HerobrineEntity.createHerobrineAttributes());
+        FabricDefaultAttributeRegistry.register(NyakoEntities.DECAYED, ZombieEntity.createZombieAttributes());
 
         DispenserBlock.registerBehavior(NyakoItems.SOUL_JAR, new SoulJarItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS, new CoinBagItemDispenserBehavior());

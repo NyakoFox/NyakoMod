@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nyakomod:block/echo_spine",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "nyakomod:block/echo_spine"
+    },
+    "axis=z": {
+      "model": "nyakomod:block/echo_spine",
+      "x": 90
+    }
+  }
+}

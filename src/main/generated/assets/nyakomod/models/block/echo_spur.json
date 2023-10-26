@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nyakomod:block/echo_spine",
+    "side": "nyakomod:block/echo_spine"
+  }
+}
