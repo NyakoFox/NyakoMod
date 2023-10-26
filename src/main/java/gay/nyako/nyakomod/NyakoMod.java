@@ -22,7 +22,10 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
@@ -89,6 +92,9 @@ public class NyakoMod implements ModInitializer {
         NyakoPaintingVariants.register();
         NyakoItemGroups.register();
         NyakoFeatures.register();
+
+        StrippableBlockRegistry.register(NyakoBlocks.ECHO_SPINE, NyakoBlocks.STRIPPED_ECHO_SPINE);
+        StrippableBlockRegistry.register(NyakoBlocks.ECHO_SPUR, NyakoBlocks.STRIPPED_ECHO_SPUR);
 
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteEntity.createPetAttributes());
         FabricDefaultAttributeRegistry.register(NyakoEntities.PET_DRAGON, PetDragonEntity.createPetAttributes());

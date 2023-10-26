@@ -18,6 +18,3 @@ accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen isP
 accessible    field     net/minecraft/data/server/loottable/BlockLootTableGenerator WITHOUT_SILK_TOUCH_NOR_SHEARS Lnet/minecraft/loot/condition/LootCondition$Builder;
 accessible    class     net/minecraft/sound/SoundEvent
 accessible    field     net/minecraft/client/render/DimensionEffects BY_IDENTIFIER Lit/unimi/dsi/fastutil/objects/Object2ObjectMap;
-accessible    field     net/minecraft/item/AxeItem STRIPPED_BLOCKS Ljava/util/Map;
-accessible    method    net/minecraft/block/BlockSetType register (Lnet/minecraft/block/BlockSetType;)Lnet/minecraft/block/BlockSetType;
-accessible    method    net/minecraft/block/WoodType register (Lnet/minecraft/block/WoodType;)Lnet/minecraft/block/WoodType;

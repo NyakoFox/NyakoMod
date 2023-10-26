@@ -29,6 +29,9 @@ public class NyakoEntities {
     public static final EntityType<HerobrineEntity> HEROBRINE = register("herobrine", FabricEntityTypeBuilder.<HerobrineEntity>create(SpawnGroup.MONSTER, HerobrineEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
     public static final EntityType<DecayedEntity> DECAYED = register("decayed", FabricEntityTypeBuilder.<DecayedEntity>create(SpawnGroup.MONSTER, DecayedEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
 
+    public static final BlockEntityType<CustomSignBlockEntity> ECHO_SIGN = register("echo_sign", FabricBlockEntityTypeBuilder.create(CustomSignBlockEntity::new, NyakoBlocks.ECHO_SIGN, NyakoBlocks.ECHO_WALL_SIGN).build());
+    public static final BlockEntityType<CustomHangingSignBlockEntity> ECHO_HANGING_SIGN = register("echo_hanging_sign", FabricBlockEntityTypeBuilder.create(CustomHangingSignBlockEntity::new, NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN).build());
+
     public static <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
         return Registry.register(Registries.ENTITY_TYPE, new Identifier("nyakomod", name), entityType);
     }
