@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-26T17:44:56.0938104	NyakoMod/Block Loot Tables
+// 1.20.1	2023-10-26T18:48:37.9520716	NyakoMod/Block Loot Tables
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 fdb1b817da3d56e58da88e7b248679ef65ba1a87 data\nyakomod\loot_tables\blocks\echo_spur.json
 4bdeed97f6909c788e9daf8dfda377fa7ad7381e data\nyakomod\loot_tables\blocks\echo_button.json
@@ -17,8 +17,8 @@ a6f6571267d0e9f1fd9feca849c8c48035303510 data\nyakomod\loot_tables\blocks\echo_s
 b4383558cd73589babcfdd13ed6c4389b771e3c9 data\nyakomod\loot_tables\blocks\echo_stairs.json
 39b2b1b26f95f34df30047f5ccc9ab2b8457e6fa data\nyakomod\loot_tables\blocks\echo_trapdoor.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
-a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
 061d86470ec4d801c22041778b17a8e4f25e4f36 data\nyakomod\loot_tables\blocks\copper_coin.json
+a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
 9ea3652f09ec03e1efda25db514e8559ccbbc642 data\nyakomod\loot_tables\blocks\stripped_echo_spine.json
 fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json
 8dc59d433ef57f60ece098b7d0b435f6376dc604 data\nyakomod\loot_tables\blocks\echo_door.json

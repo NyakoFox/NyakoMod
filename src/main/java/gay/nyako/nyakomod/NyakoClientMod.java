@@ -100,9 +100,6 @@ public class NyakoClientMod implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_INNER_ARMOR_LAYER, DecayedEntityRenderer::getInnerArmorModelData);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_OUTER_ARMOR_LAYER, DecayedEntityRenderer::getOuterArmorModelData);
 
-		BlockEntityRendererFactories.register(NyakoEntities.ECHO_SIGN, SignBlockEntityRenderer::new);
-		BlockEntityRendererFactories.register(NyakoEntities.ECHO_HANGING_SIGN, HangingSignBlockEntityRenderer::new);
-
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
 		{
 			if (stack.getOrCreateNbt().contains("entity")) {

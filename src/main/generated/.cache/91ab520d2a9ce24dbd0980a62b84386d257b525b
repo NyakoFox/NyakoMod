@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-26T17:44:56.0948104	NyakoMod/Model Definitions
+// 1.20.1	2023-10-26T18:48:37.9520716	NyakoMod/Model Definitions
 b4458a0c1e24cd6bba6e6807cc3e4e0bfb834616 assets\nyakomod\models\item\test_item.json
 b4e2e222fd790fe9b3bc7c4ee262d4c8eb0dee74 assets\nyakomod\blockstates\echo_fence.json
 453ac43a2a5321d18c90233147a63ac17b07ca4f assets\nyakomod\models\block\gold_coin_three.json
@@ -299,8 +299,8 @@ bf5a286fe256ec3112bc02fbef12516c4eb7b8f8 assets\nyakomod\models\block\diamond_co
 219fb23ddfd10d71b244184a4ea3eaac50a64ae3 assets\nyakomod\models\block\copper_coin_twenty_one.json
 05587476e9650c68a6c577f56bf3f702a37b39b5 assets\nyakomod\models\block\fireblu.json
 102eda28133445487fdc13f18bdbcd5aaf8b0981 assets\nyakomod\models\item\stripped_echo_spine.json
-8ffbe36fb6d3b077a900cf2aef6a8487712d70c5 assets\nyakomod\models\block\diamond_coin_twenty_six.json
 d8a82fce99dfbd352eb7f3da12f57078bf0b2974 assets\nyakomod\models\item\discord_gacha.json
+8ffbe36fb6d3b077a900cf2aef6a8487712d70c5 assets\nyakomod\models\block\diamond_coin_twenty_six.json
 f87f61ec8ba813a4ce04bdceb4e1d8b7ac1ce251 assets\nyakomod\models\block\diamond_coin_twenty_seven.json
 ab83799e96343013ad5a454f8b5ad0e510ed1ffd assets\nyakomod\models\block\gold_coin_twenty_six.json
 4fa5f09c1442b143bf57e4833e6cd63683883a8a assets\nyakomod\models\item\music_disc_skibidi.json
