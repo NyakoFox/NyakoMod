@@ -1,9 +1,6 @@
-# Fabric Example Mod
+# NyakoMod
 
-## Setup
+## What is this?
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+NyakoMod is a simple joke mod which I use with my friends.
+Some features may make it into standalone mods, an example being [ItemRename](https://github.com/NyakoFox/ItemRename).
