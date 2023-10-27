@@ -53,6 +53,8 @@
     "block.nyakomod.echo_sign": "Echo Sign",
     "block.nyakomod.echo_hanging_sign": "Echo Hanging Sign",
     "block.nyakomod.echo_bulb": "Echo Bulb",
+    "block.nyakomod.echo_roots": "Echo Roots",
+    "block.nyakomod.echo_leaves": "Echo Leaves",
 
     "category.nyakomod.binds": "NyakoMod",
 

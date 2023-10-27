@@ -62,6 +62,9 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerLog(NyakoBlocks.STRIPPED_ECHO_SPINE).stem(NyakoBlocks.STRIPPED_ECHO_SPINE).wood(NyakoBlocks.STRIPPED_ECHO_SPUR);
         blockStateModelGenerator.registerHangingSign(NyakoBlocks.STRIPPED_ECHO_SPINE, NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN);
 
+        blockStateModelGenerator.registerRoots(NyakoBlocks.ECHO_ROOTS, NyakoBlocks.POTTED_ECHO_ROOTS);
+        blockStateModelGenerator.registerSingleton(NyakoBlocks.ECHO_LEAVES, TexturedModel.LEAVES);
+
         registerAllybox(blockStateModelGenerator);
     }
 

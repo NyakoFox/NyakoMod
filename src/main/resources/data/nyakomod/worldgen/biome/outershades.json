@@ -81,9 +81,8 @@
       "minecraft:spring_lava"
     ],
     [
-      "minecraft:patch_tall_grass_2",
       "nyakomod:trees_echoplains",
-      "minecraft:patch_grass_plain",
+      "nyakomod:patch_echo_roots_echoplains",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
     ]

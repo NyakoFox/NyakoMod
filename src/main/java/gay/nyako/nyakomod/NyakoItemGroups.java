@@ -133,6 +133,9 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.ECHO_BUTTON);
                 entries.add(NyakoItems.ECHO_SIGN);
                 entries.add(NyakoItems.ECHO_HANGING_SIGN);
+                entries.add(NyakoItems.ECHO_BULB);
+                entries.add(NyakoItems.ECHO_ROOTS);
+                entries.add(NyakoItems.ECHO_LEAVES);
 
                 entries.add(NyakoItems.DECAYED_SPAWN_EGG);
             })

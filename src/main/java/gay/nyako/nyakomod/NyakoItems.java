@@ -150,7 +150,8 @@ public class NyakoItems {
     public static final Item ECHO_SLAB                  = register("echo_slab",                 new BlockItem(NyakoBlocks.ECHO_SLAB, new FabricItemSettings()));
     public static final Item ECHO_STAIRS                = register("echo_stairs",               new BlockItem(NyakoBlocks.ECHO_STAIRS, new FabricItemSettings()));
     public static final Item ECHO_BULB                  = register("echo_bulb",                 new BlockItem(NyakoBlocks.ECHO_BULB, new FabricItemSettings()));
-
+    public static final Item ECHO_ROOTS                 = register("echo_roots",                new BlockItem(NyakoBlocks.ECHO_ROOTS, new FabricItemSettings()));
+    public static final Item ECHO_LEAVES                = register("echo_leaves",               new BlockItem(NyakoBlocks.ECHO_LEAVES, new FabricItemSettings()));
     public static final Item DECAYED_SPAWN_EGG          = register("decayed_spawn_egg",         new SpawnEggItem(NyakoEntities.DECAYED, 0x069D9C, 0x0B3539, new FabricItemSettings()));
 
     public static Item register(String id, Item item) {

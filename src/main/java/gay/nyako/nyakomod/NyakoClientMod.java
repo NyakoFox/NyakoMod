@@ -167,6 +167,10 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_DOOR, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_TRAPDOOR, RenderLayer.getCutout());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_ROOTS, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_ECHO_ROOTS, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_LEAVES, RenderLayer.getCutout());
+
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
 				var client = context.getSource().getClient();
@@ -183,6 +187,13 @@ public class NyakoClientMod implements ClientModInitializer {
 			}
 			return BiomeColors.getGrassColor(world, pos);
 		}, NyakoBlocks.ECHO_GROWTH);
+
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			if (world == null || pos == null) {
+				return GrassColors.getDefaultColor();
+			}
+			return BiomeColors.getFoliageColor(world, pos);
+		}, NyakoBlocks.ECHO_LEAVES);
 
 		DimensionEffects.BY_IDENTIFIER.put(new Identifier("nyakomod", "echolands"), new EchoLandsDimensionEffects());
 	}
