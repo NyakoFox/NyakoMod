@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "nyakomod:block/echo_bulb" }
+  }
+}

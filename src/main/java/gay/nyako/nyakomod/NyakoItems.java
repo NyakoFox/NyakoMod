@@ -149,6 +149,7 @@ public class NyakoItems {
     public static final Item ECHO_HANGING_SIGN          = register("echo_hanging_sign",         new HangingSignItem(NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN, new FabricItemSettings().maxCount(16)));
     public static final Item ECHO_SLAB                  = register("echo_slab",                 new BlockItem(NyakoBlocks.ECHO_SLAB, new FabricItemSettings()));
     public static final Item ECHO_STAIRS                = register("echo_stairs",               new BlockItem(NyakoBlocks.ECHO_STAIRS, new FabricItemSettings()));
+    public static final Item ECHO_BULB                  = register("echo_bulb",                 new BlockItem(NyakoBlocks.ECHO_BULB, new FabricItemSettings()));
 
     public static final Item DECAYED_SPAWN_EGG          = register("decayed_spawn_egg",         new SpawnEggItem(NyakoEntities.DECAYED, 0x069D9C, 0x0B3539, new FabricItemSettings()));
 

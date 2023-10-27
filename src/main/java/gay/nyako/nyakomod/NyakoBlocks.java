@@ -71,6 +71,7 @@ public class NyakoBlocks {
     public static final Block ECHO_WALL_SIGN            = register("echo_wall_sign",            new CustomWallSignBlock(FabricBlockSettings.create().mapColor(ECHO_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).solid().noCollision().strength(1.0f).dropsLike(ECHO_SIGN), NyakoWoodTypes.ECHO));
     public static final Block ECHO_HANGING_SIGN         = register("echo_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.ECHO));
     public static final Block ECHO_WALL_HANGING_SIGN    = register("echo_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(ECHO_HANGING_SIGN), NyakoWoodTypes.ECHO));
+    public static final Block ECHO_BULB                 = register("echo_bulb",                 new EchoBulbBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).breakInstantly().sounds(BlockSoundGroup.SHROOMLIGHT).pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);
