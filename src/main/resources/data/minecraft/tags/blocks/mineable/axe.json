@@ -4,6 +4,21 @@
     "nyakomod:blueprint_workbench",
     "nyakomod:drafting_table",
     "nyakomod:note_block_plus",
-    "nyakomod:bookshelf_stairs"
+    "nyakomod:bookshelf_stairs",
+    "nyakomod:echo_planks",
+    "nyakomod:echo_stairs",
+    "nyakomod:echo_slab",
+    "nyakomod:echo_fence",
+    "nyakomod:echo_fence_gate",
+    "nyakomod:echo_door",
+    "nyakomod:echo_trapdoor",
+    "nyakomod:echo_pressure_plate",
+    "nyakomod:echo_button",
+    "nyakomod:echo_sign",
+    "nyakomod:echo_wall_sign",
+    "nyakomod:echo_spine",
+    "nyakomod:stripped_echo_spine",
+    "nyakomod:echo_spur",
+    "nyakomod:stripped_echo_spur"
   ]
 }

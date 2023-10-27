@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "nyakomod:echo_spine",
+    "nyakomod:stripped_echo_spine",
+    "nyakomod:echo_spur",
+    "nyakomod:stripped_echo_spur",
+    "nyakomod:echo_planks",
+    "nyakomod:echo_slab",
+    "nyakomod:echo_pressure_plate",
+    "nyakomod:echo_fence",
+    "nyakomod:echo_trapdoor",
+    "nyakomod:echo_fence_gate",
+    "nyakomod:echo_stairs",
+    "nyakomod:echo_button",
+    "nyakomod:echo_door",
+    "nyakomod:echo_sign",
+    "nyakomod:echo_hanging_sign"
+  ]
+}

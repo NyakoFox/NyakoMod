@@ -12,6 +12,6 @@ public class NyakoWoodTypes {
 
     public static WoodType register(String id, WoodTypeBuilder woodTypeBuilder, BlockSetType blockSetType)
     {
-        return woodTypeBuilder.build(new Identifier("nyakomod", id), blockSetType);
+        return woodTypeBuilder.register(new Identifier("nyakomod", id), blockSetType);
     }
 }

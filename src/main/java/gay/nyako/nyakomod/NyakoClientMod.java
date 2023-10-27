@@ -100,6 +100,9 @@ public class NyakoClientMod implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_INNER_ARMOR_LAYER, DecayedEntityRenderer::getInnerArmorModelData);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DECAYED_OUTER_ARMOR_LAYER, DecayedEntityRenderer::getOuterArmorModelData);
 
+		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
+
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
 		{
 			if (stack.getOrCreateNbt().contains("entity")) {
@@ -160,6 +163,9 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_PORTAL, RenderLayer.getTranslucent());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_GROWTH, RenderLayer.getCutoutMipped());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_DOOR, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_TRAPDOOR, RenderLayer.getCutout());
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {

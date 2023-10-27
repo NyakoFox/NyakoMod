@@ -49,11 +49,11 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(NyakoBlocks.ECHO_STAIRS);
         this.addDrop(NyakoBlocks.ECHO_FENCE);
         this.addDrop(NyakoBlocks.ECHO_FENCE_GATE);
-        this.addDrop(NyakoBlocks.ECHO_DOOR);
         this.addDrop(NyakoBlocks.ECHO_TRAPDOOR);
         this.addDrop(NyakoBlocks.ECHO_PRESSURE_PLATE);
         this.addDrop(NyakoBlocks.ECHO_BUTTON);
         this.addDrop(NyakoBlocks.ECHO_SIGN);
         this.addDrop(NyakoBlocks.ECHO_HANGING_SIGN);
+        this.addDrop(NyakoBlocks.ECHO_DOOR, this::doorDrops);
     }
 }
