@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IHI",
+    "HIH",
+    "IHI"
+  ],
+  "key": {
+    "H": {
+      "item": "nyakomod:heart_berry"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "nyakomod:heart_canister",
+    "count": 1
+  }
+}

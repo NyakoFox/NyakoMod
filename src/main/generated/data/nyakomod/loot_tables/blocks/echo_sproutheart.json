@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "nyakomod:echo_sproutheart",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower",
+            "heart": "true"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:heart_berry"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "nyakomod:echo_sproutheart",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:echo_sproutheart"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -4,6 +4,7 @@
   ],
   "slots": [
     "hand/bag",
-    "head/pet"
+    "head/pet",
+    "chest/canister"
   ]
 }

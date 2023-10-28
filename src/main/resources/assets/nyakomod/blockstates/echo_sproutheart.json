@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,heart=true": {
+      "model": "nyakomod:block/echo_sproutheart_bottom"
+    },
+    "half=upper,heart=true": {
+      "model": "nyakomod:block/echo_sproutheart_top"
+    },
+    "half=lower,heart=false": {
+      "model": "nyakomod:block/echo_sprout_bottom"
+    },
+    "half=upper,heart=false": {
+      "model": "nyakomod:block/echo_sprout_top"
+    }
+  }
+}

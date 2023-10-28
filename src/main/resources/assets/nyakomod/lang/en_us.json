@@ -55,6 +55,8 @@
     "block.nyakomod.echo_bulb": "Echo Bulb",
     "block.nyakomod.echo_roots": "Echo Roots",
     "block.nyakomod.echo_leaves": "Echo Leaves",
+    "block.nyakomod.echo_sproutbulb": "Echo Sproutbulb",
+    "block.nyakomod.echo_sproutheart": "Echo Sproutheart",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -139,6 +141,8 @@
     "item.nyakomod.recall_potion": "Potion of Recall",
     "item.nyakomod.ender_gem": "Ender Gem",
     "item.nyakomod.echo_pearl": "Echo Pearl",
+    "item.nyakomod.heart_berry": "Heart Berry",
+    "item.nyakomod.heart_canister": "Heart Canister",
 
     "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 

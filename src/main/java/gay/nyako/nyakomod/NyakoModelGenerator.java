@@ -64,6 +64,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         blockStateModelGenerator.registerRoots(NyakoBlocks.ECHO_ROOTS, NyakoBlocks.POTTED_ECHO_ROOTS);
         blockStateModelGenerator.registerSingleton(NyakoBlocks.ECHO_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.registerDoubleBlock(NyakoBlocks.ECHO_SPROUTBULB, BlockStateModelGenerator.TintType.NOT_TINTED);
 
         registerAllybox(blockStateModelGenerator);
     }
@@ -266,6 +267,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.RECALL_POTION, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.ENDER_GEM, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.ECHO_PEARL, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.HEART_BERRY, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.HEART_CANISTER, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "nyakomod:block/echo_sproutbulb_bottom"
+    },
+    "half=upper": {
+      "model": "nyakomod:block/echo_sproutbulb_top"
+    }
+  }
+}

@@ -170,6 +170,8 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_ROOTS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_ECHO_ROOTS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_LEAVES, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_SPROUTBULB, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_SPROUTHEART, RenderLayer.getCutout());
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {

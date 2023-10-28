@@ -136,6 +136,10 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.ECHO_BULB);
                 entries.add(NyakoItems.ECHO_ROOTS);
                 entries.add(NyakoItems.ECHO_LEAVES);
+                entries.add(NyakoItems.ECHO_SPROUTBULB);
+                entries.add(NyakoItems.ECHO_SPROUTHEART);
+                entries.add(NyakoItems.HEART_BERRY);
+                entries.add(NyakoItems.HEART_CANISTER);
 
                 entries.add(NyakoItems.DECAYED_SPAWN_EGG);
             })

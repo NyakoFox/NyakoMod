@@ -1,11 +1,16 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.SingleCoinBlock;
+import gay.nyako.nyakomod.block.SproutHeartBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CaveVines;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
@@ -24,7 +29,11 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     public void registerSingleCoinBlocks(Block inputBlock) {
         List<Integer> valueList = IntStream.rangeClosed(2, SingleCoinBlock.MAX_COINS).boxed().toList();
-        addDrop(inputBlock, (Block block) -> LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(block).apply(valueList, integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer.intValue())).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SingleCoinBlock.COINS, integer.intValue())))))));
+        addDrop(inputBlock, (Block block) -> LootTable.builder()
+                .pool(
+                        LootPool.builder()
+                                .rolls(ConstantLootNumberProvider.create(1.0f))
+                                .with(ItemEntry.builder(block).apply(valueList, integer -> SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer)).conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(SingleCoinBlock.COINS, integer)))))));
     }
 
     @Override
@@ -55,5 +64,34 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(NyakoBlocks.ECHO_SIGN);
         this.addDrop(NyakoBlocks.ECHO_HANGING_SIGN);
         this.addDrop(NyakoBlocks.ECHO_DOOR, this::doorDrops);
+
+        this.addDrop(NyakoBlocks.ECHO_ROOTS);
+        this.addDrop(NyakoBlocks.ECHO_BULB);
+
+        this.addDrop(NyakoBlocks.ECHO_LEAVES, (Block block) -> this.leavesDrops(block, Blocks.SPRUCE_SAPLING, SAPLING_DROP_CHANCE));
+
+        this.addPottedPlantDrops(NyakoBlocks.POTTED_ECHO_ROOTS);
+        this.addDrop(NyakoBlocks.ECHO_SPROUTBULB, (Block block) -> this.dropsWithProperty(block, TallPlantBlock.HALF, DoubleBlockHalf.LOWER));
+
+        this.addDrop(NyakoBlocks.ECHO_SPROUTHEART, (Block block) -> LootTable.builder()
+                .pool(LootPool.builder()
+                        .with(ItemEntry.builder(NyakoItems.HEART_BERRY))
+                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                .properties(
+                                        StatePredicate.Builder.create()
+                                                .exactMatch(SproutHeartBlock.HEART, true)
+                                                .exactMatch(TallPlantBlock.HALF, DoubleBlockHalf.LOWER)
+                                )
+                        )
+                )
+                .pool(LootPool.builder()
+                        .with(ItemEntry.builder(NyakoItems.ECHO_SPROUTHEART))
+                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                .properties(
+                                        StatePredicate.Builder.create()
+                                                .exactMatch(TallPlantBlock.HALF, DoubleBlockHalf.LOWER)
+                                )
+                        )
+                ));
     }
 }

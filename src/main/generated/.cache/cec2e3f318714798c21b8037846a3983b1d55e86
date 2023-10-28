@@ -1,6 +1,7 @@
-// 1.20.1	2023-10-26T23:35:02.4231612	NyakoMod/Block Loot Tables
+// 1.20.1	2023-10-28T15:11:11.3549285	NyakoMod/Block Loot Tables
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 fdb1b817da3d56e58da88e7b248679ef65ba1a87 data\nyakomod\loot_tables\blocks\echo_spur.json
+8a787ca78488fcc23036a1877f30cb5374375039 data\nyakomod\loot_tables\blocks\echo_sproutheart.json
 4bdeed97f6909c788e9daf8dfda377fa7ad7381e data\nyakomod\loot_tables\blocks\echo_button.json
 f7e3594dd6a2d08d565c8670cbb1da13df0d5782 data\nyakomod\loot_tables\blocks\echo_planks.json
 eccd3c221c8f7a1752f887bb1be0a5d288c573b0 data\nyakomod\loot_tables\blocks\emerald_coin.json
@@ -14,12 +15,17 @@ f7b96014d161ec50ed3df371f10280bfb8e80a6f data\nyakomod\loot_tables\blocks\echo_p
 e2edd66fa25f0fb66d4351ce787eca0afb008aeb data\nyakomod\loot_tables\blocks\echo_stone.json
 e45e87527c09d5ba6c5febd397c041d667ed2a9f data\nyakomod\loot_tables\blocks\echo_dirt.json
 a6f6571267d0e9f1fd9feca849c8c48035303510 data\nyakomod\loot_tables\blocks\echo_slate.json
+b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 b4383558cd73589babcfdd13ed6c4389b771e3c9 data\nyakomod\loot_tables\blocks\echo_stairs.json
 39b2b1b26f95f34df30047f5ccc9ab2b8457e6fa data\nyakomod\loot_tables\blocks\echo_trapdoor.json
+7089eff92b631a929e2b91169d09b0a6cad5fd8f data\nyakomod\loot_tables\blocks\echo_bulb.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
-a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
 061d86470ec4d801c22041778b17a8e4f25e4f36 data\nyakomod\loot_tables\blocks\copper_coin.json
+a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
 9ea3652f09ec03e1efda25db514e8559ccbbc642 data\nyakomod\loot_tables\blocks\stripped_echo_spine.json
 fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json
+bdf04d8469049d4f9fbfa6bbcddb9ea71442b827 data\nyakomod\loot_tables\blocks\echo_sproutbulb.json
+41509341e1043b6bd9e21d2628ba3dd88c896427 data\nyakomod\loot_tables\blocks\potted_echo_roots.json
 3ae4a582bc59203bee0e49b12325bceacbc58157 data\nyakomod\loot_tables\blocks\echo_door.json
 35d3491b16e2762ea0090d6f6aecfa68ed1b8e3c data\nyakomod\loot_tables\blocks\echo_slab.json
+2b2e28634e0f6c9a4488d610e0b538f2a4756b40 data\nyakomod\loot_tables\blocks\echo_leaves.json

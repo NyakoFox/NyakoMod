@@ -6,8 +6,6 @@ import gay.nyako.nyakomod.item.gacha.DiscordGachaItem;
 import gay.nyako.nyakomod.item.gacha.GachaItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -152,7 +150,11 @@ public class NyakoItems {
     public static final Item ECHO_BULB                  = register("echo_bulb",                 new BlockItem(NyakoBlocks.ECHO_BULB, new FabricItemSettings()));
     public static final Item ECHO_ROOTS                 = register("echo_roots",                new BlockItem(NyakoBlocks.ECHO_ROOTS, new FabricItemSettings()));
     public static final Item ECHO_LEAVES                = register("echo_leaves",               new BlockItem(NyakoBlocks.ECHO_LEAVES, new FabricItemSettings()));
+    public static final Item ECHO_SPROUTBULB            = register("echo_sproutbulb",           new BlockItem(NyakoBlocks.ECHO_SPROUTBULB, new FabricItemSettings()));
+    public static final Item ECHO_SPROUTHEART           = register("echo_sproutheart",          new BlockItem(NyakoBlocks.ECHO_SPROUTHEART, new FabricItemSettings()));
     public static final Item DECAYED_SPAWN_EGG          = register("decayed_spawn_egg",         new SpawnEggItem(NyakoEntities.DECAYED, 0x069D9C, 0x0B3539, new FabricItemSettings()));
+    public static final Item HEART_BERRY                = register("heart_berry",               new HeartBerryItem(new FabricItemSettings().food(NyakoFoodComponents.HEART_BERRY).rarity(Rarity.RARE)));
+    public static final Item HEART_CANISTER             = register("heart_canister",            new HeartCanisterItem(new FabricItemSettings().maxCount(10).rarity(Rarity.RARE)));
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
