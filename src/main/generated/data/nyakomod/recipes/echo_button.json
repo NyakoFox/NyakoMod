@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "nyakomod:echo_planks"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:echo_button"
+  }
+}
