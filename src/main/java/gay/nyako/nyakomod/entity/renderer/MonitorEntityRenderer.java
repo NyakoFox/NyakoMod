@@ -3,7 +3,6 @@ package gay.nyako.nyakomod.entity.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.nyako.nyakomod.NyakoClientMod;
 import gay.nyako.nyakomod.entity.MonitorEntity;
-import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
@@ -12,7 +11,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Matrix4f;
@@ -54,7 +52,7 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
         matrices.push();
         float pitch = entity.getPitch();
         float entityYaw = entity.getYaw();
-        matrices.multiply(new Quaternionf().rotateXYZ(pitch, MathHelper.wrapDegrees(180-entityYaw), 180));
+        matrices.multiply(new Quaternionf().rotateXYZ(pitch, (float) Math.toRadians(MathHelper.wrapDegrees(180-entityYaw)), (float) Math.toRadians(180)));
 
         matrices.translate(0f, -1f, 0.5f - (1d/16d)/2);
         VertexConsumer vertices = vertexConsumers.getBuffer(getLayer(entity));

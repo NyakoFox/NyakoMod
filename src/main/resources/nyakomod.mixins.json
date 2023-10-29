@@ -8,7 +8,6 @@
     "BedBlockMixin",
     "BlocksMixin",
     "BoatEntityMixin",
-    "BoneMealItemMixin",
     "BrewingRecipeRegistryInvoker",
     "BrewingRecipeRegistryMixin",
     "BucketItemMixin",

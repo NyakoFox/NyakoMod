@@ -58,9 +58,6 @@ repositories {
 	}
 	maven { url = "https://api.modrinth.com/maven" }
 
-	maven {
-		url = "https://jitpack.io"
-	}
 }
 
 dependencies {
@@ -94,10 +91,6 @@ dependencies {
 	shadow(implementation('org.json:json:20220320'))
 
 	modImplementation(include("io.github.tropheusj:milk-lib:1.3.61"))
-
-	modApi("com.github.Virtuoel:Pehkui:${pehkui_version}", {
-		exclude group: "net.fabricmc.fabric-api"
-	})
 }
 
 processResources {
