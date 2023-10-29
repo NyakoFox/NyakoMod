@@ -21,7 +21,7 @@ public class NyakoGacha {
         /* 1-STAR */
         // 1 Gold CunkCoin
         registerGachaItem(Text.of("1 §6Gold CunkCoin™"), new ItemStack(NyakoItems.GOLD_COIN), 1);
-        registerGachaItem(Text.of("16 §6Dirt"), Items.DIRT, 16, 1);
+        registerGachaItem(Text.of("32 §6Dirt"), Items.DIRT, 32, 1);
         registerGachaItem(Text.of("16 §6Cobblestone"), Items.COBBLESTONE, 16, 1);
         registerGachaItem(Text.of("16 §6Andesite"), Items.ANDESITE, 16, 1);
         registerGachaItem(Text.of("16 §6Diorite"), Items.DIORITE, 16, 1);
@@ -30,8 +30,6 @@ public class NyakoGacha {
         registerGachaItem(Text.of("32 §bGlass"), Items.GLASS, 32, 1);
 
         /* 2-STAR */
-        // wolves
-        registerGachaItem(Text.of("a §bMusic Disc"), new ItemStack(NyakoItems.MUSIC_DISC_WOLVES), 2);
         registerGachaItem(Text.of("16 §bSquishy Diamonds"), (GachaItem) NyakoItems.DIAMOND_GACHA, 16);
         registerGachaItem(Text.of("32 §6Cookies"), Items.COOKIE, 32, 2);
 
@@ -90,6 +88,8 @@ public class NyakoGacha {
         registerGachaItem(Text.of("a §6Diamond Axe"), new ItemStack(Items.DIAMOND_AXE), 5, true);
         registerGachaItem(Text.of("a §6Diamond Pickaxe"), new ItemStack(Items.DIAMOND_PICKAXE), 5, true);
         registerGachaItem(Text.of("a §6Diamond Shovel"), new ItemStack(Items.DIAMOND_SHOVEL), 5, true);
+        registerGachaItem(Text.of("a Burning Super Death Sword"), NyakoItems.BURNING_SUPER_DEATH_SWORD, 1, 5);
+        registerGachaItem(Text.of("a §6Launcher"), NyakoItems.LAUNCHER, 1, 5);
     }
 
     public static void registerGachaItem(Text name, GachaItem item) {

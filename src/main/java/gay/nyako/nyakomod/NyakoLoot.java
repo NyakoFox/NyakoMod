@@ -8,6 +8,7 @@ import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
@@ -216,7 +217,7 @@ public class NyakoLoot {
 
 
             // Add a few random NyakoMod items to loot tables
-            if (source.isBuiltin() && coinLootTables.contains(id)) {
+            if (source.isBuiltin() && itemLootTables.contains(id)) {
                 tableBuilder
                         .pool(LootPool.builder().rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
                             .with(ItemEntry.builder(NyakoItems.MAGNET).weight(10))
@@ -225,6 +226,36 @@ public class NyakoLoot {
                             .with(ItemEntry.builder(NyakoItems.BLUEPRINT).weight(20)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)))
                             .with(ItemEntry.builder(NyakoItems.ENDER_GEM).weight(1))
                             .build()
+                        );
+            }
+
+            // Add a few random NyakoMod items to loot tables
+            if (source.isBuiltin() && itemLootTables.contains(id)) {
+                tableBuilder
+                        .pool(LootPool.builder().rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
+                                .with(ItemEntry.builder(NyakoItems.MAGNET).weight(10))
+                                .with(ItemEntry.builder(NyakoItems.ENCUMBERING_STONE).weight(5))
+                                .with(ItemEntry.builder(NyakoItems.SUPER_ENCUMBERING_STONE).weight(2))
+                                .with(ItemEntry.builder(NyakoItems.BLUEPRINT).weight(20)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 3.0f)))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WEEZED).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WOLVES).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MERRY).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MOONLIGHT).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_WELCOME).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MASK).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_CLUNK).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_SKIBIDI).weight(1))
+                                .build()
+                        );
+            }
+
+            if (source.isBuiltin() && (id.toString().equals("minecraft:chests/end_city_treasure")))
+            {
+                tableBuilder
+                        .pool(LootPool.builder()
+                                .with(ItemEntry.builder(NyakoItems.ENDER_GEM))
+                                .conditionally(RandomChanceLootCondition.builder(0.25f))
+                                .build()
                         );
             }
 

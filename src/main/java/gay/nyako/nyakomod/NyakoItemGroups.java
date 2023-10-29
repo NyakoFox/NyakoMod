@@ -142,6 +142,8 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.HEART_CANISTER);
 
                 entries.add(NyakoItems.DECAYED_SPAWN_EGG);
+
+                entries.add(NyakoItems.BURNING_SUPER_DEATH_SWORD);
             })
             .build());
 

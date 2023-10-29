@@ -146,6 +146,8 @@
 
     "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 
+    "item.nyakomod.burning_super_death_sword": "Burning Super Death Sword",
+
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
     "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
@@ -259,5 +261,20 @@
     "biome.nyakomod.echoshades": "Shades",
     "biome.nyakomod.outershades": "Outer Shades",
 
-    "dimension.nyakomod.echolands": "The Echolands"
+    "dimension.nyakomod.echolands": "The Echolands",
+
+    "painting.nyakomod.chihuahua.title": "Chihuahua",
+    "painting.nyakomod.chihuahua.author": "Samsung",
+    "painting.nyakomod.john_pork.title": "John Pork",
+    "painting.nyakomod.john_pork.author": "John Pork",
+    "painting.nyakomod.creation.title": "Creation of Adam",
+    "painting.nyakomod.creation.author": "Michelangelo",
+    "painting.nyakomod.bobomb.title": "Bob-omb Battlefield",
+    "painting.nyakomod.bobomb.author": "Nintendo",
+    "painting.nyakomod.lawnmower.title": "21 in. Variable Speed 4-in-1 Gas Walk Behind Self Propelled Lawn Mower with Select Drive Control",
+    "painting.nyakomod.lawnmower.author": "Honda",
+    "painting.nyakomod.marisad.title": "Marisad",
+    "painting.nyakomod.marisad.author": "Memories of Phantasm",
+    "painting.nyakomod.oreo.title": "Oreo",
+    "painting.nyakomod.oreo.author": "Madeon"
 }
