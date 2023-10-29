@@ -38,6 +38,7 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
 
 public class MonitorEntity extends AbstractDecorationEntity {
@@ -112,7 +113,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         if (getWorld().isClient()) {
             identifier = null;
             if (!newURL.equals("")) {
-                identifier = NyakoClientMod.downloadSprite(newURL);
+                (new Thread(() -> identifier = NyakoClientMod.downloadSprite(newURL))).start();
             }
         }
     }

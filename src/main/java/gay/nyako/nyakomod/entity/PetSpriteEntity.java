@@ -143,7 +143,7 @@ public class PetSpriteEntity extends PetEntity {
         if (getWorld().isClient() && customSprite != null) {
             customTextureId = null;
             if (!customSprite.equals("")) {
-                customTextureId = NyakoClientMod.downloadSprite(customSprite);
+                (new Thread(() -> customTextureId = NyakoClientMod.downloadSprite(customSprite))).start();
             }
         }
     }

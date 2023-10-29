@@ -12,6 +12,7 @@ public class NyakoPaintingVariants {
     public static final PaintingVariant MARISAD = register("marisad", new PaintingVariant(64, 64));
     public static final PaintingVariant CHIHUAHUA = register("chihuahua", new PaintingVariant(16, 32));
     public static final PaintingVariant OREO = register("oreo", new PaintingVariant(64, 64));
+    public static final PaintingVariant JOHN_PORK = register("john_pork", new PaintingVariant(32, 64));
 
     private static PaintingVariant register(String id, PaintingVariant variant) {
         return Registry.register(Registries.PAINTING_VARIANT, new Identifier("nyakomod", id), variant);

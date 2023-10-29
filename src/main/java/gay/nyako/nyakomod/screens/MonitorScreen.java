@@ -39,6 +39,7 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
 
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());
+        textElement.setCursorToStart();
         widthElement.setFromDiscreteValue(monitorEntity.getMonitorWidth());
         heightElement.setFromDiscreteValue(monitorEntity.getMonitorHeight());
 
@@ -80,21 +81,17 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
 
         assert submitButton != null;
         submitButton.onPress(button -> {
-            var value = textElement.getText();
-            if (value.startsWith("https://") && value.endsWith(".png")) {
-                //monitorEntity.setURL(textElement.getText());
-                var buf = PacketByteBufs.create();
-                buf.writeString(textElement.getText());
-                buf.writeUuid(monitorEntity.getUuid());
+            var buf = PacketByteBufs.create();
+            buf.writeString(textElement.getText());
+            buf.writeUuid(monitorEntity.getUuid());
 
-                buf.writeInt((int) widthElement.discreteValue());
+            buf.writeInt((int) widthElement.discreteValue());
 
-                buf.writeInt((int) heightElement.discreteValue());
+            buf.writeInt((int) heightElement.discreteValue());
 
-                ClientPlayNetworking.send(NyakoNetworking.MONITOR_SET_URL, buf);
+            ClientPlayNetworking.send(NyakoNetworking.MONITOR_SET_URL, buf);
 
-                MinecraftClient.getInstance().setScreen(null);
-            }
+            MinecraftClient.getInstance().setScreen(null);
         });
     }
 }
