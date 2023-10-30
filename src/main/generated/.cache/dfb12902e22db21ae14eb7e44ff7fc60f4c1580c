@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-29T11:53:06.1122667	NyakoMod/Recipes
+// 1.20.1	2023-10-30T14:19:24.3831279	NyakoMod/Recipes
 0b772f36610ab7edb780bb363ca7b642eb6625d0 data\nyakomod\advancements\recipes\building_blocks\echo_spur.json
 82394b1d684b7ff80120cc5852e3a87000e9a656 data\nyakomod\recipes\echo_hanging_sign.json
 0a72a96ef5fd2c2548647c94ea022963251c4eac data\nyakomod\advancements\recipes\decorations\echo_fence.json
@@ -8,15 +8,15 @@ a1c83ab8097fca86a9355b37300283d1cd3ef0f1 data\nyakomod\advancements\recipes\deco
 af8f413a78806d362ff8613bdf01d83019de7abd data\nyakomod\recipes\echo_sign.json
 5f62be7b507c98e458a79ba1abfef5de5684dc34 data\nyakomod\advancements\recipes\redstone\echo_pressure_plate.json
 c336169a28a8d997ace66b8dd892e0f27dd899b5 data\nyakomod\recipes\echo_door.json
-694fc16ecb25523518dcdb9387ed5caf4ed6a1f7 data\nyakomod\advancements\recipes\decorations\echo_hanging_sign.json
 29b7bad1d2f295013150267ee86a69b5c37b546b data\nyakomod\advancements\recipes\redstone\echo_button.json
+694fc16ecb25523518dcdb9387ed5caf4ed6a1f7 data\nyakomod\advancements\recipes\decorations\echo_hanging_sign.json
 6bd234b715f03b404eea7a75b04fde5f96a71a17 data\nyakomod\advancements\recipes\building_blocks\echo_planks.json
 94c732ebbbac5302eab71853d8cf68cc1396527c data\nyakomod\advancements\recipes\building_blocks\stripped_echo_spur.json
 202dff61e55fcd6884825e8c36f1d3876135fca3 data\nyakomod\advancements\recipes\redstone\echo_fence_gate.json
 933bd0736e7a7a409cae9136ebfb10a1dfff5a5e data\nyakomod\recipes\echo_trapdoor.json
 908455f637ba3664af5b5348d3f0d23c078f0d00 data\nyakomod\advancements\recipes\building_blocks\echo_stairs.json
-b35260f20e8d1232365116b3e81c6c7bcd94f82e data\nyakomod\advancements\recipes\redstone\echo_trapdoor.json
 a92e732630a3e5f1842a804e9074289f392bbbca data\nyakomod\recipes\echo_slab.json
+b35260f20e8d1232365116b3e81c6c7bcd94f82e data\nyakomod\advancements\recipes\redstone\echo_trapdoor.json
 f561cf4259dace47bf1d9e395fb43075471df628 data\nyakomod\recipes\echo_stairs.json
 07cfb6b03bab0873704afc1c2b37b60e65d3ea32 data\nyakomod\recipes\echo_fence_gate.json
 64777cf8608c460019d676e88c040afcc83c8cc7 data\nyakomod\advancements\recipes\redstone\echo_door.json

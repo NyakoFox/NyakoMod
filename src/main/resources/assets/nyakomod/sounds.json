@@ -109,14 +109,22 @@
             }
         ]
     },
-    "music_disc.skibidi": {
-        "sounds": [
-            {
-                "name": "nyakomod:music_disc/skibidi",
-                "stream": true
-            }
-        ]
-    },
+  "music_disc.skibidi": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/skibidi",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.merry2": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/merry2",
+        "stream": true
+      }
+    ]
+  },
 
 
   "entity.decayed.ambient": {

@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-29T11:53:06.1122667	NyakoMod/Block Loot Tables
+// 1.20.1	2023-10-30T14:19:24.3841278	NyakoMod/Block Loot Tables
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 fdb1b817da3d56e58da88e7b248679ef65ba1a87 data\nyakomod\loot_tables\blocks\echo_spur.json
 8a787ca78488fcc23036a1877f30cb5374375039 data\nyakomod\loot_tables\blocks\echo_sproutheart.json
@@ -7,8 +7,8 @@ f7e3594dd6a2d08d565c8670cbb1da13df0d5782 data\nyakomod\loot_tables\blocks\echo_p
 eccd3c221c8f7a1752f887bb1be0a5d288c573b0 data\nyakomod\loot_tables\blocks\emerald_coin.json
 60a276f848469a102df0b8baee8872bedca631d8 data\nyakomod\loot_tables\blocks\gold_coin.json
 6f1c7b9d7cbae4fd121f8b5e1a1cecc15bf440fc data\nyakomod\loot_tables\blocks\echo_fence_gate.json
-aea5cb7cb6339c28c027d6dff76eddd518583fba data\nyakomod\loot_tables\blocks\stripped_echo_spur.json
 5f72a635e97fa81cafce59ae66019859de9dfc3b data\nyakomod\loot_tables\blocks\echo_spine.json
+aea5cb7cb6339c28c027d6dff76eddd518583fba data\nyakomod\loot_tables\blocks\stripped_echo_spur.json
 bb6114b260aa8f0e239052e7ec137905415e4056 data\nyakomod\loot_tables\blocks\echo_sign.json
 f44feb1149fdc067e74c123453c2094c26661588 data\nyakomod\loot_tables\blocks\diamond_coin.json
 f7b96014d161ec50ed3df371f10280bfb8e80a6f data\nyakomod\loot_tables\blocks\echo_pressure_plate.json

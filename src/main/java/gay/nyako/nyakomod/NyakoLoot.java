@@ -245,6 +245,7 @@ public class NyakoLoot {
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MASK).weight(1))
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_CLUNK).weight(1))
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_SKIBIDI).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_MERRY2).weight(1))
                                 .build()
                         );
             }

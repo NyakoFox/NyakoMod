@@ -126,6 +126,7 @@ public class NyakoItems {
     public static final Item MUSIC_DISC_MOONLIGHT       = NyakoDiscs.MOONLIGHT.item();
     public static final Item MUSIC_DISC_WELCOME         = NyakoDiscs.WELCOME.item();
     public static final Item MUSIC_DISC_SKIBIDI         = NyakoDiscs.SKIBIDI.item();
+    public static final Item MUSIC_DISC_MERRY2          = NyakoDiscs.MERRY2.item();
 
     public static final Item ECHO_DIRT                  = register("echo_dirt",                 new BlockItem(NyakoBlocks.ECHO_DIRT, new FabricItemSettings()));
     public static final Item ECHO_STONE                 = register("echo_stone",                new BlockItem(NyakoBlocks.ECHO_STONE, new FabricItemSettings()));
