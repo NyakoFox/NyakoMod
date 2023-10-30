@@ -79,23 +79,30 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
                     matrices.translate(0.5f, 0.5f, 0f);
 
                     RenderSystem.setShaderTexture(0, identifier);
+
                     // keep aspect ratio while keeping coordinates between 0-1
+
+                    var monitorWidth = entity.getMonitorWidth();
+                    var monitorHeight = entity.getMonitorHeight();
+                    var monitorAspectRatio = monitorWidth / monitorHeight;
+                    var aspectRatio = width / height;
+
                     var x = 0f;
                     var y = 0f;
                     var outputWidth = 1f;
                     var outputHeight = 1f;
-                    if (width > height) {
-                        outputHeight = height / width;
-                        y = (1f - outputHeight) / 2f;
-                    } else {
-                        outputWidth = width / height;
-                        x = (1f - outputWidth) / 2f;
-                    }
 
-                    outputWidth *= entity.getMonitorWidth();
-                    outputHeight *= entity.getMonitorHeight();
-                    x *= entity.getMonitorWidth();
-                    y *= entity.getMonitorHeight();
+                    if (aspectRatio > monitorAspectRatio) {
+                        // image is wider than monitor
+                        outputHeight = monitorWidth / aspectRatio;
+                        outputWidth = monitorWidth;
+                        y = (monitorHeight - outputHeight) / 2f;
+                    } else {
+                        // image is taller than monitor
+                        outputWidth = monitorHeight * aspectRatio;
+                        outputHeight = monitorHeight;
+                        x = (monitorWidth - outputWidth) / 2f;
+                    }
 
                     drawTexture(matrices, x, y, 0f, 0f, 0f, outputWidth, outputHeight, outputWidth, outputHeight);
                 }
