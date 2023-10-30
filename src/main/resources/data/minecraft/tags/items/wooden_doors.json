@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_door"
+    "nyakomod:echo_door",
+    "nyakomod:benthic_door"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_planks"
+    "nyakomod:echo_planks",
+    "nyakomod:benthic_planks"
   ]
 }

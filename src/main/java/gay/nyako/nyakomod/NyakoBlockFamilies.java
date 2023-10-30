@@ -19,4 +19,19 @@ public class NyakoBlockFamilies {
             .group("wooden")
             .unlockCriterionName("has_planks")
             .build();
+
+    public static final BlockFamily BENTHIC = BlockFamilies
+            .register(NyakoBlocks.BENTHIC_PLANKS)
+            .button(NyakoBlocks.BENTHIC_BUTTON)
+            .fence(NyakoBlocks.BENTHIC_FENCE)
+            .fenceGate(NyakoBlocks.BENTHIC_FENCE_GATE)
+            .pressurePlate(NyakoBlocks.BENTHIC_PRESSURE_PLATE)
+            .sign(NyakoBlocks.BENTHIC_SIGN, NyakoBlocks.BENTHIC_WALL_SIGN)
+            .slab(NyakoBlocks.BENTHIC_SLAB)
+            .stairs(NyakoBlocks.BENTHIC_STAIRS)
+            .door(NyakoBlocks.BENTHIC_DOOR)
+            .trapdoor(NyakoBlocks.BENTHIC_TRAPDOOR)
+            .group("wooden")
+            .unlockCriterionName("has_planks")
+            .build();
 }

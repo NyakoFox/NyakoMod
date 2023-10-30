@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_slab"
+    "nyakomod:echo_slab",
+    "nyakomod:benthic_slab"
   ]
 }

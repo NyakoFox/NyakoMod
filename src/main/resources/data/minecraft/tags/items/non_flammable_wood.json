@@ -15,6 +15,21 @@
     "nyakomod:echo_button",
     "nyakomod:echo_door",
     "nyakomod:echo_sign",
-    "nyakomod:echo_hanging_sign"
+    "nyakomod:echo_hanging_sign",
+    "nyakomod:benthic_spine",
+    "nyakomod:stripped_benthic_spine",
+    "nyakomod:benthic_spur",
+    "nyakomod:stripped_benthic_spur",
+    "nyakomod:benthic_planks",
+    "nyakomod:benthic_slab",
+    "nyakomod:benthic_pressure_plate",
+    "nyakomod:benthic_fence",
+    "nyakomod:benthic_trapdoor",
+    "nyakomod:benthic_fence_gate",
+    "nyakomod:benthic_stairs",
+    "nyakomod:benthic_button",
+    "nyakomod:benthic_door",
+    "nyakomod:benthic_sign",
+    "nyakomod:benthic_hanging_sign"
   ]
 }

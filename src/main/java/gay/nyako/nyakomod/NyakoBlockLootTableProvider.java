@@ -68,7 +68,7 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(NyakoBlocks.ECHO_ROOTS);
         this.addDrop(NyakoBlocks.ECHO_BULB);
 
-        this.addDrop(NyakoBlocks.ECHO_LEAVES, (Block block) -> this.leavesDrops(block, Blocks.SPRUCE_SAPLING, SAPLING_DROP_CHANCE));
+        this.addDrop(NyakoBlocks.ECHO_LEAVES, (Block block) -> this.leavesDrops(block, NyakoBlocks.ECHO_SAPLING, SAPLING_DROP_CHANCE));
 
         this.addPottedPlantDrops(NyakoBlocks.POTTED_ECHO_ROOTS);
         this.addDrop(NyakoBlocks.ECHO_SPROUTBULB, (Block block) -> this.dropsWithProperty(block, TallPlantBlock.HALF, DoubleBlockHalf.LOWER));
@@ -93,5 +93,29 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
                                 )
                         )
                 ));
+
+        this.addDrop(NyakoBlocks.BENTHIC_SPINE);
+        this.addDrop(NyakoBlocks.BENTHIC_SPUR);
+        this.addDrop(NyakoBlocks.STRIPPED_BENTHIC_SPINE);
+        this.addDrop(NyakoBlocks.STRIPPED_BENTHIC_SPUR);
+        this.addDrop(NyakoBlocks.BENTHIC_PLANKS);
+        this.addDrop(NyakoBlocks.BENTHIC_SLAB);
+        this.addDrop(NyakoBlocks.BENTHIC_STAIRS);
+        this.addDrop(NyakoBlocks.BENTHIC_FENCE);
+        this.addDrop(NyakoBlocks.BENTHIC_FENCE_GATE);
+        this.addDrop(NyakoBlocks.BENTHIC_TRAPDOOR);
+        this.addDrop(NyakoBlocks.BENTHIC_PRESSURE_PLATE);
+        this.addDrop(NyakoBlocks.BENTHIC_BUTTON);
+        this.addDrop(NyakoBlocks.BENTHIC_SIGN);
+        this.addDrop(NyakoBlocks.BENTHIC_HANGING_SIGN);
+        this.addDrop(NyakoBlocks.BENTHIC_DOOR, this::doorDrops);
+
+        this.addDrop(NyakoBlocks.BENTHIC_LEAVES, (Block block) -> this.leavesDrops(block, NyakoBlocks.BENTHIC_SAPLING, SAPLING_DROP_CHANCE));
+
+        this.addDrop(NyakoBlocks.ECHO_SAPLING);
+        this.addDrop(NyakoBlocks.BENTHIC_SAPLING);
+
+        this.addPottedPlantDrops(NyakoBlocks.POTTED_ECHO_SAPLING);
+        this.addPottedPlantDrops(NyakoBlocks.POTTED_BENTHIC_SAPLING);
     }
 }

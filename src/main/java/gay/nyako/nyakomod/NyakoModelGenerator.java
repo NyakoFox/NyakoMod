@@ -66,6 +66,17 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSingleton(NyakoBlocks.ECHO_LEAVES, TexturedModel.LEAVES);
         blockStateModelGenerator.registerDoubleBlock(NyakoBlocks.ECHO_SPROUTBULB, BlockStateModelGenerator.TintType.NOT_TINTED);
 
+        blockStateModelGenerator.registerCubeAllModelTexturePool(NyakoBlockFamilies.BENTHIC.getBaseBlock()).family(NyakoBlockFamilies.BENTHIC);
+
+        blockStateModelGenerator.registerLog(NyakoBlocks.BENTHIC_SPINE).stem(NyakoBlocks.BENTHIC_SPINE).wood(NyakoBlocks.BENTHIC_SPUR);
+        blockStateModelGenerator.registerLog(NyakoBlocks.STRIPPED_BENTHIC_SPINE).stem(NyakoBlocks.STRIPPED_BENTHIC_SPINE).wood(NyakoBlocks.STRIPPED_BENTHIC_SPUR);
+        blockStateModelGenerator.registerHangingSign(NyakoBlocks.STRIPPED_BENTHIC_SPINE, NyakoBlocks.BENTHIC_HANGING_SIGN, NyakoBlocks.BENTHIC_WALL_HANGING_SIGN);
+
+        blockStateModelGenerator.registerSingleton(NyakoBlocks.BENTHIC_LEAVES, TexturedModel.LEAVES);
+
+        blockStateModelGenerator.registerFlowerPotPlant(NyakoBlocks.ECHO_SAPLING, NyakoBlocks.POTTED_ECHO_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerFlowerPotPlant(NyakoBlocks.BENTHIC_SAPLING, NyakoBlocks.POTTED_BENTHIC_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+
         registerAllybox(blockStateModelGenerator);
     }
 

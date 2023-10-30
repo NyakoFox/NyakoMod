@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_wall_hanging_sign"
+    "nyakomod:echo_wall_hanging_sign",
+    "nyakomod:benthic_wall_hanging_sign"
   ]
 }

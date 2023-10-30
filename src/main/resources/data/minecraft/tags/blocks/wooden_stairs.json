@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_stairs"
+    "nyakomod:echo_stairs",
+    "nyakomod:benthic_stairs"
   ]
 }

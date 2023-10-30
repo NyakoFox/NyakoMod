@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class NyakoWoodTypes {
     public static final WoodType ECHO = register("echo", WoodTypeBuilder.copyOf(WoodType.WARPED), NyakoBlockSetTypes.ECHO);
+    public static final WoodType BENTHIC = register("benthic", WoodTypeBuilder.copyOf(WoodType.WARPED), NyakoBlockSetTypes.BENTHIC);
 
     public static WoodType register(String id, WoodTypeBuilder woodTypeBuilder, BlockSetType blockSetType)
     {

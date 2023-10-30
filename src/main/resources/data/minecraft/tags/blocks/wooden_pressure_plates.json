@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_pressure_plate"
+    "nyakomod:echo_pressure_plate",
+    "nyakomod:benthic_pressure_plate"
   ]
 }

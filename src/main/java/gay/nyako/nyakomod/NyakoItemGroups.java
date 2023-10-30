@@ -137,6 +137,26 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.ECHO_BULB);
                 entries.add(NyakoItems.ECHO_ROOTS);
                 entries.add(NyakoItems.ECHO_LEAVES);
+                entries.add(NyakoItems.ECHO_SAPLING);
+
+                entries.add(NyakoItems.BENTHIC_SPINE);
+                entries.add(NyakoItems.BENTHIC_SPUR);
+                entries.add(NyakoItems.STRIPPED_BENTHIC_SPINE);
+                entries.add(NyakoItems.STRIPPED_BENTHIC_SPUR);
+                entries.add(NyakoItems.BENTHIC_PLANKS);
+                entries.add(NyakoItems.BENTHIC_STAIRS);
+                entries.add(NyakoItems.BENTHIC_SLAB);
+                entries.add(NyakoItems.BENTHIC_FENCE);
+                entries.add(NyakoItems.BENTHIC_FENCE_GATE);
+                entries.add(NyakoItems.BENTHIC_DOOR);
+                entries.add(NyakoItems.BENTHIC_TRAPDOOR);
+                entries.add(NyakoItems.BENTHIC_PRESSURE_PLATE);
+                entries.add(NyakoItems.BENTHIC_BUTTON);
+                entries.add(NyakoItems.BENTHIC_SIGN);
+                entries.add(NyakoItems.BENTHIC_HANGING_SIGN);
+                entries.add(NyakoItems.BENTHIC_LEAVES);
+                entries.add(NyakoItems.BENTHIC_SAPLING);
+
                 entries.add(NyakoItems.ECHO_SPROUTBULB);
                 entries.add(NyakoItems.ECHO_SPROUTHEART);
                 entries.add(NyakoItems.HEART_BERRY);

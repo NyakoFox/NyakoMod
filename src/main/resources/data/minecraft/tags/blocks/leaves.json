@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_leaves"
+    "nyakomod:echo_leaves",
+    "nyakomod:benthic_leaves"
   ]
 }

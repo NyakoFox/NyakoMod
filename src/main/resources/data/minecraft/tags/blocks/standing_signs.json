@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_sign"
+    "nyakomod:echo_sign",
+    "nyakomod:benthic_sign"
   ]
 }

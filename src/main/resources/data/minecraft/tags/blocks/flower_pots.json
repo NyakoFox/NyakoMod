@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:potted_echo_roots"
+    "nyakomod:potted_echo_roots",
+    "nyakomod:potted_echo_sapling",
+    "nyakomod:potted_benthic_sapling"
   ]
 }

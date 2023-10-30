@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "nyakomod:benthic_spines"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "nyakomod:benthic_planks"
+  }
+}

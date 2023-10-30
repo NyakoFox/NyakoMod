@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#nyakomod:echo_spines"
+    "#nyakomod:echo_spines",
+    "#nyakomod:benthic_spines"
   ]
 }

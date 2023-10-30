@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:echo_fence_gate"
+    "nyakomod:echo_fence_gate",
+    "nyakomod:benthic_fence_gate"
   ]
 }

@@ -153,6 +153,26 @@ public class NyakoItems {
     public static final Item ECHO_LEAVES                = register("echo_leaves",               new BlockItem(NyakoBlocks.ECHO_LEAVES, new FabricItemSettings()));
     public static final Item ECHO_SPROUTBULB            = register("echo_sproutbulb",           new BlockItem(NyakoBlocks.ECHO_SPROUTBULB, new FabricItemSettings()));
     public static final Item ECHO_SPROUTHEART           = register("echo_sproutheart",          new BlockItem(NyakoBlocks.ECHO_SPROUTHEART, new FabricItemSettings()));
+    public static final Item ECHO_SAPLING               = register("echo_sapling",              new BlockItem(NyakoBlocks.ECHO_SAPLING, new FabricItemSettings()));
+
+    public static final Item BENTHIC_SPINE                 = register("benthic_spine",          new BlockItem(NyakoBlocks.BENTHIC_SPINE, new FabricItemSettings()));
+    public static final Item STRIPPED_BENTHIC_SPINE        = register("stripped_benthic_spine", new BlockItem(NyakoBlocks.STRIPPED_BENTHIC_SPINE, new FabricItemSettings()));
+    public static final Item BENTHIC_SPUR                  = register("benthic_spur",           new BlockItem(NyakoBlocks.BENTHIC_SPUR, new FabricItemSettings()));
+    public static final Item STRIPPED_BENTHIC_SPUR         = register("stripped_benthic_spur",  new BlockItem(NyakoBlocks.STRIPPED_BENTHIC_SPUR, new FabricItemSettings()));
+    public static final Item BENTHIC_TRAPDOOR              = register("benthic_trapdoor",       new BlockItem(NyakoBlocks.BENTHIC_TRAPDOOR, new FabricItemSettings()));
+    public static final Item BENTHIC_PLANKS                = register("benthic_planks",         new BlockItem(NyakoBlocks.BENTHIC_PLANKS, new FabricItemSettings()));
+    public static final Item BENTHIC_DOOR                  = register("benthic_door",           new TallBlockItem(NyakoBlocks.BENTHIC_DOOR, new FabricItemSettings()));
+    public static final Item BENTHIC_BUTTON                = register("benthic_button",         new BlockItem(NyakoBlocks.BENTHIC_BUTTON, new FabricItemSettings()));
+    public static final Item BENTHIC_FENCE                 = register("benthic_fence",          new BlockItem(NyakoBlocks.BENTHIC_FENCE, new FabricItemSettings()));
+    public static final Item BENTHIC_FENCE_GATE            = register("benthic_fence_gate",     new BlockItem(NyakoBlocks.BENTHIC_FENCE_GATE, new FabricItemSettings()));
+    public static final Item BENTHIC_PRESSURE_PLATE        = register("benthic_pressure_plate", new BlockItem(NyakoBlocks.BENTHIC_PRESSURE_PLATE, new FabricItemSettings()));
+    public static final Item BENTHIC_SIGN                  = register("benthic_sign",           new SignItem(new FabricItemSettings().maxCount(16), NyakoBlocks.BENTHIC_SIGN, NyakoBlocks.BENTHIC_WALL_SIGN));
+    public static final Item BENTHIC_HANGING_SIGN          = register("benthic_hanging_sign",   new HangingSignItem(NyakoBlocks.BENTHIC_HANGING_SIGN, NyakoBlocks.BENTHIC_WALL_HANGING_SIGN, new FabricItemSettings().maxCount(16)));
+    public static final Item BENTHIC_SLAB                  = register("benthic_slab",           new BlockItem(NyakoBlocks.BENTHIC_SLAB, new FabricItemSettings()));
+    public static final Item BENTHIC_STAIRS                = register("benthic_stairs",         new BlockItem(NyakoBlocks.BENTHIC_STAIRS, new FabricItemSettings()));
+    public static final Item BENTHIC_LEAVES                = register("benthic_leaves",         new BlockItem(NyakoBlocks.BENTHIC_LEAVES, new FabricItemSettings()));
+    public static final Item BENTHIC_SAPLING               = register("benthic_sapling",        new BlockItem(NyakoBlocks.BENTHIC_SAPLING, new FabricItemSettings()));
+
     public static final Item DECAYED_SPAWN_EGG          = register("decayed_spawn_egg",         new SpawnEggItem(NyakoEntities.DECAYED, 0x069D9C, 0x0B3539, new FabricItemSettings()));
     public static final Item HEART_BERRY                = register("heart_berry",               new HeartBerryItem(new FabricItemSettings().food(NyakoFoodComponents.HEART_BERRY).rarity(Rarity.RARE)));
     public static final Item HEART_CANISTER             = register("heart_canister",            new HeartCanisterItem(new FabricItemSettings().maxCount(10).rarity(Rarity.RARE)));

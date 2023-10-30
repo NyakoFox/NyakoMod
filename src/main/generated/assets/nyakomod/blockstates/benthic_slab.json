@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nyakomod:block/benthic_slab"
+    },
+    "type=double": {
+      "model": "nyakomod:block/benthic_planks"
+    },
+    "type=top": {
+      "model": "nyakomod:block/benthic_slab_top"
+    }
+  }
+}

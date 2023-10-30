@@ -19,5 +19,11 @@ public class NyakoRecipeProvider extends FabricRecipeProvider {
         offerBarkBlockRecipe(exporter, NyakoBlocks.ECHO_SPUR, NyakoBlocks.ECHO_SPINE);
         offerBarkBlockRecipe(exporter, NyakoBlocks.STRIPPED_ECHO_SPUR, NyakoBlocks.STRIPPED_ECHO_SPINE);
         RecipeProvider.generateFamily(exporter, NyakoBlockFamilies.ECHO);
+
+        offerPlanksRecipe(exporter, NyakoBlocks.BENTHIC_PLANKS, NyakoItemTags.BENTHIC_SPINES, 4);
+        offerHangingSignRecipe(exporter, NyakoBlocks.BENTHIC_HANGING_SIGN, NyakoBlocks.STRIPPED_BENTHIC_SPINE);
+        offerBarkBlockRecipe(exporter, NyakoBlocks.BENTHIC_SPUR, NyakoBlocks.BENTHIC_SPINE);
+        offerBarkBlockRecipe(exporter, NyakoBlocks.STRIPPED_BENTHIC_SPUR, NyakoBlocks.STRIPPED_BENTHIC_SPINE);
+        RecipeProvider.generateFamily(exporter, NyakoBlockFamilies.BENTHIC);
     }
 }

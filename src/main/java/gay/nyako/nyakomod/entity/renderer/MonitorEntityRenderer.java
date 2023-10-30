@@ -82,15 +82,15 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
 
                     // keep aspect ratio while keeping coordinates between 0-1
 
-                    var monitorWidth = entity.getMonitorWidth();
-                    var monitorHeight = entity.getMonitorHeight();
-                    var monitorAspectRatio = monitorWidth / monitorHeight;
-                    var aspectRatio = width / height;
+                    float monitorWidth = entity.getMonitorWidth();
+                    float monitorHeight = entity.getMonitorHeight();
+                    float monitorAspectRatio = monitorWidth / monitorHeight;
+                    float aspectRatio = width / height;
 
-                    var x = 0f;
-                    var y = 0f;
-                    var outputWidth = 1f;
-                    var outputHeight = 1f;
+                    float x = 0f;
+                    float y = 0f;
+                    float outputWidth;
+                    float outputHeight;
 
                     if (aspectRatio > monitorAspectRatio) {
                         // image is wider than monitor

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.block.sapling.OakSaplingGenerator;
 import net.minecraft.item.AxeItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -77,6 +78,31 @@ public class NyakoBlocks {
     public static final Block ECHO_LEAVES               = register("echo_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
     public static final Block ECHO_SPROUTBULB           = register("echo_sproutbulb",           new TallFlowerBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
     public static final Block ECHO_SPROUTHEART          = register("echo_sproutheart",          new SproutHeartBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
+
+    public static final Block BENTHIC_SPINE             = register("benthic_spine",                Blocks.createNetherStemBlock(MapColor.WHITE));
+    public static final Block STRIPPED_BENTHIC_SPINE    = register("stripped_benthic_spine",       Blocks.createNetherStemBlock(MapColor.WHITE));
+    public static final Block BENTHIC_SPUR              = register("benthic_spur",                 new PillarBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).instrument(Instrument.BASS).strength(2.0f).sounds(BlockSoundGroup.NETHER_STEM)));
+    public static final Block STRIPPED_BENTHIC_SPUR     = register("stripped_benthic_spur",        new PillarBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).instrument(Instrument.BASS).strength(2.0f).sounds(BlockSoundGroup.NETHER_STEM)));
+    public static final Block BENTHIC_PLANKS            = register("benthic_planks",               new Block(FabricBlockSettings.create().mapColor(MapColor.WHITE).instrument(Instrument.BASS).strength(2.0f, 3.0f).sounds(BlockSoundGroup.NETHER_WOOD)));
+    public static final Block BENTHIC_SLAB              = register("benthic_slab",                 new SlabBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).strength(2.0f, 3.0f).sounds(BlockSoundGroup.NETHER_WOOD)));
+    public static final Block BENTHIC_PRESSURE_PLATE    = register("benthic_pressure_plate",       new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).solid().instrument(Instrument.BASS).noCollision().strength(0.5f).pistonBehavior(PistonBehavior.DESTROY), NyakoBlockSetTypes.BENTHIC));
+    public static final Block BENTHIC_FENCE             = register("benthic_fence",                new FenceBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).strength(2.0f, 3.0f).sounds(BlockSoundGroup.NETHER_WOOD)));
+    public static final Block BENTHIC_TRAPDOOR          = register("benthic_trapdoor",             new TrapdoorBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).strength(3.0f).nonOpaque().allowsSpawning(Blocks::never), NyakoBlockSetTypes.BENTHIC));
+    public static final Block BENTHIC_FENCE_GATE        = register("benthic_fence_gate",           new FenceGateBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).solid().instrument(Instrument.BASS).strength(2.0f, 3.0f), NyakoWoodTypes.BENTHIC));
+    public static final Block BENTHIC_STAIRS            = register("benthic_stairs",               new StairsBlock(BENTHIC_PLANKS.getDefaultState(), FabricBlockSettings.copy(BENTHIC_PLANKS)));
+    public static final Block BENTHIC_BUTTON            = register("benthic_button",               Blocks.createWoodenButtonBlock(NyakoBlockSetTypes.BENTHIC, new FeatureFlag[0]));
+    public static final Block BENTHIC_DOOR              = register("benthic_door",                 new DoorBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).strength(3.0f).nonOpaque().pistonBehavior(PistonBehavior.DESTROY), NyakoBlockSetTypes.BENTHIC));
+    public static final Block BENTHIC_SIGN              = register("benthic_sign",                 new CustomSignBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).solid().noCollision().strength(1.0f), NyakoWoodTypes.BENTHIC));
+    public static final Block BENTHIC_WALL_SIGN         = register("benthic_wall_sign",            new CustomWallSignBlock(FabricBlockSettings.create().mapColor(BENTHIC_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).solid().noCollision().strength(1.0f).dropsLike(BENTHIC_SIGN), NyakoWoodTypes.BENTHIC));
+    public static final Block BENTHIC_HANGING_SIGN      = register("benthic_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.BENTHIC));
+    public static final Block BENTHIC_WALL_HANGING_SIGN = register("benthic_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(BENTHIC_HANGING_SIGN), NyakoWoodTypes.BENTHIC));
+    public static final Block BENTHIC_LEAVES            = register("benthic_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
+
+    public static final Block ECHO_SAPLING = register("echo_sapling", new SaplingBlock(new EchoSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block BENTHIC_SAPLING = register("benthic_sapling", new SaplingBlock(new BenthicSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+
+    public static final Block POTTED_ECHO_SAPLING = register("potted_echo_sapling", Blocks.createFlowerPotBlock(ECHO_SAPLING, new FeatureFlag[0]));
+    public static final Block POTTED_BENTHIC_SAPLING = register("potted_benthic_sapling", Blocks.createFlowerPotBlock(BENTHIC_SAPLING, new FeatureFlag[0]));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);

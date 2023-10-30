@@ -167,11 +167,21 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_DOOR, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_TRAPDOOR, RenderLayer.getCutout());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.BENTHIC_DOOR, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.BENTHIC_TRAPDOOR, RenderLayer.getCutout());
+
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_ROOTS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_ECHO_ROOTS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_LEAVES, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_SPROUTBULB, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_SPROUTHEART, RenderLayer.getCutout());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.BENTHIC_LEAVES, RenderLayer.getCutout());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.ECHO_SAPLING, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.BENTHIC_SAPLING, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_ECHO_SAPLING, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_BENTHIC_SAPLING, RenderLayer.getCutout());
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
@@ -195,7 +205,7 @@ public class NyakoClientMod implements ClientModInitializer {
 				return GrassColors.getDefaultColor();
 			}
 			return BiomeColors.getFoliageColor(world, pos);
-		}, NyakoBlocks.ECHO_LEAVES);
+		}, NyakoBlocks.ECHO_LEAVES, NyakoBlocks.BENTHIC_LEAVES);
 
 		DimensionEffects.BY_IDENTIFIER.put(new Identifier("nyakomod", "echolands"), new EchoLandsDimensionEffects());
 	}

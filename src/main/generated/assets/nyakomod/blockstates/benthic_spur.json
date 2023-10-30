@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nyakomod:block/benthic_spur",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "nyakomod:block/benthic_spur"
+    },
+    "axis=z": {
+      "model": "nyakomod:block/benthic_spur",
+      "x": 90
+    }
+  }
+}

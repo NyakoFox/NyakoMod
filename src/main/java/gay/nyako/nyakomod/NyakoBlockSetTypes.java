@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 public class NyakoBlockSetTypes {
     public static final BlockSetType ECHO = register("echo", BlockSetTypeBuilder.copyOf(BlockSetType.WARPED));
+    public static final BlockSetType BENTHIC = register("benthic", BlockSetTypeBuilder.copyOf(BlockSetType.WARPED));
 
     public static BlockSetType register(String id, BlockSetTypeBuilder blockSetTypeBuilder)
     {

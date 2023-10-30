@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nyakomod:block/benthic_spine",
+    "side": "nyakomod:block/benthic_spine"
+  }
+}
