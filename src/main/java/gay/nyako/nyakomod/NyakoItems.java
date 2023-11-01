@@ -178,6 +178,8 @@ public class NyakoItems {
     public static final Item HEART_CANISTER             = register("heart_canister",            new HeartCanisterItem(new FabricItemSettings().maxCount(10).rarity(Rarity.RARE)));
     public static final Item BURNING_SUPER_DEATH_SWORD  = register("burning_super_death_sword", new BurningSuperDeathSwordItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
+    public static final Item ELYTRA_BLOCK               = register("elytra_block",              new BlockItem(NyakoBlocks.ELYTRA_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
+
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
     }

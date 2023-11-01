@@ -165,6 +165,8 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.DECAYED_SPAWN_EGG);
 
                 entries.add(NyakoItems.BURNING_SUPER_DEATH_SWORD);
+
+                entries.add(NyakoItems.ELYTRA_BLOCK);
             })
             .build());
 

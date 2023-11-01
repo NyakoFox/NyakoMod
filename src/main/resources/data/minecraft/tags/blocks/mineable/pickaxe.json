@@ -24,6 +24,7 @@
     "nyakomod:nether_reactor_core",
     "nyakomod:glowing_obsidian",
     "nyakomod:echo_stone",
-    "nyakomod:echo_slate"
+    "nyakomod:echo_slate",
+    "nyakomod:elytra_block"
   ]
 }

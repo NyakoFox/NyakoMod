@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-30T20:42:14.5834941	NyakoMod/Block Loot Tables
+// 1.20.1	2023-11-01T11:23:31.1851316	NyakoMod/Block Loot Tables
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 fdb1b817da3d56e58da88e7b248679ef65ba1a87 data\nyakomod\loot_tables\blocks\echo_spur.json
 f7e3594dd6a2d08d565c8670cbb1da13df0d5782 data\nyakomod\loot_tables\blocks\echo_planks.json
@@ -31,13 +31,14 @@ f7b96014d161ec50ed3df371f10280bfb8e80a6f data\nyakomod\loot_tables\blocks\echo_p
 7c1c1822fdf04d18e352972e9751eab6c51da840 data\nyakomod\loot_tables\blocks\benthic_stairs.json
 e2edd66fa25f0fb66d4351ce787eca0afb008aeb data\nyakomod\loot_tables\blocks\echo_stone.json
 e45e87527c09d5ba6c5febd397c041d667ed2a9f data\nyakomod\loot_tables\blocks\echo_dirt.json
-b4383558cd73589babcfdd13ed6c4389b771e3c9 data\nyakomod\loot_tables\blocks\echo_stairs.json
 55b2fc5dfd20ab83b232b720e57165655ea151a3 data\nyakomod\loot_tables\blocks\stripped_benthic_spine.json
+b4383558cd73589babcfdd13ed6c4389b771e3c9 data\nyakomod\loot_tables\blocks\echo_stairs.json
 b19d4a02e61526ba06d82eb2283451d26f5ea648 data\nyakomod\loot_tables\blocks\benthic_pressure_plate.json
 fc051cc5164ec596d7a66c9298e2f9dd5566d909 data\nyakomod\loot_tables\blocks\benthic_trapdoor.json
 6ac04871de40c417eba7b3f65bf9fffcfbe647d9 data\nyakomod\loot_tables\blocks\benthic_spur.json
 061d86470ec4d801c22041778b17a8e4f25e4f36 data\nyakomod\loot_tables\blocks\copper_coin.json
 a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
+c631edf3de0280dc3a7dbd2732480dea91268637 data\nyakomod\loot_tables\blocks\elytra_block.json
 9ea3652f09ec03e1efda25db514e8559ccbbc642 data\nyakomod\loot_tables\blocks\stripped_echo_spine.json
 e339a4135d6a980f61496a02aea5a10d5f8c557b data\nyakomod\loot_tables\blocks\benthic_button.json
 fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json

@@ -48,12 +48,21 @@ public class NyakoBlocks {
     public static final Block WITHER                    = register("wither",                    new WitherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block NETHER_REACTOR_CORE       = register("nether_reactor_core",       new NetherReactorCoreBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block GLOWING_OBSIDIAN          = register("glowing_obsidian",          new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).luminance(state -> 15).requiresTool()));
-    public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
 
+    public static final Block ELYTRA_BLOCK              = register("elytra_block",              new ElytraBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+
+    public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
     public static final Block ECHO_DIRT                 = register("echo_dirt",                 new EchoDirtBlock(FabricBlockSettings.copy(Blocks.DIRT)));
     public static final Block ECHO_STONE                = register("echo_stone",                new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block ECHO_GROWTH               = register("echo_growth",               new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)));
     public static final Block ECHO_SLATE                = register("echo_slate",                new Block(FabricBlockSettings.copy(Blocks.DEEPSLATE).requiresTool()));
+
+    public static final Block ECHO_SPROUTBULB           = register("echo_sproutbulb",           new TallFlowerBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
+    public static final Block ECHO_SPROUTHEART          = register("echo_sproutheart",          new SproutHeartBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
+
+    public static final Block ECHO_BULB                 = register("echo_bulb",                 new EchoBulbBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).breakInstantly().sounds(BlockSoundGroup.SHROOMLIGHT).pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
+    public static final Block ECHO_ROOTS                = register("echo_roots",                new RootsBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS).offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block POTTED_ECHO_ROOTS         = register("potted_echo_roots",         Blocks.createFlowerPotBlock(ECHO_ROOTS, new FeatureFlag[0]));
 
     public static final Block ECHO_SPINE                = register("echo_spine",                Blocks.createNetherStemBlock(MapColor.DARK_AQUA));
     public static final Block STRIPPED_ECHO_SPINE       = register("stripped_echo_spine",       Blocks.createNetherStemBlock(MapColor.DARK_AQUA));
@@ -72,12 +81,9 @@ public class NyakoBlocks {
     public static final Block ECHO_WALL_SIGN            = register("echo_wall_sign",            new CustomWallSignBlock(FabricBlockSettings.create().mapColor(ECHO_PLANKS.getDefaultMapColor()).instrument(Instrument.BASS).solid().noCollision().strength(1.0f).dropsLike(ECHO_SIGN), NyakoWoodTypes.ECHO));
     public static final Block ECHO_HANGING_SIGN         = register("echo_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.ECHO));
     public static final Block ECHO_WALL_HANGING_SIGN    = register("echo_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(ECHO_HANGING_SIGN), NyakoWoodTypes.ECHO));
-    public static final Block ECHO_BULB                 = register("echo_bulb",                 new EchoBulbBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).breakInstantly().sounds(BlockSoundGroup.SHROOMLIGHT).pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
-    public static final Block ECHO_ROOTS                = register("echo_roots",                new RootsBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS).offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY)));
-    public static final Block POTTED_ECHO_ROOTS         = register("potted_echo_roots",         Blocks.createFlowerPotBlock(ECHO_ROOTS, new FeatureFlag[0]));
     public static final Block ECHO_LEAVES               = register("echo_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
-    public static final Block ECHO_SPROUTBULB           = register("echo_sproutbulb",           new TallFlowerBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
-    public static final Block ECHO_SPROUTHEART          = register("echo_sproutheart",          new SproutHeartBlock(FabricBlockSettings.create().mapColor(MapColor.CYAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 7)));
+    public static final Block ECHO_SAPLING = register("echo_sapling", new SaplingBlock(new EchoSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block POTTED_ECHO_SAPLING = register("potted_echo_sapling", Blocks.createFlowerPotBlock(ECHO_SAPLING, new FeatureFlag[0]));
 
     public static final Block BENTHIC_SPINE             = register("benthic_spine",                Blocks.createNetherStemBlock(MapColor.WHITE));
     public static final Block STRIPPED_BENTHIC_SPINE    = register("stripped_benthic_spine",       Blocks.createNetherStemBlock(MapColor.WHITE));
@@ -97,11 +103,7 @@ public class NyakoBlocks {
     public static final Block BENTHIC_HANGING_SIGN      = register("benthic_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_WALL_HANGING_SIGN = register("benthic_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(BENTHIC_HANGING_SIGN), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_LEAVES            = register("benthic_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
-
-    public static final Block ECHO_SAPLING = register("echo_sapling", new SaplingBlock(new EchoSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
     public static final Block BENTHIC_SAPLING = register("benthic_sapling", new SaplingBlock(new BenthicSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
-
-    public static final Block POTTED_ECHO_SAPLING = register("potted_echo_sapling", Blocks.createFlowerPotBlock(ECHO_SAPLING, new FeatureFlag[0]));
     public static final Block POTTED_BENTHIC_SAPLING = register("potted_benthic_sapling", Blocks.createFlowerPotBlock(BENTHIC_SAPLING, new FeatureFlag[0]));
 
     public static Block register(String id, Block block) {
