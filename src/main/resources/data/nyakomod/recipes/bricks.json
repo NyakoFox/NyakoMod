@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "EEE",
-    "EEE",
-    "EEE"
-  ],
-  "key": {
-    "E": {
-      "item": "minecraft:elytra"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bricks"
     }
-  },
+  ],
   "result": {
-    "item": "nyakomod:elytra_block",
+    "item": "nyakomod:brickus",
     "count": 1
   }
 }
