@@ -213,7 +213,7 @@ public class NyakoNetworking {
                             if (serverPlayerEntity != player) {
                                 PacketByteBuf buffer2 = new PacketByteBuf(Unpooled.buffer());
                                 buffer2.writeString(name);
-                                buffer2.writeUuid(player.getUuid());
+                                buffer2.writeText(player.getDisplayName());
                                 ServerPlayNetworking.send(serverPlayerEntity, SEND_STICKER_TO_CLIENT, buffer2);
                             }
                         });

@@ -9,40 +9,61 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class Sticker {
-    public PlayerEntity player = null;
+    public Text player = null;
     public String name = null;
+    public boolean client = false;
     public float oldTicks = 0;
     public float ticks = 0;
     public float tickDelta = 0;
 
+    public float lastX = -1;
+    public float lastY = -1;
     public float currentX = -1;
     public float currentY = -1;
+    public float targetX = -1;
+    public float targetY = -1;
 
-    public void render(DrawContext drawContext, int targetX, int targetY)
+    public void render(DrawContext drawContext)
     {
         int width = 64;
         int height = 64;
 
-        if (currentX == -1) currentX = drawContext.getScaledWindowWidth();
-        if (currentY == -1) currentY = drawContext.getScaledWindowHeight() / 2f - (height/2f);
+        if (currentX == -1) {
+            currentX = drawContext.getScaledWindowWidth();
+            lastX = currentX;
+        }
+        if (currentY == -1) {
+            currentY = drawContext.getScaledWindowHeight() / 2f - (height/2f);
+            lastY = currentY;
+        }
 
-        currentX = (float) MathHelper.lerp(0.1 * tickDelta, currentX, targetX);
-        currentY = (float) MathHelper.lerp(0.1 * tickDelta, currentY, targetY);
+        float drawX = MathHelper.lerp(tickDelta, lastX, currentX);
+        float drawY = MathHelper.lerp(tickDelta, lastY, currentY);
 
         drawContext.setShaderColor(0, 0, 0, 0.5f);
-        drawContext.drawTexture(getSticker(name), (int) currentX + 1, (int) currentY + 1, 0, 0, width, height, width, height);
+        drawContext.drawTexture(getSticker(name), (int) drawX + 1, (int) drawY + 1, 0, 0, width, height, width, height);
         drawContext.setShaderColor(1, 1, 1, 1);
-        drawContext.drawTexture(getSticker(name), (int) currentX, (int) currentY, 0, 0, width, height, width, height);
+        drawContext.drawTexture(getSticker(name), (int) drawX, (int) drawY, 0, 0, width, height, width, height);
 
-        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        Text playerName = player.getDisplayName();
-        drawContext.drawText(textRenderer, playerName, (int) (currentX + (width/2f) - textRenderer.getWidth(playerName) / 2) + 1, (int) currentY + 1, 0xFF000000, false);
-        drawContext.drawText(textRenderer, playerName, (int) (currentX + (width/2f) - textRenderer.getWidth(playerName) / 2), (int) currentY, 0xFFFFFFFF, false);
-
+        if (player != null) {
+            TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+            drawContext.drawText(textRenderer, player, (int) (drawX + (width / 2f) - textRenderer.getWidth(player) / 2) + 1, (int) drawY + 1, 0xFF000000, false);
+            drawContext.drawText(textRenderer, player, (int) (drawX + (width / 2f) - textRenderer.getWidth(player) / 2), (int) drawY, 0xFFFFFFFF, false);
+        }
     }
 
     public static Identifier getSticker(String name) {
         return new Identifier("nyakomod", "textures/sticker/" + name + ".png");
     }
 
+    public void tick() {
+        if (currentX == -1) return;
+        if (currentY == -1) return;
+
+        lastX = currentX;
+        lastY = currentY;
+        currentX = MathHelper.lerp(0.5f * tickDelta, currentX, targetX);
+        currentY = MathHelper.lerp(0.5f * tickDelta, currentY, targetY);
+
+    }
 }

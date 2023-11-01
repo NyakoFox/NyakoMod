@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,23 +31,28 @@ public class StickerSystem {
                 x = drawContext.getScaledWindowWidth();
             }
 
-            sticker.render(drawContext, x, y);
+            sticker.targetX = x;
+            sticker.targetY = y;
+
+            sticker.render(drawContext);
 
             y += 64;
         }
     }
 
-    public static void addSticker(PlayerEntity player, String swellow) {
+    public static void addSticker(Text player, String swellow, boolean client) {
         MinecraftClient.getInstance().player.playSound(NyakoSoundEvents.STICKER, SoundCategory.PLAYERS, 1f, 1f);
 
         Sticker sticker = new Sticker();
         sticker.player = player;
+        sticker.client = client;
         sticker.name = swellow;
         sticker.oldTicks = 0;
         sticker.tickDelta = 0;
         sticker.ticks = 0;
         sticker.currentX = -1;
         sticker.currentY = -1;
+
         STICKERS.add(sticker);
     }
 
@@ -54,6 +60,7 @@ public class StickerSystem {
         Iterator<Sticker> iterator = STICKERS.iterator();
         while (iterator.hasNext()) {
             Sticker sticker = iterator.next();
+            sticker.tick();
             sticker.oldTicks = sticker.ticks;
             sticker.ticks++;
 
@@ -64,7 +71,7 @@ public class StickerSystem {
     }
 
     public static void showSticker(String name) {
-        addSticker(MinecraftClient.getInstance().player, name);
+        addSticker(MinecraftClient.getInstance().player.getDisplayName(), name, true);
         PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
         passedData.writeString(name);
         ClientPlayNetworking.send(NyakoNetworking.SEND_STICKER, passedData);

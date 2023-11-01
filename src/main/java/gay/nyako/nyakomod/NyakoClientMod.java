@@ -229,10 +229,9 @@ public class NyakoClientMod implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.SEND_STICKER_TO_CLIENT,
 				(client, handler, buffer, sender) -> {
 					var name = buffer.readString();
-					var uuid = buffer.readUuid();
-					var player = client.world.getPlayerByUuid(uuid);
+					var playerName = buffer.readText();
 					client.execute(() -> {
-								StickerSystem.addSticker(player, name);
+								StickerSystem.addSticker(playerName, name, false);
 							}
 					);
 				}
