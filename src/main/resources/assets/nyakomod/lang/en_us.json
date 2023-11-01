@@ -264,11 +264,13 @@
     "subtitles.nyakomod.entity.decayed.converted_to_zombie": "Decayed converts to Zombie",
     "subtitles.nyakomod.entity.decayed.death": "Decayed dies",
     "subtitles.nyakomod.entity.decayed.hurt": "Decayed hurts",
+    "subtitles.nyakomod.sticker": "Sticker",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
 
     "key.nyakomod.model_open": "Open Model Menu",
-    "key.nyakomod.killbind": "Kill player",
+    "key.nyakomod.killbind": "Kill Player",
+    "key.nyakomod.sticker": "Open Sticker Menu",
 
     "entity.nyakomod.petdragon": "Dragon Hatchling",
     "entity.nyakomod.petsprite": "Sprite",

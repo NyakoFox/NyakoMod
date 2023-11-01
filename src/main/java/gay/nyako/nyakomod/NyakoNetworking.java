@@ -35,6 +35,8 @@ public class NyakoNetworking {
     public static final Identifier MODEL_CREATE = new Identifier("nyakomod", "create_model");
     public static final Identifier NOTE_BLOCK_PLUS_SAVE = new Identifier("nyakomod", "note_block_plus_save");
     public static final Identifier RIGHT_CLICK_INVENTORY = new Identifier("nyakomod", "right_click_inventory");
+    public static final Identifier SEND_STICKER = new Identifier("nyakomod", "send_sticker");
+    public static final Identifier SEND_STICKER_TO_CLIENT = new Identifier("nyakomod", "send_sticker_to_client");
 
     public static void registerGlobalReceivers() {
         registerServerGlobalReceivers();
@@ -198,6 +200,23 @@ public class NyakoNetworking {
                                 }
                             }
                         }
+                    });
+                }
+        );
+
+        ServerPlayNetworking.registerGlobalReceiver(SEND_STICKER,
+                (server, player, handler, buffer, sender) -> {
+                    var name = buffer.readString();
+                    server.execute(() -> {
+                        // send to every player except the sender
+                        server.getPlayerManager().getPlayerList().forEach((serverPlayerEntity) -> {
+                            if (serverPlayerEntity != player) {
+                                PacketByteBuf buffer2 = new PacketByteBuf(Unpooled.buffer());
+                                buffer2.writeString(name);
+                                buffer2.writeUuid(player.getUuid());
+                                ServerPlayNetworking.send(serverPlayerEntity, SEND_STICKER_TO_CLIENT, buffer2);
+                            }
+                        });
                     });
                 }
         );

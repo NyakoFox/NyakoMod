@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
@@ -208,6 +209,34 @@ public class NyakoClientMod implements ClientModInitializer {
 		}, NyakoBlocks.ECHO_LEAVES, NyakoBlocks.BENTHIC_LEAVES);
 
 		DimensionEffects.BY_IDENTIFIER.put(new Identifier("nyakomod", "echolands"), new EchoLandsDimensionEffects());
+
+		ClientTickEvents.START_CLIENT_TICK.register(StickerSystem::tick);
+		HudRenderCallback.EVENT.register(StickerSystem::render);
+
+		KeyBinding stickerBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.nyakomod.sticker", // The translation key of the keybinding's name
+				InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+				GLFW.GLFW_KEY_H, // The keycode of the key
+				"category.nyakomod.binds" // The translation key of the keybinding's category.
+		));
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if (stickerBind.wasPressed()) {
+				client.setScreen(new StickerScreen());
+			}
+		});
+
+		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.SEND_STICKER_TO_CLIENT,
+				(client, handler, buffer, sender) -> {
+					var name = buffer.readString();
+					var uuid = buffer.readUuid();
+					var player = client.world.getPlayerByUuid(uuid);
+					client.execute(() -> {
+								StickerSystem.addSticker(player, name);
+							}
+					);
+				}
+		);
 	}
 
 	public static final List<String> downloadedUrls = new ArrayList<>();
