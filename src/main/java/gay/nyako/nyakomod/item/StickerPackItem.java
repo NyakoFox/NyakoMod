@@ -13,7 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -54,7 +57,8 @@ public class StickerPackItem extends Item {
             if (!world.isClient())
             {
                 user.incrementStat(Stats.USED.getOrCreateStat(this));
-                ChatUtils.send((ServerPlayerEntity) user, "You have opened the §d§l" + pack + "§r§f sticker pack!", ChatPrefixes.SUCCESS);
+                var text = Text.translatable("item.nyakomod.sticker_pack.open", Text.translatable("stickers.nyakomod.pack." + pack + ".title").setStyle(Style.EMPTY.withColor(Formatting.LIGHT_PURPLE).withBold(true)));
+                ChatUtils.send((ServerPlayerEntity) user, text, ChatPrefixes.SUCCESS);
             }
             return TypedActionResult.success(itemStack, true);
         }
