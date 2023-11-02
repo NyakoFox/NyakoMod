@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import com.google.common.collect.Lists;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.Sticker;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.client.MinecraftClient;
@@ -37,7 +38,9 @@ public class StickerScreen extends Screen {
     protected void init() {
         for (var pack : stickerPacks.values()) {
             pack.clearStickers();
+            this.remove(pack);
         }
+        stickerPacks.clear();
 
         getStickerGroup(ALL_PACK_KEY);
         getStickerGroup(DEFAULT_PACK_KEY);
@@ -117,7 +120,7 @@ public class StickerScreen extends Screen {
 
     private void readjustPacks() {
         int totalHeight = (int) ((Math.ceil((float)stickerPacks.size())) * (32));
-        int scrollMax = totalHeight - this.height + 16;
+        int scrollMax = totalHeight - this.height + 32;
 
         if (scrollPacks < -scrollMax)
         {
@@ -138,9 +141,12 @@ public class StickerScreen extends Screen {
         int index = 0;
         for (var pack : orderedStickerPacks)
         {
-            // pack.active = true;
             pack.setX(24);
-            pack.setY(48 + (index++ * (20)) + scrollPacks);
+            pack.setY(64 + (index++ * (20)) + scrollPacks);
+
+            pack.active = pack.getY() > 32;
+            pack.visible = pack.getY() > 32;
+
         }
     }
 
@@ -189,11 +195,6 @@ public class StickerScreen extends Screen {
     }
 
     public void addSticker(String pack, String name) {
-        /*
-        StickerWidget button = new StickerWidget(0, 0, name);
-        this.addDrawableChild(button);
-        */
-
         getStickerGroup(ALL_PACK_KEY).addSticker(name);
         getStickerGroup(pack).addSticker(name);
     }
@@ -206,7 +207,7 @@ public class StickerScreen extends Screen {
 
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         var label = Text.literal("Sticker Packs").setStyle(Style.EMPTY.withUnderline(true));
-        context.drawText(textRenderer, label, 28, 24 + scrollPacks, 0xFFFFFFFF, true);
+        context.drawText(textRenderer, label, 28, 20, 0xFFFFFFFF, true);
 
         this.mouseX = mouseX;
         this.mouseY = mouseY;
@@ -216,17 +217,18 @@ public class StickerScreen extends Screen {
     public void renderBackground(DrawContext context) {
         context.fill(0, 0, this.width, this.height, 0x88000000);
         context.fill(0, 0, this.SIDEBAR_WIDTH - 16, this.height, 0x88000000);
+        context.fill(0, 0, this.SIDEBAR_WIDTH - 16, 48, 0x88000000);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         if (mouseX < SIDEBAR_WIDTH) {
-            scrollPacks += (int) (amount * 16);
+            scrollPacks += (int) (amount * 20);
+            readjustPacks();
         } else {
             scrollStickers += (int) (amount * 16);
+            readjustStickers();
         }
-
-        readjustComponents();
 
         return true;
     }
