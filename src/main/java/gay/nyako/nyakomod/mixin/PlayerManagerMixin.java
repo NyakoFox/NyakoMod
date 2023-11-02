@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -33,5 +34,7 @@ public class PlayerManagerMixin {
         manager.setSaturationLevel(3);
 
         serverPlayerEntity.hungerManager = player.hungerManager;
+
+        ((PlayerEntityAccess) serverPlayerEntity).setStickerPackCollection(((PlayerEntityAccess) player).getStickerPackCollection());
     }
 }
