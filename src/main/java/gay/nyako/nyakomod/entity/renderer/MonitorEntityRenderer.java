@@ -84,6 +84,7 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
 
                     float monitorWidth = entity.getMonitorWidth();
                     float monitorHeight = entity.getMonitorHeight();
+                    boolean fillMode = entity.getFillMode();
                     float monitorAspectRatio = monitorWidth / monitorHeight;
                     float aspectRatio = width / height;
 
@@ -92,7 +93,12 @@ public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
                     float outputWidth;
                     float outputHeight;
 
-                    if (aspectRatio > monitorAspectRatio) {
+                    if (fillMode) {
+                        x = 0;
+                        y = 0;
+                        outputWidth = monitorWidth;
+                        outputHeight = monitorHeight;
+                    } else if (aspectRatio > monitorAspectRatio) {
                         // image is wider than monitor
                         outputHeight = monitorWidth / aspectRatio;
                         outputWidth = monitorWidth;

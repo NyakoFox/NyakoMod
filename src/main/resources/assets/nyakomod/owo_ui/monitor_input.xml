@@ -1,5 +1,5 @@
 <owo-ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.19/owo-ui.xsd">
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.20/owo-ui.xsd">
     <components>
         <flow-layout direction="vertical">
             <children>
@@ -86,6 +86,28 @@
                                         <horizontal method="content">2</horizontal>
                                     </sizing>
                                 </button>
+                            </children>
+                            <margins>
+                                <top>10</top>
+                            </margins>
+                            <horizontal-alignment>center</horizontal-alignment>
+                        </flow-layout>
+
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <label>
+                                    <text>Fit:</text>
+                                    <margins>
+                                        <right>10</right>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fixed">32</horizontal>
+                                    </sizing>
+                                </label>
+                                <checkbox id="fill-mode">
+                                    <checked>false</checked>
+                                    <text>Fill</text>
+                                </checkbox>
                             </children>
                             <margins>
                                 <top>10</top>

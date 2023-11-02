@@ -45,6 +45,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
     protected static final TrackedData<String> TEXTURE_URL = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.STRING);
     protected static final TrackedData<Integer> WIDTH = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
     protected static final TrackedData<Integer> HEIGHT = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    protected static final TrackedData<Boolean> FILL_MODE = DataTracker.registerData(MonitorEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     protected final Predicate<Entity> PREDICATE = entity -> {
         if (entity instanceof MonitorEntity) {
@@ -75,6 +76,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         this.dataTracker.startTracking(TEXTURE_URL, "");
         this.dataTracker.startTracking(WIDTH, 1);
         this.dataTracker.startTracking(HEIGHT, 1);
+        this.dataTracker.startTracking(FILL_MODE, false);
     }
 
     @Override
@@ -82,6 +84,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         if (TEXTURE_URL.equals(data)) setURL(this.dataTracker.get(TEXTURE_URL));
         if (WIDTH.equals(data)) setMonitorWidth(this.dataTracker.get(WIDTH));
         if (HEIGHT.equals(data)) setMonitorHeight(this.dataTracker.get(HEIGHT));
+        if (FILL_MODE.equals(data)) setMonitorFillMode(this.dataTracker.get(FILL_MODE));
 
         super.onTrackedDataSet(data);
     }
@@ -102,6 +105,15 @@ public class MonitorEntity extends AbstractDecorationEntity {
     public void setMonitorHeight(int height) {
         this.dataTracker.set(HEIGHT, height);
         updateAttachmentPosition();
+    }
+
+    public void setMonitorFillMode(boolean fillMode) {
+        this.dataTracker.set(FILL_MODE, fillMode);
+        updateAttachmentPosition();
+    }
+
+    public Boolean getFillMode() {
+        return this.dataTracker.get(FILL_MODE);
     }
 
     public String getURL() {

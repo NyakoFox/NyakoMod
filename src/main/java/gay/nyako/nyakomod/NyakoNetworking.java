@@ -98,6 +98,7 @@ public class NyakoNetworking {
                     var UUID = buffer.readUuid();
                     var width = buffer.readInt();
                     var height = buffer.readInt();
+                    var fillMode = buffer.readBoolean();
 
                     server.execute(() -> {
                         ServerWorld world = (ServerWorld) player.getWorld();
@@ -107,6 +108,7 @@ public class NyakoNetworking {
                             monitorEntity.setURL(string);
                             monitorEntity.setMonitorWidth(MathHelper.clamp(width, 1, 16));
                             monitorEntity.setMonitorHeight(MathHelper.clamp(height, 1, 16));
+                            monitorEntity.setMonitorFillMode(fillMode);
                         }
                     });
                 }

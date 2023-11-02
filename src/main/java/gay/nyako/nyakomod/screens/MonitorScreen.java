@@ -1,9 +1,11 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.ButtonComponent;
+import io.wispforest.owo.ui.component.CheckboxComponent;
 import io.wispforest.owo.ui.component.DiscreteSliderComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 
@@ -37,11 +39,17 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
         var upButton = rootComponent.childById(ButtonComponent.class, "up");
         var downButton = rootComponent.childById(ButtonComponent.class, "down");
 
+        var fillModeElement = rootComponent.childById(CheckboxComponent.class, "fill-mode");
+
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());
         textElement.setCursorToStart();
         widthElement.setFromDiscreteValue(monitorEntity.getMonitorWidth());
         heightElement.setFromDiscreteValue(monitorEntity.getMonitorHeight());
+
+        //NyakoMod.LOGGER.info("Fill mode checkbox:");
+        //NyakoMod.LOGGER.info(fillModeElement);
+        fillModeElement.checked(monitorEntity.getFillMode());
 
         leftButton.onPress(button -> {
             var buf = PacketByteBufs.create();
@@ -86,8 +94,8 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
             buf.writeUuid(monitorEntity.getUuid());
 
             buf.writeInt((int) widthElement.discreteValue());
-
             buf.writeInt((int) heightElement.discreteValue());
+            buf.writeBoolean(fillModeElement.isChecked());
 
             ClientPlayNetworking.send(NyakoNetworking.MONITOR_SET_URL, buf);
 
