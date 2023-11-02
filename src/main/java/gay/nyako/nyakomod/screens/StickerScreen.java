@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.screens;
 
 import com.google.common.collect.Lists;
 import gay.nyako.nyakomod.Sticker;
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -22,30 +23,32 @@ public class StickerScreen extends Screen {
     @Override
     protected void init() {
         stickers.clear();
-        addSticker("cool_idea");
-        addSticker("skill_issue");
-        addSticker("cry_about_it");
-        addSticker("slugcat_wave");
-        addSticker("swellow");
-        addSticker("very_good");
-        addSticker("waits_faster");
-        addSticker("wrong");
-        addSticker("i_forgor");
-        addSticker("i_rember");
-        addSticker("mindblowing");
-        addSticker("so_ive_heard");
-        addSticker("does_he_know");
-        addSticker("adachi_true");
-        addSticker("adachi_false");
-        addSticker("adachi_maybe");
-        addSticker("adachi_cringe");
-        addSticker("out_of_my_way");
-        addSticker("im_gonna_cry");
-        addSticker("post_this_when_you_winning");
+
+        MinecraftClient.getInstance().getResourceManager()
+                .findAllResources("textures/sticker", id -> id.getPath().endsWith(".png")).forEach(
+                        (resourceID, resource) -> {
+                            String[] path = resourceID.getPath().split("/");
+                            if (path.length == 3)
+                            {
+                                addSticker(path[2].substring(0, path[2].length() - 4));
+                            }
+                            else if (path.length == 4)
+                            {
+                                addStickerPack(path[2], path[3].substring(0, path[3].length() - 4));
+                            }
+                        }
+                );
 
         readjustStickers();
 
         super.init();
+    }
+
+    private void addStickerPack(String pack, String name) {
+        if (((PlayerEntityAccess)MinecraftClient.getInstance().player).getStickerPackCollection().hasStickerPack(pack))
+        {
+            addSticker(pack + "/" + name);
+        }
     }
 
     @Override
@@ -55,23 +58,23 @@ public class StickerScreen extends Screen {
 
     private void readjustStickers() {
         int stickersPerRow = Math.min((this.width - 32) / (64 + 16), 6);
-        int totalHeight = (stickers.size() / stickersPerRow) * (64 + 16);
-        int scrollMax = totalHeight - (this.height - 32);
+        int totalHeight = (int) ((Math.ceil((float)stickers.size() / (float)stickersPerRow)) * (64 + 16));
+        int scrollMax = totalHeight - this.height + 16;
 
-        if (scroll < 0)
+        if (scroll < -scrollMax)
+        {
+            scroll = -scrollMax;
+        }
+
+        if (scroll > 0)
         {
             scroll = 0;
         }
 
-        if (scroll > scrollMax)
+        // center if the entire thing fits in the screen
+        if (scrollMax < 0)
         {
-            scroll = scrollMax;
-        }
-
-        if (totalHeight < this.height - 32)
-        {
-            // center
-            scroll = (this.height - 32 - totalHeight) / 2;
+            scroll = (this.height - 16 - totalHeight) / 2;
         }
 
         for (int index = 0; index < stickers.size(); index++)

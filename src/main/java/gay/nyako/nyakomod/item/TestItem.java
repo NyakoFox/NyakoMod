@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.StickerPackCollection;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,11 +17,7 @@ public class TestItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         var access = (PlayerEntityAccess) user;
-        if (user.isSneaking()) {
-            access.setMilk(access.getMilk() - 1);
-        } else {
-            access.setMilk(access.getMilk() + 1);
-        }
+        access.setStickerPackCollection(new StickerPackCollection());
 
         return TypedActionResult.success(user.getStackInHand(hand));
     }

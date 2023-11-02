@@ -9,5 +9,6 @@ public record ShopEntry (
         List<ItemStack> stacks,
         int price,
         Text name,
-        Text description
+        Text description,
+        String pack
 ) {}

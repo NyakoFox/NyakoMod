@@ -50,6 +50,45 @@
     {
       "items": [
         {
+          "id": "nyakomod:sticker_pack",
+          "Count": 1,
+          "nbt": "{Pack:\"adachi\"}"
+        }
+      ],
+      "pack": "adachi",
+      "name": "Adachi Stickers",
+      "description": "Stickers that contain Adachi, like the classic True!, and even new ones, like False!, Maybe! and Cringe!",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:sticker_pack",
+          "Count": 1,
+          "nbt": "{Pack:\"cat\"}"
+        }
+      ],
+      "pack": "cat",
+      "name": "Cat Stickers",
+      "description": "Stickers that contain cats. Swell Fellow, I'm Gonna Cry, and more!",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:sticker_pack",
+          "Count": 1,
+          "nbt": "{Pack:\"funny\"}"
+        }
+      ],
+      "pack": "funny",
+      "name": "Funny Stickers",
+      "description": "Stickers which are funny, strange, or outright don't fit as stickers.",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
           "id": "nyakomod:pet_sprite_summon",
           "Count": 1
         }

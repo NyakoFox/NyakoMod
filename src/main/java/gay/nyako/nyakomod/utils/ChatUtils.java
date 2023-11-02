@@ -6,6 +6,7 @@ import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.ChatPrefix;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 public class ChatUtils {
@@ -18,12 +19,12 @@ public class ChatUtils {
         broadcast(server, TextParserUtils.formatText(text), prefix);
     }
 
-    public static void send(PlayerEntity player, Text text, ChatPrefix prefix) {
+    public static void send(ServerPlayerEntity player, Text text, ChatPrefix prefix) {
         var text2 = Placeholders.parseText(text, PlaceholderContext.of(player));
         player.sendMessage(prefix.apply(text2), false);
     }
 
-    public static void send(PlayerEntity player, String text, ChatPrefix prefix) {
+    public static void send(ServerPlayerEntity player, String text, ChatPrefix prefix) {
         send(player, TextParserUtils.formatText(text), prefix);
     }
 }

@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod;
 
-import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.access.EntityAccess;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -8,9 +7,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
 import net.minecraft.world.PersistentState;
 
 public class SlimeSkyManager extends PersistentState {

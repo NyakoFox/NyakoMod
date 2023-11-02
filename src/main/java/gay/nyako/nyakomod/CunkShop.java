@@ -81,7 +81,8 @@ public class CunkShop {
                             stacks,
                             entryJson.get("price").getAsInt(),
                             Text.of(entryJson.get("name").getAsString()),
-                            Text.of(entryJson.get("description").getAsString())
+                            Text.of(entryJson.get("description").getAsString()),
+                            entryJson.get("pack") == null ? null : entryJson.get("pack").getAsString()
                     )
             );
         });

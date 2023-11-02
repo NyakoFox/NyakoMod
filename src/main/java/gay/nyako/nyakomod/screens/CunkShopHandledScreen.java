@@ -6,14 +6,10 @@ import gay.nyako.nyakomod.NyakoNetworking;
 import io.netty.buffer.Unpooled;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
-import io.wispforest.owo.ui.component.ButtonComponent;
-import io.wispforest.owo.ui.component.Components;
-import io.wispforest.owo.ui.component.LabelComponent;
+import io.wispforest.owo.ui.component.*;
 import io.wispforest.owo.ui.container.FlowLayout;
-import io.wispforest.owo.ui.core.Color;
-import io.wispforest.owo.ui.core.CursorStyle;
-import io.wispforest.owo.ui.core.Insets;
-import io.wispforest.owo.ui.core.Sizing;
+import io.wispforest.owo.ui.container.GridLayout;
+import io.wispforest.owo.ui.core.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -27,6 +23,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -145,6 +142,42 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         rootComponent.childById(LabelComponent.class, "purchase-header").text(shopEntry.name());
 
         rootComponent.childById(LabelComponent.class,"entry-description").text(shopEntry.description());
+        var gridLayout = rootComponent.childById(GridLayout.class,"stickers");
+        List<Component> children = new ArrayList<>(gridLayout.children());
+        children.forEach(
+                gridLayout::removeChild
+        );
+
+        if (shopEntry.pack() != null)
+        {
+            gridLayout.sizing(Sizing.content(2));
+            List<Identifier> stickers = new ArrayList<>();
+            MinecraftClient.getInstance().getResourceManager()
+                    .findAllResources("textures/sticker/" + shopEntry.pack(), id -> id.getPath().endsWith(".png")).forEach(
+                            (resourceID, resource) -> {
+                                stickers.add(resourceID);
+                            }
+                    );
+            for (int i = 0; i < stickers.size(); i++)
+            {
+                int x = i % 4;
+                int y = i / 4;
+                gridLayout.child(
+                        Components.texture(
+                                stickers.get(i),
+                                0, 0,
+                                32, 32,
+                                32, 32
+                        ),
+                        y,
+                        x
+                );
+            }
+        }
+        else
+        {
+            gridLayout.verticalSizing(Sizing.fixed(0));
+        }
 
         updatePurchaseAmount(rootComponent);
     }

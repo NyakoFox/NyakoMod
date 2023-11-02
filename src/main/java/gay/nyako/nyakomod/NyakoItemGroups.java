@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.item.StickerPackItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.EnchantedBookItem;
@@ -167,6 +168,9 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.BURNING_SUPER_DEATH_SWORD);
 
                 entries.add(NyakoItems.ELYTRA_BLOCK);
+                entries.add(StickerPackItem.of("cat"));
+                entries.add(StickerPackItem.of("funny"));
+                entries.add(StickerPackItem.of("adachi"));
             })
             .build());
 

@@ -1,18 +1,11 @@
 package gay.nyako.nyakomod.mixin;
 
-import com.mojang.authlib.GameProfile;
 import gay.nyako.nyakomod.NyakoCriteria;
 import gay.nyako.nyakomod.NyakoMod;
+import gay.nyako.nyakomod.StickerPackCollection;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
-import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
-import gay.nyako.nyakomod.command.BackCommand;
-import gay.nyako.nyakomod.command.XpCommand;
 import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
-import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.utils.NyakoUtils;
-import net.minecraft.SharedConstants;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -27,21 +20,16 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
@@ -61,6 +49,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     private static final TrackedData<Integer> MILK = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_SATURATION = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_TIMER = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    private static final TrackedData<StickerPackCollection> STICKER_PACK_COLLECTION = DataTracker.registerData(PlayerEntity.class, NyakoMod.STICKER_PACK_COLLECTION_DATA);
 
     @Shadow
     public ScreenHandler currentScreenHandler;
@@ -107,11 +97,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         return this.dataTracker.get(MILK_TIMER);
     }
 
+    public StickerPackCollection getStickerPackCollection() {
+        return this.dataTracker.get(STICKER_PACK_COLLECTION);
+    }
+
+    public void setStickerPackCollection(StickerPackCollection stickerPackCollection) {
+        this.dataTracker.set(STICKER_PACK_COLLECTION, stickerPackCollection);
+    }
+
     @Inject(at = @At("TAIL"), method = "initDataTracker()V")
     private void initDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(MILK, 10);
         this.dataTracker.startTracking(MILK_SATURATION, 2);
         this.dataTracker.startTracking(MILK_TIMER, 0);
+        this.dataTracker.startTracking(STICKER_PACK_COLLECTION, new StickerPackCollection());
     }
 
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V")
@@ -119,6 +118,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         nbt.putInt("Milk", this.dataTracker.get(MILK));
         nbt.putInt("MilkSaturation", this.dataTracker.get(MILK_SATURATION));
         nbt.putInt("MilkTimer", this.dataTracker.get(MILK_TIMER));
+        nbt.put("StickerCollection", this.dataTracker.get(STICKER_PACK_COLLECTION).toNbt());
     }
 
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V")
@@ -140,6 +140,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             milkTimer = nbt.getInt("MilkTimer");
         }
         this.dataTracker.set(MILK_TIMER, milkTimer);
+
+        StickerPackCollection stickerPackCollection = new StickerPackCollection();
+        if (nbt.contains("StickerCollection")) {
+            stickerPackCollection.fromNbt(nbt.get("StickerCollection"));
+        }
+        this.dataTracker.set(STICKER_PACK_COLLECTION, stickerPackCollection);
     }
 
     @Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;")

@@ -22,8 +22,6 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -31,8 +29,11 @@ import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.data.TrackedDataHandler;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.*;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.ResourceType;
@@ -73,8 +74,40 @@ public class NyakoMod implements ModInitializer {
     @Environment(EnvType.SERVER)
     public static ModelManager MODEL_MANAGER = new ModelManager();
 
+    public static final TrackedDataHandler<StickerPackCollection> STICKER_PACK_COLLECTION_DATA = new TrackedDataHandler<>(){
+
+        @Override
+        public void write(PacketByteBuf packetByteBuf, StickerPackCollection stickerPackCollection) {
+            packetByteBuf.writeInt(stickerPackCollection.size());
+            for (String string : stickerPackCollection) {
+                packetByteBuf.writeString(string);
+            }
+        }
+
+        @Override
+        public StickerPackCollection read(PacketByteBuf packetByteBuf) {
+            int size = packetByteBuf.readInt();
+            StickerPackCollection collection = new StickerPackCollection();
+            for (int i = 0; i < size; i++) {
+                collection.add(packetByteBuf.readString());
+            }
+            return collection;
+        }
+
+        @Override
+        public StickerPackCollection copy(StickerPackCollection stickerPackCollection) {
+            StickerPackCollection newCollection = new StickerPackCollection();
+            newCollection.addAll(stickerPackCollection);
+            return newCollection;
+        }
+
+    };
+
     @Override
     public void onInitialize() {
+
+        TrackedDataHandlerRegistry.register(STICKER_PACK_COLLECTION_DATA);
+
         Milk.enableMilkFluid();
         Milk.enableCauldron();
         Milk.enableMilkPlacing();

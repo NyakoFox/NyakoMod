@@ -48,7 +48,7 @@ public class  Sticker {
 
         if (playerName != null) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2), (int) drawY, 0xFFFFFFFF, true);
+            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2), (int) drawY - 8, 0xFFFFFFFF, true);
         }
     }
 
