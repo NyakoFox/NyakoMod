@@ -28,7 +28,9 @@ public class RodOfDiscordItem extends Item {
         double x = Math.round(result.getPos().getX()) - 0.5f;
         double y = Math.round(result.getPos().getY());
         double z = Math.round(result.getPos().getZ()) - 0.5f;
-        FabricDimensions.teleport(user, (ServerWorld) user.getWorld(), new TeleportTarget(new Vec3d(x, y, z), user.getVelocity(), user.getYaw(), user.getPitch()));
+        if (!world.isClient()) {
+            FabricDimensions.teleport(user, (ServerWorld) user.getWorld(), new TeleportTarget(new Vec3d(x, y, z), user.getVelocity(), user.getYaw(), user.getPitch()));
+        }
         //user.requestTeleportAndDismount(x, y, z);
         world.playSound(x, y, z, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
 
