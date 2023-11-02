@@ -202,6 +202,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         nbt.putString("URL", getURL());
         nbt.putInt("Width", getMonitorWidth());
         nbt.putInt("Height", getMonitorHeight());
+        nbt.putBoolean("FillMode", getFillMode());
     }
 
     @Override
@@ -211,6 +212,7 @@ public class MonitorEntity extends AbstractDecorationEntity {
         setURL(nbt.getString("URL"));
         setMonitorWidth(nbt.getInt("Width"));
         setMonitorHeight(nbt.getInt("Height"));
+        setMonitorFillMode(nbt.getBoolean("FillMode"));
     }
 
     @Override
