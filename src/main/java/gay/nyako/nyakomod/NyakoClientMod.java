@@ -230,8 +230,9 @@ public class NyakoClientMod implements ClientModInitializer {
 				(client, handler, buffer, sender) -> {
 					var name = buffer.readString();
 					var playerName = buffer.readText();
+					var uuid = buffer.readUuid();
 					client.execute(() -> {
-								StickerSystem.addSticker(playerName, name, false);
+								StickerSystem.addSticker(playerName, name, uuid);
 							}
 					);
 				}

@@ -4,7 +4,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -12,6 +11,7 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 public class StickerSystem {
     public static List<Sticker> STICKERS = new ArrayList<>();
@@ -40,13 +40,13 @@ public class StickerSystem {
         }
     }
 
-    public static void addSticker(Text player, String swellow, boolean client) {
+    public static void addSticker(Text player, String stickerID, UUID playerUUID) {
         MinecraftClient.getInstance().player.playSound(NyakoSoundEvents.STICKER, SoundCategory.PLAYERS, 1f, 1f);
 
         Sticker sticker = new Sticker();
-        sticker.player = player;
-        sticker.client = client;
-        sticker.name = swellow;
+        sticker.playerName = player;
+        sticker.stickerID = stickerID;
+        sticker.playerUUID = playerUUID;
         sticker.oldTicks = 0;
         sticker.tickDelta = 0;
         sticker.ticks = 0;
@@ -71,7 +71,6 @@ public class StickerSystem {
     }
 
     public static void showSticker(String name) {
-        addSticker(MinecraftClient.getInstance().player.getDisplayName(), name, true);
         PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
         passedData.writeString(name);
         ClientPlayNetworking.send(NyakoNetworking.SEND_STICKER, passedData);

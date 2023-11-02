@@ -3,15 +3,16 @@ package gay.nyako.nyakomod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class Sticker {
-    public Text player = null;
-    public String name = null;
-    public boolean client = false;
+import java.util.UUID;
+
+public class  Sticker {
+    public Text playerName = null;
+    public String stickerID = null;
+    public UUID playerUUID = null;
     public float oldTicks = 0;
     public float ticks = 0;
     public float tickDelta = 0;
@@ -41,14 +42,14 @@ public class Sticker {
         float drawY = MathHelper.lerp(tickDelta, lastY, currentY);
 
         drawContext.setShaderColor(0, 0, 0, 0.5f);
-        drawContext.drawTexture(getSticker(name), (int) drawX + 1, (int) drawY + 1, 0, 0, width, height, width, height);
+        drawContext.drawTexture(getSticker(stickerID), (int) drawX + 1, (int) drawY + 1, 0, 0, width, height, width, height);
         drawContext.setShaderColor(1, 1, 1, 1);
-        drawContext.drawTexture(getSticker(name), (int) drawX, (int) drawY, 0, 0, width, height, width, height);
+        drawContext.drawTexture(getSticker(stickerID), (int) drawX, (int) drawY, 0, 0, width, height, width, height);
 
-        if (player != null) {
+        if (playerName != null) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            drawContext.drawText(textRenderer, player, (int) (drawX + (width / 2f) - textRenderer.getWidth(player) / 2) + 1, (int) drawY + 1, 0xFF000000, false);
-            drawContext.drawText(textRenderer, player, (int) (drawX + (width / 2f) - textRenderer.getWidth(player) / 2), (int) drawY, 0xFFFFFFFF, false);
+            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2) + 1, (int) drawY + 1, 0xFF000000, false);
+            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2), (int) drawY, 0xFFFFFFFF, false);
         }
     }
 

@@ -208,14 +208,12 @@ public class NyakoNetworking {
                 (server, player, handler, buffer, sender) -> {
                     var name = buffer.readString();
                     server.execute(() -> {
-                        // send to every player except the sender
                         server.getPlayerManager().getPlayerList().forEach((serverPlayerEntity) -> {
-                            if (serverPlayerEntity != player) {
-                                PacketByteBuf buffer2 = new PacketByteBuf(Unpooled.buffer());
-                                buffer2.writeString(name);
-                                buffer2.writeText(player.getDisplayName());
-                                ServerPlayNetworking.send(serverPlayerEntity, SEND_STICKER_TO_CLIENT, buffer2);
-                            }
+                            PacketByteBuf buffer2 = new PacketByteBuf(Unpooled.buffer());
+                            buffer2.writeString(name);
+                            buffer2.writeText(player.getDisplayName());
+                            buffer2.writeUuid(player.getUuid());
+                            ServerPlayNetworking.send(serverPlayerEntity, SEND_STICKER_TO_CLIENT, buffer2);
                         });
                     });
                 }

@@ -21,6 +21,7 @@ public class StickerScreen extends Screen {
         stickers.clear();
         addSticker("cool_idea");
         addSticker("skill_issue");
+        addSticker("cry_about_it");
         addSticker("slugcat_wave");
         addSticker("swellow");
         addSticker("very_good");
@@ -35,6 +36,9 @@ public class StickerScreen extends Screen {
         addSticker("adachi_false");
         addSticker("adachi_maybe");
         addSticker("adachi_cringe");
+        addSticker("out_of_my_way");
+        addSticker("im_gonna_cry");
+        addSticker("post_this_when_you_winning");
         super.init();
     }
 
@@ -43,7 +47,7 @@ public class StickerScreen extends Screen {
         int y = this.stickers.size() / 4;
 
         int offX = (this.width - (64 + 16) * 4) / 2;
-        int offY = (this.height - (64 + 16) * 4) / 2;
+        int offY = (this.height - (64 + 16) * 5) / 2;
 
         StickerWidget button = new StickerWidget(offX + (x * (64 + 16)), offY + (y * (64 + 16)), name);
         this.addDrawableChild(button);

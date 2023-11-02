@@ -23,10 +23,8 @@ public class StickerWidget extends PressableWidget {
     public void onPress() {
         for (Sticker sticker : StickerSystem.STICKERS)
         {
-            if (sticker.client) {
-                if (sticker.ticks < 50) {
-                    return;
-                }
+            if (sticker.playerUUID.equals(MinecraftClient.getInstance().player.getUuid()) && sticker.ticks < 50) {
+                return;
             }
         }
 
