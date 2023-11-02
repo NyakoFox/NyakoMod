@@ -26,8 +26,8 @@ public class  Sticker {
 
     public void render(DrawContext drawContext)
     {
-        int width = 64;
-        int height = 64;
+        int width = StickerSystem.STICKER_WIDTH;
+        int height = StickerSystem.STICKER_HEIGHT;
 
         if (currentX == -1) {
             currentX = drawContext.getScaledWindowWidth();
@@ -48,8 +48,7 @@ public class  Sticker {
 
         if (playerName != null) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2) + 1, (int) drawY + 1, 0xFF000000, false);
-            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2), (int) drawY, 0xFFFFFFFF, false);
+            drawContext.drawText(textRenderer, playerName, (int) (drawX + (width / 2f) - textRenderer.getWidth(playerName) / 2), (int) drawY, 0xFFFFFFFF, true);
         }
     }
 

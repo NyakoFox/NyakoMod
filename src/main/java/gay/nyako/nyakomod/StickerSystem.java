@@ -16,12 +16,16 @@ import java.util.UUID;
 public class StickerSystem {
     public static List<Sticker> STICKERS = new ArrayList<>();
 
+    public static int STICKER_WIDTH = 64;
+    public static int STICKER_HEIGHT = 64;
+    public static int STICKER_PADDING = 8;
+
     public static void render(DrawContext drawContext, float tickDelta) {
-        int y = drawContext.getScaledWindowHeight() / 2 - (32 * STICKERS.size());
+        int y = drawContext.getScaledWindowHeight() / 2 - (STICKERS.size() * (STICKER_HEIGHT + STICKER_PADDING)) / 2;
 
         Iterator<Sticker> iterator = STICKERS.iterator();
         while (iterator.hasNext()) {
-            int x = drawContext.getScaledWindowWidth() - 64 - 8;
+            int x = drawContext.getScaledWindowWidth() - STICKER_WIDTH - STICKER_PADDING;
 
             Sticker sticker = iterator.next();
             sticker.tickDelta = tickDelta;
@@ -36,7 +40,7 @@ public class StickerSystem {
 
             sticker.render(drawContext);
 
-            y += 64;
+            y += STICKER_HEIGHT + STICKER_PADDING;
         }
     }
 
