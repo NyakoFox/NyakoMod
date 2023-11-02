@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
+
     @Inject(method = "respawnPlayer",
             at = @At(
                     target = "Lnet/minecraft/server/network/ServerPlayerEntity;setHealth(F)V",
@@ -34,7 +35,5 @@ public class PlayerManagerMixin {
         manager.setSaturationLevel(3);
 
         serverPlayerEntity.hungerManager = player.hungerManager;
-
-        ((PlayerEntityAccess) serverPlayerEntity).setStickerPackCollection(((PlayerEntityAccess) player).getStickerPackCollection());
     }
 }
