@@ -77,8 +77,8 @@
       "nyakomod:sculk_vein"
     ],
     [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
+      "nyakomod:spring_water",
+      "nyakomod:spring_lava"
     ],
     [
       "nyakomod:patch_echo_sproutbulb",

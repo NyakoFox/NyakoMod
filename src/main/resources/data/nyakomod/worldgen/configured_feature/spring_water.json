@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:spring_feature",
+  "config": {
+    "state": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "falling": "true"
+      }
+    },
+    "rock_count": 4,
+    "hole_count": 1,
+    "requires_block_below": true,
+    "valid_blocks": [
+      "nyakomod:echo_stone",
+      "nyakomod:echo_growth",
+      "nyakomod:echo_dirt",
+      "nyakomod:echo_slate"
+    ]
+  }
+}

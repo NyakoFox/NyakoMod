@@ -56,6 +56,8 @@ public class NyakoLoot {
         coinLootTables.add(new Identifier("minecraft", "chests/igloo_chest"));
         coinLootTables.add(new Identifier("minecraft", "chests/ruined_portal"));
         coinLootTables.add(new Identifier("minecraft", "chests/village/village_weaponsmith"));
+        coinLootTables.add(new Identifier("minecraft", "chests/ancient_city"));
+        coinLootTables.add(new Identifier("minecraft", "chests/ancient_city_ice_box"));
 
         // Dungeons Arise
         coinLootTables.add(new Identifier("dungeons_arise", "abandoned_temple/abandoned_temple_entrance"));
@@ -207,6 +209,7 @@ public class NyakoLoot {
             if (source.isBuiltin() && (new Identifier("minecraft", "blocks/oak_leaves")).equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                         .conditionally(BlockLootTableGenerator.WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                        .with(ItemEntry.builder(NyakoItems.GREEN_APPLE).weight(1))
                         /*.with(
                                 BlockLootTableGenerator.addSurvivesExplosionCondition(Blocks.OAK_LEAVES, ItemEntry.builder(NyakoItems.GREEN_APPLE))
                         )*/.conditionally(
@@ -272,6 +275,9 @@ public class NyakoLoot {
                     case "minecraft:chests/end_city_treasure":
                     case "minecraft:chests/jungle_temple":
                     case "minecraft:chests/igloo_chest":
+                    case "minecraft:chests/ancient_city":
+                    case "minecraft:chests/ancient_city_ice_box":
+                    case "dungeons_arise:shiraz_palace/shiraz_palace_treasure":
                         tableBuilder.pool(addLootTableCoins(NyakoItems.EMERALD_COIN, 1, 2, 5).build());
                     case "minecraft:chests/buried_treasure":
                     case "minecraft:chests/pillager_outpost":

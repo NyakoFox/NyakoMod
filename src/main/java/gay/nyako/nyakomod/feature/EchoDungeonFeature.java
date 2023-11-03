@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import gay.nyako.nyakomod.NyakoBlocks;
 import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -85,7 +86,7 @@ public class EchoDungeonFeature extends Feature<DefaultFeatureConfig> {
                         }
                         if (!blockState.isSolid() || blockState.isOf(Blocks.CHEST)) continue;
                         if (t == -1 && random.nextInt(4) != 0) {
-                            this.setBlockStateIf(structureWorldAccess, blockPos2, Blocks.CRYING_OBSIDIAN.getDefaultState(), predicate);
+                            this.setBlockStateIf(structureWorldAccess, blockPos2, NyakoBlocks.ECHO_SLATE.getDefaultState(), predicate);
                             continue;
                         }
                         this.setBlockStateIf(structureWorldAccess, blockPos2, Blocks.OBSIDIAN.getDefaultState(), predicate);
