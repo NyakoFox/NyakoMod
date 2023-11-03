@@ -1,9 +1,12 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoMod;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
@@ -13,6 +16,7 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -50,5 +54,19 @@ public abstract class BucketItemMixin extends Item {
             cir.setReturnValue(TypedActionResult.success(itemStack3, world.isClient()));
             cir.cancel();
         }
+    }
+
+    @Inject(method = "use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;", at = @At(value = "HEAD"), cancellable = true)
+    private void injected(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
+
+    }
+
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        NyakoMod.LOGGER.info("Using Bucket on Entity");
+        if (FabricLoader.getInstance().isModLoaded("imm_ptl_core")) {
+            NyakoMod.LOGGER.info("immersive portal is loaded");
+            NyakoMod.LOGGER.info(entity);
+        }
+        return ActionResult.PASS;
     }
 }

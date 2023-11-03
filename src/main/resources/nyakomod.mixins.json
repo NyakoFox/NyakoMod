@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "gay.nyako.nyakomod.mixin",
+  "plugin": "gay.nyako.nyakomod.NyakoMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractFireBlockMixin",
@@ -45,7 +46,8 @@
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
-    "ZombieEntityMixin"
+    "ZombieEntityMixin",
+    "ImmersivePortalMixin"
   ],
   "client": [
     "ClientEntityMixin",
