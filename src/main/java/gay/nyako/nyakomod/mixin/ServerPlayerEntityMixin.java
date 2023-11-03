@@ -1,7 +1,9 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
@@ -23,6 +25,11 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
     private Vec3d joinPos = Vec3d.ZERO;
     private GameMode joinPreviousGameMode = GameMode.SURVIVAL;
     private GameMode joinGameMode = GameMode.SURVIVAL;
+
+    @Inject(method = "copyFrom(Lnet/minecraft/server/network/ServerPlayerEntity;Z)V", at = @At("HEAD"))
+    private void injected(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+        ((PlayerEntityAccess) (PlayerEntity) (Object) this).setStickerPackCollection(((PlayerEntityAccess) oldPlayer).getStickerPackCollection());
+    }
 
     @Override
     public void setSafeMode(boolean bool) {
