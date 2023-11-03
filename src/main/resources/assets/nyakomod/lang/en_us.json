@@ -319,5 +319,27 @@
     "stickers.nyakomod.pack.test3.title": "Test Pack 3",
     "stickers.nyakomod.pack.test4.title": "Test Pack 4",
     "stickers.nyakomod.pack.test5.title": "Test Pack 5",
-    "stickers.nyakomod.pack.test6.title": "Test Pack 6"
+    "stickers.nyakomod.pack.test6.title": "Test Pack 6",
+    "stickers.nyakomod.sticker.cool_idea.title": "Cool Idea!",
+    "stickers.nyakomod.sticker.cry_about_it.title": "Cry About It",
+    "stickers.nyakomod.sticker.skill_issue.title": "Skill Issue",
+    "stickers.nyakomod.sticker.slugcat_wave.title": "Slugcat Wave",
+    "stickers.nyakomod.sticker.adachi/cringe.title": "Cringe!",
+    "stickers.nyakomod.sticker.adachi/false.title": "False!",
+    "stickers.nyakomod.sticker.adachi/maybe.title": "Maybe!",
+    "stickers.nyakomod.sticker.adachi/true.title": "True!",
+    "stickers.nyakomod.sticker.cat/im_gonna_cry.title": "I'm Gonna Cry...",
+    "stickers.nyakomod.sticker.cat/mindblowing.title": "Mindblowing!",
+    "stickers.nyakomod.sticker.cat/so_ive_heard.title": "So I've Heard...",
+    "stickers.nyakomod.sticker.cat/swellow.title": "Swell Fellow!",
+    "stickers.nyakomod.sticker.cat/very_good.title": "Very Good!",
+    "stickers.nyakomod.sticker.funny/does_he_know.title": "Does He Know?",
+    "stickers.nyakomod.sticker.funny/i_forgor.title": "I Forgor",
+    "stickers.nyakomod.sticker.funny/i_rember.title": "I Rember",
+    "stickers.nyakomod.sticker.funny/out_of_my_way.title": "Out of My Way!",
+    "stickers.nyakomod.sticker.funny/post_this_when_you_winning.title": "Post This When You Winning",
+    "stickers.nyakomod.sticker.funny/waits_faster.title": "Waits Faster",
+    "stickers.nyakomod.sticker.funny/wrong.title": "Wrong",
+
+    "stickers.nyakomod.sticker_tooltip": "%s\nFrom %s"
 }
