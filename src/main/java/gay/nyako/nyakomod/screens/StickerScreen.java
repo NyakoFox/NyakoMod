@@ -8,8 +8,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +95,24 @@ public class StickerScreen extends Screen {
         pack.select();
         for (var name : pack.stickerNames) {
             StickerWidget button = new StickerWidget(0, 0, name);
+
+            String packName;
+            if (name.indexOf('/') == -1)
+            {
+                packName = "default";
+            }
+            else
+            {
+                packName = name.substring(0, name.indexOf('/'));
+            }
+
+            button.setTooltip(Tooltip.of(
+                    Text.translatable(
+                            "stickers.nyakomod.sticker_tooltip",
+                            Text.translatable("stickers.nyakomod.sticker." + name + ".title").formatted(Formatting.AQUA),
+                            Text.translatable("stickers.nyakomod.pack." + packName + ".title").formatted(Formatting.WHITE)
+                    ).formatted(Formatting.GRAY)
+            ));
             this.addDrawableChild(button);
 
             stickers.add(button);
