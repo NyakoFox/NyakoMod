@@ -55,18 +55,4 @@ public abstract class BucketItemMixin extends Item {
             cir.cancel();
         }
     }
-
-    @Inject(method = "use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;", at = @At(value = "HEAD"), cancellable = true)
-    private void injected(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-
-    }
-
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        NyakoMod.LOGGER.info("Using Bucket on Entity");
-        if (FabricLoader.getInstance().isModLoaded("imm_ptl_core")) {
-            NyakoMod.LOGGER.info("immersive portal is loaded");
-            NyakoMod.LOGGER.info(entity);
-        }
-        return ActionResult.PASS;
-    }
 }

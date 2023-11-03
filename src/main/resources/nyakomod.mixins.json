@@ -47,7 +47,7 @@
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
     "ZombieEntityMixin",
-    "ImmersivePortalMixin"
+    "ImmPtlNetherPortalEntityMixin"
   ],
   "client": [
     "ClientEntityMixin",

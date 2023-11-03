@@ -14,8 +14,8 @@ import qouteall.imm_ptl.core.portal.nether_portal.BreakablePortalEntity;
 import qouteall.imm_ptl.core.portal.nether_portal.NetherPortalEntity;
 
 @Mixin(NetherPortalEntity.class)
-public abstract class ImmersivePortalMixin extends BreakablePortalEntity {
-    public ImmersivePortalMixin(EntityType<?> type, World world) {
+public abstract class ImmPtlNetherPortalEntityMixin extends BreakablePortalEntity {
+    public ImmPtlNetherPortalEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
