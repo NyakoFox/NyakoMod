@@ -67,6 +67,13 @@ public class StickerPackItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.literal("§7§oRight-click to open this sticker pack!"));
+        String pack = itemStack.getNbt().getString("Pack");
+
+        tooltip.add(Text.translatable("item.nyakomod.sticker_pack.pack_tooltip",
+                Text.translatable("stickers.nyakomod.pack." + pack + ".title")
+                        .setStyle(Style.EMPTY.withColor(Formatting.LIGHT_PURPLE).withBold(true)))
+                .setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
+        tooltip.add(Text.translatable("item.nyakomod.sticker_pack.open_tooltip")
+                .setStyle(Style.EMPTY.withColor(Formatting.GRAY).withItalic(true)));
     }
 }

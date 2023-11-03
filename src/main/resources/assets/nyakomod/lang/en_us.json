@@ -174,6 +174,8 @@
     "item.nyakomod.burning_super_death_sword": "Burning Super Death Sword",
     "item.nyakomod.sticker_pack": "Sticker Pack",
     "item.nyakomod.sticker_pack.open": "You have opened the %s sticker pack!",
+    "item.nyakomod.sticker_pack.open_tooltip": "Right-click to open this sticker pack!",
+    "item.nyakomod.sticker_pack.pack_tooltip": "%s",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",

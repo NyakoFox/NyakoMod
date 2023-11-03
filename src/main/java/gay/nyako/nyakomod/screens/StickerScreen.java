@@ -90,6 +90,7 @@ public class StickerScreen extends Screen {
     public void loadStickerPack(StickerGroupWidget pack) {
         clearStickers();
 
+        pack.select();
         for (var name : pack.stickerNames) {
             StickerWidget button = new StickerWidget(0, 0, name);
             this.addDrawableChild(button);

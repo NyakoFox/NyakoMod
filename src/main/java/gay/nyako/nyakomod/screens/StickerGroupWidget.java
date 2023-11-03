@@ -71,6 +71,10 @@ public class StickerGroupWidget extends PressableWidget {
         stickerNames.add(name);
     }
 
+    public void select() {
+        selected = true;
+    }
+
     public void deselect() {
         selected = false;
     }
