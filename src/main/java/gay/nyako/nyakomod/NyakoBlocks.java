@@ -82,8 +82,8 @@ public class NyakoBlocks {
     public static final Block ECHO_HANGING_SIGN         = register("echo_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.ECHO));
     public static final Block ECHO_WALL_HANGING_SIGN    = register("echo_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(ECHO_HANGING_SIGN), NyakoWoodTypes.ECHO));
     public static final Block ECHO_LEAVES               = register("echo_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
-    public static final Block ECHO_SAPLING = register("echo_sapling", new SaplingBlock(new EchoSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
-    public static final Block POTTED_ECHO_SAPLING = register("potted_echo_sapling", Blocks.createFlowerPotBlock(ECHO_SAPLING, new FeatureFlag[0]));
+    public static final Block ECHO_SAPLING              = register("echo_sapling",              new SaplingBlock(new EchoSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.DARK_AQUA).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block POTTED_ECHO_SAPLING       = register("potted_echo_sapling",       Blocks.createFlowerPotBlock(ECHO_SAPLING, new FeatureFlag[0]));
 
     public static final Block BENTHIC_SPINE             = register("benthic_spine",                Blocks.createNetherStemBlock(MapColor.WHITE));
     public static final Block STRIPPED_BENTHIC_SPINE    = register("stripped_benthic_spine",       Blocks.createNetherStemBlock(MapColor.WHITE));
@@ -103,8 +103,8 @@ public class NyakoBlocks {
     public static final Block BENTHIC_HANGING_SIGN      = register("benthic_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_WALL_HANGING_SIGN = register("benthic_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(BENTHIC_HANGING_SIGN), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_LEAVES            = register("benthic_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
-    public static final Block BENTHIC_SAPLING = register("benthic_sapling", new SaplingBlock(new BenthicSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
-    public static final Block POTTED_BENTHIC_SAPLING = register("potted_benthic_sapling", Blocks.createFlowerPotBlock(BENTHIC_SAPLING, new FeatureFlag[0]));
+    public static final Block BENTHIC_SAPLING           = register("benthic_sapling",               new SaplingBlock(new BenthicSaplingGenerator(), FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block POTTED_BENTHIC_SAPLING    = register("potted_benthic_sapling",        Blocks.createFlowerPotBlock(BENTHIC_SAPLING, new FeatureFlag[0]));
 
     public static Block register(String id, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);

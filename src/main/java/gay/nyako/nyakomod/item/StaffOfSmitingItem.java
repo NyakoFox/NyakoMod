@@ -18,6 +18,7 @@ public class StaffOfSmitingItem extends Item {
         super(settings);
     }
 
+
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof PlayerEntity) {
