@@ -131,6 +131,14 @@
       }
     ]
   },
+  "music_disc.skibidi_real": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/skibidi_real",
+        "stream": true
+      }
+    ]
+  },
 
 
   "entity.decayed.ambient": {

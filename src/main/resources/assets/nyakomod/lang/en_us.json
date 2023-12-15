@@ -110,6 +110,8 @@
     "item.nyakomod.music_disc_skibidi.desc": "Lil Big Stack - Skibidi Toilet",
     "item.nyakomod.music_disc_merry2": "§bMusic Disc",
     "item.nyakomod.music_disc_merry2.desc": "Kanye West - Good bye, Merry-Go-Round",
+    "item.nyakomod.music_disc_skibidi_real": "§bMusic Disc",
+    "item.nyakomod.music_disc_skibidi_real.desc": "Skibidi Toilet - Skibidi Toilet",
     "item.nyakomod.netherite_coin": "§8Netherite CunkCoin™",
     "item.nyakomod.soul_jar": "Soul Jar",
     "item.nyakomod.soul_jar.tooltip": "§7Current entity: §r%s",
@@ -274,6 +276,7 @@
     "subtitles.nyakomod.sticker": "Sticker",
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
+    "trinkets.slot.chest.canister": "Canister",
 
     "key.nyakomod.model_open": "Open Model Menu",
     "key.nyakomod.killbind": "Kill Player",
