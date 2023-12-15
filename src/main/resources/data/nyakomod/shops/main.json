@@ -177,6 +177,17 @@
     {
       "items": [
         {
+          "id": "nyakomod:condensed_matter_container",
+          "Count": 1
+        }
+      ],
+      "name": "CMC",
+      "description": "A container holding a random amount of condensed matter, which constantly shifts between different forms.",
+      "price": 50000
+    },
+    {
+      "items": [
+        {
           "id": "minecraft:slime_ball",
           "Count": 1,
           "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"

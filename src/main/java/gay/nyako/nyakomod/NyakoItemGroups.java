@@ -171,6 +171,7 @@ public class NyakoItemGroups {
                 entries.add(StickerPackItem.of("cat"));
                 entries.add(StickerPackItem.of("funny"));
                 entries.add(StickerPackItem.of("adachi"));
+                entries.add(NyakoItems.CONDENSED_MATTER_CONTAINER);
             })
             .build());
 
