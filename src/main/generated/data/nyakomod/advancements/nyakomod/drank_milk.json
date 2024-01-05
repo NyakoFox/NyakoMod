@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nyakomod/root",
+  "parent": "nyakomod:nyakomod/root",
   "criteria": {
     "consume_item": {
       "conditions": {
@@ -13,19 +13,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "Drink a refreshing bucket of milk"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:bone"
     },
-    "show_toast": true,
-    "title": {
-      "text": "Bone Generator"
-    }
+    "title": "Bone Generator"
   },
   "requirements": [
     [

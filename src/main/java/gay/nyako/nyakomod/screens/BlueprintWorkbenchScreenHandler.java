@@ -95,7 +95,7 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraft(player.getWorld(), player, stack.getCount());
+        stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
         this.decrementStack(1);
     }
 

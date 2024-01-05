@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MilkBucketItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.scoreboard.ScoreHolder;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,11 +31,11 @@ public abstract class MilkBucketItemMixin extends Item {
 
             var nbt = stack.getOrCreateNbt();
             if (nbt.getBoolean("isFromPlayer") && !world.isClient()) {
-                player.getScoreboard().forEachScore(NyakoMod.PLAYER_MILK_CONSUMED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
+                player.getScoreboard().forEachScore(NyakoMod.PLAYER_MILK_CONSUMED_CRITERIA, ScoreHolder.fromName(player.getNameForScoreboard()), score -> score.setScore(score.getScore() + 1));
             }
 
             if (!world.isClient()) {
-                player.getScoreboard().forEachScore(NyakoMod.MILK_CONSUMED_CRITERIA, player.getEntityName(), score -> score.setScore(score.getScore() + 1));
+                player.getScoreboard().forEachScore(NyakoMod.MILK_CONSUMED_CRITERIA, ScoreHolder.fromName(player.getNameForScoreboard()), score -> score.setScore(score.getScore() + 1));
             }
         }
     }

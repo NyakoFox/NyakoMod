@@ -17,12 +17,12 @@ import java.util.List;
 
 public class SoulJarItemDispenserBehavior extends ItemDispenserBehavior {
     public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-        BlockPos pos = pointer.getPos();
-        World world = pointer.getWorld();
+        Direction direction = pointer.state().get(DispenserBlock.FACING);
+        BlockPos pos = pointer.pos();
+        World world = pointer.world();
         if (!stack.getOrCreateNbt().contains("entity")) {
-            BlockPos blockPos = pointer.getPos().offset(direction);
-            List<Entity> list = pointer.getWorld().getEntitiesByClass(
+            BlockPos blockPos = pointer.pos().offset(direction);
+            List<Entity> list = pointer.world().getEntitiesByClass(
                     Entity.class,
                     new Box(blockPos), Entity::isAlive
             );

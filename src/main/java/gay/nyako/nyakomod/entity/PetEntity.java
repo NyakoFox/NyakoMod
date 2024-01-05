@@ -1,5 +1,7 @@
 package gay.nyako.nyakomod.entity;
 
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketInventory;
 import dev.emi.trinkets.api.TrinketsApi;
 import gay.nyako.nyakomod.entity.goal.DespawnPetGoal;
 import gay.nyako.nyakomod.entity.goal.PetFollowOwnerGoal;
@@ -18,11 +20,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
-
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

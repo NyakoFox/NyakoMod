@@ -7,7 +7,6 @@ import io.wispforest.owo.ui.container.FlowLayout;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.item.ItemStack;
@@ -33,14 +32,14 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
         var nbt = item.getOrCreateNbt();
         if (nbt.contains("custom_sprite")) {
             textElement.setText(nbt.getString("custom_sprite"));
-            textElement.setCursorToStart();
+            textElement.setCursorToStart(false);
         }
         if (nbt.contains("pet_size")) {
             petSizeElement.setText(String.valueOf(nbt.getDouble("pet_size")));
         } else {
             petSizeElement.setText("2.0");
         }
-        petSizeElement.setCursorToStart();
+        petSizeElement.setCursorToStart(false);
 
         if (nbt.contains("still")) {
             checkboxWidget.checked = nbt.getBoolean("still");

@@ -20,9 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
-import java.util.Optional;
 
 public class DevNullItem extends Item {
     public DevNullItem(Settings settings) {

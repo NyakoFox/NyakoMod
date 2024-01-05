@@ -1,6 +1,8 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import gay.nyako.nyakomod.NyakoEntities;
+import gay.nyako.nyakomod.SongPlayer;
 import gay.nyako.nyakomod.screens.NBPScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
@@ -32,6 +34,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class NoteBlockPlusBlock extends BlockWithEntity {
+    public static final MapCodec<NoteBlockPlusBlock> CODEC = NoteBlockPlusBlock.createCodec(NoteBlockPlusBlock::new);
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
+    }
     public NoteBlockPlusBlock(Settings settings) {
         super(settings);
 
@@ -78,7 +85,7 @@ public class NoteBlockPlusBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NyakoEntities.NOTE_BLOCK_PLUS_ENTITY, NoteBlockPlusBlockEntity::tick);
+        return validateTicker(type, NyakoEntities.NOTE_BLOCK_PLUS_ENTITY, NoteBlockPlusBlockEntity::tick);
     }
 
     @Override

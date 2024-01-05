@@ -1,12 +1,12 @@
 {
-  "parent": "minecraft:nyakomod/player_milked",
+  "parent": "nyakomod:nyakomod/diamond_coin",
   "criteria": {
     "inventory_changed": {
       "conditions": {
         "items": [
           {
             "items": [
-              "nyakomod:horse_milk_bucket"
+              "nyakomod:netherite_coin"
             ]
           }
         ]
@@ -15,19 +15,14 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
-      "translate": "Milk a horse??? What the fuck?????"
+      "translate": "Obtain your first Netherite Coin"
     },
     "frame": "goal",
-    "hidden": true,
     "icon": {
-      "item": "nyakomod:horse_milk_bucket"
+      "item": "nyakomod:netherite_coin"
     },
-    "show_toast": true,
-    "title": {
-      "text": "BRO?????"
-    }
+    "title": "You're Rich"
   },
   "requirements": [
     [

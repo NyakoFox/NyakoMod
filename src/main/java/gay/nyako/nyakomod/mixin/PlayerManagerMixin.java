@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

@@ -5,6 +5,7 @@ import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.access.ServerPlayerEntityAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
+import net.minecraft.scoreboard.ScoreHolder;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.dimension.DimensionType;
@@ -114,7 +115,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
     public void playerTick(CallbackInfo info) {
         var player = ((ServerPlayerEntity) (Object) this);
         var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
-        player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, player.getEntityName(), score -> score.setScore(count));
+        player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, ScoreHolder.fromName(player.getNameForScoreboard()), score -> score.setScore(count));
     }
 
     @Redirect(method = "trySleep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/dimension/DimensionType;natural()Z"))

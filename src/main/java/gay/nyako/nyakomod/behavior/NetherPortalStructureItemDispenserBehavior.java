@@ -17,10 +17,10 @@ public class NetherPortalStructureItemDispenserBehavior extends ItemDispenserBeh
 
     @Override
     public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        BlockPos origin = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
-        ServerWorld world = pointer.getWorld();
+        BlockPos origin = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
+        ServerWorld world = pointer.world();
 
-        var facing = pointer.getBlockState().get(DispenserBlock.FACING);
+        var facing = pointer.state().get(DispenserBlock.FACING);
         // if its UP or DOWN then use NORTH
         if (facing == Direction.UP) {
             facing = Direction.NORTH;

@@ -10,6 +10,8 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class ShulkerBoxInventory extends SimpleInventory {
     public final ItemStack itemStack;

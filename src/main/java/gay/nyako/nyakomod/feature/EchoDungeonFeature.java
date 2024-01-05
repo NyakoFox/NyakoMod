@@ -11,6 +11,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.LootableInventory;
 import net.minecraft.loot.LootTables;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.StructurePiece;
@@ -111,7 +112,7 @@ public class EchoDungeonFeature extends Feature<DefaultFeatureConfig> {
                 }
                 if (x != 1) continue;
                 this.setBlockStateIf(structureWorldAccess, blockPos3, StructurePiece.orientateChest(structureWorldAccess, blockPos3, Blocks.CHEST.getDefaultState()), predicate);
-                LootableContainerBlockEntity.setLootTable(structureWorldAccess, random, blockPos3, LootTables.ANCIENT_CITY_CHEST);
+                LootableInventory.setLootTable(structureWorldAccess, random, blockPos3, LootTables.ANCIENT_CITY_CHEST);
                 continue block6;
             }
         }

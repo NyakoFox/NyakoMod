@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -9,10 +10,15 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
 
 public class EchoBulbBlock extends PlantBlock {
+    public static final MapCodec<EchoBulbBlock> CODEC = EchoBulbBlock.createCodec(EchoBulbBlock::new);
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return CODEC;
+    }
+
     public EchoBulbBlock(Settings settings) {
         super(settings);
     }
-
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         VoxelShape shape = VoxelShapes.empty();

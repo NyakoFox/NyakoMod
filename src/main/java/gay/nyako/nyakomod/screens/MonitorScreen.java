@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
@@ -43,7 +44,7 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
 
         textElement.setMaxLength(250);
         textElement.setText(monitorEntity.getURL());
-        textElement.setCursorToStart();
+        textElement.setCursorToStart(false);
         widthElement.setFromDiscreteValue(monitorEntity.getMonitorWidth());
         heightElement.setFromDiscreteValue(monitorEntity.getMonitorHeight());
 

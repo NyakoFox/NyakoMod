@@ -4,15 +4,10 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
-import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.ChatPrefixes;
 import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
-
 import static net.minecraft.server.command.CommandManager.literal;
-
 import java.util.HashMap;
-
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

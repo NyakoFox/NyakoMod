@@ -3,6 +3,7 @@ package gay.nyako.nyakomod;
 import gay.nyako.nyakomod.utils.NyakoUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;

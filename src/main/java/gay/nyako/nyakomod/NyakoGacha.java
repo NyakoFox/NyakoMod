@@ -88,7 +88,6 @@ public class NyakoGacha {
         registerGachaItem(Text.of("a §6Diamond Axe"), new ItemStack(Items.DIAMOND_AXE), 5, true);
         registerGachaItem(Text.of("a §6Diamond Pickaxe"), new ItemStack(Items.DIAMOND_PICKAXE), 5, true);
         registerGachaItem(Text.of("a §6Diamond Shovel"), new ItemStack(Items.DIAMOND_SHOVEL), 5, true);
-        registerGachaItem(Text.of("a Burning Super Death Sword"), NyakoItems.BURNING_SUPER_DEATH_SWORD, 1, 5);
         registerGachaItem(Text.of("a §6Launcher"), NyakoItems.LAUNCHER, 1, 5);
         registerGachaItem(Text.of("a §6Condensed Matter Container"), NyakoItems.CONDENSED_MATTER_CONTAINER, 1, 5);
     }

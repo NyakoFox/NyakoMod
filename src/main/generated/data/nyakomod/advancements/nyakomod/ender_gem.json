@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nyakomod/root",
+  "parent": "nyakomod:nyakomod/root",
   "criteria": {
     "consume_item": {
       "conditions": {
@@ -13,19 +13,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "Find an Ender Gem."
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "nyakomod:ender_gem"
     },
-    "show_toast": true,
-    "title": {
-      "text": "From The Ancients"
-    }
+    "title": "From The Ancients"
   },
   "requirements": [
     [

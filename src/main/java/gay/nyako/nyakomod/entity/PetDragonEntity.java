@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.entity;
 
 import gay.nyako.nyakomod.NyakoEntities;
+import java.util.Set;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.EntityStatuses;
@@ -94,7 +95,7 @@ public class PetDragonEntity extends PetEntity {
 
     @Override
     public EntityView method_48926() {
-        return this.getWorld();
+        return getWorld();
     }
 
     static class FlyOntoTreeGoal

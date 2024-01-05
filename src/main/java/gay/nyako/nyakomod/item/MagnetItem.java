@@ -5,7 +5,6 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ElytraItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -47,7 +46,7 @@ public class MagnetItem extends Item {
         var pos1 = new BlockPos((int) (pos.x - 8), (int) (pos.y - 8), (int) (pos.z - 8));
         var pos2 = new BlockPos((int) (pos.x + 8), (int) (pos.y + 8), (int) (pos.z + 8));
         var vecPos = new Vec3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5);
-        var entities = world.getOtherEntities(entity, new Box(pos1, pos2), e -> e instanceof ItemEntity || e instanceof ExperienceOrbEntity);
+        var entities = world.getOtherEntities(entity, new Box(pos1.toCenterPos(), pos2.toCenterPos()), e -> e instanceof ItemEntity || e instanceof ExperienceOrbEntity);
 
         for (var currentEntity : entities) {
             var itemPos = currentEntity.getPos();

@@ -1,7 +1,6 @@
 package me.stupidcat.abcparser.struct;
 
 import me.stupidcat.abcparser.ABCSong;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,15 +1,23 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.access.EntityAccess;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.village.raid.RaidManager;
 import net.minecraft.world.PersistentState;
 
 public class SlimeSkyManager extends PersistentState {
+
+    public static PersistentState.Type<SlimeSkyManager> getPersistentStateType(ServerWorld world) {
+        return new PersistentState.Type<SlimeSkyManager>(SlimeSkyManager::new, SlimeSkyManager::new, DataFixTypes.SAVED_DATA_RAIDS);
+    }
 
     public enum SlimeSkyState {
         INACTIVE,
@@ -89,7 +97,7 @@ public class SlimeSkyManager extends PersistentState {
     }
 
     public static SlimeSkyManager forWorld(ServerWorld world) {
-        var slimeSkyManager = world.getPersistentStateManager().getOrCreate(SlimeSkyManager::new, SlimeSkyManager::new, "slime_sky_manager");
+        var slimeSkyManager = world.getPersistentStateManager().getOrCreate(SlimeSkyManager.getPersistentStateType(world), "slime_sky_manager");
         slimeSkyManager.world = world;
         return slimeSkyManager;
     }

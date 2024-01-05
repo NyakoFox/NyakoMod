@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.item;
 
 import gay.nyako.nyakomod.NyakoBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.NetherPortalBlock;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
 public class EchoPearlItem extends Item {
     public EchoPearlItem(FabricItemSettings fabricItemSettings) {

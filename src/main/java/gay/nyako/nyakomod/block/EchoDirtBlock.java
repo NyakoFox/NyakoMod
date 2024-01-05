@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import gay.nyako.nyakomod.NyakoBlocks;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
@@ -10,12 +11,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class EchoDirtBlock extends Block implements Fertilizable {
+    public static final MapCodec<EchoDirtBlock> CODEC = EchoDirtBlock.createCodec(EchoDirtBlock::new);
+    @Override
+    protected MapCodec<? extends Block> getCodec() {
+        return CODEC;
+    }
     public EchoDirtBlock(Settings settings) {
         super(settings);
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         if (!world.getBlockState(pos.up()).isTransparent(world, pos)) {
             return false;
         }

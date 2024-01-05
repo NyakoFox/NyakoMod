@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -15,6 +16,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class PresentWrapperBlock extends BlockWithEntity {
+    public static final MapCodec<PresentWrapperBlock> CODEC = PresentWrapperBlock.createCodec(PresentWrapperBlock::new);
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
+    }
     public PresentWrapperBlock(Settings settings) {
         super(settings);
     }

@@ -1,9 +1,9 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.access.EntityAccess;
+import net.minecraft.block.spawner.MobSpawnerLogic;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.MobSpawnerLogic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

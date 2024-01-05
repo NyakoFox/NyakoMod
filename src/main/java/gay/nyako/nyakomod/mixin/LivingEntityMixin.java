@@ -187,10 +187,10 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 		} else {
 			if (entityAttributeSpeedInstance.hasModifier(MILK_BOOST)) {
-				entityAttributeSpeedInstance.removeModifier(MILK_BOOST);
+				entityAttributeSpeedInstance.removeModifier(MILK_BOOST.getId());
 			}
 			if (entityAttributeAttackSpeedInstance.hasModifier(MILK_ATTACK_SPEED)) {
-				entityAttributeAttackSpeedInstance.removeModifier(MILK_ATTACK_SPEED);
+				entityAttributeAttackSpeedInstance.removeModifier(MILK_ATTACK_SPEED.getId());
 			}
 		}
 	}

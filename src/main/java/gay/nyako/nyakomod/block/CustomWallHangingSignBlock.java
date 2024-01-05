@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class CustomWallHangingSignBlock extends WallHangingSignBlock {
     public CustomWallHangingSignBlock(Settings settings, WoodType woodType) {
-        super(settings, woodType);
+        super(woodType, settings);
     }
 
     @Override

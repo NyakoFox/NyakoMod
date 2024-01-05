@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.access.TntEntityAccess;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -26,44 +27,23 @@ import java.util.Optional;
 public abstract class TntEntityMixin extends Entity implements TntEntityAccess {
     private boolean modifiedBlockState = false;
 
-    private static final TrackedData<Optional<BlockState>> BLOCKSTATE_TYPE = DataTracker.registerData(TntEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_STATE);
-
     public TntEntityMixin(EntityType<?> type, World world) {
         super(type, world);
-    }
-
-    @Inject(method = "initDataTracker", at = @At("TAIL"))
-    private void init(CallbackInfo callbackInfo) {
-        this.dataTracker.startTracking(BLOCKSTATE_TYPE, Optional.of(Blocks.TNT.getDefaultState()));
-    }
-
-    @Override
-    public void setCopyBlockState(BlockState state) {
-        dataTracker.set(BLOCKSTATE_TYPE, Optional.of(state));
-        modifiedBlockState = true;
-    }
-
-    @Override
-    public BlockState getCopyBlockState() {
-        return dataTracker.get(BLOCKSTATE_TYPE).orElse(Blocks.TNT.getDefaultState());
     }
 
     @Inject(method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("TAIL"))
     private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         nbt.putBoolean("modifiedBlockState", modifiedBlockState);
-        nbt.putString("blockState", Registries.BLOCK.getId(getCopyBlockState().getBlock()).toString());
+    }
+
+    @Override
+    public void setModifiedBlockstate(boolean modified) {
+        modifiedBlockState = modified;
     }
 
     @Inject(method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("TAIL"))
     private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         modifiedBlockState = nbt.getBoolean("modifiedBlockState");
-        if (modifiedBlockState) {
-            var identifier = Identifier.tryParse(nbt.getString("blockState"));
-            if (identifier != null) {
-                var state = Registries.BLOCK.get(identifier);
-                setCopyBlockState(state.getDefaultState());
-            }
-        }
     }
 
     @Redirect(method = "explode()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;createExplosion(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/world/World$ExplosionSourceType;)Lnet/minecraft/world/explosion/Explosion;"))

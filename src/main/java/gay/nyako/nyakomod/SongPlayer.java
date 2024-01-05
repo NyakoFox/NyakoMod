@@ -6,14 +6,9 @@ import me.stupidcat.abcparser.ABCSong;
 import me.stupidcat.abcparser.struct.SongChord;
 import me.stupidcat.abcparser.struct.SongComponent;
 import me.stupidcat.abcparser.struct.SongNote;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.event.GameEvent;
 
 public class SongPlayer {
     NoteBlockPlusBlockEntity blockEntity;

@@ -8,6 +8,7 @@ import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.ChatPrefixes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.MutableText;

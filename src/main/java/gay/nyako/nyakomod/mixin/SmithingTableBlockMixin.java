@@ -3,11 +3,9 @@ package gay.nyako.nyakomod.mixin;
 import gay.nyako.nyakomod.block.SmithingTableBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -51,7 +49,7 @@ public class SmithingTableBlockMixin extends CraftingTableBlock implements Block
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof SmithingTableBlockEntity smithingTableBlockEntity) {
             if (!world.isClient && player.isCreative() && !smithingTableBlockEntity.isEmpty()) {
@@ -62,7 +60,7 @@ public class SmithingTableBlockMixin extends CraftingTableBlock implements Block
                 world.spawnEntity(itemEntity);
             }
         }
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override

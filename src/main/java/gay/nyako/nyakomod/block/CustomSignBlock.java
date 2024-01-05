@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class CustomSignBlock extends SignBlock {
     public CustomSignBlock(Settings settings, WoodType woodType) {
-        super(settings, woodType);
+        super(woodType, settings);
     }
 
     @Override

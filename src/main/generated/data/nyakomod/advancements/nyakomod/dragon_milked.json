@@ -1,12 +1,12 @@
 {
-  "parent": "minecraft:nyakomod/root",
+  "parent": "nyakomod:nyakomod/horse_milked",
   "criteria": {
     "inventory_changed": {
       "conditions": {
         "items": [
           {
             "items": [
-              "nyakomod:diamond_coin"
+              "nyakomod:dragon_milk_bucket"
             ]
           }
         ]
@@ -15,19 +15,15 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
-      "translate": "Obtain your first Diamond Coin"
+      "translate": "Milk the Jender Jragon"
     },
-    "frame": "task",
-    "hidden": false,
+    "frame": "goal",
+    "hidden": true,
     "icon": {
-      "item": "nyakomod:diamond_coin"
+      "item": "nyakomod:dragon_milk_bucket"
     },
-    "show_toast": true,
-    "title": {
-      "text": "Moving Up"
-    }
+    "title": "Mommy Milked"
   },
   "requirements": [
     [

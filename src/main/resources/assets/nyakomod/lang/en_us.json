@@ -179,7 +179,7 @@
     "item.nyakomod.sticker_pack.open_tooltip": "Right-click to open this sticker pack!",
     "item.nyakomod.sticker_pack.pack_tooltip": "%s",
     "item.nyakomod.condensed_matter_container": "Condensed Matter Container",
-    "item.nyakomod.condensed_matter_container.open": "The condensed matter container contained %s!",
+    "item.nyakomod.condensed_matter_container.open": "The matter shifted into %s!",
     "item.nyakomod.condensed_matter_container.open_tooltip": "Right-click to open this condensed matter container!",
 
     "item.minecraft.potion.effect.haste": "Potion of Haste",

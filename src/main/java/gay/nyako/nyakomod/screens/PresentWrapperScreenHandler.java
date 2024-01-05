@@ -83,7 +83,7 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraft(player.getWorld(), player, stack.getCount());
+        stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
         for (int i = 0; i < 6; ++i) {
             this.inventory.setStack(i, ItemStack.EMPTY);
         }

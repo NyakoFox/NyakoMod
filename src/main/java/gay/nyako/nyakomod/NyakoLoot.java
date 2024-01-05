@@ -1,9 +1,7 @@
 package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.mixin.LootTableBuilderAccessor;
 import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
@@ -195,14 +193,7 @@ public class NyakoLoot {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if ((new Identifier("minecraft", "gameplay/fishing/fish")).equals(id))
             {
-                // The first pool is the fish pool
-                LootPool lootPool = ((LootTableBuilderAccessor) tableBuilder).getPools().get(0);
-                // Copy the fish pool
-                LootPool.Builder poolBuilder = FabricLootPoolBuilder.copyOf(lootPool);
-                // Modify it...
-                poolBuilder.with(ItemEntry.builder(NyakoItems.SPECULAR_FISH).weight(1));
-                // Replace the built-in pool with our own
-                ((LootTableBuilderAccessor) tableBuilder).getPools().set(0, poolBuilder.build());
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(NyakoItems.SPECULAR_FISH).weight(1)));
             }
 
 

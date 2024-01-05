@@ -1,0 +1,23 @@
+{
+  "parent": "nyakomod:nyakomod/drank_milk",
+  "criteria": {
+    "nyakomod:player_milked": {
+      "trigger": "minecraft:player_milked"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "Get milked by another player"
+    },
+    "icon": {
+      "item": "minecraft:milk_bucket"
+    },
+    "title": "Get milked bozo"
+  },
+  "requirements": [
+    [
+      "nyakomod:player_milked"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

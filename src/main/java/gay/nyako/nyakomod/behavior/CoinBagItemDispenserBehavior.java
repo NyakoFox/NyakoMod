@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 public class CoinBagItemDispenserBehavior extends ItemDispenserBehavior {
 
     public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+        Direction direction = pointer.state().get(DispenserBlock.FACING);
         Position pos = DispenserBlock.getOutputLocation(pointer);
-        World world = pointer.getWorld();
+        World world = pointer.world();
 
         var nbt = stack.getOrCreateNbt();
 

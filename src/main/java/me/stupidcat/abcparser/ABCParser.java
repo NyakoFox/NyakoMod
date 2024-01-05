@@ -3,7 +3,6 @@ package me.stupidcat.abcparser;
 import me.stupidcat.abcparser.struct.SongChord;
 import me.stupidcat.abcparser.struct.SongComponent;
 import me.stupidcat.abcparser.struct.SongNote;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

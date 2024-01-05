@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,6 +24,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class NetherReactorCoreBlock extends BlockWithEntity {
+    public static final MapCodec<NetherReactorCoreBlock> CODEC = NetherReactorCoreBlock.createCodec(NetherReactorCoreBlock::new);
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
+    }
+
     public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);
 
     public NetherReactorCoreBlock(Settings settings) {
@@ -132,6 +139,6 @@ public class NetherReactorCoreBlock extends BlockWithEntity {
     }
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NyakoEntities.NETHER_REACTOR_ENTITY, (world1, pos, state1, be) -> NetherReactorCoreBlockEntity.tick(world1, pos, state1, be));
+        return validateTicker(type, NyakoEntities.NETHER_REACTOR_ENTITY, (world1, pos, state1, be) -> NetherReactorCoreBlockEntity.tick(world1, pos, state1, be));
     }
 }

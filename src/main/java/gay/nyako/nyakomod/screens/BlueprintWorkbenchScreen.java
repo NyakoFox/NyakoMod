@@ -26,7 +26,6 @@ public class BlueprintWorkbenchScreen extends HandledScreen<BlueprintWorkbenchSc
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }

@@ -101,7 +101,7 @@ public class NyakoNetworking {
                     var fillMode = buffer.readBoolean();
 
                     server.execute(() -> {
-                        ServerWorld world = (ServerWorld) player.getWorld();
+                        ServerWorld world = player.getServerWorld();
                         var entity = world.getEntity(UUID);
 
                         if (entity instanceof MonitorEntity monitorEntity) {
@@ -121,7 +121,7 @@ public class NyakoNetworking {
             var offZ = buffer.readDouble();
 
             server.execute(() -> {
-                ServerWorld world = (ServerWorld) player.getWorld();
+                ServerWorld world = player.getServerWorld();
                 var entity = world.getEntity(UUID);
 
                 if (entity instanceof MonitorEntity monitorEntity) {

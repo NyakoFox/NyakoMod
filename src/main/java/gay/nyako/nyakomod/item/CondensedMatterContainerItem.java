@@ -39,22 +39,20 @@ public class CondensedMatterContainerItem extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         if (!world.isClient()) {
             user.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
-        }
 
-        Optional<RegistryEntry.Reference<Item>> randomItem = Registries.ITEM.getRandom(world.random);
-        if (randomItem.isEmpty()) return TypedActionResult.fail(itemStack);
+            Optional<RegistryEntry.Reference<Item>> randomItem = Registries.ITEM.getRandom(world.random);
+            if (randomItem.isEmpty()) return TypedActionResult.fail(itemStack);
 
-        ItemStack randomItemStack = new ItemStack(randomItem.get());
+            ItemStack randomItemStack = new ItemStack(randomItem.get());
 
-        user.setStackInHand(hand, randomItemStack);
+            user.setStackInHand(hand, randomItemStack);
 
-        if (!world.isClient())
-        {
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             var text = Text.translatable("item.nyakomod.condensed_matter_container.open", ((MutableText) randomItemStack.getName()).setStyle(Style.EMPTY.withColor(Formatting.LIGHT_PURPLE).withBold(true)));
             ChatUtils.send((ServerPlayerEntity) user, text, ChatPrefixes.SUCCESS);
+            return TypedActionResult.success(itemStack, true);
         }
-        return TypedActionResult.success(itemStack, true);
+        return TypedActionResult.pass(itemStack);
     }
 
     @Override

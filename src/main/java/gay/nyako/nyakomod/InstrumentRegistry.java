@@ -1,8 +1,6 @@
 package gay.nyako.nyakomod;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 
 public class InstrumentRegistry {

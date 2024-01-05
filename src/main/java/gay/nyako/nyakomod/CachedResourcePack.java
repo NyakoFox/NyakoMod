@@ -4,16 +4,19 @@ import gay.nyako.nyakomod.utils.Zipper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
+import net.minecraft.network.packet.s2c.common.ResourcePackSendS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Formatter;
+import java.util.UUID;
 
 public class CachedResourcePack {
     Path gameDir;
@@ -124,7 +127,11 @@ public class CachedResourcePack {
         // Append the pack's hash as a nonce, to force refetch
         var url = NyakoMod.CONFIG.packURL() + "?t=" + result;
 
-        player.sendResourcePackUrl(url, result, false, Text.literal("Pwease enable da wesouwce pack ;w;").formatted(Formatting.AQUA));
+        //player.sendMessage(Text.of("Sorry, but sending resource packs doesn't work yet."));
+        //player.sendResourcePackUrl(url, result, false, Text.literal("Pwease enable da wesouwce pack ;w;").formatted(Formatting.AQUA));
+        UUID uUID = UUID.nameUUIDFromBytes(url.getBytes(StandardCharsets.UTF_8));
+        ResourcePackSendS2CPacket resourcePackSendS2CPacket = new ResourcePackSendS2CPacket(uUID, url, result, false, Text.literal("Pwease enable da wesouwce pack ;w;").formatted(Formatting.AQUA));
+        player.networkHandler.sendPacket(resourcePackSendS2CPacket);
 
         PackUpdateNotifier.registerUpdate(player);
     }

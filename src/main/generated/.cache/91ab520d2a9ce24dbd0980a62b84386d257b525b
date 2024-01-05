@@ -1,4 +1,4 @@
-// 1.20.1	2023-12-15T12:13:48.9061009	NyakoMod/Model Definitions
+// 1.20.4	2024-01-04T17:05:13.1714631	NyakoMod/Model Definitions
 53f77d7737adc37a163dd4078b502a6276cea725 assets\nyakomod\models\block\netherite_coin_forty_eight.json
 d805d2851d14e2ec44cfa4a26ee27e3a3b047220 assets\nyakomod\models\block\diamond_coin_fifteen.json
 f19b56cb73215907abde24372fc432296aed11b6 assets\nyakomod\models\block\copper_coin_sixty_three.json
@@ -580,8 +580,8 @@ a8d2cc199ac36820614d935c71b6d478b4641977 assets\nyakomod\models\block\gold_coin_
 ab83799e96343013ad5a454f8b5ad0e510ed1ffd assets\nyakomod\models\block\gold_coin_twenty_six.json
 a540d15c11c38147a2ac3cb871005a973ff02fdf assets\nyakomod\models\item\benthic_trapdoor.json
 62e377003acd1758df0c12d5192441316d3a880d assets\nyakomod\models\block\echo_slate.json
-95879bc46fa81c4192b1169fbfe29e78eba1bf9d assets\nyakomod\models\block\emerald_coin_sixty_one.json
 20a1aa21eaf9479b053b01bd01e874df1356e65c assets\nyakomod\models\item\music_disc_merry2.json
+95879bc46fa81c4192b1169fbfe29e78eba1bf9d assets\nyakomod\models\block\emerald_coin_sixty_one.json
 32fa1b980a36919826899a09af19e66460043b19 assets\nyakomod\models\block\gold_coin_five.json
 1fd4f7780d376c7e7364dfad4b590349eb84e7c4 assets\nyakomod\models\block\echo_stairs.json
 dbf93e0ce96472e8a09546d43fbeda465643ff9f assets\nyakomod\models\block\gold_coin_thirty_six.json

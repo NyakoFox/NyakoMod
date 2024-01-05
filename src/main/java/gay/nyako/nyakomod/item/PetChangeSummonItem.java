@@ -1,19 +1,8 @@
 package gay.nyako.nyakomod.item;
 
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketItem;
-import gay.nyako.nyakomod.NyakoEntities;
-import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetEntity;
-import gay.nyako.nyakomod.entity.PetSpriteEntity;
-import gay.nyako.nyakomod.screens.PetSpriteScreen;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

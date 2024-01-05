@@ -1,7 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoItems;
-import gay.nyako.nyakomod.NyakoMod;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.model.BakedModel;

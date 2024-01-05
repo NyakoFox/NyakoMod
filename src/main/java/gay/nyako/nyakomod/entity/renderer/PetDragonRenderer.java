@@ -6,6 +6,8 @@ import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.item.PetChangeSummonItem;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 /*

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.util.Util;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.function.Consumer;
 
 public class NyakoAdvancementProvider extends FabricAdvancementProvider {
 
-    private final List<Consumer<Consumer<Advancement>>> generators = Util.make(Lists.newArrayList(), list -> {
+    private final List<Consumer<Consumer<AdvancementEntry>>> generators = Util.make(Lists.newArrayList(), list -> {
         list.add(new NyakoAdvancementsGenerator());
     });
 
@@ -21,7 +22,7 @@ public class NyakoAdvancementProvider extends FabricAdvancementProvider {
     }
 
     @Override
-    public void generateAdvancement(Consumer<Advancement> consumer) {
+    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
         generators.forEach(i -> i.accept(consumer));
     }
 }

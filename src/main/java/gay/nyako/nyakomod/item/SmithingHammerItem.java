@@ -1,8 +1,6 @@
 package gay.nyako.nyakomod.item;
 
 import net.minecraft.block.*;
-import net.minecraft.block.enums.SlabType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
