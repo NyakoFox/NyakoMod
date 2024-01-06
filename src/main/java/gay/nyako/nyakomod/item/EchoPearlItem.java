@@ -167,7 +167,7 @@ public class EchoPearlItem extends Item {
                         for (int z = startZ; z <= endZ; z++)
                         {
                             var newPos = new BlockPos(x, y, z);
-                            if (world.getBlockState(newPos).getBlock() == Blocks.AIR)
+                            if (world.getBlockState(newPos).getBlock() == Blocks.AIR || world.getBlockState(newPos).getBlock() == Blocks.SCULK_VEIN)
                             {
                                 BlockState portalState = NyakoBlocks.ECHO_PORTAL.getDefaultState().with(NetherPortalBlock.AXIS, isXAxis ? Direction.Axis.X : Direction.Axis.Z);
                                 world.setBlockState(newPos, portalState);
