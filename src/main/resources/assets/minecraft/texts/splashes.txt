@@ -1,0 +1,14 @@
+§bBwehfer!
+§bWomepop!
+§bCrincle!
+§bBuilt with NyakoMod!
+§bBuilt with love!
+§bBuilt with science!
+§bLimited edition!
+§bIt's here!
+§bIt's finished!
+§bOne of a kind!
+§bAmong us!
+§bPlay vivid/stasis!
+§bfor (int i = 0; i < 100; i++) { player.kill(); } // !
+§bMy buddy Eric!

@@ -57,6 +57,7 @@
     "ItemModelsMixin",
     "ItemStackMixin",
     "MusicTrackerMixin",
+    "TitleScreenMixin",
     "VillagerEntityRendererMixin",
     "WorldRendererMixin"
   ],
