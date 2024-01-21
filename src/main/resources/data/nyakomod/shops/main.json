@@ -183,7 +183,7 @@
       ],
       "name": "CMC",
       "description": "A container holding a random amount of condensed matter, which constantly shifts between different forms.",
-      "price": 50000
+      "price": 2500
     },
     {
       "items": [

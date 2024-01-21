@@ -63,6 +63,7 @@ public abstract class LivingEntityMixin extends Entity {
 		Integer coinValue = CunkCoinUtils.getCoinValue(type);
 
 		if (coinValue == null) {
+			if (this.isPlayer()) return;
 			coinValue = getXpToDrop() * 1000 / 10;
 
 			if (coinValue == 0) return;

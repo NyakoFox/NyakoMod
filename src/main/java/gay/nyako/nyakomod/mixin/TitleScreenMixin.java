@@ -64,7 +64,7 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(method = "initWidgetsNormal(II)V", at = @At(value = "TAIL"))
     private void initWidgetsNormal(int y, int spacingY, CallbackInfo ci) {
-        for (Element element : this.children()) {
+        /*for (Element element : this.children()) {
             if (element instanceof ClickableWidget widget)
             {
                 if (widget.getY() == 156)
@@ -77,7 +77,7 @@ public abstract class TitleScreenMixin extends Screen {
                     widget.setY(widget.getY() + 20);
                 }
             }
-        }
+        }*/
     }
 
     /**
