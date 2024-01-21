@@ -68,10 +68,8 @@ public class NyakoMod implements ModInitializer {
     public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier("nyakomod", "echolands"));
     public static RegistryKey<DimensionType> ECHOLANDS_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, new Identifier("nyakomod", "echolands"));
 
-    @Environment(EnvType.SERVER)
     public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
 
-    @Environment(EnvType.SERVER)
     public static ModelManager MODEL_MANAGER = new ModelManager();
 
     public static final TrackedDataHandler<StickerPackCollection> STICKER_PACK_COLLECTION_DATA = new TrackedDataHandler<>(){
