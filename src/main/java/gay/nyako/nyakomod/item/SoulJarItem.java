@@ -41,7 +41,6 @@ public class SoulJarItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         BlockPos pos = context.getBlockPos();
         World world = context.getWorld();
-        BlockEntity tileEntity = world.getBlockEntity(pos);
         ItemStack stack = context.getStack();
 
         if (spawnEntity(pos,context.getSide(),world,stack)) {
@@ -53,7 +52,7 @@ public class SoulJarItem extends Item {
 
     public ItemStack captureEntity(ItemStack stack, @Nullable PlayerEntity user, LivingEntity entity) {
         NbtCompound tag = stack.getOrCreateNbt();
-        if (entity == null || stack == null || !entity.isAlive() || tag.contains("entity") || entity instanceof PlayerEntity) {
+        if (entity == null || !entity.isAlive() || tag.contains("entity") || entity instanceof PlayerEntity) {
             return null;
         }
         if (user != null && user.getWorld().isClient) return null;

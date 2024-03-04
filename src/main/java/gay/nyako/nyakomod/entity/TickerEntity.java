@@ -11,9 +11,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -36,10 +33,8 @@ public class TickerEntity extends Entity {
     public void tick() {
         super.tick();
 
-        BlockPos currentBlockPos = new BlockPos((int) getX(), (int) getY(), (int) getZ());
-
         if(!getWorld().isClient()) {
-            BlockEntity blockEntity = getEntityWorld().getBlockEntity(currentBlockPos);
+            BlockEntity blockEntity = getEntityWorld().getBlockEntity(getBlockPos());
             if (blockEntity == null) {
                 // This... isn't even a block entity?
                 destroyTicker();
@@ -100,9 +95,5 @@ public class TickerEntity extends Entity {
     @Override
     protected void writeCustomDataToNbt(NbtCompound tag) {
         tag.putInt("Speed", getSpeed());
-    }
-
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return new EntitySpawnS2CPacket(this, getId());
     }
 }
