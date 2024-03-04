@@ -10,6 +10,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
 public class NyakoScreenHandlers {
+    public static final ScreenHandlerType<FletchingTableScreenHandler> FLETCHING_TABLE = register("fletching_table", new ScreenHandlerType<>(FletchingTableScreenHandler::new, FeatureSet.empty()));
     public static final ScreenHandlerType<CunkShopScreenHandler> CUNK_SHOP_SCREEN_HANDLER_TYPE = register("cunk_shop", new ExtendedScreenHandlerType<>(CunkShopScreenHandler::new));
     public static final ScreenHandlerType<BlueprintWorkbenchScreenHandler> BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE = register("blueprint_workbench", new ScreenHandlerType<>(BlueprintWorkbenchScreenHandler::new, FeatureSet.empty()));
     public static final ScreenHandlerType<PresentWrapperScreenHandler> PRESENT_WRAPPER_SCREEN_HANDLER_TYPE = register("present_wrapper", new ScreenHandlerType<>(PresentWrapperScreenHandler::new, FeatureSet.empty()));

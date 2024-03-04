@@ -104,6 +104,8 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
 
+		EntityRendererRegistry.register(NyakoEntities.OBSIDIAN_ARROW, ObsidianArrowEntityRenderer::new);
+
 		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
 		{
 			if (stack.getOrCreateNbt().contains("entity")) {
@@ -146,7 +148,8 @@ public class NyakoClientMod implements ClientModInitializer {
 
 			return 0;
 		});
-		
+
+		HandledScreens.register(NyakoScreenHandlers.FLETCHING_TABLE, FletchingTableScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.BLUEPRINT_WORKBENCH_SCREEN_HANDLER_TYPE, BlueprintWorkbenchScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.PRESENT_WRAPPER_SCREEN_HANDLER_TYPE, PresentWrapperScreen::new);

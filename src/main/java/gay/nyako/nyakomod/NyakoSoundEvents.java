@@ -39,6 +39,7 @@ public class NyakoSoundEvents {
     public static final SoundEvent ENTITY_DECAYED_DEATH = register("entity.decayed.death");
     public static final SoundEvent ENTITY_DECAYED_HURT = register("entity.decayed.hurt");
     public static final SoundEvent ENTITY_DECAYED_STEP = register("entity.decayed.step");
+    public static final SoundEvent UI_FLETCHING_TABLE_TAKE_RESULT = register("ui.fletching_table.take_result");
 
     public static SoundEvent register(String name) {
         Identifier identifier = new Identifier("nyakomod", name);
