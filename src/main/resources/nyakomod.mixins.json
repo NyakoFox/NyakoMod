@@ -22,6 +22,7 @@
     "EntityAccessor",
     "EntityMixin",
     "FishingBobberEntityMixin",
+    "FletchingTableBlockMixin",
     "GrindstoneScreenHandlerMixin",
     "GrindstoneSlotsScreenHandlerMixin",
     "HorseEntityMixin",

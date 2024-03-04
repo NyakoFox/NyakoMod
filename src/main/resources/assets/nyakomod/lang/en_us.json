@@ -170,6 +170,7 @@
     "item.nyakomod.echo_pearl": "Echo Pearl",
     "item.nyakomod.heart_berry": "Heart Berry",
     "item.nyakomod.heart_canister": "Heart Canister",
+    "item.nyakomod.obsidian_arrow": "Obsidian Arrow",
 
     "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 
@@ -274,6 +275,8 @@
     "subtitles.nyakomod.entity.decayed.death": "Decayed dies",
     "subtitles.nyakomod.entity.decayed.hurt": "Decayed hurts",
     "subtitles.nyakomod.sticker": "Sticker",
+    "subtitles.nyakomod.ui.fletching_table.take_result": "Arrow crafted",
+
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
     "trinkets.slot.chest.canister": "Canister",
@@ -314,6 +317,8 @@
     "painting.nyakomod.marisad.author": "Memories of Phantasm",
     "painting.nyakomod.oreo.title": "Oreo",
     "painting.nyakomod.oreo.author": "Madeon",
+
+    "container.fletching_table": "Fletching Table",
 
     "stickers.nyakomod.pack.all.title": "All Stickers",
     "stickers.nyakomod.pack.default.title": "Default Stickers",

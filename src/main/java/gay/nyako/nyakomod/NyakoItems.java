@@ -181,6 +181,7 @@ public class NyakoItems {
     public static final Item ELYTRA_BLOCK               = register("elytra_block",              new BlockItem(NyakoBlocks.ELYTRA_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
     public static final Item STICKER_PACK               = register("sticker_pack",              new StickerPackItem(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item CONDENSED_MATTER_CONTAINER = register("condensed_matter_container",new CondensedMatterContainerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item OBSIDIAN_ARROW             = register("obsidian_arrow", new ObsidianArrowItem(new FabricItemSettings().maxCount(64)));
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);

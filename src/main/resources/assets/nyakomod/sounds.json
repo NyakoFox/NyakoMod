@@ -186,6 +186,19 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "ui.fletching_table.take_result": {
+    "sounds": [
+      {
+        "name": "block/fletching_table/fletching_table1",
+        "volume": 0.5
+      },
+      {
+        "name": "block/fletching_table/fletching_table2",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.nyakomod.ui.fletching_table.take_result"
+  },
 
 
 
