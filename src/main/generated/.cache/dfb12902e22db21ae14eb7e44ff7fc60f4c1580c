@@ -1,7 +1,31 @@
+<<<<<<< HEAD
 // 1.20.1	2023-12-15T12:13:48.904105	NyakoMod/Recipes
 bef41708bbdd79b9bf20fc3e3725fec5032c04a6 data\nyakomod\advancements\recipes\building_blocks\benthic_planks.json
 7e7d78772a4b53246628eadbc4a763b9a8e3dc11 data\nyakomod\advancements\recipes\building_blocks\stripped_benthic_spur.json
 97d9bb07d8a7b330a0e06d2174775cd92645688d data\nyakomod\recipes\benthic_trapdoor.json
+=======
+// 1.20.4	2024-03-22T18:06:02.174693	NyakoMod/Recipes
+a45a4505de08b17a63fc67b541130c098ac65da1 data\nyakomod\advancements\recipes\redstone\echo_button.json
+fb60cdff73ef863bead8a2b4c1779b1bcd5fceca data\nyakomod\recipes\echo_stairs.json
+c17dc695b5361a7b63a6bb0ec8aff2acd2b29c29 data\nyakomod\recipes\stripped_echo_spur.json
+2d736f6c9620a8c1b58306dc12b5b9c3abfce41f data\nyakomod\recipes\echo_button.json
+90cc416fd63cf631630107bd41833544d73445f2 data\nyakomod\advancements\recipes\building_blocks\benthic_stairs.json
+df998642887b4eb1737c986529bee9abb36a5066 data\nyakomod\recipes\benthic_pressure_plate.json
+d6ec197c0bcac1dd055692b5b609a035030a7c1c data\nyakomod\advancements\recipes\redstone\echo_pressure_plate.json
+239d579a1fd0af01117c93a98c3aaa4d708f5c31 data\nyakomod\advancements\recipes\building_blocks\echo_spur.json
+48edf997d61fa89014f7fee53e0f54bf72e90d59 data\nyakomod\advancements\recipes\redstone\benthic_door.json
+2fe7384d204e5d6b9af5064094364a4ebf30a504 data\nyakomod\advancements\recipes\decorations\benthic_sign.json
+bfd3788b1e07a667acad6d38a8bca3b0d2cace9e data\nyakomod\advancements\recipes\decorations\benthic_fence.json
+f18511230d41046fb22c2f0cb8bfb09f0a192e8c data\nyakomod\advancements\recipes\redstone\echo_fence_gate.json
+e1a0ec33f30a776b66966e9babceef8b9ad5f240 data\nyakomod\recipes\echo_spur.json
+ee93b23a80e548708f4b8157327a92ba0b97fc1f data\nyakomod\recipes\benthic_hanging_sign.json
+f0085b7bc401c599c1e2a9e81af7183864c55096 data\nyakomod\recipes\benthic_fence_gate.json
+b469ba000453dd515d8dcf0025090545124547a0 data\nyakomod\recipes\benthic_sign.json
+c9f87d358311b010eb7d1b579f9119c31b361bd3 data\nyakomod\advancements\recipes\decorations\echo_fence.json
+50308e7b17bee71d2f7f5acc7272d85cdd6c0769 data\nyakomod\recipes\benthic_door.json
+d1df73c0d8c4e218f424ed52b2007295c68ccce5 data\nyakomod\advancements\recipes\redstone\echo_trapdoor.json
+c391284cb9563b8486c2a432a82feb68ee0bc853 data\nyakomod\advancements\recipes\building_blocks\benthic_slab.json
+>>>>>>> 2079ece (vent sussy)
 a853bb1f1df1f6b20dee36fecc9095bd96e31551 data\nyakomod\recipes\benthic_button.json
 0b7f74ab7cc172cbda6b96c930f82bdb7aed6f28 data\nyakomod\advancements\recipes\decorations\benthic_fence.json
 a92e732630a3e5f1842a804e9074289f392bbbca data\nyakomod\recipes\echo_slab.json

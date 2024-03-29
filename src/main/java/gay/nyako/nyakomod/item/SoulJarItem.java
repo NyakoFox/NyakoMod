@@ -53,7 +53,7 @@ public class SoulJarItem extends Item {
 
     public ItemStack captureEntity(ItemStack stack, @Nullable PlayerEntity user, LivingEntity entity) {
         NbtCompound tag = stack.getOrCreateNbt();
-        if (entity == null || stack == null || !entity.isAlive() || tag.contains("entity") || entity instanceof PlayerEntity) {
+        if (entity == null || !entity.isAlive() || tag.contains("entity") || entity instanceof PlayerEntity) {
             return null;
         }
         if (user != null && user.getWorld().isClient) return null;

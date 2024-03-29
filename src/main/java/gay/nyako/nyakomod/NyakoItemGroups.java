@@ -20,6 +20,7 @@ public class NyakoItemGroups {
             .entries((context, entries) -> {
                 entries.add(NyakoItems.SPUNCH_BLOCK);
                 entries.add(NyakoItems.LAUNCHER);
+                entries.add(NyakoItems.VENT);
                 entries.add(NyakoItems.BRICKUS);
                 entries.add(NyakoItems.BRICKUS_STAIRS);
                 entries.add(NyakoItems.BRICKUS_SLAB);

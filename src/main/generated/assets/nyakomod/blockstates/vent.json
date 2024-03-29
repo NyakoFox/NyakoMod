@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nyakomod:block/vent",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/vent",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "nyakomod:block/vent",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nyakomod:block/vent",
+      "y": 270
+    }
+  }
+}

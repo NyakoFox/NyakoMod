@@ -36,10 +36,8 @@ public class TickerEntity extends Entity {
     public void tick() {
         super.tick();
 
-        BlockPos currentBlockPos = new BlockPos((int) getX(), (int) getY(), (int) getZ());
-
         if(!getWorld().isClient()) {
-            BlockEntity blockEntity = getEntityWorld().getBlockEntity(currentBlockPos);
+            BlockEntity blockEntity = getEntityWorld().getBlockEntity(getBlockPos());
             if (blockEntity == null) {
                 // This... isn't even a block entity?
                 destroyTicker();

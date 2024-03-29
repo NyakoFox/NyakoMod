@@ -59,6 +59,12 @@
             "nyakomod:unlock"
         ]
     },
+    "vent": {
+        "subtitle": "subtitles.nyakomod.vent",
+        "sounds": [
+            "nyakomod:vent"
+        ]
+    },
     "music_disc.mask": {
         "sounds": [
             {

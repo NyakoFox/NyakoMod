@@ -20,6 +20,7 @@ public class NyakoItems {
 
     public static final Item SPUNCH_BLOCK               = register("spunch_block",              new BlockItem(NyakoBlocks.SPUNCH_BLOCK, new FabricItemSettings().rarity(Rarity.UNCOMMON)));
     public static final Item LAUNCHER                   = register("launcher",                  new BlockItem(NyakoBlocks.LAUNCHER, new FabricItemSettings().rarity(Rarity.RARE)));
+    public static final Item VENT                       = register("vent",                      new BlockItem(NyakoBlocks.VENT, new FabricItemSettings().rarity(Rarity.RARE)));
     public static final Item BRICKUS                    = register("brickus",                   new BlockItem(NyakoBlocks.BRICKUS, new FabricItemSettings()));
     public static final Item BRICKUS_STAIRS             = register("brickus_stairs",            new BlockItem(NyakoBlocks.BRICKUS_STAIRS, new FabricItemSettings()));
     public static final Item BRICKUS_SLAB               = register("brickus_slab",              new BlockItem(NyakoBlocks.BRICKUS_SLAB, new FabricItemSettings()));
