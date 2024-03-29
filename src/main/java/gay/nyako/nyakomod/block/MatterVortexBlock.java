@@ -44,13 +44,23 @@ public class MatterVortexBlock extends Block {
             totalWeight += i.weight();
         }
 
-        // Now choose a random item.
-        int idx = 0;
-        for (double r = Math.random() * totalWeight; idx < NyakoGacha.GACHA_ENTRIES.size() - 1; ++idx) {
-            r -= NyakoGacha.GACHA_ENTRIES.get(idx).weight();
-            if (r <= 0.0) break;
+        NyakoGacha.GachaEntry gachaEntry = null;
+
+        double randomValue = Math.random() * totalWeight;
+        double countWeight = 0.0;
+        for (NyakoGacha.GachaEntry item : NyakoGacha.GACHA_ENTRIES) {
+            countWeight += item.weight();
+            if (countWeight >= randomValue) {
+                gachaEntry = item;
+                break;
+            }
         }
-        NyakoGacha.GachaEntry gachaEntry = NyakoGacha.GACHA_ENTRIES.get(idx);
+
+        if (gachaEntry == null) {
+            player.sendMessage(Text.of("An error occurred while trying to give you an item!"), true);
+            CunkCoinUtils.giveCoins(player, USAGE_PRICE);
+            return ActionResult.SUCCESS;
+        }
 
         StringBuilder starText = new StringBuilder();
         // Let's use Math.max in case we accidentally use something... over 5.

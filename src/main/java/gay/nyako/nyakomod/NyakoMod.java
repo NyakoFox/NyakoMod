@@ -189,22 +189,33 @@ public class NyakoMod implements ModInitializer {
                             "...just kidding, we don't have mail."
                     },
                     {
-                            "There's a secret underneath.",
-                            "Maybe you'll find it."
+                            "True!", "True!"
+                    },
+                    {
+                            "You can't milk a milk bucket.",
+                            "You can't milk a milk bucket.",
+                    },
+                    {
+                            "Give a man some milk, his bar will be filled for 30 minutes.",
+                            "Teach a man to milk, his bar will be filled for life."
+                    },
+                    {
+                            "Teach a milk to man, his minutes will be 30 bars.",
+                            "Milk a man for life, his teach will be bars filled."
                     }
             };
 
             // Pick a random array from the pool
             String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-            if (server.getServerIp() != null && server.getServerIp().equals("51.222.14.126"))
+            /*if (server.getServerIp() != null && server.getServerIp().equals("51.222.14.126"))
             {
                 ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
 
                 for (String string : randomTextArray) {
                     ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
                 }
-            }
+            }*/
         }));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
