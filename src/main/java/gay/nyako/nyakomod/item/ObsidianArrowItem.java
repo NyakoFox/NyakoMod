@@ -14,6 +14,6 @@ public class ObsidianArrowItem extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-        return new ObsidianArrowEntity(world, shooter, stack);
+        return new ObsidianArrowEntity(world, shooter);
     }
 }

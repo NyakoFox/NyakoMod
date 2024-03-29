@@ -78,7 +78,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
                 slots.get(HEAD_SLOT_INDEX).takeStack(1);
                 slots.get(BODY_SLOT_INDEX).takeStack(1);
                 slots.get(TAIL_SLOT_INDEX).takeStack(1);
-                stack.getItem().onCraft(stack, player.getWorld());
+                stack.getItem().onCraft(stack, player.getWorld(), player);
                 context.run((world, pos) -> {
                     long l = world.getTime();
                     if (lastTakeResultTime != l) {
@@ -135,7 +135,7 @@ public class FletchingTableScreenHandler extends ScreenHandler {
             ItemStack itemStack2 = slot2.getStack();
             itemStack = itemStack2.copy();
             if (slot == 3) {
-                itemStack2.getItem().onCraft(itemStack2, player.getWorld());
+                itemStack2.getItem().onCraft(itemStack2, player.getWorld(), player);
                 if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
