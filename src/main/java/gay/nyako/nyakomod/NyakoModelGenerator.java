@@ -5,9 +5,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.BlockFace;
 import net.minecraft.data.client.*;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.Direction;
 
 import java.util.*;
 
@@ -75,6 +78,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ELYTRA_BLOCK);
 
         registerAllybox(blockStateModelGenerator);
+
+        registerVent(blockStateModelGenerator);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -123,6 +128,40 @@ public class NyakoModelGenerator extends FabricModelProvider {
                 .put(TextureKey.SOUTH, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_south"))
                 .put(TextureKey.WEST, TextureMap.getSubId(NyakoBlocks.ALLYBOX, "_west"));
         blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(NyakoBlocks.ALLYBOX, Models.CUBE.upload(NyakoBlocks.ALLYBOX, textureMap, blockStateModelGenerator.modelCollector)));
+    }
+
+    private void registerVent(BlockStateModelGenerator blockStateModelGenerator) {
+        // uses HORIZONTAL_FACING
+
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(
+                        NyakoBlocks.VENT,
+                        BlockStateVariant.create().put(
+                                VariantSettings.MODEL,
+                                ModelIds.getBlockModelId(NyakoBlocks.VENT)
+                        )
+                ).coordinate(
+                        BlockStateVariantMap.create(
+                                Properties.HORIZONTAL_FACING
+                        ).register(
+                                Direction.NORTH, BlockStateVariant.create().put(
+                                        VariantSettings.Y, VariantSettings.Rotation.R0
+                                )
+                        ).register(
+                                Direction.EAST, BlockStateVariant.create().put(
+                                        VariantSettings.Y, VariantSettings.Rotation.R90
+                                )
+                        ).register(
+                                Direction.SOUTH, BlockStateVariant.create().put(
+                                        VariantSettings.Y, VariantSettings.Rotation.R180
+                                )
+                        ).register(
+                                Direction.WEST, BlockStateVariant.create().put(
+                                        VariantSettings.Y, VariantSettings.Rotation.R270
+                                )
+                        )
+                )
+        );
     }
 
     public void registerSingleCoinBlocks(Block block, BlockStateModelGenerator blockStateModelGenerator) {

@@ -47,6 +47,7 @@ public class NyakoBlocks {
     public static final Block GLOWING_OBSIDIAN          = register("glowing_obsidian",          new Block(FabricBlockSettings.copy(Blocks.OBSIDIAN).luminance(state -> 15).requiresTool()));
 
     public static final Block ELYTRA_BLOCK              = register("elytra_block",              new ElytraBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
+    public static final Block VENT                      = register("vent",                      new VentBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
 
     public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
     public static final Block ECHO_DIRT                 = register("echo_dirt",                 new EchoDirtBlock(FabricBlockSettings.copy(Blocks.DIRT)));

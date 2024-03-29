@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nyakomod:block/vent_bottom",
+    "east": "nyakomod:block/vent_side",
+    "north": "nyakomod:block/vent_side",
+    "particle": "nyakomod:block/vent_side",
+    "south": "nyakomod:block/vent_side",
+    "up": "nyakomod:block/vent_top",
+    "west": "nyakomod:block/vent_side"
+  }
+}
