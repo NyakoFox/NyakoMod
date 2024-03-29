@@ -188,6 +188,28 @@
     {
       "items": [
         {
+          "id": "nyakomod:vent",
+          "Count": 1
+        }
+      ],
+      "name": "Vent",
+      "description": "Undertale trailer moment!",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
+          "id": "nyakomod:launcher",
+          "Count": 1
+        }
+      ],
+      "name": "Launcher",
+      "description": "It's like the Staff of Smiting, but no friends are required!",
+      "price": 5000
+    },
+    {
+      "items": [
+        {
           "id": "minecraft:slime_ball",
           "Count": 1,
           "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"
@@ -207,17 +229,6 @@
       "name": "Staff of Smiting",
       "description": "Let's just put it this way... do you want to learn how to fly?",
       "price": 400000
-    },
-    {
-      "items": [
-        {
-          "id": "nyakomod:launcher",
-          "Count": 1
-        }
-      ],
-      "name": "Launcher",
-      "description": "It's like the Staff of Smiting, but no friends are required!",
-      "price": 600000
     }
   ]
 }
