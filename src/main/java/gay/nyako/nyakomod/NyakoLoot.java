@@ -281,10 +281,14 @@ public class NyakoLoot {
                     case "dungeons_arise:shiraz_palace/shiraz_palace_treasure":
                         tableBuilder.pool(addLootTableCoins(NyakoItems.EMERALD_COIN, 1, 2, 5).build());
                     case "minecraft:chests/buried_treasure":
-                    case "minecraft:chests/pillager_outpost":
                         copperMin = 0;
                         copperMax = 100;
                         tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN, 40, 80, 10).build());
+                        break;
+                    case "minecraft:chests/pillager_outpost":
+                        copperMin = 0;
+                        copperMax = 100;
+                        tableBuilder.pool(addLootTableCoins(NyakoItems.GOLD_COIN, 5, 15, 10).build());
                         break;
                     case "minecraft:chests/shipwreck_treasure":
                     case "minecraft:chests/desert_pyramid":
