@@ -18,6 +18,7 @@
     "EnderDragonEntityMixin",
     "EnderDragonFightMixin",
     "EnderDragonPartMixin",
+    "EnderEyeItemMixin",
     "EndPortalFrameBlockMixin",
     "EntityAccessor",
     "EntityMixin",
@@ -26,6 +27,8 @@
     "GrindstoneScreenHandlerMixin",
     "GrindstoneSlotsScreenHandlerMixin",
     "HorseEntityMixin",
+    "ImmPtlNetherPortalEntityMixin",
+    "LightningEntityMixin",
     "LivingEntityMixin",
     "LootTableBuilderAccessor",
     "MilkBucketItemMixin",
@@ -47,8 +50,7 @@
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
-    "ZombieEntityMixin",
-    "ImmPtlNetherPortalEntityMixin"
+    "ZombieEntityMixin"
   ],
   "client": [
     "ClientEntityMixin",
