@@ -76,6 +76,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerFlowerPotPlant(NyakoBlocks.BENTHIC_SAPLING, NyakoBlocks.POTTED_BENTHIC_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.ELYTRA_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.CHARGED_IRON_BLOCK);
 
         registerAllybox(blockStateModelGenerator);
 

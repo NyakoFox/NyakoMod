@@ -119,5 +119,6 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addPottedPlantDrops(NyakoBlocks.POTTED_BENTHIC_SAPLING);
 
         this.addDrop(NyakoBlocks.ELYTRA_BLOCK);
+        this.addDrop(NyakoBlocks.CHARGED_IRON_BLOCK);
     }
 }
