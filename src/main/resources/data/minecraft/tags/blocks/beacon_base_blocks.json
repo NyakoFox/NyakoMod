@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nyakomod:elytra_block"
+    "nyakomod:elytra_block",
+    "nyakomod:charged_iron_block"
   ]
 }

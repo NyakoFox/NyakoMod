@@ -1,15 +1,15 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -65,6 +65,18 @@ public class MagnetItem extends Item {
         return ingredient.isOf(Items.IRON_INGOT);
     }
 
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        if (context.getWorld().isClient) return ActionResult.PASS;
+        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() == NyakoBlocks.CHARGED_IRON_BLOCK)
+        {
+            var stack = context.getStack();
+            stack.setDamage(Math.max(0, stack.getDamage() - 10));
+            context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
+    }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
