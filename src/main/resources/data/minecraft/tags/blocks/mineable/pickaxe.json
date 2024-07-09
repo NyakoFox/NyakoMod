@@ -26,6 +26,10 @@
     "nyakomod:echo_stone",
     "nyakomod:echo_slate",
     "nyakomod:elytra_block",
-    "nyakomod:charged_iron_block"
+    "nyakomod:charged_iron_block",
+    "nyakomod:iron_crate",
+    "nyakomod:golden_crate",
+    "nyakomod:diamond_crate",
+    "nyakomod:netherite_crate"
   ]
 }

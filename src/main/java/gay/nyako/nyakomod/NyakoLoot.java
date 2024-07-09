@@ -8,18 +8,29 @@ import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NyakoLoot {
+
+    public static final Identifier CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/crates");
+    public static final Identifier WOODEN_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/wooden_crate");
+    public static final Identifier IRON_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/iron_crate");
+    public static final Identifier GOLDEN_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/golden_crate");
+    public static final Identifier DIAMOND_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/diamond_crate");
+    public static final Identifier NETHERITE_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/netherite_crate");
+
     private static final List<Identifier> coinLootTables = new ArrayList<>();
     private static final List<Identifier> itemLootTables = new ArrayList<>();
 
@@ -205,6 +216,13 @@ public class NyakoLoot {
                 ((LootTableBuilderAccessor) tableBuilder).getPools().set(0, poolBuilder.build());
             }
 
+            if(source.isBuiltin() && (new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
+            {
+                LootPool lootPool = ((LootTableBuilderAccessor) tableBuilder).getPools().get(0);
+                LootPool.Builder poolBuilder = FabricLootPoolBuilder.copyOf(lootPool);
+                poolBuilder.with(LootTableEntry.builder(NyakoLoot.CRATE_LOOT_TABLE));
+                ((LootTableBuilderAccessor) tableBuilder).getPools().set(0, poolBuilder.build());
+            }
 
             if (source.isBuiltin() && (new Identifier("minecraft", "blocks/oak_leaves")).equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))

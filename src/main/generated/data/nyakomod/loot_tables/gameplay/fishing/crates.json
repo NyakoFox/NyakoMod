@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:wooden_crate",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:iron_crate",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:golden_crate",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:diamond_crate",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "nyakomod:netherite_crate"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "nyakomod:gameplay/fishing/crates"
+}

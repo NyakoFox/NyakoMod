@@ -184,11 +184,11 @@ public class NyakoItems {
     public static final Item CONDENSED_MATTER_CONTAINER = register("condensed_matter_container",new CondensedMatterContainerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item OBSIDIAN_ARROW             = register("obsidian_arrow", new ObsidianArrowItem(new FabricItemSettings().maxCount(64)));
     public static final Item CHARGED_IRON_BLOCK         = register("charged_iron_block", new BlockItem(NyakoBlocks.CHARGED_IRON_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
-    public static final Item WOODEN_CRATE               = register("wooden_crate", new FishingCrateBlockItem(NyakoBlocks.WOODEN_CRATE, new FabricItemSettings().maxCount(16)));
-    public static final Item IRON_CRATE                 = register("iron_crate", new FishingCrateBlockItem(NyakoBlocks.IRON_CRATE, new FabricItemSettings().maxCount(16)));
-    public static final Item GOLDEN_CRATE               = register("golden_crate", new FishingCrateBlockItem(NyakoBlocks.GOLDEN_CRATE, new FabricItemSettings().maxCount(16)));
-    public static final Item DIAMOND_CRATE              = register("diamond_crate", new FishingCrateBlockItem(NyakoBlocks.DIAMOND_CRATE, new FabricItemSettings().maxCount(16)));
-    public static final Item NETHERITE_CRATE            = register("netherite_crate", new FishingCrateBlockItem(NyakoBlocks.NETHERITE_CRATE, new FabricItemSettings().maxCount(16)));
+    public static final Item WOODEN_CRATE               = register("wooden_crate", new FishingCrateBlockItem(NyakoBlocks.WOODEN_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.WOODEN_CRATE_LOOT_TABLE));
+    public static final Item IRON_CRATE                 = register("iron_crate", new FishingCrateBlockItem(NyakoBlocks.IRON_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.IRON_CRATE_LOOT_TABLE));
+    public static final Item GOLDEN_CRATE               = register("golden_crate", new FishingCrateBlockItem(NyakoBlocks.GOLDEN_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.GOLDEN_CRATE_LOOT_TABLE));
+    public static final Item DIAMOND_CRATE              = register("diamond_crate", new FishingCrateBlockItem(NyakoBlocks.DIAMOND_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.DIAMOND_CRATE_LOOT_TABLE));
+    public static final Item NETHERITE_CRATE            = register("netherite_crate", new FishingCrateBlockItem(NyakoBlocks.NETHERITE_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.NETHERITE_CRATE_LOOT_TABLE));
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);

@@ -1,0 +1,215 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 2.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:cod",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:salmon",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:tropical_fish",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:pufferfish",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:bone",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:experience_bottle",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:name_tag",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:saddle",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.25,
+                "min": 0.0
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "name": "minecraft:bow",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.25,
+                "min": 0.0
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "name": "minecraft:fishing_rod",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30.0,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:nautilus_shell",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:heart_of_the_sea"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 60.0,
+                "min": 30.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:copper_coin",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:gold_coin",
+          "weight": 4
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": 30.0,
+          "treasure": true
+        },
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": 30.0,
+          "treasure": true
+        }
+      ],
+      "rolls": 6.0
+    }
+  ],
+  "random_sequence": "nyakomod:gameplay/fishing/wooden_crate"
+}
