@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 1.20.4	2024-04-29T08:56:16.0534103	NyakoMod/Block Loot Tables
 =======
 // 1.20.1	2024-07-09T11:37:33.5791031	NyakoMod/Block Loot Tables
 >>>>>>> 091ff4d (start crates, replace vorbulation staff texture)
+=======
+// 1.20.1	2024-07-09T18:28:16.1338854	NyakoMod/Block Loot Tables
+>>>>>>> d8d5083 (finish crates)
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
@@ -24,11 +28,13 @@ e45e87527c09d5ba6c5febd397c041d667ed2a9f data\nyakomod\loot_tables\blocks\echo_d
 fdb1b817da3d56e58da88e7b248679ef65ba1a87 data\nyakomod\loot_tables\blocks\echo_spur.json
 e731264207e2806ab2485c93ca64ff7af058ea7a data\nyakomod\loot_tables\blocks\benthic_sapling.json
 eccd3c221c8f7a1752f887bb1be0a5d288c573b0 data\nyakomod\loot_tables\blocks\emerald_coin.json
+43dec580262518b7c3194ce4bc924045945c48db data\nyakomod\loot_tables\blocks\iron_crate.json
 a227de4422b4be5b29bc4294928a672ceb15a433 data\nyakomod\loot_tables\blocks\echo_fence.json
 f7b96014d161ec50ed3df371f10280bfb8e80a6f data\nyakomod\loot_tables\blocks\echo_pressure_plate.json
 7c1c1822fdf04d18e352972e9751eab6c51da840 data\nyakomod\loot_tables\blocks\benthic_stairs.json
 9262d6d4dd23f107ee7607b26a10d460fad422f7 data\nyakomod\loot_tables\blocks\potted_benthic_sapling.json
 fc051cc5164ec596d7a66c9298e2f9dd5566d909 data\nyakomod\loot_tables\blocks\benthic_trapdoor.json
+a8c0fa28ecad0a81838add63c0c825e33613fe7b data\nyakomod\loot_tables\blocks\wooden_crate.json
 4bbac14ef2793b3b86db5dd4c94dd9341e73d311 data\nyakomod\loot_tables\blocks\potted_echo_sapling.json
 061d86470ec4d801c22041778b17a8e4f25e4f36 data\nyakomod\loot_tables\blocks\copper_coin.json
 39b2b1b26f95f34df30047f5ccc9ab2b8457e6fa data\nyakomod\loot_tables\blocks\echo_trapdoor.json
@@ -46,12 +52,15 @@ e339a4135d6a980f61496a02aea5a10d5f8c557b data\nyakomod\loot_tables\blocks\benthi
 4bdeed97f6909c788e9daf8dfda377fa7ad7381e data\nyakomod\loot_tables\blocks\echo_button.json
 305da190ba0e037d186f56a46b355b30e56c50dc data\nyakomod\loot_tables\blocks\stripped_benthic_spur.json
 6f1c7b9d7cbae4fd121f8b5e1a1cecc15bf440fc data\nyakomod\loot_tables\blocks\echo_fence_gate.json
+cbeb0edb0f52d18990e146cd78f9b764de00d955 data\nyakomod\loot_tables\blocks\golden_crate.json
+1e31646f03111e29a543c255baca97be741a0143 data\nyakomod\loot_tables\blocks\diamond_crate.json
 47b8cc802cdbcd98b47e2474f0eeab7f04530fb2 data\nyakomod\loot_tables\blocks\benthic_sign.json
 5f72a635e97fa81cafce59ae66019859de9dfc3b data\nyakomod\loot_tables\blocks\echo_spine.json
-bdf04d8469049d4f9fbfa6bbcddb9ea71442b827 data\nyakomod\loot_tables\blocks\echo_sproutbulb.json
 71a68dbfc26716e3687f2d9b4433da64f5c7dd8c data\nyakomod\loot_tables\blocks\benthic_slab.json
+bdf04d8469049d4f9fbfa6bbcddb9ea71442b827 data\nyakomod\loot_tables\blocks\echo_sproutbulb.json
 41509341e1043b6bd9e21d2628ba3dd88c896427 data\nyakomod\loot_tables\blocks\potted_echo_roots.json
 f8f386575ca49e63f82e71aa4804b5633b120d16 data\nyakomod\loot_tables\blocks\benthic_spine.json
 c90ceefe18e02e42de9955ff4ba6db8bc612155d data\nyakomod\loot_tables\blocks\benthic_door.json
 35d3491b16e2762ea0090d6f6aecfa68ed1b8e3c data\nyakomod\loot_tables\blocks\echo_slab.json
 e66b4d68f27bf080ddad70a8e6662baae73ba0ee data\nyakomod\loot_tables\blocks\echo_leaves.json
+3ee4ceeb5f3558f1403f04ab57f4bf90d3ada67c data\nyakomod\loot_tables\blocks\netherite_crate.json

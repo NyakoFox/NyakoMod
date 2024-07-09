@@ -1,15 +1,19 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 1.20.4	2024-04-29T08:56:16.0544098	NyakoMod/Model Definitions
 =======
 // 1.20.1	2024-07-09T11:37:33.5801098	NyakoMod/Model Definitions
 >>>>>>> 091ff4d (start crates, replace vorbulation staff texture)
+=======
+// 1.20.1	2024-07-09T18:28:16.1348838	NyakoMod/Model Definitions
+>>>>>>> d8d5083 (finish crates)
 b20f155a341a6c519f04461c4a817a3944c40d40 assets\nyakomod\models\block\copper_coin_forty_two.json
 ff3cf7276b55bf9b8e7bbb79e11e74a6090f3b51 assets\nyakomod\models\block\copper_coin_forty_three.json
 7337c324be4587b9babcf2f1433f06dc4ed4edb4 assets\nyakomod\models\block\echo_spur.json
 a62951e63d46348d90e851fa45c43c762e864dcd assets\nyakomod\models\block\benthic_button_inventory.json
 8068e79c31eb5ebfaf07d7c4fe7f5ccfa41bc050 assets\nyakomod\models\block\plasteel_pillar_horizontal.json
-d36c8d012f22dbb3d17b8447ef3067ac7292ebdd assets\nyakomod\models\block\emerald_coin_nineteen.json
 f19b56cb73215907abde24372fc432296aed11b6 assets\nyakomod\models\block\copper_coin_sixty_three.json
+d36c8d012f22dbb3d17b8447ef3067ac7292ebdd assets\nyakomod\models\block\emerald_coin_nineteen.json
 239305e8d50e4aca61d2b1cd12b57dbecb20d815 assets\nyakomod\models\block\diamond_coin_thirty.json
 f9a7e749b19d06e1e4da744d828e2489c937dd07 assets\nyakomod\models\block\echo_button_inventory.json
 12153dcc987afb2888b4a30ce3a294ed72ba7350 assets\nyakomod\models\block\emerald_coin_forty_seven.json
@@ -320,8 +324,8 @@ c834ba8fc85db036a76082414eda95783311e59b assets\nyakomod\models\item\music_disc_
 3492f65836f04b8db39c0ce1b8242e2ca28380f0 assets\nyakomod\models\block\netherite_coin_forty.json
 03f7e66ae5780cf717441d5f79b26eb2f692df76 assets\nyakomod\models\block\benthic_slab_top.json
 ac2f4dd50a1a9a6a95d38bfb68063b552c1dddff assets\nyakomod\models\block\netherite_coin_sixty_four.json
-93fffde4a8ecfd8bea52f536b80e15d2a638873a assets\nyakomod\blockstates\echo_sproutbulb.json
 f3c59eabf00a1ee29f637598ba576c1bdb11336c assets\nyakomod\models\block\gold_coin_forty_one.json
+93fffde4a8ecfd8bea52f536b80e15d2a638873a assets\nyakomod\blockstates\echo_sproutbulb.json
 4d922ba0a0538a036f3d4e5e7d80d7ba816f18ab assets\nyakomod\models\block\diamond_coin_sixty_one.json
 130766310ccd3e7620008fcdebda07d932c6a0f0 assets\nyakomod\models\block\diamond_coin_forty_four.json
 0e680804ccf22ca8f63db9eb0d3923ced86bccbc assets\nyakomod\models\block\emerald_coin_five.json
@@ -445,8 +449,8 @@ b86c8ff74b62384f75ec86b0d378a73d6ad4227c assets\nyakomod\models\block\echo_sapli
 e9baea04e71e67045806581317e83006a7ae4fdb assets\nyakomod\models\block\emerald_coin_fifty_two.json
 b200db0ace5abc7dd6cba639cb258f35869744cd assets\nyakomod\models\block\diamond_coin_thirty_eight.json
 8fb202d956543665fd60cc2b28b45063c33d5627 assets\nyakomod\models\block\benthic_spur.json
-ab83799e96343013ad5a454f8b5ad0e510ed1ffd assets\nyakomod\models\block\gold_coin_twenty_six.json
 89c09e36fc20fb395729b55ae5d5f8d31fd85275 assets\nyakomod\models\block\emerald_coin_twenty_six.json
+ab83799e96343013ad5a454f8b5ad0e510ed1ffd assets\nyakomod\models\block\gold_coin_twenty_six.json
 9c7ad0fb4b36d6e108d75f4b1d39877a0ac739a0 assets\nyakomod\blockstates\diamond_coin.json
 f96aee04fdb6ac8d6f578e1e6dccde466158e305 assets\nyakomod\models\block\diamond_coin_fifty_nine.json
 d39d733c03c947eccc0646c98c32b60ea421b6be assets\nyakomod\models\item\dragon_milk_bucket.json
@@ -503,8 +507,8 @@ e5a37b6eb7d558868f42d60b0876d58047ea7f60 assets\nyakomod\models\item\retentive_b
 6e621cf1d27784bd59f176a85896e8f9818fc6de assets\nyakomod\models\block\gold_coin_fifty_eight.json
 dffac8781d108572c560411d44970667ca2522af assets\nyakomod\models\block\diamond_coin_fifty_one.json
 6023ac448e4163e49b03dce21a2aa6e5d2edcfb1 assets\nyakomod\models\item\charged_iron_block.json
-508613b2526ecc3593e1f5f39e6327643addb113 assets\nyakomod\models\block\copper_coin_forty_five.json
 2f21fd4565a10fc08c4ebb263c9c579b4a4353d9 assets\nyakomod\models\block\gold_coin_fifty_four.json
+508613b2526ecc3593e1f5f39e6327643addb113 assets\nyakomod\models\block\copper_coin_forty_five.json
 181ed7c775372c12442107a2d63b2c6de7c30f1d assets\nyakomod\models\block\copper_coin_eighteen.json
 667537f7351055ec55c3b97dcd9c2854d0f5aacc assets\nyakomod\models\block\diamond_coin_forty.json
 6065e5dcffbe34208b7b83735e07789a94fb6b10 assets\nyakomod\models\item\echo_sign.json
@@ -518,8 +522,8 @@ f918195bd8d918685bab25452f4a8db38a13e9b7 assets\nyakomod\models\block\copper_coi
 76f2fad01ef026df9118c43dfc311a55ad06dafd assets\nyakomod\models\item\pet_dragon_summon_05.json
 725752221e3e6578e435fb3013536a0a8a35569d assets\nyakomod\blockstates\benthic_slab.json
 9ced8308bf7389c18b291c73c9d8eaab60234e36 assets\nyakomod\models\block\copper_coin_three.json
-7c2ccf7de007cecee729b064e9561c2f46e5d105 assets\nyakomod\blockstates\echo_dirt.json
 5cde3b1dc2505af241680fe53281a2d74315abdf assets\nyakomod\models\block\emerald_coin_fifty.json
+7c2ccf7de007cecee729b064e9561c2f46e5d105 assets\nyakomod\blockstates\echo_dirt.json
 b7cd79f901030d0e6a9d59394afbba7ceaaba5ff assets\nyakomod\blockstates\benthic_sign.json
 12394f74cb2de1fe245dbafd229a5c6f24c8dca0 assets\nyakomod\models\item\plasteel_smooth_casing.json
 5893ab962a55464142ad0ffb9371fee5074cbab9 assets\nyakomod\models\block\gold_coin_thirty_seven.json
