@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 // 1.20.4	2024-04-29T08:56:16.0514108	NyakoMod/Tags for minecraft:item
+=======
+// 1.20.1	2024-07-09T11:37:33.5765972	NyakoMod/Tags for minecraft:item
+>>>>>>> 091ff4d (start crates, replace vorbulation staff texture)
 f701f3244c50d96dddb8bb2d686914163b3a9a69 data\minecraft\tags\items\arrows.json

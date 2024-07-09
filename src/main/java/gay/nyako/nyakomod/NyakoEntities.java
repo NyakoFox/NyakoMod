@@ -1,12 +1,13 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.*;
+import gay.nyako.nyakomod.block.custom.CustomHangingSignBlockEntity;
+import gay.nyako.nyakomod.block.custom.CustomSignBlockEntity;
 import gay.nyako.nyakomod.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;

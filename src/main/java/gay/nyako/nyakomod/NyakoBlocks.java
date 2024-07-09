@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.block.*;
+import gay.nyako.nyakomod.block.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
@@ -49,6 +50,12 @@ public class NyakoBlocks {
     public static final Block ELYTRA_BLOCK              = register("elytra_block",              new ElytraBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block VENT                      = register("vent",                      new VentBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block CHARGED_IRON_BLOCK        = register("charged_iron_block",        new Block(FabricBlockSettings.copy(Blocks.IRON_BLOCK).luminance(state -> 15).requiresTool()));
+
+    public static final Block WOODEN_CRATE              = register("wooden_crate",              new Block(FabricBlockSettings.copy(Blocks.CHEST)));
+    public static final Block IRON_CRATE                = register("iron_crate",                new Block(FabricBlockSettings.copy(Blocks.IRON_BLOCK)));
+    public static final Block GOLDEN_CRATE              = register("golden_crate",              new Block(FabricBlockSettings.copy(Blocks.GOLD_BLOCK)));
+    public static final Block DIAMOND_CRATE             = register("diamond_crate",             new Block(FabricBlockSettings.copy(Blocks.DIAMOND_BLOCK)));
+    public static final Block NETHERITE_CRATE           = register("netherite_crate",           new Block(FabricBlockSettings.copy(Blocks.NETHERITE_BLOCK)));
 
     public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
     public static final Block ECHO_DIRT                 = register("echo_dirt",                 new EchoDirtBlock(FabricBlockSettings.copy(Blocks.DIRT)));

@@ -82,6 +82,11 @@
 
     "block.nyakomod.elytra_block": "Elytra Block",
     "block.nyakomod.charged_iron_block": "Charged Iron Block",
+    "block.nyakomod.wooden_crate": "Wooden Crate",
+    "block.nyakomod.iron_crate": "Iron Crate",
+    "block.nyakomod.golden_crate": "Golden Crate",
+    "block.nyakomod.diamond_crate": "Diamond Crate",
+    "block.nyakomod.netherite_crate": "Netherite Crate",
 
     "category.nyakomod.binds": "NyakoMod",
 

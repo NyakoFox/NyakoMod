@@ -1,11 +1,13 @@
-package gay.nyako.nyakomod.block;
+package gay.nyako.nyakomod.block.custom;
 
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SignBlock;
+import net.minecraft.block.WoodType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class CustomWallSignBlock extends WallSignBlock {
-    public CustomWallSignBlock(Settings settings, WoodType woodType) {
+public class CustomSignBlock extends SignBlock {
+    public CustomSignBlock(Settings settings, WoodType woodType) {
         super(woodType, settings);
     }
 

@@ -1,11 +1,11 @@
-package gay.nyako.nyakomod.block;
+package gay.nyako.nyakomod.block.custom;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class CustomHangingSignBlock extends HangingSignBlock {
-    public CustomHangingSignBlock(Settings settings, WoodType woodType) {
+public class CustomWallHangingSignBlock extends WallHangingSignBlock {
+    public CustomWallHangingSignBlock(Settings settings, WoodType woodType) {
         super(woodType, settings);
     }
 
