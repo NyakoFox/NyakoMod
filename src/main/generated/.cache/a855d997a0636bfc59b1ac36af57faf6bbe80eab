@@ -1,9 +1,9 @@
-// 1.20.1	2024-04-19T12:00:27.4340223	NyakoMod/Advancements
+// 1.20.1	2024-07-09T11:37:33.5775981	NyakoMod/Advancements
 7854c95d3611a5b2aa6d14cadc92616695daa312 data\minecraft\advancements\nyakomod\drank_milk.json
 d324934ab600d4d4f56ab1888bb3ac80a35bea16 data\minecraft\advancements\nyakomod\dragon_milked.json
 f90d0ff437aadc8856684778805abe52baab7999 data\minecraft\advancements\nyakomod\player_milked.json
 ee06bc08866e7199e34687c91cd0969f48b02060 data\minecraft\advancements\nyakomod\horse_milked.json
 0a6ffa9b88fa19e283f734b0c1002ac126d894fd data\minecraft\advancements\nyakomod\ender_gem.json
-f7b8030d01c4eba1bf8049e875ef465168636b78 data\minecraft\advancements\nyakomod\diamond_coin.json
 5f6b9a0895b2c9bc306de7cbec94c0c32ce03772 data\minecraft\advancements\nyakomod\root.json
+f7b8030d01c4eba1bf8049e875ef465168636b78 data\minecraft\advancements\nyakomod\diamond_coin.json
 64e0bc76bbe3591567bbc6b3a164720cb4765689 data\minecraft\advancements\nyakomod\netherite_coin.json

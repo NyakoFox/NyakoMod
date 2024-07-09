@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-19T12:00:27.4355277	NyakoMod/Recipes
+// 1.20.1	2024-07-09T11:37:33.5775981	NyakoMod/Recipes
 29b7bad1d2f295013150267ee86a69b5c37b546b data\nyakomod\advancements\recipes\redstone\echo_button.json
 f561cf4259dace47bf1d9e395fb43075471df628 data\nyakomod\recipes\echo_stairs.json
 9fa25288336e8e33e15a6e668356197ad2d15ad9 data\nyakomod\recipes\stripped_echo_spur.json
@@ -22,11 +22,11 @@ b35260f20e8d1232365116b3e81c6c7bcd94f82e data\nyakomod\advancements\recipes\reds
 a853bb1f1df1f6b20dee36fecc9095bd96e31551 data\nyakomod\recipes\benthic_button.json
 64777cf8608c460019d676e88c040afcc83c8cc7 data\nyakomod\advancements\recipes\redstone\echo_door.json
 97d9bb07d8a7b330a0e06d2174775cd92645688d data\nyakomod\recipes\benthic_trapdoor.json
-7e7d78772a4b53246628eadbc4a763b9a8e3dc11 data\nyakomod\advancements\recipes\building_blocks\stripped_benthic_spur.json
 64e48dcf639e9a9856c89a01e6b3d6c509fa6c83 data\nyakomod\advancements\recipes\decorations\benthic_hanging_sign.json
+7e7d78772a4b53246628eadbc4a763b9a8e3dc11 data\nyakomod\advancements\recipes\building_blocks\stripped_benthic_spur.json
 dded822ecbe73652dc8690a38438217da90629b1 data\nyakomod\advancements\recipes\redstone\benthic_trapdoor.json
-d4bd17273f973888b331deb9b2bf8671bf9fa13f data\nyakomod\recipes\stripped_benthic_spur.json
 df9ce268085f298284c1985875cfdd3895ec581b data\nyakomod\advancements\recipes\building_blocks\benthic_spur.json
+d4bd17273f973888b331deb9b2bf8671bf9fa13f data\nyakomod\recipes\stripped_benthic_spur.json
 bef41708bbdd79b9bf20fc3e3725fec5032c04a6 data\nyakomod\advancements\recipes\building_blocks\benthic_planks.json
 3f05ce25776308abb2df1c52790800e56d8fe9fc data\nyakomod\advancements\recipes\building_blocks\echo_slab.json
 76e48eb6b5a4adc9b8a3a85e508de8fcd3569ff3 data\nyakomod\recipes\benthic_slab.json

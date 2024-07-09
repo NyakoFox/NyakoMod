@@ -176,6 +176,12 @@ public class NyakoItemGroups {
                 entries.add(StickerPackItem.of("funny"));
                 entries.add(StickerPackItem.of("adachi"));
                 entries.add(NyakoItems.CONDENSED_MATTER_CONTAINER);
+
+                entries.add(NyakoItems.WOODEN_CRATE);
+                entries.add(NyakoItems.IRON_CRATE);
+                entries.add(NyakoItems.GOLDEN_CRATE);
+                entries.add(NyakoItems.DIAMOND_CRATE);
+                entries.add(NyakoItems.NETHERITE_CRATE);
             })
             .build());
 

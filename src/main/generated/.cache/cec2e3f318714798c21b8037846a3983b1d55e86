@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-19T12:00:27.4365339	NyakoMod/Block Loot Tables
+// 1.20.1	2024-07-09T11:37:33.5791031	NyakoMod/Block Loot Tables
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
@@ -44,8 +44,8 @@ e339a4135d6a980f61496a02aea5a10d5f8c557b data\nyakomod\loot_tables\blocks\benthi
 6f1c7b9d7cbae4fd121f8b5e1a1cecc15bf440fc data\nyakomod\loot_tables\blocks\echo_fence_gate.json
 47b8cc802cdbcd98b47e2474f0eeab7f04530fb2 data\nyakomod\loot_tables\blocks\benthic_sign.json
 5f72a635e97fa81cafce59ae66019859de9dfc3b data\nyakomod\loot_tables\blocks\echo_spine.json
-71a68dbfc26716e3687f2d9b4433da64f5c7dd8c data\nyakomod\loot_tables\blocks\benthic_slab.json
 bdf04d8469049d4f9fbfa6bbcddb9ea71442b827 data\nyakomod\loot_tables\blocks\echo_sproutbulb.json
+71a68dbfc26716e3687f2d9b4433da64f5c7dd8c data\nyakomod\loot_tables\blocks\benthic_slab.json
 41509341e1043b6bd9e21d2628ba3dd88c896427 data\nyakomod\loot_tables\blocks\potted_echo_roots.json
 c90ceefe18e02e42de9955ff4ba6db8bc612155d data\nyakomod\loot_tables\blocks\benthic_door.json
 f8f386575ca49e63f82e71aa4804b5633b120d16 data\nyakomod\loot_tables\blocks\benthic_spine.json
