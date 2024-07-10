@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "nyakomod:block/fan",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "nyakomod:block/fan",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nyakomod:block/fan"
+    },
+    "facing=south": {
+      "model": "nyakomod:block/fan",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "nyakomod:block/fan",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "nyakomod:block/fan",
+      "y": 270
+    }
+  }
+}

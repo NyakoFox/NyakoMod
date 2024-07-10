@@ -1,8 +1,9 @@
-// 1.20.1	2024-07-09T18:28:16.1338854	NyakoMod/Block Loot Tables
+// 1.20.1	2024-07-10T16:34:24.1710893	NyakoMod/Block Loot Tables
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
 6ac04871de40c417eba7b3f65bf9fffcfbe647d9 data\nyakomod\loot_tables\blocks\benthic_spur.json
+d82a66018e5758db7e7e8754a3cc581c6b9acd87 data\nyakomod\loot_tables\blocks\fan.json
 c631edf3de0280dc3a7dbd2732480dea91268637 data\nyakomod\loot_tables\blocks\elytra_block.json
 7bf1984ba95765aa6de74cc18440e59d3b650f6b data\nyakomod\loot_tables\blocks\echo_sapling.json
 fae46aa8bcb530ea0a9c78faa776da93ed91eee1 data\nyakomod\loot_tables\blocks\benthic_fence_gate.json

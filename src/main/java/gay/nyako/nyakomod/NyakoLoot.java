@@ -216,7 +216,7 @@ public class NyakoLoot {
                 ((LootTableBuilderAccessor) tableBuilder).getPools().set(0, poolBuilder.build());
             }
 
-            if(source.isBuiltin() && (new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
+            if((new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
             {
                 LootPool lootPool = ((LootTableBuilderAccessor) tableBuilder).getPools().get(0);
                 LootPool.Builder poolBuilder = FabricLootPoolBuilder.copyOf(lootPool);

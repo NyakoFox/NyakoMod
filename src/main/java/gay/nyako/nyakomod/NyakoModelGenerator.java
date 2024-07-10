@@ -85,6 +85,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         registerAllybox(blockStateModelGenerator);
 
         registerVent(blockStateModelGenerator);
+        registerFan(blockStateModelGenerator);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -166,6 +167,21 @@ public class NyakoModelGenerator extends FabricModelProvider {
                                 )
                         )
                 )
+        );
+    }
+
+    private void registerFan(BlockStateModelGenerator blockStateModelGenerator)
+    {
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.TOP, TextureMap.getSubId(NyakoBlocks.FAN, "_side"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(NyakoBlocks.FAN, "_side"))
+                .put(TextureKey.FRONT, TextureMap.getSubId(NyakoBlocks.FAN, "_front"));
+
+        Identifier identifier = Models.ORIENTABLE.upload(NyakoBlocks.FAN, textureMap, blockStateModelGenerator.modelCollector);
+
+        blockStateModelGenerator.blockStateCollector.accept(
+                BlockStateModelGenerator.createSingletonBlockState(NyakoBlocks.FAN, identifier)
+                        .coordinate(BlockStateModelGenerator.createNorthDefaultRotationStates())
         );
     }
 

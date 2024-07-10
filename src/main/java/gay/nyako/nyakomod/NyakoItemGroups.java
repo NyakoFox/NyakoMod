@@ -182,6 +182,8 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.GOLDEN_CRATE);
                 entries.add(NyakoItems.DIAMOND_CRATE);
                 entries.add(NyakoItems.NETHERITE_CRATE);
+
+                entries.add(NyakoItems.FAN);
             })
             .build());
 

@@ -57,6 +57,8 @@ public class NyakoBlocks {
     public static final Block DIAMOND_CRATE             = register("diamond_crate",             new Block(FabricBlockSettings.copy(Blocks.DIAMOND_BLOCK)));
     public static final Block NETHERITE_CRATE           = register("netherite_crate",           new Block(FabricBlockSettings.copy(Blocks.NETHERITE_BLOCK)));
 
+    public static final Block FAN                       = register("fan",                       new FanBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK)));
+
     public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
     public static final Block ECHO_DIRT                 = register("echo_dirt",                 new EchoDirtBlock(FabricBlockSettings.copy(Blocks.DIRT)));
     public static final Block ECHO_STONE                = register("echo_stone",                new Block(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
