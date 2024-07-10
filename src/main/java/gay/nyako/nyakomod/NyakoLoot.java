@@ -207,7 +207,7 @@ public class NyakoLoot {
                 tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(NyakoItems.SPECULAR_FISH).weight(1)));
             }
 
-            if(source.isBuiltin() && (new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
+            if((new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
             {
                 LootPool lootPool = ((LootTableBuilderAccessor) tableBuilder).getPools().get(0);
                 LootPool.Builder poolBuilder = FabricLootPoolBuilder.copyOf(lootPool);

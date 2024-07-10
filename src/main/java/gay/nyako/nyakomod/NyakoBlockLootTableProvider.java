@@ -125,5 +125,7 @@ public class NyakoBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(NyakoBlocks.GOLDEN_CRATE);
         this.addDrop(NyakoBlocks.DIAMOND_CRATE);
         this.addDrop(NyakoBlocks.NETHERITE_CRATE);
+
+        this.addDrop(NyakoBlocks.FAN);
     }
 }

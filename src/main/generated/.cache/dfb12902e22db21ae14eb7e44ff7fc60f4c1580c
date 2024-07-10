@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 1.20.4	2024-04-29T08:56:16.0524094	NyakoMod/Recipes
 a45a4505de08b17a63fc67b541130c098ac65da1 data\nyakomod\advancements\recipes\redstone\echo_button.json
 fb60cdff73ef863bead8a2b4c1779b1bcd5fceca data\nyakomod\recipes\echo_stairs.json
@@ -9,6 +10,9 @@ c17dc695b5361a7b63a6bb0ec8aff2acd2b29c29 data\nyakomod\recipes\stripped_echo_spu
 =======
 // 1.20.1	2024-07-09T18:28:16.1328736	NyakoMod/Recipes
 >>>>>>> d8d5083 (finish crates)
+=======
+// 1.20.1	2024-07-10T16:34:24.1700907	NyakoMod/Recipes
+>>>>>>> 99f1309 (add fan)
 29b7bad1d2f295013150267ee86a69b5c37b546b data\nyakomod\advancements\recipes\redstone\echo_button.json
 f561cf4259dace47bf1d9e395fb43075471df628 data\nyakomod\recipes\echo_stairs.json
 9fa25288336e8e33e15a6e668356197ad2d15ad9 data\nyakomod\recipes\stripped_echo_spur.json

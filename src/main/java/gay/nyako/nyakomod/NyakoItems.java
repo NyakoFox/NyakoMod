@@ -189,6 +189,7 @@ public class NyakoItems {
     public static final Item GOLDEN_CRATE               = register("golden_crate", new FishingCrateBlockItem(NyakoBlocks.GOLDEN_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.GOLDEN_CRATE_LOOT_TABLE));
     public static final Item DIAMOND_CRATE              = register("diamond_crate", new FishingCrateBlockItem(NyakoBlocks.DIAMOND_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.DIAMOND_CRATE_LOOT_TABLE));
     public static final Item NETHERITE_CRATE            = register("netherite_crate", new FishingCrateBlockItem(NyakoBlocks.NETHERITE_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.NETHERITE_CRATE_LOOT_TABLE));
+    public static final Item FAN                        = register("fan", new BlockItem(NyakoBlocks.FAN, new FabricItemSettings()));
 
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
