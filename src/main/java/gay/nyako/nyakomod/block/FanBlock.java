@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.block;
 
+import com.mojang.serialization.MapCodec;
 import gay.nyako.nyakomod.NyakoEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,15 +24,20 @@ import static net.minecraft.state.property.Properties.FACING;
 import static net.minecraft.state.property.Properties.HORIZONTAL_FACING;
 
 public class FanBlock extends BlockWithEntity {
+    public static final MapCodec<FanBlock> CODEC = FanBlock.createCodec(FanBlock::new);
     public FanBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+    }
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return FanBlock.checkType(type, NyakoEntities.FAN_BLOCK_ENTITY, FanBlockEntity::tick);
+        return FanBlock.validateTicker(type, NyakoEntities.FAN_BLOCK_ENTITY, FanBlockEntity::tick);
     }
 
     @Override

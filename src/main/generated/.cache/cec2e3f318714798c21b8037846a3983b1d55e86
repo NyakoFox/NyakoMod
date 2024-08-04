@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-// 1.20.4	2024-04-29T08:56:16.0534103	NyakoMod/Block Loot Tables
-=======
-// 1.20.1	2024-07-09T11:37:33.5791031	NyakoMod/Block Loot Tables
->>>>>>> 091ff4d (start crates, replace vorbulation staff texture)
-=======
-// 1.20.1	2024-07-09T18:28:16.1338854	NyakoMod/Block Loot Tables
->>>>>>> d8d5083 (finish crates)
-=======
-// 1.20.1	2024-07-10T16:34:24.1710893	NyakoMod/Block Loot Tables
->>>>>>> 99f1309 (add fan)
+// 1.20.4	2024-08-04T14:56:10.282836	NyakoMod/Block Loot Tables
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json

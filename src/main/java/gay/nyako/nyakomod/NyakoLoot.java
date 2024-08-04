@@ -209,10 +209,7 @@ public class NyakoLoot {
 
             if((new Identifier("minecraft", "gameplay/fishing/treasure")).equals(id))
             {
-                LootPool lootPool = ((LootTableBuilderAccessor) tableBuilder).getPools().get(0);
-                LootPool.Builder poolBuilder = FabricLootPoolBuilder.copyOf(lootPool);
-                poolBuilder.with(LootTableEntry.builder(NyakoLoot.CRATE_LOOT_TABLE));
-                ((LootTableBuilderAccessor) tableBuilder).getPools().set(0, poolBuilder.build());
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(LootTableEntry.builder(NyakoLoot.CRATE_LOOT_TABLE)));
             }
 
             if (source.isBuiltin() && (new Identifier("minecraft", "blocks/oak_leaves")).equals(id)) {
