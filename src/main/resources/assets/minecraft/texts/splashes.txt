@@ -12,3 +12,9 @@
 §bPlay vivid/stasis!
 §bfor (int i = 0; i < 100; i++) { player.kill(); } // !
 §bMy buddy Eric!
+§aAdded gnorp gneepy
+§bPlay with my §6balls
+§bo ,ade tjos :")
+§bi made this :)
+§4Red
+§ka
