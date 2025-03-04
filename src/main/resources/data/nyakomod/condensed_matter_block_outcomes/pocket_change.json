@@ -1,0 +1,13 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:item",
+			"item": "nyakomod:copper_coin",
+			"count": {
+				"type": "nyakomod:range",
+				"min": 10,
+				"max": 50
+			}
+		}
+	]
+}

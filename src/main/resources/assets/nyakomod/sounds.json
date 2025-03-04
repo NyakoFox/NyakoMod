@@ -65,6 +65,13 @@
             "nyakomod:vent"
         ]
     },
+    "cartoon_fall": {
+        "subtitle": "subtitles.nyakomod.cartoon_fall",
+        "sounds": [
+            "nyakomod:cartoon_fall"
+        ]
+    },
+
     "music_disc.mask": {
         "sounds": [
             {

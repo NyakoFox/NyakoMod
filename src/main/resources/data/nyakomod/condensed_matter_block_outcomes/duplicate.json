@@ -1,0 +1,9 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:item",
+			"item": "nyakomod:condensed_matter_block",
+			"count": 3
+		}
+	]
+}

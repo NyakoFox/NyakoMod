@@ -86,6 +86,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         registerVent(blockStateModelGenerator);
         registerFan(blockStateModelGenerator);
+
+        blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.CONDENSED_MATTER_BLOCK);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -341,6 +343,8 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.STICKER_PACK, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.CONDENSED_MATTER_CONTAINER, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.OBSIDIAN_ARROW, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.APPLE_INGOT, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.CARROT_NUGGET, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

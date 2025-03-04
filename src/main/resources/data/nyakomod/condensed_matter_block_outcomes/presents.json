@@ -1,0 +1,21 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:repeat",
+			"count": 35,
+			"outcomes": [
+				{
+					"type": "nyakomod:item",
+					"item": "nyakomod:present",
+					"count": 1
+				}
+			]
+		},
+		{
+			"type": "nyakomod:item",
+			"item": "nyakomod:present",
+			"count": 1,
+			"nbt": "{Items:[{Count:1b,id:\"minecraft:emerald\"},{Count:1b,id:\"minecraft:diamond\"},{Count:8b,id:\"minecraft:lapis_lazuli\"},{Count:4b,id:\"minecraft:gold_ingot\"},{Count:8b,id:\"minecraft:iron_ingot\"},{Count:16b,id:\"minecraft:copper_ingot\"}],display:{Name:'{\"text\":\"Present (Filled)\"}'}}"
+		}
+	]
+}

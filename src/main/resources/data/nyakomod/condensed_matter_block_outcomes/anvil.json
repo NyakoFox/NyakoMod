@@ -1,0 +1,33 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:sound",
+			"sound": "nyakomod:cartoon_fall"
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:anvil\"},Time:1,DropItem:0b,HurtEntities:1b,FallHurtMax:100,FallDistance:100f,FallHurtAmount:100f}",
+			"position": {
+				"type": "nyakomod:player",
+				"offset": [0, 100, 0]
+			}
+		},
+		{
+			"type": "nyakomod:effect",
+			"effect": "minecraft:slowness",
+			"duration": 100,
+			"amplifier": 16,
+			"show_particles": false,
+			"show_icon": false
+		},
+		{
+			"type": "nyakomod:effect",
+			"effect": "minecraft:jump_boost",
+			"duration": 100,
+			"amplifier": 128,
+			"show_particles": false,
+			"show_icon": false
+		}
+	]
+}

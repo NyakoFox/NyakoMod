@@ -18,7 +18,7 @@
             }
           ],
           "name": "minecraft:diamond",
-          "weight": 16
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -34,7 +34,7 @@
             }
           ],
           "name": "minecraft:emerald",
-          "weight": 16
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -126,7 +126,7 @@
             }
           ],
           "name": "minecraft:book",
-          "weight": 16
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -174,7 +174,7 @@
             }
           ],
           "name": "nyakomod:emerald_coin",
-          "weight": 8
+          "weight": 4
         }
       ],
       "functions": [

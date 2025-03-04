@@ -45,23 +45,18 @@ public class PresentItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if (world.isClient()) return TypedActionResult.pass(itemStack);
+        if (world.isClient()) return TypedActionResult.success(itemStack);
         user.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
 
         user.setStackInHand(hand, ItemStack.EMPTY);
 
-        if (PresentItem.dropAllItems(itemStack, user)) {
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
-            return TypedActionResult.success(itemStack, true);
-        }
-        return TypedActionResult.fail(itemStack);
+        PresentItem.dropAllItems(itemStack, user);
+        user.incrementStat(Stats.USED.getOrCreateStat(this));
+        return TypedActionResult.success(itemStack, true);
     }
 
-    private static boolean dropAllItems(ItemStack stack, PlayerEntity player) {
+    private static void dropAllItems(ItemStack stack, PlayerEntity player) {
         NbtCompound nbtCompound = stack.getOrCreateNbt();
-        if (!nbtCompound.contains("Items")) {
-            return false;
-        }
         if (player instanceof ServerPlayerEntity) {
             NbtList nbtList = nbtCompound.getList("Items", 10);
             for (int i = 0; i < nbtList.size(); ++i) {
@@ -73,7 +68,6 @@ public class PresentItem extends Item {
             }
         }
         stack.removeSubNbt("Items");
-        return true;
     }
 
     @Override

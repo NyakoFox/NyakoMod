@@ -113,6 +113,8 @@ public class NyakoMod implements ModInitializer {
         Milk.enableAllMilkBottles();
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CondensedMatterBlockResourceReloadListener());
+
         NyakoNetworking.registerGlobalReceivers();
         NyakoLoot.register();
         NyakoGacha.register();
@@ -287,6 +289,7 @@ public class NyakoMod implements ModInitializer {
             PackCommand.register(dispatcher);
             SmiteCommand.register(dispatcher);
             SlimeDebugCommand.register(dispatcher);
+            OutcomeCommand.register(dispatcher);
             ShopCommand.register(dispatcher);
             AFKCommand.register(dispatcher);
             DumpNbtCommand.register(dispatcher);
