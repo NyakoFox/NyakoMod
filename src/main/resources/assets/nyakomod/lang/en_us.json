@@ -89,6 +89,7 @@
     "block.nyakomod.netherite_crate": "Netherite Crate",
 
     "block.nyakomod.fan": "Fan",
+    "block.nyakomod.condensed_matter_block": "Condensed Matter Block",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -183,6 +184,9 @@
 
     "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 
+    "item.nyakomod.apple_ingot": "Apple Ingot",
+    "item.nyakomod.carrot_nugget": "Carrot Nugget",
+
     "item.nyakomod.burning_super_death_sword": "Burning Super Death Sword",
     "item.nyakomod.sticker_pack": "Sticker Pack",
     "item.nyakomod.sticker_pack.open": "You have opened the %s sticker pack!",
@@ -267,6 +271,7 @@
     "subtitles.nyakomod.super_luigi": "\"Super Luigi Galaxy!\"",
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
+    "subtitles.nyakomod.cartoon_fall": "Cartoon falling sound",
     "subtitles.nyakomod.wolves": "Kanye West - Wolves",
     "subtitles.nyakomod.clunk": "The Clown - What's So Funny?",
     "subtitles.nyakomod.merry": "Super Mario 64 - Merry-Go-Round",

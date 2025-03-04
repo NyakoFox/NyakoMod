@@ -1,0 +1,8 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:modify_inventory",
+			"action": "wrap"
+		}
+	]
+}

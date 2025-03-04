@@ -1,0 +1,23 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:block",
+			"block": "nyakomod:condensed_matter_block",
+			"position": {
+				"offset": [1, 0, 0]
+			}
+		},
+		{
+			"type": "nyakomod:block",
+			"block": "minecraft:oak_sign",
+			"nbt": "{front_text:{messages:['{\"text\":\"One of these is\"}','{\"text\":\"good, one of these\"}','{\"text\":\"is bad.\"}','{\"text\":\"Choose wisely.\"}']}}"
+		},
+		{
+			"type": "nyakomod:block",
+			"block": "nyakomod:condensed_matter_block",
+			"position": {
+				"offset": [-1, 0, 0]
+			}
+		}
+	]
+}

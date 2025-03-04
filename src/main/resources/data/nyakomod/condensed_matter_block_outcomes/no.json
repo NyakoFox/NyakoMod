@@ -1,0 +1,12 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:message",
+			"value": "No"
+		},
+		{
+			"type": "nyakomod:block",
+			"block": "nyakomod:condensed_matter_block"
+		}
+	]
+}

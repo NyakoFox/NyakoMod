@@ -1,0 +1,16 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:repeat",
+			"count": 36,
+			"outcomes": [
+				{
+					"type": "nyakomod:item",
+					"item": "minecraft:knowledge_book",
+					"count": 1,
+					"nbt": "{Recipes:[\"minecraft:bread\"]}"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:block",
+			"block": "minecraft:bedrock"
+		}
+	]
+}

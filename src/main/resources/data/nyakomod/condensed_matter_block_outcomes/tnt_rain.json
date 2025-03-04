@@ -1,0 +1,64 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:block",
+			"block": "minecraft:redstone_block"
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 20, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 25, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 30, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 35, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 40, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 45, 0]
+			}
+		},
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:falling_block",
+			"nbt": "{BlockState:{Name:\"minecraft:tnt\"},Time:1,DropItem:0b,HurtEntities:0b}",
+			"position": {
+				"offset": [0, 50, 0]
+			}
+		}
+	]
+}

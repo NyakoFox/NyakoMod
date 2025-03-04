@@ -17,8 +17,56 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:netherite_ingot",
-          "weight": 16
+          "name": "nyakomod:condensed_matter_container",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:creeper",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:wither",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:time_in_a_bottle",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "nyakomod:flint_and_steel_plus",
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -94,7 +142,7 @@
             }
           ],
           "name": "nyakomod:emerald_coin",
-          "weight": 16
+          "weight": 4
         }
       ],
       "rolls": 6.0

@@ -1,0 +1,12 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:tnt",
+			"nbt": "{modifiedBlockState:true,Fuse:80,blockState:\"nyakomod:condensed_matter_block\",Motion:[0.0,0.2,0.0]}",
+			"position": {
+				"offset": [0, -0.5, 0]
+			}
+		}
+	]
+}

@@ -191,6 +191,11 @@ public class NyakoItems {
     public static final Item NETHERITE_CRATE            = register("netherite_crate", new FishingCrateBlockItem(NyakoBlocks.NETHERITE_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.NETHERITE_CRATE_LOOT_TABLE));
     public static final Item FAN                        = register("fan", new BlockItem(NyakoBlocks.FAN, new FabricItemSettings()));
 
+    public static final Item CONDENSED_MATTER_BLOCK     = register("condensed_matter_block", new BlockItem(NyakoBlocks.CONDENSED_MATTER_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
+
+    public static final Item APPLE_INGOT                = register("apple_ingot", new Item(new FabricItemSettings()));
+    public static final Item CARROT_NUGGET              = register("carrot_nugget", new Item(new FabricItemSettings()));
+
     public static Item register(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
     }

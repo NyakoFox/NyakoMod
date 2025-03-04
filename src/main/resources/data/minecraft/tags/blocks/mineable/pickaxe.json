@@ -31,6 +31,7 @@
     "nyakomod:golden_crate",
     "nyakomod:diamond_crate",
     "nyakomod:netherite_crate",
-    "nyakomod:fan"
+    "nyakomod:fan",
+    "nyakomod:condensed_matter_block"
   ]
 }

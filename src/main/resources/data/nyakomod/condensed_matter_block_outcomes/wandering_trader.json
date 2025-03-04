@@ -1,0 +1,12 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:wandering_trader",
+			"nbt": "{ActiveEffects:[{Id:28,Amplifier:2b,Duration:80,ShowParticles:0b}]}",
+			"position": {
+				"offset": [0, 20, 0]
+			}
+		}
+	]
+}

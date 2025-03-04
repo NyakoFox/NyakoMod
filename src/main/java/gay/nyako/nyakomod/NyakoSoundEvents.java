@@ -20,6 +20,8 @@ public class NyakoSoundEvents {
     public static final SoundEvent VENT                 = register("vent");
     public static final SoundEvent STICKER              = register("sticker");
 
+    public static final SoundEvent CARTOON_FALL         = register("cartoon_fall");
+
     public static final SoundEvent MUSIC_DISC_WOLVES    = NyakoDiscs.WOLVES.soundEvent();
     public static final SoundEvent MUSIC_DISC_MASK      = NyakoDiscs.MASK.soundEvent();
     public static final SoundEvent MUSIC_DISC_CLUNK     = NyakoDiscs.CLUNK.soundEvent();

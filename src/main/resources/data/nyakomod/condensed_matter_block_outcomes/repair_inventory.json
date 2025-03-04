@@ -1,0 +1,19 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:message",
+			"value": "Your entire inventory has been repaired. Congratulations!"
+		},
+		{
+			"type": "nyakomod:modify_inventory",
+			"action": "repair"
+		},
+		{
+			"type": "nyakomod:sound",
+			"sound": "minecraft:entity.player.levelup",
+			"position": {
+				"type": "nyakomod:player"
+			}
+		}
+	]
+}

@@ -184,6 +184,10 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.NETHERITE_CRATE);
 
                 entries.add(NyakoItems.FAN);
+                entries.add(NyakoItems.CONDENSED_MATTER_BLOCK);
+
+                entries.add(NyakoItems.APPLE_INGOT);
+                entries.add(NyakoItems.CARROT_NUGGET);
             })
             .build());
 
