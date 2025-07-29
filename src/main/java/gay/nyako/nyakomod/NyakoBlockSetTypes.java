@@ -17,7 +17,7 @@ public class NyakoBlockSetTypes {
 
     public static BlockSetType register(String id, BlockSetTypeBuilder blockSetTypeBuilder)
     {
-        return blockSetTypeBuilder.register(new Identifier("nyakomod", id));
+        return blockSetTypeBuilder.register(NyakoMod.id(id));
     }
 }
 

@@ -1,0 +1,16 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:entity",
+			"entity": "minecraft:zombie",
+			"nbt": "{BossBar:1b,CunkCoinMultiplier:250f,Silent:0b,CustomNameVisible:1b,Health:20f,IsBaby:0b,CanBreakDoors:1b,CustomName:'{\"text\":\"Bob\",\"color\":\"gold\",\"bold\":true,\"underlined\":true}',HandItems:[{id:\"minecraft:netherite_sword\",Count:1b,tag:{display:{Name:'{\"text\":\"Bob\\'s Sword\",\"color\":\"gold\",\"bold\":true,\"underlined\":true}'},RepairCost:99999,Unbreakable:0b}},{}],HandDropChances:[0.050F,0.085F],ArmorItems:[{id:\"minecraft:netherite_boots\",Count:1b},{id:\"minecraft:netherite_leggings\",Count:1b},{id:\"minecraft:netherite_chestplate\",Count:1b},{id:\"minecraft:netherite_helmet\",Count:1b}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.max_health,Base:20},{Name:generic.follow_range,Base:2048},{Name:generic.knockback_resistance,Base:1},{Name:generic.movement_speed,Base:0.5},{Name:generic.attack_knockback,Base:5},{Name:zombie.spawn_reinforcements,Base:0}]}"
+		},
+		{
+			"type": "nyakomod:sound",
+			"sound": "minecraft:entity.wither.spawn",
+			"position": {
+				"type": "nyakomod:player"
+			}
+		}
+	]
+}

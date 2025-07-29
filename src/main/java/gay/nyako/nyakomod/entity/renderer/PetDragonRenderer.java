@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.entity.renderer;
 
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.item.PetChangeSummonItem;
@@ -27,6 +28,6 @@ public class PetDragonRenderer extends MobEntityRenderer<PetDragonEntity, PetDra
             }
         }
 
-        return new Identifier("nyakomod", "textures/entity/pet/dragon.png");
+        return NyakoMod.id("textures/entity/pet/dragon.png");
     }
 }

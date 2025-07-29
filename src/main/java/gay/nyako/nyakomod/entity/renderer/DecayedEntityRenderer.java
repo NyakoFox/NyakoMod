@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.entity.renderer;
 
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.NyakoMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Dilation;
@@ -15,7 +16,7 @@ import net.minecraft.util.Identifier;
 @Environment(value= EnvType.CLIENT)
 public class DecayedEntityRenderer
         extends ZombieEntityRenderer {
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/entity/zombie/decayed.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/entity/zombie/decayed.png");
 
     public DecayedEntityRenderer(EntityRendererFactory.Context context) {
         super(context, NyakoClientMod.MODEL_DECAYED_LAYER, NyakoClientMod.MODEL_DECAYED_INNER_ARMOR_LAYER, NyakoClientMod.MODEL_DECAYED_OUTER_ARMOR_LAYER);

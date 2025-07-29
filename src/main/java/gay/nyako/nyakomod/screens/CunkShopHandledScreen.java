@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoNetworking;
@@ -34,7 +35,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
     public FlowLayout layout;
 
     public CunkShopHandledScreen(CunkShopScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.asset(new Identifier("nyakomod", "cunk_shop")));
+        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.asset(NyakoMod.id("cunk_shop")));
         this.titleY = 69420;
         this.playerInventoryTitleY = 69420;
     }

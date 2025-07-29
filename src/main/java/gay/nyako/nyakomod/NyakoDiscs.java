@@ -32,8 +32,8 @@ public class NyakoDiscs {
     public static final DiscGroup SKIBIDI_REAL = register("skibidi_real", toSeconds(2, 7));
 
     public static DiscGroup register(String name, int length) {
-        var soundId = new Identifier("nyakomod", "music_disc." + name);
-        var itemId = new Identifier("nyakomod", "music_disc_" + name);
+        var soundId = NyakoMod.id("music_disc." + name);
+        var itemId = NyakoMod.id("music_disc_" + name);
         var soundEvent = SoundEvent.of(soundId);
         var discItem = new CustomDiscItem(15, soundEvent, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), length);
 

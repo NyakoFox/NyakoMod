@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.access.EntityAccess;
+import gay.nyako.nyakomod.access.LivingEntityAccess;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ public class GrownFoamZombieItem extends Item {
         // Spawn Giant
         GiantEntity giant = new GiantEntity(EntityType.GIANT, context.getWorld());
         giant.setPosition(context.getHitPos().x, context.getHitPos().y, context.getHitPos().z);
-        ((EntityAccess)giant).setFromSpawner(true);
+        ((LivingEntityAccess)giant).setFromSpawner(true);
         context.getWorld().spawnEntity(giant);
 
         ItemStack stack = context.getStack();

@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.entity.renderer;
 
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.HerobrineEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
@@ -15,7 +16,7 @@ import net.minecraft.util.Identifier;
 
 public class HerobrineEntityRenderer<T extends HerobrineEntity, M extends BipedEntityModel<T>>
         extends BipedEntityRenderer<T, M> {
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/entity/herobrine/herobrine.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/entity/herobrine/herobrine.png");
 
     public HerobrineEntityRenderer(EntityRendererFactory.Context ctx, EntityModelLayer bodyModel, EntityModelLayer legsArmorModel, EntityModelLayer bodyArmorModel) {
         super(ctx, (M) new BipedEntityModel<HerobrineEntity>(ctx.getPart(bodyModel)), 0.5f);

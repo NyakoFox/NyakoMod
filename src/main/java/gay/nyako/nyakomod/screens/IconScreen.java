@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class IconScreen extends HandledScreen<IconScreenHandler> {
 
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/gui/container/iconpicker.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/gui/container/iconpicker.png");
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;

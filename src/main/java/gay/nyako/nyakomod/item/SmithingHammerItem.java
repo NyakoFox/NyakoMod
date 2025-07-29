@@ -24,22 +24,29 @@ public class SmithingHammerItem extends Item {
         var world = context.getWorld();
         var playerEntity = context.getPlayer();
         if (playerEntity == null) return ActionResult.PASS;
-        hitBlock(world, context.getBlockPos(), playerEntity);
-        world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
-        var broken = stack.damage(1, world.random, null);
-        if (broken) {
-            playerEntity.playEquipmentBreakEffects(stack);
-            stack.decrement(1);
+        if (hitBlock(world, context.getBlockPos(), playerEntity)) {
+            world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            var broken = stack.damage(1, world.random, null);
+            if (broken) {
+                playerEntity.playEquipmentBreakEffects(stack);
+                stack.decrement(1);
+            }
             return ActionResult.SUCCESS;
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 
-    public void hitBlock(World world, BlockPos pos, PlayerEntity player) {
+    public boolean hitBlock(World world, BlockPos pos, PlayerEntity player) {
         BlockState state = world.getBlockState(pos);
         BlockState newState = null;
+        if (state.isOf(Blocks.GRASS_BLOCK)) newState = Blocks.DIRT.getDefaultState();
+        if (state.isOf(Blocks.DIRT)) newState = Blocks.DIRT_PATH.getDefaultState();
+
         if (state.isOf(Blocks.STONE_BRICKS)) newState = Blocks.CRACKED_STONE_BRICKS.getDefaultState();
+        if (state.isOf(Blocks.CRACKED_STONE_BRICKS)) newState = Blocks.STONE.getDefaultState();
         if (state.isOf(Blocks.STONE)) newState = Blocks.COBBLESTONE.getDefaultState();
+        if (state.isOf(Blocks.COBBLESTONE)) newState = Blocks.GRAVEL.getDefaultState();
+        if (state.isOf(Blocks.GRAVEL)) newState = Blocks.SAND.getDefaultState();
         if (state.isOf(Blocks.STONE_SLAB)) newState = Blocks.COBBLESTONE_SLAB.getDefaultState().with(SlabBlock.TYPE, state.get(SlabBlock.TYPE));
         if (state.isOf(Blocks.STONE_STAIRS)) newState = Blocks.COBBLESTONE_STAIRS.getDefaultState().with(StairsBlock.FACING, state.get(StairsBlock.FACING)).with(StairsBlock.HALF, state.get(StairsBlock.HALF));
         if (state.isOf(Blocks.STONE_BRICK_STAIRS)) newState = Blocks.COBBLESTONE_STAIRS.getDefaultState().with(StairsBlock.FACING, state.get(StairsBlock.FACING)).with(StairsBlock.HALF, state.get(StairsBlock.HALF));
@@ -93,6 +100,9 @@ public class SmithingHammerItem extends Item {
             world.playSound(player, pos, blockSoundGroup.getBreakSound(), SoundCategory.BLOCKS, (blockSoundGroup.getVolume() + 1.0f) / 2.0f, blockSoundGroup.getPitch() * 0.8f);
             world.addBlockBreakParticles(pos, state);
             world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.SKIP_DROPS);
+            return true;
         }
+
+        return false;
     }
 }

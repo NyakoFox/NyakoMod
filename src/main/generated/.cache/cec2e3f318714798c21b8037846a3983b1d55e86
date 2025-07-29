@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-03T21:29:27.4786251	NyakoMod/Block Loot Tables
+// 1.20.1	2025-05-10T17:23:51.4600157	NyakoMod/Block Loot Tables
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
@@ -9,6 +9,7 @@ c631edf3de0280dc3a7dbd2732480dea91268637 data\nyakomod\loot_tables\blocks\elytra
 fae46aa8bcb530ea0a9c78faa776da93ed91eee1 data\nyakomod\loot_tables\blocks\benthic_fence_gate.json
 a6f6571267d0e9f1fd9feca849c8c48035303510 data\nyakomod\loot_tables\blocks\echo_slate.json
 f44feb1149fdc067e74c123453c2094c26661588 data\nyakomod\loot_tables\blocks\diamond_coin.json
+12158fdcc99b2dbc46d7691b07f9595a2cef8a56 data\nyakomod\loot_tables\blocks\full_piston.json
 e2edd66fa25f0fb66d4351ce787eca0afb008aeb data\nyakomod\loot_tables\blocks\echo_stone.json
 7089eff92b631a929e2b91169d09b0a6cad5fd8f data\nyakomod\loot_tables\blocks\echo_bulb.json
 aea5cb7cb6339c28c027d6dff76eddd518583fba data\nyakomod\loot_tables\blocks\stripped_echo_spur.json

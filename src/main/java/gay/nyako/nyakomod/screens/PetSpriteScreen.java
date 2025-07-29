@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.ButtonComponent;
@@ -17,7 +18,7 @@ public class PetSpriteScreen extends BaseUIModelScreen<FlowLayout> {
     ItemStack item;
 
     public PetSpriteScreen(ItemStack item) {
-        super(FlowLayout.class, DataSource.asset(new Identifier("nyakomod", "pet_input")));
+        super(FlowLayout.class, DataSource.asset(NyakoMod.id("pet_input")));
 
         this.item = item;
     }

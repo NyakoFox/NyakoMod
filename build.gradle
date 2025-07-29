@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
 	id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
@@ -39,6 +39,9 @@ loom {
 }
 
 repositories {
+	maven {
+		url = uri("https://storage.googleapis.com/devan-maven/")
+	}
 	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 	maven { url "https://maven.nucleoid.xyz/" }
 	maven {
@@ -74,8 +77,10 @@ dependencies {
 
 	modImplementation 'me.lucko:fabric-permissions-api:0.1-SNAPSHOT'
 
-	include files("libs/stacc-1.5.2.jar")
+	//include files("libs/stacc-1.7.0.jar")
+	//modRuntime("net.devtech:Stacc:1.7.0")
 	//modRuntimeOnly(include("net.devtech:stacc:1.3.4"))
+	modImplementation "maven.modrinth:stacc-api:1.7.0"
 
 	modImplementation include("eu.pb4:placeholder-api:2.1.3+1.20.1")
 

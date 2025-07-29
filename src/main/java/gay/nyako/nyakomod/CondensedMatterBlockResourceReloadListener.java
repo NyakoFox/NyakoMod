@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class CondensedMatterBlockResourceReloadListener implements SimpleSynchronousResourceReloadListener {
     @Override
     public Identifier getFabricId() {
-        return new Identifier("nyakomod", "condensed_matter_block_outcomes");
+        return NyakoMod.id("condensed_matter_block_outcomes");
     }
 
     private boolean isNull(JsonElement element) {

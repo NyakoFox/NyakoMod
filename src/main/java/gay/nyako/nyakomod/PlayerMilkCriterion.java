@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class PlayerMilkCriterion extends AbstractCriterion<PlayerMilkCriterion.Conditions> {
 
-    public static final Identifier ID = new Identifier("nyakomod", "player_milked");
+    public static final Identifier ID = NyakoMod.id("player_milked");
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {

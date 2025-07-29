@@ -1,17 +1,7 @@
 package gay.nyako.nyakomod.effect;
 
-import gay.nyako.nyakomod.NyakoMod;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
-import org.apache.commons.logging.impl.WeakHashtable;
-
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
 
 public class HunterStatusEffect extends StatusEffect {
     public HunterStatusEffect() {

@@ -2,7 +2,7 @@ package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.access.EntityAccess;
+import gay.nyako.nyakomod.access.LivingEntityAccess;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -14,15 +14,22 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,7 +39,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity implements LivingEntityAccess {
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
@@ -41,6 +48,37 @@ public abstract class LivingEntityMixin extends Entity {
 	private static final UUID MILK_ATTACK_SPEED_ID = UUID.fromString("8959b2d5-086d-4d00-8fb0-e7cd7bc75342");
 	private static final EntityAttributeModifier MILK_BOOST = new EntityAttributeModifier(MILK_BOOST_ID, "Milk speed boost", 0.2f, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 	private static final EntityAttributeModifier MILK_ATTACK_SPEED = new EntityAttributeModifier(MILK_ATTACK_SPEED_ID, "Milk attack speed", 0.4f, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+
+	private boolean fromSpawner = false;
+	private float coinMultiplier = 1.0f;
+	private boolean bossBar = false;
+
+	private ServerBossBar serverBossBar = null;
+
+	@Override
+	public void setFromSpawner(boolean bool) {
+		fromSpawner = bool;
+	}
+	@Override
+	public boolean isFromSpawner() {
+		return fromSpawner;
+	}
+	@Override
+	public void setCoinMultiplier(float multiplier) {
+		coinMultiplier = multiplier;
+	}
+	@Override
+	public float getCoinMultiplier() {
+		return coinMultiplier;
+	}
+	@Override
+	public void setBossBar(boolean bool) {
+		bossBar = bool;
+	}
+	@Override
+	public boolean hasBossBar() {
+		return bossBar;
+	}
 
 	@Shadow
 	public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
@@ -51,6 +89,81 @@ public abstract class LivingEntityMixin extends Entity {
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
 	@Shadow public abstract int getXpToDrop();
+
+	@Shadow public abstract float getHealth();
+
+	@Shadow public abstract float getMaxHealth();
+
+	@Inject(at = @At("TAIL"), method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V")
+	private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+		var access = (LivingEntityAccess)this;
+		var coinMult = access.getCoinMultiplier();
+		if (coinMult != 1f) {
+			nbt.putFloat("CunkCoinMultiplier", coinMult);
+		}
+		if (access.isFromSpawner()) {
+			nbt.putBoolean("FromSpawner", true);
+		}
+		if (access.hasBossBar()) {
+			nbt.putBoolean("BossBar", true);
+		}
+	}
+
+	@Inject(at = @At("TAIL"), method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V")
+	private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+		var access = (LivingEntityAccess) this;
+		if (nbt.contains("CunkCoinMultiplier")) {
+			access.setCoinMultiplier(nbt.getFloat("CunkCoinMultiplier"));
+		} else {
+			access.setCoinMultiplier(1f);
+		}
+		if (nbt.contains("FromSpawner")) {
+			access.setFromSpawner(nbt.getBoolean("FromSpawner"));
+		}
+		if (nbt.contains("BossBar")) {
+			access.setBossBar(nbt.getBoolean("BossBar"));
+			if (this.serverBossBar != null)
+			{
+				this.serverBossBar.clearPlayers();
+				this.serverBossBar = null;
+			}
+			this.serverBossBar = new ServerBossBar(this.getDisplayName(), BossBar.Color.PURPLE, BossBar.Style.PROGRESS);
+		} else
+		{
+			if (this.serverBossBar != null) {
+				this.serverBossBar.clearPlayers();
+				this.serverBossBar = null;
+			}
+		}
+	}
+
+	@Inject(at = @At("TAIL"), method = "tick")
+	private void tick(CallbackInfo ci) {
+		if (this.bossBar && this.serverBossBar != null) {
+			this.serverBossBar.setPercent(this.getHealth() / this.getMaxHealth());
+		}
+	}
+
+	@Override
+	public void onStartedTrackingBy(ServerPlayerEntity player) {
+		super.onStartedTrackingBy(player);
+		if (this.serverBossBar == null) return;
+		this.serverBossBar.addPlayer(player);
+	}
+
+	@Override
+	public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		super.onStoppedTrackingBy(player);
+		if (this.serverBossBar == null) return;
+		this.serverBossBar.removePlayer(player);
+	}
+
+	@Override
+	public void setCustomName(@Nullable Text name) {
+		super.setCustomName(name);
+		if (this.serverBossBar == null) return;
+		this.serverBossBar.setName(this.getDisplayName());
+	}
 
 	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V")
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
@@ -84,7 +197,7 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 
 			if (this.getWorld().getRegistryKey() != World.END) {
-				if (random.nextBetween(1, 500) == 1) {
+				if (random.nextBetween(1, 100) == 1) {
 					this.dropItem(NyakoItems.ROD_OF_DISCORD);
 				}
 			}
@@ -135,9 +248,11 @@ public abstract class LivingEntityMixin extends Entity {
 			coinAmount *= 0.5;
 		}
 
-		if (((EntityAccess)this).isFromSpawner()) {
+		if (((LivingEntityAccess)this).isFromSpawner()) {
 			coinAmount *= 0.05; // Harshly drop if the entity was spawned from a spawner
 		}
+
+		coinAmount *= ((LivingEntityAccess)this).getCoinMultiplier();
 
 		// split the coin value we have into individual coin values
 		Map<CunkCoinUtils.CoinValue, Integer> map = CunkCoinUtils.valueToSplit((int) coinAmount);

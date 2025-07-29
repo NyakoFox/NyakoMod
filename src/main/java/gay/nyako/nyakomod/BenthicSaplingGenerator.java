@@ -12,6 +12,6 @@ public class BenthicSaplingGenerator extends SaplingGenerator {
     @Nullable
     @Override
     protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier("nyakomod", "benthictree_basic"));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, NyakoMod.id("benthictree_basic"));
     }
 }

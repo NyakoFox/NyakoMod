@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import gay.nyako.nyakomod.CunkShop;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.screens.ShopEntries;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
@@ -22,7 +23,7 @@ public final class ShopCommand {
                     PlayerEntity player = source.getPlayerOrThrow();
                     ServerWorld world = source.getWorld();
 
-                    CunkShop.openShop(player, world, new Identifier("nyakomod", context.getArgument("name", String.class)));
+                    CunkShop.openShop(player, world, NyakoMod.id(context.getArgument("name", String.class)));
                     return 0;
                 }))
                 .executes(context -> {

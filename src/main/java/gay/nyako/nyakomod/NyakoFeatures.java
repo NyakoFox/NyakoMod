@@ -12,7 +12,7 @@ public class NyakoFeatures {
     public static final Feature<DefaultFeatureConfig> ECHO_MONSTER_ROOM = register("echo_monster_room", new EchoDungeonFeature(DefaultFeatureConfig.CODEC));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String id, F feature) {
-        return Registry.register(Registries.FEATURE, new Identifier("nyakomod", id), feature);
+        return Registry.register(Registries.FEATURE, NyakoMod.id(id), feature);
     }
 
     public static void register()

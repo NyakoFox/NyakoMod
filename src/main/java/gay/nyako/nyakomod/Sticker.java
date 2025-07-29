@@ -53,7 +53,7 @@ public class  Sticker {
     }
 
     public static Identifier getSticker(String name) {
-        return new Identifier("nyakomod", "textures/sticker/" + name + ".png");
+        return NyakoMod.id("textures/sticker/" + name + ".png");
     }
 
     public void tick() {

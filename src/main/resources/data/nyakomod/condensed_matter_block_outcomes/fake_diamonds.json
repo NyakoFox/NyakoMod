@@ -1,0 +1,34 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:repeat",
+			"count": {
+				"type": "nyakomod:range",
+				"min": 5,
+				"max": 20
+			},
+			"outcomes": [
+				{
+					"type": "nyakomod:entity",
+					"entity": "minecraft:item",
+					"nbt": "{Age:5920,PickupDelay:32767,Item:{id:\"minecraft:diamond\",Count:1b}}",
+					"position": {
+						"offset": [{
+							"type": "nyakomod:range",
+							"min": -5,
+							"max": 5
+						}, {
+							"type": "nyakomod:range",
+							"min": 10,
+							"max": 15
+						}, {
+							"type": "nyakomod:range",
+							"min": -5,
+							"max": 5
+						}]
+					}
+				}
+			]
+		}
+	]
+}

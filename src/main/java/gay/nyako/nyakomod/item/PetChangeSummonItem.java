@@ -3,6 +3,7 @@ package gay.nyako.nyakomod.item;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import gay.nyako.nyakomod.NyakoEntities;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetDragonEntity;
 import gay.nyako.nyakomod.entity.PetEntity;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
@@ -33,7 +34,7 @@ public class PetChangeSummonItem<T extends PetEntity> extends PetSummonItem<T> {
 
         public PetVariation(Text name, String texture) {
             this.name = name;
-            this.texture = new Identifier("nyakomod", "textures/entity/pet/" + texture + ".png");
+            this.texture = NyakoMod.id("textures/entity/pet/" + texture + ".png");
         }
     }
 

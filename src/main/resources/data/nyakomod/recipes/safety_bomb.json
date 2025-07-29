@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:gray_wool"
+    },
+    {
+      "item": "minecraft:yellow_wool"
+    },
+    {
+      "item": "nyakomod:bomb"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:safety_bomb",
+    "count": 1
+  }
+}

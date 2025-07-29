@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.Sticker;
 import gay.nyako.nyakomod.StickerSystem;
 import net.minecraft.client.MinecraftClient;
@@ -21,7 +22,7 @@ public class StickerWidget extends PressableWidget {
     public StickerWidget(int x, int y, String name) {
         super(x, y, 64, 64, Text.of(name));
         this.name = name;
-        texture = new Identifier("nyakomod", "textures/sticker/" + name + ".png");
+        texture = NyakoMod.id("textures/sticker/" + name + ".png");
     }
 
     @Override

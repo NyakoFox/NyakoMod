@@ -2,6 +2,7 @@ package gay.nyako.nyakomod.entity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.nyako.nyakomod.NyakoClientMod;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.MonitorEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
@@ -20,8 +21,8 @@ import org.lwjgl.opengl.GL11;
 public class MonitorEntityRenderer extends EntityRenderer<MonitorEntity> {
     private final ModelPart base;
 
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/entity/monitor/monitor.png");
-    private static final Identifier TEXTURE_ON = new Identifier("nyakomod", "textures/entity/monitor/monitor_on.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/entity/monitor/monitor.png");
+    private static final Identifier TEXTURE_ON = NyakoMod.id("textures/entity/monitor/monitor_on.png");
 
     public MonitorEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);

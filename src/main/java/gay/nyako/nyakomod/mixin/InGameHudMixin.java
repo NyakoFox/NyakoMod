@@ -1,5 +1,7 @@
 package gay.nyako.nyakomod.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -18,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
 @Unique
-private static final Identifier CUSTOM_GUI_ICONS_TEXTURE = new Identifier("nyakomod", "textures/gui/icons.png");
+private static final Identifier CUSTOM_GUI_ICONS_TEXTURE = NyakoMod.id("textures/gui/icons.png");
     @Shadow
     protected abstract PlayerEntity getCameraPlayer();
 

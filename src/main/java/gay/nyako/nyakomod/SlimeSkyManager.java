@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.access.EntityAccess;
+import gay.nyako.nyakomod.access.LivingEntityAccess;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -51,7 +51,7 @@ public class SlimeSkyManager extends PersistentState {
                 // Make the slime rain active
                 if (stateLength <= 0) {
                     state = SlimeSkyState.ACTIVE;
-                    stateLength = (world.getRandom().nextBetween(9, 15) * 60L) * 20;
+                    stateLength = (world.getRandom().nextBetween(6, 9) * 60L) * 20;
                     world.getServer().getPlayerManager().broadcast(ChatPrefixes.SLIME.apply("<color:#32FF82>Slime is falling from the sky!</color>"), false);
                     markDirty();
                 }
@@ -59,7 +59,9 @@ public class SlimeSkyManager extends PersistentState {
             case ACTIVE:
                 // Loop through all players
 
-                if (stateLength % 20 == 0) {
+                // Spawn a slime every 40 ticks (2 seconds)
+                // This was 20 ticks (1 second) before! Test it!
+                if (stateLength % 40 == 0) {
                     var randomPlayer = world.getRandomAlivePlayer();
                     if (randomPlayer != null) {
                         var pos = randomPlayer.getBlockPos();
@@ -69,8 +71,8 @@ public class SlimeSkyManager extends PersistentState {
                         // Spawn a slime
                         var slime = new SlimeEntity(EntityType.SLIME, world);
                         slime.setPosition(randomPos.getX(), randomPos.getY(), randomPos.getZ());
-                        slime.setSize(world.getRandom().nextBetween(1, 5), true);
-                        ((EntityAccess)slime).setFromSpawner(true);
+                        slime.setSize(world.getRandom().nextBetween(1, 3), true);
+                        ((LivingEntityAccess)slime).setFromSpawner(true);
                         slime.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 20 * 15, 0, false, false, false));
 
                         world.spawnEntity(slime);

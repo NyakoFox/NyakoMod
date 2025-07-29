@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod;
 
+import gay.nyako.nyakomod.access.ClientPlayerEntityAccess;
 import gay.nyako.nyakomod.entity.renderer.*;
 import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.item.MagnetItem;
@@ -9,6 +10,8 @@ import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -30,6 +33,7 @@ import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
@@ -38,6 +42,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
@@ -50,15 +55,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NyakoClientMod implements ClientModInitializer {
-	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(new Identifier("nyakomod", "dragon"), "main");
-	public static final EntityModelLayer MODEL_MONITOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "monitor"), "main");
-	public static final EntityModelLayer MODEL_HEROBRINE_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "main");
-	public static final EntityModelLayer MODEL_HEROBRINE_INNER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "inner_armor");
-	public static final EntityModelLayer MODEL_HEROBRINE_OUTER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "herobrine"), "outer_armor");
-	public static final EntityModelLayer MODEL_DECAYED_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "main");
-	public static final EntityModelLayer MODEL_DECAYED_INNER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "inner_armor");
-	public static final EntityModelLayer MODEL_DECAYED_OUTER_ARMOR_LAYER = new EntityModelLayer(new Identifier("nyakomod", "decayed"), "outer_armor");
+	public static final EntityModelLayer MODEL_DRAGON_LAYER = new EntityModelLayer(NyakoMod.id("dragon"), "main");
+	public static final EntityModelLayer MODEL_MONITOR_LAYER = new EntityModelLayer(NyakoMod.id("monitor"), "main");
+	public static final EntityModelLayer MODEL_HEROBRINE_LAYER = new EntityModelLayer(NyakoMod.id("herobrine"), "main");
+	public static final EntityModelLayer MODEL_HEROBRINE_INNER_ARMOR_LAYER = new EntityModelLayer(NyakoMod.id("herobrine"), "inner_armor");
+	public static final EntityModelLayer MODEL_HEROBRINE_OUTER_ARMOR_LAYER = new EntityModelLayer(NyakoMod.id("herobrine"), "outer_armor");
+	public static final EntityModelLayer MODEL_DECAYED_LAYER = new EntityModelLayer(NyakoMod.id("decayed"), "main");
+	public static final EntityModelLayer MODEL_DECAYED_INNER_ARMOR_LAYER = new EntityModelLayer(NyakoMod.id("decayed"), "inner_armor");
+	public static final EntityModelLayer MODEL_DECAYED_OUTER_ARMOR_LAYER = new EntityModelLayer(NyakoMod.id("decayed"), "outer_armor");
 
+	@Environment(EnvType.CLIENT)
 	@Override
 	public void onInitializeClient() {
 		EntityRendererRegistry.register(NyakoEntities.PET_SPRITE, PetSpriteRenderer::new);
@@ -105,49 +111,26 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
 
 		EntityRendererRegistry.register(NyakoEntities.OBSIDIAN_ARROW, ObsidianArrowEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.BOMB, FlyingItemEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.SAFETY_BOMB, FlyingItemEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.GRENADE, FlyingItemEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.MOSS_BOMB, FlyingItemEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.BOBM, FlyingItemEntityRenderer::new);
 
-		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_entity"), (stack, world, entity, i) ->
-		{
-			if (stack.getOrCreateNbt().contains("entity")) {
-				return 1;
-			}
+		FabricModelPredicateProviderRegistry.register(NyakoMod.id("has_entity"), (stack, world, entity, i) ->
+                stack.getOrCreateNbt().contains("entity") ? 1 : 0);
 
-			return 0;
-		});
+		FabricModelPredicateProviderRegistry.register(NyakoMod.id("is_broken"), (stack, world, entity, i) ->
+                MagnetItem.isUsable(stack) ? 0 : 1);
 
-		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "is_broken"), (stack, world, entity, i) ->
-		{
-			return MagnetItem.isUsable(stack) ? 0 : 1;
-		});
+		FabricModelPredicateProviderRegistry.register(NyakoMod.id("has_blueprint"), (stack, world, entity, i) ->
+                stack.getOrCreateNbt().contains("blueprint") ? 1 : 0);
 
-		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "has_blueprint"), (stack, world, entity, i) ->
-		{
-			if (stack.getOrCreateNbt().contains("blueprint")) {
-				return 1;
-			}
+		FabricModelPredicateProviderRegistry.register(Items.CROSSBOW, new Identifier("portal"), (stack, world, entity, seed) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasProjectile(stack, NyakoItems.NETHER_PORTAL_STRUCTURE) ? 1.0f : 0.0f);
+		FabricModelPredicateProviderRegistry.register(NyakoItems.ENCUMBERING_STONE, NyakoMod.id("locked"), (stack, world, entity, seed) -> stack.getOrCreateNbt().contains("locked") && stack.getNbt().getBoolean("locked") ? 0 : 1);
 
-			return 0;
-		});
-
-		ModelPredicateProviderRegistry.register(Items.CROSSBOW, new Identifier("portal"), (stack, world, entity, seed) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasProjectile(stack, NyakoItems.NETHER_PORTAL_STRUCTURE) ? 1.0f : 0.0f);
-		ModelPredicateProviderRegistry.register(NyakoItems.ENCUMBERING_STONE, new Identifier("nyakomod", "locked"), (stack, world, entity, seed) -> {
-			var nbt = stack.getNbt();
-			if (nbt != null && nbt.contains("locked") && !nbt.getBoolean("locked")) {
-				return 1;
-			}
-
-			return 0;
-		});
-
-		FabricModelPredicateProviderRegistry.register(new Identifier("nyakomod", "variation"), (stack, world, entity, i) ->
-		{
-			var nbt = stack.getOrCreateNbt();
-			if (nbt.contains("variation")) {
-				return (float)nbt.getInt("variation") / 100f;
-			}
-
-			return 0;
-		});
+		FabricModelPredicateProviderRegistry.register(NyakoMod.id("variation"), (stack, world, entity, i) ->
+                stack.getOrCreateNbt().contains("variation") ? (float) stack.getOrCreateNbt().getInt("variation") / 100f : 0f);
 
 		HandledScreens.register(NyakoScreenHandlers.FLETCHING_TABLE, FletchingTableScreen::new);
 		HandledScreens.register(NyakoScreenHandlers.CUNK_SHOP_SCREEN_HANDLER_TYPE, CunkShopHandledScreen::new);
@@ -211,7 +194,7 @@ public class NyakoClientMod implements ClientModInitializer {
 			return BiomeColors.getFoliageColor(world, pos);
 		}, NyakoBlocks.ECHO_LEAVES, NyakoBlocks.BENTHIC_LEAVES);
 
-		DimensionEffects.BY_IDENTIFIER.put(new Identifier("nyakomod", "echolands"), new EchoLandsDimensionEffects());
+		DimensionEffects.BY_IDENTIFIER.put(NyakoMod.id("echolands"), new EchoLandsDimensionEffects());
 
 		ClientTickEvents.START_CLIENT_TICK.register(StickerSystem::tick);
 		HudRenderCallback.EVENT.register(StickerSystem::render);
@@ -238,6 +221,17 @@ public class NyakoClientMod implements ClientModInitializer {
 								StickerSystem.addSticker(playerName, name, uuid);
 							}
 					);
+				}
+		);
+
+		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.FLASHBANG,
+				(client, handler, buffer, sender) -> {
+					double distance = buffer.readDouble();
+					client.execute(() -> {
+						client.player.playSound(NyakoSoundEvents.FLASHBANG, 1.0f, 1.0f);
+						((ClientPlayerEntityAccess) client.player).setFlashbangDistance((float) distance);
+						((ClientPlayerEntityAccess) client.player).setFlashbangStrength(1);
+					});
 				}
 		);
 	}
@@ -271,7 +265,7 @@ public class NyakoClientMod implements ClientModInitializer {
 
 	public static Identifier downloadSprite(String urlPath) {
 		var hash = NyakoUtils.hashString(urlPath);
-		var id = new Identifier("nyakomod", hash);
+		var id = NyakoMod.id(hash);
 
 		if (downloadedUrls.contains(urlPath)) {
 			return id;

@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
@@ -88,6 +89,13 @@ public class NyakoModelGenerator extends FabricModelProvider {
         registerFan(blockStateModelGenerator);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.CONDENSED_MATTER_BLOCK);
+
+        registerFullPiston(blockStateModelGenerator);
+    }
+
+    private void registerFullPiston(BlockStateModelGenerator blockStateModelGenerator) {
+        TextureMap textureMap = TextureMap.all(Identifier.of("minecraft", "block/piston_top"));
+        blockStateModelGenerator.registerSingleton(NyakoBlocks.FULL_PISTON, textureMap, Models.CUBE_ALL);
     }
 
     private void registerBlueprintWorkbench(BlockStateModelGenerator blockStateModelGenerator) {
@@ -279,7 +287,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
     }
 
     private static Model block(String parent, String variant, TextureKey ... requiredTextureKeys) {
-        return new Model(Optional.of(new Identifier("nyakomod", "block/" + parent)), Optional.of(variant), requiredTextureKeys);
+        return new Model(Optional.of(NyakoMod.id("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 
     @Override
@@ -345,6 +353,12 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.OBSIDIAN_ARROW, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.APPLE_INGOT, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.CARROT_NUGGET, Models.GENERATED);
+
+        itemModelGenerator.register(NyakoItems.BOMB, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.SAFETY_BOMB, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.GRENADE, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.MOSS_BOMB, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.BOBM, Models.GENERATED);
 
         // Minecraft items lol
         registerMinecraftBlockItem(itemModelGenerator, "minecraft:block/nether_portal", Blocks.NETHER_PORTAL);

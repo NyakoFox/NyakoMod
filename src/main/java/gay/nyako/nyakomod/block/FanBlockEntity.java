@@ -24,7 +24,7 @@ public class FanBlockEntity extends BlockEntity {
         int distance = 5;
         double force = 0.15;
 
-        world.getOtherEntities(null, new Box(blockPos).offset(pushX, pushY, pushZ).stretch(pushX * distance - 1, pushY * distance - 1, pushZ * distance - 1)).forEach(entity -> {
+        world.getOtherEntities(null, new Box(blockPos).offset(pushX * 0.5, pushY * 0.5, pushZ * 0.5).stretch(pushX * (distance - 1), pushY * (distance - 1), pushZ * (distance - 1))).forEach(entity -> {
             var falloff = 1 - Math.min(1, Math.sqrt(entity.getPos().squaredDistanceTo(blockPos.toCenterPos())) / distance);
             entity.addVelocity(pushX * force * falloff, pushY * force * falloff, pushZ * force * falloff);
         });

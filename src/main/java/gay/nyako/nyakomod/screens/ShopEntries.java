@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import com.google.gson.JsonObject;
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ShopEntries {
 
     public static HashMap<Identifier, JsonObject> savedJson = new HashMap<>();
 
-    public static final Identifier MAIN = new Identifier("nyakomod", "main");
+    public static final Identifier MAIN = NyakoMod.id("main");
 
     public static ShopData register(ShopData shopData) {
         var oldShop = getShop(shopData.id);

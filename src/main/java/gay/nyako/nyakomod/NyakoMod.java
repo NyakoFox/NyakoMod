@@ -7,9 +7,7 @@ import gay.nyako.nyakomod.behavior.NetherPortalStructureItemDispenserBehavior;
 import gay.nyako.nyakomod.behavior.SoulJarItemDispenserBehavior;
 import gay.nyako.nyakomod.block.SingleCoinBlock;
 import gay.nyako.nyakomod.command.*;
-import gay.nyako.nyakomod.entity.HerobrineEntity;
-import gay.nyako.nyakomod.entity.PetDragonEntity;
-import gay.nyako.nyakomod.entity.PetSpriteEntity;
+import gay.nyako.nyakomod.entity.*;
 import gay.nyako.nyakomod.item.*;
 import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.utils.ChatUtils;
@@ -26,12 +24,17 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
@@ -44,13 +47,23 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NyakoMod implements ModInitializer {
-    public static final Logger LOGGER = LogManager.getLogger("nyakomod");
+    public static final String MOD_ID = "nyakomod";
+
+    public static Identifier id(String path) {
+        return new Identifier(MOD_ID, path);
+    }
+
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static final gay.nyako.nyakomod.NyakoConfig CONFIG = gay.nyako.nyakomod.NyakoConfig.createAndLoad();
 
@@ -63,10 +76,19 @@ public class NyakoMod implements ModInitializer {
     public static final ScoreboardCriterion PLAYERS_MILKED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:players_milked");
     public static final ScoreboardCriterion PLAYER_MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:player_milk_consumed");
     public static final ScoreboardCriterion MILK_CONSUMED_CRITERIA = ScoreboardCriterionMixin.create("nyakomod:milk_consumed");
-    public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registries.ENCHANTMENT, new Identifier("nyakomod", "cunkless_curse"), new CunkCurseEnchantment());
 
-    public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier("nyakomod", "echolands"));
-    public static RegistryKey<DimensionType> ECHOLANDS_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, new Identifier("nyakomod", "echolands"));
+    public static Enchantment CUNKLESS_CURSE_ENCHANTMENT = Registry.register(Registries.ENCHANTMENT, id("cunkless_curse"), new CunkCurseEnchantment());
+
+    public static RegistryKey<World> ECHOLANDS_KEY = RegistryKey.of(RegistryKeys.WORLD, id("echolands"));
+    public static RegistryKey<DimensionType> ECHOLANDS_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, id("echolands"));
+
+    public static final RegistryKey<DamageType> LACTOSE_INTOLERANCE_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("lactose_intolerance"));
+    public static final RegistryKey<DamageType> EAT_PICKAXE_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("eat_pickaxe"));
+    public static final RegistryKey<DamageType> KILLBIND_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("killbind"));
+    public static final RegistryKey<DamageType> TOTEM_OF_DYING_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("totem_of_dying"));
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BOMB_MOSS_PATCH = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id("bomb_moss_patch"));
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BOMB_MOSS_PATCH_CEILING = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id("bomb_moss_patch_ceiling"));
 
     public static CachedResourcePack CACHED_RESOURCE_PACK = new CachedResourcePack();
 
@@ -138,6 +160,41 @@ public class NyakoMod implements ModInitializer {
         DispenserBlock.registerBehavior(NyakoItems.BAG_OF_COINS, new CoinBagItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.HUNGRY_BAG_OF_COINS, new CoinBagItemDispenserBehavior());
         DispenserBlock.registerBehavior(NyakoItems.NETHER_PORTAL_STRUCTURE, new NetherPortalStructureItemDispenserBehavior());
+
+        DispenserBlock.registerBehavior(NyakoItems.BOMB, new ProjectileDispenserBehavior() {
+            @Override
+            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
+                return Util.make(new BombEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.BOBM, new ProjectileDispenserBehavior() {
+            @Override
+            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
+                return Util.make(new BobmEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.SAFETY_BOMB, new ProjectileDispenserBehavior() {
+            @Override
+            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
+                return Util.make(new SafetyBombEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.GRENADE, new ProjectileDispenserBehavior() {
+            @Override
+            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
+                return Util.make(new GrenadeEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.MOSS_BOMB, new ProjectileDispenserBehavior() {
+            @Override
+            protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
+                return Util.make(new MossBombEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
 
         NyakoPotions.registerPotionsRecipes();
 

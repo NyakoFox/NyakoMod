@@ -13,6 +13,6 @@ public class EchoSaplingGenerator extends SaplingGenerator {
     @Nullable
     @Override
     protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier("nyakomod", "echotree_basic"));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, NyakoMod.id("echotree_basic"));
     }
 }

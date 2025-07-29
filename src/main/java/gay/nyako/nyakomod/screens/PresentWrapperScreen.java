@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -11,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class PresentWrapperScreen extends HandledScreen<PresentWrapperScreenHandler> {
     //A path to the gui texture. In this example we use the texture from the dispenser
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/gui/container/present_wrapper.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/gui/container/present_wrapper.png");
 
     public PresentWrapperScreen(PresentWrapperScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
