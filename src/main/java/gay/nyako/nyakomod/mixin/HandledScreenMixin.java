@@ -47,14 +47,20 @@ public class HandledScreenMixin extends Screen {
     private void injected(DrawContext instance, ItemStack stack, int x, int y, int seed, DrawContext context, Slot slot) {
         var scale = ((SlotAccess) slot).getScale();
 
-        var hadNBT = stack.hasNbt();
-        var nbt = stack.getOrCreateNbt();
-        nbt.putInt("renderScale", scale);
-        context.drawItem(stack, x, y, seed);
-        if (hadNBT) {
-            nbt.remove("renderScale");
-        } else {
-            stack.setNbt(null);
+        if (scale != 1) {
+            var hadNBT = stack.hasNbt();
+            var nbt = stack.getOrCreateNbt();
+            nbt.putInt("renderScale", scale);
+            context.drawItem(stack, x, y, seed);
+            if (hadNBT) {
+                nbt.remove("renderScale");
+            } else {
+                stack.setNbt(null);
+            }
+        }
+        else
+        {
+            context.drawItem(stack, x, y, seed);
         }
     }
 
@@ -62,14 +68,20 @@ public class HandledScreenMixin extends Screen {
     private void injected(DrawContext instance, TextRenderer textRenderer, ItemStack stack, int x, int y, String countOverride, DrawContext context, Slot slot) {
         var scale = ((SlotAccess) slot).getScale();
 
-        var hadNBT = stack.hasNbt();
-        var nbt = stack.getOrCreateNbt();
-        nbt.putInt("renderScale", scale);
-        context.drawItemInSlot(textRenderer, stack, x / scale, y / scale, countOverride);
-        if (hadNBT) {
-            nbt.remove("renderScale");
-        } else {
-            stack.setNbt(null);
+        if (scale != 1) {
+            var hadNBT = stack.hasNbt();
+            var nbt = stack.getOrCreateNbt();
+            nbt.putInt("renderScale", scale);
+            context.drawItemInSlot(textRenderer, stack, x / scale, y / scale, countOverride);
+            if (hadNBT) {
+                nbt.remove("renderScale");
+            } else {
+                stack.setNbt(null);
+            }
+        }
+        else
+        {
+            context.drawItemInSlot(textRenderer, stack, x, y, countOverride);
         }
     }
 }
