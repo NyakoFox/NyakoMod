@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "nyakomod:grenade"
+    }
+  },
+  "result": {
+    "item": "nyakomod:bomb",
+    "count": 1
+  }
+}

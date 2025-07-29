@@ -18,7 +18,7 @@ public class NyakoScreenHandlers {
     public static final ScreenHandlerType<IconScreenHandler> ICON_SCREEN_HANDLER_TYPE = register("icon_menu", new ExtendedScreenHandlerType<>(IconScreenHandler::new));
 
     public static <T extends ScreenHandler> ScreenHandlerType<T> register(String id, ScreenHandlerType<T> screenHandlerType) {
-        return Registry.register(Registries.SCREEN_HANDLER, new Identifier("nyakomod", id), screenHandlerType);
+        return Registry.register(Registries.SCREEN_HANDLER, NyakoMod.id(id), screenHandlerType);
     }
 
     public static void register() {

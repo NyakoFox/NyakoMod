@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.mixin;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.VillagerEntityAccess;
 import net.minecraft.client.render.entity.VillagerEntityRenderer;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -10,7 +11,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(VillagerEntityRenderer.class)
 public class VillagerEntityRendererMixin {
     private static final Identifier TEXTURE = new Identifier("textures/entity/villager/villager.png");
-    private static final Identifier TEXTURE_PEELED = new Identifier("nyakomod", "textures/entity/villager/villager_peeled.png");
+    private static final Identifier TEXTURE_PEELED = NyakoMod.id("textures/entity/villager/villager_peeled.png");
 
     /**
      * @author NyakoFox

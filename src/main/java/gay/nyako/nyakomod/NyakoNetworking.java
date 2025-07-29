@@ -8,9 +8,11 @@ import gay.nyako.nyakomod.utils.InventoryUtils;
 import gay.nyako.nyakomod.utils.ShulkerUtils;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -21,22 +23,23 @@ import java.nio.charset.StandardCharsets;
 
 public class NyakoNetworking {
     // Killbind packet
-    public static final Identifier KILL_PLAYER = new Identifier("nyakomod", "killplayer");
+    public static final Identifier KILL_PLAYER = NyakoMod.id("killplayer");
     // Purchase packet
-    public static final Identifier CUNK_SHOP_PURCHASE = new Identifier("nyakomod", "purchase");
+    public static final Identifier CUNK_SHOP_PURCHASE = NyakoMod.id("purchase");
     // Player smite packet
-    public static final Identifier PLAYER_SMITE = new Identifier("nyakomod", "player_smite");
+    public static final Identifier PLAYER_SMITE = NyakoMod.id("player_smite");
     // Setting pet sprite URLs
-    public static final Identifier PET_SPRITE_SET_URL = new Identifier("nyakomod", "set_pet_sprite_custom_sprite");
+    public static final Identifier PET_SPRITE_SET_URL = NyakoMod.id("set_pet_sprite_custom_sprite");
     // Setting monitor URLs
-    public static final Identifier MONITOR_SET_URL = new Identifier("nyakomod", "set_monitor_sprite");
-    public static final Identifier MONITOR_MOVE = new Identifier("nyakomod", "monitor_move");
+    public static final Identifier MONITOR_SET_URL = NyakoMod.id("set_monitor_sprite");
+    public static final Identifier MONITOR_MOVE = NyakoMod.id("monitor_move");
     // Creating a model
-    public static final Identifier MODEL_CREATE = new Identifier("nyakomod", "create_model");
-    public static final Identifier NOTE_BLOCK_PLUS_SAVE = new Identifier("nyakomod", "note_block_plus_save");
-    public static final Identifier RIGHT_CLICK_INVENTORY = new Identifier("nyakomod", "right_click_inventory");
-    public static final Identifier SEND_STICKER = new Identifier("nyakomod", "send_sticker");
-    public static final Identifier SEND_STICKER_TO_CLIENT = new Identifier("nyakomod", "send_sticker_to_client");
+    public static final Identifier MODEL_CREATE = NyakoMod.id("create_model");
+    public static final Identifier NOTE_BLOCK_PLUS_SAVE = NyakoMod.id("note_block_plus_save");
+    public static final Identifier RIGHT_CLICK_INVENTORY = NyakoMod.id("right_click_inventory");
+    public static final Identifier SEND_STICKER = NyakoMod.id("send_sticker");
+    public static final Identifier SEND_STICKER_TO_CLIENT = NyakoMod.id("send_sticker_to_client");
+    public static final Identifier FLASHBANG = NyakoMod.id("flashbang");
 
     public static void registerGlobalReceivers() {
         registerServerGlobalReceivers();
@@ -47,7 +50,10 @@ public class NyakoNetworking {
         // Kill bind
         ServerPlayNetworking.registerGlobalReceiver(KILL_PLAYER,
                 (server, player, handler, buffer, sender) -> server.execute(() -> {
-                    player.damage(player.getDamageSources().genericKill(), Float.MAX_VALUE);
+                    player.damage(new DamageSource(
+                            player.getWorld().getRegistryManager()
+                                    .get(RegistryKeys.DAMAGE_TYPE)
+                                    .entryOf(NyakoMod.KILLBIND_DAMAGE_TYPE)), Float.MAX_VALUE);
                 }));
 
         // Super Cool Packet Thats Get Sent When Right Clikcing A Super Neat Inventory Like An Ender Chest In Your EInvnetory.

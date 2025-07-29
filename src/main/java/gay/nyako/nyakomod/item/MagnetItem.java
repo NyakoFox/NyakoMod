@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.item;
 
 import gay.nyako.nyakomod.NyakoBlocks;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
@@ -9,13 +10,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MagnetItem extends Item {
     public MagnetItem(Settings settings) {
@@ -67,12 +73,13 @@ public class MagnetItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if (context.getWorld().isClient) return ActionResult.PASS;
         if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() == NyakoBlocks.CHARGED_IRON_BLOCK)
         {
-            var stack = context.getStack();
-            stack.setDamage(Math.max(0, stack.getDamage() - 10));
-            context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            if (!context.getWorld().isClient()) {
+                var stack = context.getStack();
+                stack.setDamage(Math.max(0, stack.getDamage() - 40));
+                context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            }
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
@@ -83,12 +90,17 @@ public class MagnetItem extends Item {
         var stack = user.getStackInHand(hand);
         var nbt = stack.getOrCreateNbt();
 
-        if (isUsable(stack)) {
-            if (nbt.contains("enabled")) {
-                nbt.putBoolean("enabled", !nbt.getBoolean("enabled"));
-            } else {
-                nbt.putBoolean("enabled", true);
-            }
+        if (!isUsable(stack))
+        {
+            user.sendMessage(Text.of("Needs repaired!"), true);
+            user.playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0f, 0.9f + world.random.nextFloat() * 0.2f);
+            return TypedActionResult.success(stack);
+        }
+
+        if (nbt.contains("enabled")) {
+            nbt.putBoolean("enabled", !nbt.getBoolean("enabled"));
+        } else {
+            nbt.putBoolean("enabled", true);
         }
 
         if (isEnabled(stack)) {
@@ -125,5 +137,20 @@ public class MagnetItem extends Item {
             }
         }
         return false;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        if (isUsable(stack)) {
+            tooltip.add(Text.literal("Right click to toggle").formatted(Formatting.GRAY));
+            if (isEnabled(stack)) {
+                tooltip.add(Text.literal("Currently ENABLED").formatted(Formatting.GREEN));
+            } else {
+                tooltip.add(Text.literal("Currently DISABLED").formatted(Formatting.RED));
+            }
+        } else {
+            tooltip.add(Text.literal("Needs repaired using a Charged Iron Block!").formatted(Formatting.RED));
+        }
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }

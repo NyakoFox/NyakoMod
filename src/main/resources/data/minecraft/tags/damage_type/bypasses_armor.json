@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nyakomod:lactose_intolerance",
+    "nyakomod:eat_pickaxe",
+    "nyakomod:totem_of_dying",
+    "nyakomod:killbind"
+  ]
+}

@@ -185,14 +185,21 @@ public class NyakoItemGroups {
 
                 entries.add(NyakoItems.FAN);
                 entries.add(NyakoItems.CONDENSED_MATTER_BLOCK);
+                entries.add(NyakoItems.FULL_PISTON);
 
                 entries.add(NyakoItems.APPLE_INGOT);
                 entries.add(NyakoItems.CARROT_NUGGET);
+
+                entries.add(NyakoItems.BOMB);
+                entries.add(NyakoItems.SAFETY_BOMB);
+                entries.add(NyakoItems.GRENADE);
+                entries.add(NyakoItems.MOSS_BOMB);
+                entries.add(NyakoItems.BOBM);
             })
             .build());
 
     public static ItemGroup register(String id, ItemGroup group) {
-        return Registry.register(Registries.ITEM_GROUP, RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier("nyakomod", id)), group);
+        return Registry.register(Registries.ITEM_GROUP, RegistryKey.of(RegistryKeys.ITEM_GROUP, NyakoMod.id(id)), group);
     }
 
     public static void register() {

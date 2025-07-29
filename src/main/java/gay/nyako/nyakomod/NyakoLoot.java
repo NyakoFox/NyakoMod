@@ -22,12 +22,12 @@ import java.util.List;
 
 public class NyakoLoot {
 
-    public static final Identifier CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/crates");
-    public static final Identifier WOODEN_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/wooden_crate");
-    public static final Identifier IRON_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/iron_crate");
-    public static final Identifier GOLDEN_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/golden_crate");
-    public static final Identifier DIAMOND_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/diamond_crate");
-    public static final Identifier NETHERITE_CRATE_LOOT_TABLE = new Identifier("nyakomod", "gameplay/fishing/netherite_crate");
+    public static final Identifier CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/crates");
+    public static final Identifier WOODEN_CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/wooden_crate");
+    public static final Identifier IRON_CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/iron_crate");
+    public static final Identifier GOLDEN_CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/golden_crate");
+    public static final Identifier DIAMOND_CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/diamond_crate");
+    public static final Identifier NETHERITE_CRATE_LOOT_TABLE = NyakoMod.id("gameplay/fishing/netherite_crate");
 
     private static final List<Identifier> coinLootTables = new ArrayList<>();
     private static final List<Identifier> itemLootTables = new ArrayList<>();

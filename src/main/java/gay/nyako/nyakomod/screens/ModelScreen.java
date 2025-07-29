@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.ButtonComponent;
@@ -15,7 +16,7 @@ import java.util.*;
 
 public class ModelScreen extends BaseUIModelScreen<FlowLayout> {
     public ModelScreen() {
-        super(FlowLayout.class, DataSource.asset(new Identifier("nyakomod", "model_input")));
+        super(FlowLayout.class, DataSource.asset(NyakoMod.id("model_input")));
     }
 
     Map<String, CheckboxComponent> checkboxes;

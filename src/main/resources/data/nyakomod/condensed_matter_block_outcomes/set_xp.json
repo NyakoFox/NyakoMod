@@ -1,0 +1,27 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:message",
+			"value": "A black wind blows through your body..."
+		},
+		{
+			"type": "nyakomod:message",
+			"value": "Your XP dropped to level 1!"
+		},
+		{
+			"type": "nyakomod:command",
+			"value": "xp set @s 1 levels"
+		},
+		{
+			"type": "nyakomod:command",
+			"value": "xp set @s 0 points"
+		},
+		{
+			"type": "nyakomod:sound",
+			"sound": "minecraft:entity.player.levelup",
+			"position": {
+				"type": "nyakomod:player"
+			}
+		}
+	]
+}

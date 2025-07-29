@@ -1,0 +1,10 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:item",
+			"item": "minecraft:splash_potion",
+			"count": 1,
+			"nbt": "{display:{Name:'{\"text\":\"Lucky Potion\",\"color\":\"gold\",\"bold\":true,\"underlined\":true}'},CustomPotionEffects:[{Id:1,Amplifier:5b,Duration:400},{Id:3,Amplifier:5b,Duration:400},{Id:5,Amplifier:5b,Duration:400},{Id:6,Amplifier:20b,Duration:400},{Id:8,Amplifier:5b,Duration:400},{Id:10,Amplifier:5b,Duration:400},{Id:11,Amplifier:5b,Duration:400},{Id:12,Amplifier:5b,Duration:400},{Id:13,Amplifier:5b,Duration:400},{Id:14,Amplifier:1b,Duration:400},{Id:16,Amplifier:1b,Duration:400},{Id:21,Amplifier:20b,Duration:400},{Id:22,Amplifier:20b,Duration:400},{Id:23,Amplifier:20b,Duration:400},{Id:26,Amplifier:20b,Duration:400},{Id:29,Amplifier:5b,Duration:400},{Id:30,Amplifier:5b,Duration:400},{Id:32,Amplifier:5b,Duration:400}],CustomPotionColor:16755200}"
+		}
+	]
+}

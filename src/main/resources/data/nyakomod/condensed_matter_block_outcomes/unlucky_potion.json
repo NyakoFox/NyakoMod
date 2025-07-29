@@ -1,0 +1,10 @@
+{
+	"outcomes": [
+		{
+			"type": "nyakomod:item",
+			"item": "minecraft:splash_potion",
+			"count": 1,
+			"nbt": "{display:{Name:'{\"text\":\"Unlucky Potion\",\"color\":\"dark_red\",\"bold\":true,\"underlined\":true}'},CustomPotionEffects:[{Id:2,Amplifier:5b,Duration:400},{Id:4,Amplifier:5b,Duration:400},{Id:7,Amplifier:2b,Duration:20},{Id:9,Amplifier:1b,Duration:400},{Id:15,Amplifier:1b,Duration:400},{Id:17,Amplifier:5b,Duration:400},{Id:18,Amplifier:5b,Duration:400},{Id:19,Amplifier:1b,Duration:400},{Id:20,Amplifier:1b,Duration:400},{Id:27,Amplifier:20b,Duration:400},{Id:31,Amplifier:1b,Duration:400},{Id:33,Amplifier:1b,Duration:400}],CustomPotionColor:16711680}"
+		}
+	]
+}

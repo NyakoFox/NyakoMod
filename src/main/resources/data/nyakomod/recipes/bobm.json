@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GFG",
+    "FBF",
+    "GFG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "F": {
+      "item": "minecraft:fire_charge"
+    },
+    "B": {
+      "item": "nyakomod:bomb"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "nyakomod:bobm"
+  }
+}

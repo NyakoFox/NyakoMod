@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
@@ -22,7 +23,7 @@ public class PetChangeSummonItem<T extends PetEntity> extends PetSummonItem<T> {
 
         public PetVariation(Text name, String texture) {
             this.name = name;
-            this.texture = new Identifier("nyakomod", "textures/entity/pet/" + texture + ".png");
+            this.texture = NyakoMod.id("textures/entity/pet/" + texture + ".png");
         }
     }
 

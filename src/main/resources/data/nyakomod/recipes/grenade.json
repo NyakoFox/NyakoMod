@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "nyakomod:bomb"
+    }
+  ],
+  "result": {
+    "item": "nyakomod:grenade",
+    "count": 4
+  }
+}

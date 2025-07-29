@@ -53,6 +53,11 @@ public class BlueprintWorkbenchScreenHandler extends ScreenHandler {
                 super.setStack(stack);
                 BlueprintWorkbenchScreenHandler.this.onSlotChanged();
             }
+
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return stack.getItem() == NyakoItems.BLUEPRINT;
+            }
         };
 
         this.addSlot(inputSlot);

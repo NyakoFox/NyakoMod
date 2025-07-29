@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoNetworking;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
@@ -21,7 +22,7 @@ public class NBPHandledScreen extends BaseUIModelHandledScreen<FlowLayout, NBPSc
     PlayerEntity player;
 
     public NBPHandledScreen(NBPScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.asset(new Identifier("nyakomod", "note_block_plus")));
+        super(handler, inventory, title, FlowLayout.class, BaseUIModelScreen.DataSource.asset(NyakoMod.id("note_block_plus")));
         this.titleY = 69420;
         this.playerInventoryTitleY = 69420;
 

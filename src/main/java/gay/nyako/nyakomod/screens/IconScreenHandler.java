@@ -61,7 +61,7 @@ public class IconScreenHandler extends ScreenHandler {
         var overrides = manifest.getJSONArray("overrides");
         var list = new java.util.ArrayList<Pair<Identifier, Integer>>();
         for (int i = 0; i < overrides.length(); i++) {
-            list.add(new Pair<>(new Identifier("nyakomod", "custom"), i + 1));
+            list.add(new Pair<>(NyakoMod.id("custom"), i + 1));
         }
         return list;
     }

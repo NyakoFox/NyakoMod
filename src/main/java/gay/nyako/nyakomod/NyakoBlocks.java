@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 public class NyakoBlocks {
     public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool(), NyakoSoundEvents.SPUNCH_BLOCK));
     public static final Block LAUNCHER                  = register("launcher",                  new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
-    public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(new Identifier("nyakomod", "main")));
+    public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(NyakoMod.id("main")));
     public static final Block BLUEPRINT_WORKBENCH       = register("blueprint_workbench",       new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
     public static final Block MATTER_VORTEX             = register("matter_vortex",             new MatterVortexBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block DRAFTING_TABLE            = register("drafting_table",            new DraftingTableBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
@@ -60,6 +60,8 @@ public class NyakoBlocks {
     public static final Block FAN                       = register("fan",                       new FanBlock(FabricBlockSettings.copy(Blocks.IRON_BLOCK)));
 
     public static final Block CONDENSED_MATTER_BLOCK    = register("condensed_matter_block",    new CondensedMatterBlock(FabricBlockSettings.create().mapColor(MapColor.PURPLE).strength(0.3F, 3_600_000.0F).sounds(BlockSoundGroup.METAL)));
+
+    public static final Block FULL_PISTON               = register("full_piston",               new Block(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).strength(1.5F).solidBlock(Blocks::never)));
 
     public static final Block ECHO_PORTAL               = register("echo_portal",               new EchoPortalBlock(FabricBlockSettings.copy(Blocks.NETHER_PORTAL).noCollision().strength(-1.0f).sounds(BlockSoundGroup.GLASS).luminance(state -> 11)));
     public static final Block ECHO_DIRT                 = register("echo_dirt",                 new EchoDirtBlock(FabricBlockSettings.copy(Blocks.DIRT)));
@@ -113,10 +115,10 @@ public class NyakoBlocks {
     public static final Block BENTHIC_HANGING_SIGN      = register("benthic_hanging_sign",         new CustomHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_WALL_HANGING_SIGN = register("benthic_wall_hanging_sign",    new CustomWallHangingSignBlock(FabricBlockSettings.create().mapColor(MapColor.WHITE).solid().instrument(Instrument.BASS).noCollision().strength(1.0f).dropsLike(BENTHIC_HANGING_SIGN), NyakoWoodTypes.BENTHIC));
     public static final Block BENTHIC_LEAVES            = register("benthic_leaves",               Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
-    public static final Block BENTHIC_SAPLING           = register("benthic_sapling",               new SaplingBlock(NyakoSaplingGenerators.BENTHIC, FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
-    public static final Block POTTED_BENTHIC_SAPLING    = register("potted_benthic_sapling",        Blocks.createFlowerPotBlock(BENTHIC_SAPLING));
+    public static final Block BENTHIC_SAPLING           = register("benthic_sapling",              new SaplingBlock(NyakoSaplingGenerators.BENTHIC, FabricBlockSettings.create().mapColor(MapColor.WHITE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block POTTED_BENTHIC_SAPLING    = register("potted_benthic_sapling",       Blocks.createFlowerPotBlock(BENTHIC_SAPLING));
 
     public static Block register(String id, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier("nyakomod", id), block);
+        return Registry.register(Registries.BLOCK, NyakoMod.id(id), block);
     }
 }

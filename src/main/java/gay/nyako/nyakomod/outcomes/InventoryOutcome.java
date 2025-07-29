@@ -67,7 +67,9 @@ public class InventoryOutcome extends CondensedMatterOutcome {
                     var stack = inventory.getStack(i);
                     if (!stack.isEmpty())
                     {
-                        stack.setDamage(0);
+                        if (stack.isDamageable()) {
+                            stack.setDamage(0);
+                        }
                     }
                 }
             }

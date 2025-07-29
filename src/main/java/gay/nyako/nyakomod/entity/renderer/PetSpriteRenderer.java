@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod.entity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.entity.PetSpriteEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -13,7 +14,7 @@ import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 public class PetSpriteRenderer extends EntityRenderer<PetSpriteEntity> {
-    public static final Identifier TEXTURE = new Identifier("nyakomod", "textures/entity/dragon.png");
+    public static final Identifier TEXTURE = NyakoMod.id("textures/entity/dragon.png");
     public PetSpriteRenderer(EntityRendererFactory.Context context) {
         super(context);
     }

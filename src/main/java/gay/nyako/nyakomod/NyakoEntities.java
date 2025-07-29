@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -36,11 +37,36 @@ public class NyakoEntities {
     public static final EntityType<DecayedEntity> DECAYED = register("decayed", FabricEntityTypeBuilder.<DecayedEntity>create(SpawnGroup.MONSTER, DecayedEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
     public static final EntityType<ObsidianArrowEntity> OBSIDIAN_ARROW = register("obsidian_arrow", FabricEntityTypeBuilder.<ObsidianArrowEntity>create(SpawnGroup.MISC, ObsidianArrowEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
 
+    public static final EntityType<BombEntity> BOMB = register(
+            "bomb",
+            FabricEntityTypeBuilder.<BombEntity>create(SpawnGroup.MISC, BombEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
+    );
+
+    public static final EntityType<SafetyBombEntity> SAFETY_BOMB = register(
+            "fire_bomb",
+            FabricEntityTypeBuilder.<SafetyBombEntity>create(SpawnGroup.MISC, SafetyBombEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
+    );
+
+    public static final EntityType<GrenadeEntity> GRENADE = register(
+            "grenade",
+            FabricEntityTypeBuilder.<GrenadeEntity>create(SpawnGroup.MISC, GrenadeEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
+    );
+
+    public static final EntityType<MossBombEntity> MOSS_BOMB = register(
+            "moss_bomb",
+            FabricEntityTypeBuilder.<MossBombEntity>create(SpawnGroup.MISC, MossBombEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
+    );
+
+    public static final EntityType<BobmEntity> BOBM = register(
+            "bobm",
+            FabricEntityTypeBuilder.<BobmEntity>create(SpawnGroup.MISC, BobmEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
+    );
+
     public static <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
-        return Registry.register(Registries.ENTITY_TYPE, new Identifier("nyakomod", name), entityType);
+        return Registry.register(Registries.ENTITY_TYPE, NyakoMod.id(name), entityType);
     }
 
     public static <T extends BlockEntityType<?>> T register(String name, T blockEntityType) {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier("nyakomod", name), blockEntityType);
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, NyakoMod.id(name), blockEntityType);
     }
 }

@@ -1,11 +1,14 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.NyakoToolMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
@@ -25,7 +28,10 @@ public class PiamondDickaxeItem extends PickaxeItem {
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
 
-        user.damage(user.getDamageSources().genericKill(), 1.0f);
+        user.damage(new DamageSource(
+                user.getWorld().getRegistryManager()
+                        .get(RegistryKeys.DAMAGE_TYPE)
+                        .entryOf(NyakoMod.EAT_PICKAXE_DAMAGE_TYPE)), 10);
 
         if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
             stack.decrement(1);

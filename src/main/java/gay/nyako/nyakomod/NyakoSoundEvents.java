@@ -21,6 +21,10 @@ public class NyakoSoundEvents {
     public static final SoundEvent STICKER              = register("sticker");
 
     public static final SoundEvent CARTOON_FALL         = register("cartoon_fall");
+    public static final SoundEvent RINGS                = register("rings");
+    public static final SoundEvent FLASHBANG            = register("flashbang");
+
+    public static final SoundEvent ENTITY_BOMB_THROW    = register("entity.bomb.throw");
 
     public static final SoundEvent MUSIC_DISC_WOLVES    = NyakoDiscs.WOLVES.soundEvent();
     public static final SoundEvent MUSIC_DISC_MASK      = NyakoDiscs.MASK.soundEvent();
@@ -44,7 +48,7 @@ public class NyakoSoundEvents {
     public static final SoundEvent UI_FLETCHING_TABLE_TAKE_RESULT = register("ui.fletching_table.take_result");
 
     public static SoundEvent register(String name) {
-        Identifier identifier = new Identifier("nyakomod", name);
+        Identifier identifier = NyakoMod.id(name);
         return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
     }
 

@@ -3,6 +3,10 @@
 		{
 			"type": "nyakomod:modify_inventory",
 			"action": "drop"
+		},
+		{
+			"type": "nyakomod:sound",
+			"sound": "nyakomod:rings"
 		}
 	]
 }

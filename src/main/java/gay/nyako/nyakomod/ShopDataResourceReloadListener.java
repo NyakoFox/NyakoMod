@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 public class ShopDataResourceReloadListener implements SimpleSynchronousResourceReloadListener {
     @Override
     public Identifier getFabricId() {
-        return new Identifier("nyakomod", "shops");
+        return NyakoMod.id("shops");
     }
 
     @Override

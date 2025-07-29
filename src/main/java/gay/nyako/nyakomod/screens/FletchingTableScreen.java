@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import gay.nyako.nyakomod.NyakoMod;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -7,7 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("nyakomod", "textures/gui/container/fletching_table.png");
+    private static final Identifier TEXTURE = NyakoMod.id("textures/gui/container/fletching_table.png");
 
     public FletchingTableScreen(FletchingTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

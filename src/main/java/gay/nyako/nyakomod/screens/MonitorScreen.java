@@ -22,7 +22,7 @@ public class MonitorScreen extends BaseUIModelScreen<FlowLayout> {
     MonitorEntity monitorEntity;
 
     public MonitorScreen(MonitorEntity monitorEntity) {
-        super(FlowLayout.class, DataSource.asset(new Identifier("nyakomod", "monitor_input")));
+        super(FlowLayout.class, DataSource.asset(NyakoMod.id("monitor_input")));
 
         this.monitorEntity = monitorEntity;
     }

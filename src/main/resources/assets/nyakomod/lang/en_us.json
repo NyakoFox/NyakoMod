@@ -90,6 +90,7 @@
 
     "block.nyakomod.fan": "Fan",
     "block.nyakomod.condensed_matter_block": "Condensed Matter Block",
+    "block.nyakomod.full_piston": "Full Piston",
 
     "category.nyakomod.binds": "NyakoMod",
 
@@ -187,6 +188,12 @@
     "item.nyakomod.apple_ingot": "Apple Ingot",
     "item.nyakomod.carrot_nugget": "Carrot Nugget",
 
+    "item.nyakomod.bomb": "Bomb",
+    "item.nyakomod.safety_bomb": "Safety Bomb",
+    "item.nyakomod.grenade": "Grenade",
+    "item.nyakomod.moss_bomb": "Moss Bomb",
+    "item.nyakomod.bobm": "Bobm",
+
     "item.nyakomod.burning_super_death_sword": "Burning Super Death Sword",
     "item.nyakomod.sticker_pack": "Sticker Pack",
     "item.nyakomod.sticker_pack.open": "You have opened the %s sticker pack!",
@@ -199,72 +206,79 @@
     "item.minecraft.potion.effect.haste": "Potion of Haste",
     "item.minecraft.splash_potion.effect.haste": "Splash Potion of Haste",
     "item.minecraft.lingering_potion.effect.haste": "Lingering Potion of Haste",
-    "item.minecraft.tipped_arrow.effect.haste": "Tipped Arrow of Haste",
+    "item.minecraft.tipped_arrow.effect.haste": "Arrow of Haste",
 
     "item.minecraft.potion.effect.mining_fatigue": "Potion of Mining Fatigue",
     "item.minecraft.splash_potion.effect.mining_fatigue": "Splash Potion of Mining Fatigue",
     "item.minecraft.lingering_potion.effect.mining_fatigue": "Lingering Potion of Mining Fatigue",
-    "item.minecraft.tipped_arrow.effect.mining_fatigue": "Tipped Arrow of Mining Fatigue",
+    "item.minecraft.tipped_arrow.effect.mining_fatigue": "Arrow of Mining Fatigue",
 
     "item.minecraft.potion.effect.nausea": "Potion of Nausea",
     "item.minecraft.splash_potion.effect.nausea": "Splash Potion of Nausea",
     "item.minecraft.lingering_potion.effect.nausea": "Lingering Potion of Nausea",
-    "item.minecraft.tipped_arrow.effect.nausea": "Tipped Arrow of Nausea",
+    "item.minecraft.tipped_arrow.effect.nausea": "Arrow of Nausea",
 
     "item.minecraft.potion.effect.glowing": "Potion of Glowing",
     "item.minecraft.splash_potion.effect.glowing": "Splash Potion of Glowing",
     "item.minecraft.lingering_potion.effect.glowing": "Lingering Potion of Glowing",
-    "item.minecraft.tipped_arrow.effect.glowing": "Tipped Arrow of Glowing",
+    "item.minecraft.tipped_arrow.effect.glowing": "Arrow of Glowing",
 
     "item.minecraft.potion.effect.saturation": "Potion of Saturation",
     "item.minecraft.splash_potion.effect.saturation": "Splash Potion of Saturation",
     "item.minecraft.lingering_potion.effect.saturation": "Lingering Potion of Saturation",
-    "item.minecraft.tipped_arrow.effect.saturation": "Tipped Arrow of Saturation",
+    "item.minecraft.tipped_arrow.effect.saturation": "Arrow of Saturation",
 
     "item.minecraft.potion.effect.absorption": "Potion of Absorption",
     "item.minecraft.splash_potion.effect.absorption": "Splash Potion of Absorption",
     "item.minecraft.lingering_potion.effect.absorption": "Lingering Potion of Absorption",
-    "item.minecraft.tipped_arrow.effect.absorption": "Tipped Arrow of Absorption",
+    "item.minecraft.tipped_arrow.effect.absorption": "Arrow of Absorption",
 
     "item.minecraft.potion.effect.health_boost": "Potion of Health Boost",
     "item.minecraft.splash_potion.effect.health_boost": "Splash Potion of Health Boost",
     "item.minecraft.lingering_potion.effect.health_boost": "Lingering Potion of Health Boost",
-    "item.minecraft.tipped_arrow.effect.health_boost": "Tipped Arrow of Health Boost",
+    "item.minecraft.tipped_arrow.effect.health_boost": "Arrow of Health Boost",
 
     "item.minecraft.potion.effect.unluck": "Potion of Unluck",
     "item.minecraft.splash_potion.effect.unluck": "Splash Potion of Unluck",
     "item.minecraft.lingering_potion.effect.unluck": "Lingering Potion of Unluck",
-    "item.minecraft.tipped_arrow.effect.unluck": "Tipped Arrow of Unluck",
+    "item.minecraft.tipped_arrow.effect.unluck": "Arrow of Unluck",
 
     "item.minecraft.potion.effect.darkness": "Potion of Darkness",
     "item.minecraft.splash_potion.effect.darkness": "Splash Potion of Darkness",
     "item.minecraft.lingering_potion.effect.darkness": "Lingering Potion of Darkness",
-    "item.minecraft.tipped_arrow.effect.darkness": "Tipped Arrow of Darkness",
+    "item.minecraft.tipped_arrow.effect.darkness": "Arrow of Darkness",
 
     "item.minecraft.potion.effect.dolphins_grace": "Potion of Dolphin's Grace",
     "item.minecraft.splash_potion.effect.dolphins_grace": "Splash Potion of Dolphin's Grace",
     "item.minecraft.lingering_potion.effect.dolphins_grace": "Lingering Potion of Dolphin's Grace",
-    "item.minecraft.tipped_arrow.effect.dolphins_grace": "Tipped Arrow of Dolphin's Grace",
+    "item.minecraft.tipped_arrow.effect.dolphins_grace": "Arrow of Dolphin's Grace",
 
     "item.minecraft.potion.effect.hunger": "Potion of Hunger",
     "item.minecraft.splash_potion.effect.hunger": "Splash Potion of Hunger",
     "item.minecraft.lingering_potion.effect.hunger": "Lingering Potion of Hunger",
-    "item.minecraft.tipped_arrow.effect.hunger": "Tipped Arrow of Hunger",
+    "item.minecraft.tipped_arrow.effect.hunger": "Arrow of Hunger",
 
     "item.minecraft.potion.effect.blindness": "Potion of Blindness",
     "item.minecraft.splash_potion.effect.blindness": "Splash Potion of Blindness",
     "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
-    "item.minecraft.tipped_arrow.effect.blindness": "Tipped Arrow of Blindness",
+    "item.minecraft.tipped_arrow.effect.blindness": "Arrow of Blindness",
+
     "item.nyakomod.milk_bucket.tooltip": "Freshly milked from: %s",
 
     "item.minecraft.potion.effect.hunter": "Potion of the Hunt",
-    "item.minecraft.potion.effect.hunter_long": "Potion of the Hunt",
     "item.minecraft.splash_potion.effect.hunter": "Splash Potion of the Hunt",
-    "item.minecraft.splash_potion.effect.hunter_long": "Splash Potion of the Hunt",
     "item.minecraft.lingering_potion.effect.hunter": "Lingering Potion of the Hunt",
-    "item.minecraft.lingering_potion.effect.hunter_long": "Lingering Potion of the Hunt",
     "item.minecraft.tipped_arrow.effect.hunter": "Arrow of the Hunt",
-    "item.minecraft.tipped_arrow.effect.hunter_long": "Arrow of the Hunt",
+
+    "item.minecraft.potion.effect.lactose_intolerance": "Potion of Lactose Intolerance",
+    "item.minecraft.splash_potion.effect.lactose_intolerance": "Splash Potion of Lactose Intolerance",
+    "item.minecraft.lingering_potion.effect.lactose_intolerance": "Lingering Potion of Lactose Intolerance",
+    "item.minecraft.tipped_arrow.effect.lactose_intolerance": "Arrow of Lactose Intolerance",
+
+    "item.minecraft.potion.effect.spilled_milk": "Potion of Spilled Milk",
+    "item.minecraft.splash_potion.effect.spilled_milk": "Splash Potion of Spilled Milk",
+    "item.minecraft.lingering_potion.effect.spilled_milk": "Lingering Potion of Spilled Milk",
+    "item.minecraft.tipped_arrow.effect.spilled_milk": "Arrow of Spilled Milk",
 
     "itemGroup.nyakomod.custom_items": "NyakoMod",
 
@@ -272,6 +286,9 @@
     "subtitles.nyakomod.coin_collect": "Coins collected",
     "subtitles.nyakomod.vine_boom": "Vine boom",
     "subtitles.nyakomod.cartoon_fall": "Cartoon falling sound",
+    "subtitles.nyakomod.rings": "Rings lost",
+    "subtitles.nyakomod.flashbang": "Flashbang",
+
     "subtitles.nyakomod.wolves": "Kanye West - Wolves",
     "subtitles.nyakomod.clunk": "The Clown - What's So Funny?",
     "subtitles.nyakomod.merry": "Super Mario 64 - Merry-Go-Round",
@@ -292,6 +309,8 @@
     "subtitles.nyakomod.sticker": "Sticker",
     "subtitles.nyakomod.ui.fletching_table.take_result": "Arrow crafted",
 
+    "subtitles.entity.bomb.throw": "Bomb thrown",
+
     "trinkets.slot.hand.bag": "Bag",
     "trinkets.slot.head.pet": "Pet",
     "trinkets.slot.chest.canister": "Canister",
@@ -306,11 +325,14 @@
     "entity.nyakomod.herobrine": "Herobrine",
     "entity.nyakomod.decayed": "Decayed",
 
-    "death.attack.totemOfDying": "%s used a Totem of Dying",
+    "death.attack.totem_of_dying": "%s used a Totem of Dying",
     "death.attack.killbind": "%s used their killbind",
-    "death.attack.eatPickaxe": "%s ate a pickaxe",
+    "death.attack.eat_pickaxe": "%s ate a pickaxe",
+    "death.attack.lactose_intolerance": "%s drank too much milk",
 
     "effect.nyakomod.hunter": "Hunter",
+    "effect.nyakomod.lactose_intolerance": "Lactose Intolerance",
+    "effect.nyakomod.spilled_milk": "Spilled Milk",
 
     "biome.nyakomod.echoplains": "Echo Plains",
     "biome.nyakomod.echoshades": "Shades",

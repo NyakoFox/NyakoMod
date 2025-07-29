@@ -71,6 +71,24 @@
             "nyakomod:cartoon_fall"
         ]
     },
+    "rings": {
+        "subtitle": "subtitles.nyakomod.rings",
+        "sounds": [
+            "nyakomod:rings"
+        ]
+    },
+    "flashbang": {
+        "subtitle": "subtitles.nyakomod.flashbang",
+        "sounds": [
+            "nyakomod:flashbang"
+        ]
+    },
+	"entity.bomb.throw": {
+		"sounds": [
+		  "random/bow"
+		],
+		"subtitle": "subtitles.entity.bomb.throw"
+	},
 
     "music_disc.mask": {
         "sounds": [

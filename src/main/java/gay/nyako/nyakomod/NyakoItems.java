@@ -192,12 +192,19 @@ public class NyakoItems {
     public static final Item FAN                        = register("fan", new BlockItem(NyakoBlocks.FAN, new FabricItemSettings()));
 
     public static final Item CONDENSED_MATTER_BLOCK     = register("condensed_matter_block", new BlockItem(NyakoBlocks.CONDENSED_MATTER_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
+    public static final Item FULL_PISTON                = register("full_piston", new BlockItem(NyakoBlocks.FULL_PISTON, new FabricItemSettings()));
 
     public static final Item APPLE_INGOT                = register("apple_ingot", new Item(new FabricItemSettings()));
     public static final Item CARROT_NUGGET              = register("carrot_nugget", new Item(new FabricItemSettings()));
 
+    public static final Item BOMB                       = register("bomb", new BombItem(new FabricItemSettings().maxCount(16)));
+    public static final Item SAFETY_BOMB                = register("safety_bomb", new SafetyBombItem(new FabricItemSettings().maxCount(16)));
+    public static final Item GRENADE                    = register("grenade", new GrenadeItem(new FabricItemSettings().maxCount(16)));
+    public static final Item MOSS_BOMB                  = register("moss_bomb", new MossBombItem(new FabricItemSettings().maxCount(16)));
+    public static final Item BOBM                       = register("bobm", new BobmItem(new FabricItemSettings().maxCount(16)));
+
     public static Item register(String id, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier("nyakomod", id), item);
+        return Registry.register(Registries.ITEM, NyakoMod.id(id), item);
     }
 
     public static Item registerMC(String id, Item item) {
