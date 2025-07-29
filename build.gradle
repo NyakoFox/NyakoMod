@@ -39,9 +39,8 @@ loom {
 }
 
 repositories {
-	maven {
-		url = uri("https://storage.googleapis.com/devan-maven/")
-	}
+	maven { url = "https://mvn.devos.one/snapshots" } // Create and several dependencies
+
 	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 	maven { url "https://maven.nucleoid.xyz/" }
 	maven {
@@ -56,9 +55,6 @@ repositories {
 		url = uri("https://ueaj.dev/maven")
 	}
 	maven { url 'https://maven.wispforest.io' }
-	maven {
-		url = "https://mvn.devos.one/snapshots/"
-	}
 	maven { url = "https://api.modrinth.com/maven" }
 
 	// the repository for ImmPtl
