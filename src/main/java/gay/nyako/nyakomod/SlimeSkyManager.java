@@ -1,6 +1,7 @@
 package gay.nyako.nyakomod;
 
 import gay.nyako.nyakomod.access.LivingEntityAccess;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;

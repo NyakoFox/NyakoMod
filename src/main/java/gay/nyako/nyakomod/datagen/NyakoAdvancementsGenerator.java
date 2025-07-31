@@ -1,5 +1,7 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.datagen;
 
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.PlayerMilkCriterion;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;

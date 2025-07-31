@@ -1,5 +1,7 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.datagen;
 
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoLoot;
 import net.minecraft.data.server.loottable.LootTableGenerator;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;

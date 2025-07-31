@@ -352,6 +352,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(NyakoItems.STICKER_PACK, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.CONDENSED_MATTER_CONTAINER, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.OBSIDIAN_ARROW, Models.GENERATED);
+        itemModelGenerator.register(NyakoItems.FIRE_ARROW, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.APPLE_INGOT, Models.GENERATED);
         itemModelGenerator.register(NyakoItems.CARROT_NUGGET, Models.GENERATED);
 

@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod.feature;
+package gay.nyako.nyakomod.worldgen.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;

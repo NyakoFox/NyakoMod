@@ -8,10 +8,8 @@ import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.resource.featuretoggle.FeatureFlag;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 
 public class NyakoBlocks {
     public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool(), NyakoSoundEvents.SPUNCH_BLOCK));

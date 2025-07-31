@@ -4,7 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import gay.nyako.nyakomod.ChatPrefixes;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.struct.PlayerTeleportPayload;
 import static net.minecraft.server.command.CommandManager.literal;
 import java.util.HashMap;

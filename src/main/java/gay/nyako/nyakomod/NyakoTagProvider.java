@@ -17,6 +17,7 @@ public class NyakoTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(ItemTags.ARROWS)
-                .add(NyakoItems.OBSIDIAN_ARROW);
+                .add(NyakoItems.OBSIDIAN_ARROW)
+                .add(NyakoItems.FIRE_ARROW);
     }
 }

@@ -23,4 +23,32 @@ public class BlocksMixin {
     private static AbstractBlock.Settings endPortalFrameDropsItself(AbstractBlock.Settings instance) {
         return instance;
     }
+
+    /**
+     * @author LlamaLad7
+     * @reason Makes the bedrock block drop itself, by making dropsNothing() do... nothing.
+     */
+
+    @Redirect(
+            method = "<clinit>",
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=bedrock")),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/AbstractBlock$Settings;dropsNothing()Lnet/minecraft/block/AbstractBlock$Settings;", ordinal = 0)
+    )
+    private static AbstractBlock.Settings bedrockDropsItself(AbstractBlock.Settings instance) {
+        return instance;
+    }
+
+    /**
+     * @author LlamaLad7
+     * @reason Makes the bedrock block drop itself, by making dropsNothing() do... nothing.
+     */
+
+    @Redirect(
+            method = "<clinit>",
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=bedrock")),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/AbstractBlock$Settings;strength(FF)Lnet/minecraft/block/AbstractBlock$Settings;", ordinal = 0)
+    )
+    private static AbstractBlock.Settings bedrockDropsItself(AbstractBlock.Settings instance, float hardness, float resistance) {
+        return instance.strength(50.0F, 1200.0F);
+    }
 }

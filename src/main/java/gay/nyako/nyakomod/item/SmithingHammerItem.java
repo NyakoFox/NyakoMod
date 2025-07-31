@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -24,11 +25,8 @@ public class SmithingHammerItem extends Item {
         if (playerEntity == null) return ActionResult.PASS;
         if (hitBlock(world, context.getBlockPos(), playerEntity)) {
             world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
-            var broken = stack.damage(1, world.random, null);
-            if (broken) {
-                playerEntity.playEquipmentBreakEffects(stack);
-                stack.decrement(1);
-            }
+            stack.damage(1, playerEntity, player -> playerEntity.sendToolBreakStatus(context.getHand()));
+
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;

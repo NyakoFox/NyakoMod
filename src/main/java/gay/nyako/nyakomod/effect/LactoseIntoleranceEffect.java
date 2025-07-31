@@ -2,15 +2,12 @@ package gay.nyako.nyakomod.effect;
 
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
-import org.jetbrains.annotations.Nullable;
 
 public class LactoseIntoleranceEffect extends StatusEffect {
     public LactoseIntoleranceEffect() {

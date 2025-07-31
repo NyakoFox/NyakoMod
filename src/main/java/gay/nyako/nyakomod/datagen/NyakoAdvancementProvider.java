@@ -1,7 +1,6 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.datagen;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
@@ -17,7 +16,7 @@ public class NyakoAdvancementProvider extends FabricAdvancementProvider {
         list.add(new NyakoAdvancementsGenerator());
     });
 
-    protected NyakoAdvancementProvider(FabricDataOutput output) {
+    public NyakoAdvancementProvider(FabricDataOutput output) {
         super(output);
     }
 

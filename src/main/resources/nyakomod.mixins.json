@@ -33,6 +33,7 @@
     "MobEntityMixin",
     "MobSpawnerLogicMixin",
     "NetherPortalBlockMixin",
+    "PaintingEntityMixin",
     "PistonBlockEntityMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",

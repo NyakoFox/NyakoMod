@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHandler> {
-    private static final Identifier TEXTURE = NyakoMod.id("textures/gui/container/fletching_table.png");
+    public static final Identifier TEXTURE = NyakoMod.id("textures/gui/container/fletching_table.png");
 
     public FletchingTableScreen(FletchingTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -17,7 +17,7 @@ public class FletchingTableScreen extends HandledScreen<FletchingTableScreenHand
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
+        drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
     @Override

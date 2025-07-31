@@ -1,16 +1,14 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.datagen;
 
+import gay.nyako.nyakomod.NyakoBlocks;
+import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.block.SingleCoinBlock;
 import gay.nyako.nyakomod.block.SproutHeartBlock;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CaveVines;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;

@@ -1,6 +1,5 @@
 package gay.nyako.nyakomod.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.client.MinecraftClient;

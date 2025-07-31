@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.utils;
 
 import eu.pb4.placeholders.api.TextParserUtils;
 import net.minecraft.text.MutableText;

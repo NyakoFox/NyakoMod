@@ -1,14 +1,12 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.datagen;
 
+import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.NyakoLoot;
 import net.minecraft.data.server.loottable.LootTableGenerator;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.loot.function.EnchantWithLevelsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.function.SetDamageLootFunction;

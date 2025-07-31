@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.worldgen;
 
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.util.math.Vec3d;

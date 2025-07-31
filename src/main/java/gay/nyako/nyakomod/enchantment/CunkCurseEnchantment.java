@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;

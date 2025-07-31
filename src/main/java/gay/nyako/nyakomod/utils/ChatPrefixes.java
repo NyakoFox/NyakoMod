@@ -1,4 +1,4 @@
-package gay.nyako.nyakomod;
+package gay.nyako.nyakomod.utils;
 
 public class ChatPrefixes {
     public static final ChatPrefix SERVER = new ChatPrefix("[Server]", "[Server]");
