@@ -1,6 +1,6 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.ChatPrefixes;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoSoundEvents;
 import gay.nyako.nyakomod.StickerPackCollection;
@@ -15,7 +15,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;

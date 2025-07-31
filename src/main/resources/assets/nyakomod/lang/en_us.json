@@ -182,6 +182,7 @@
     "item.nyakomod.heart_berry": "Heart Berry",
     "item.nyakomod.heart_canister": "Heart Canister",
     "item.nyakomod.obsidian_arrow": "Obsidian Arrow",
+    "item.nyakomod.fire_arrow": "Fire Arrow",
 
     "item.nyakomod.decayed_spawn_egg": "Decayed Spawn Egg",
 
@@ -324,6 +325,14 @@
     "entity.nyakomod.monitor": "Monitor",
     "entity.nyakomod.herobrine": "Herobrine",
     "entity.nyakomod.decayed": "Decayed",
+    "entity.nyakomod.bomb": "Bomb",
+    "entity.nyakomod.safety_bomb": "Safety Bomb",
+    "entity.nyakomod.moss_bomb": "Moss Bomb",
+    "entity.nyakomod.grenade": "Grenade",
+    "entity.nyakomod.bobm": "Bobm",
+    "entity.nyakomod.ticker": "Ticker",
+    "entity.nyakomod.obsidian_arrow": "Obsidian Arrow",
+    "entity.nyakomod.fire_arrow": "Fire Arrow",
 
     "death.attack.totem_of_dying": "%s used a Totem of Dying",
     "death.attack.killbind": "%s used their killbind",
@@ -348,12 +357,26 @@
     "painting.nyakomod.creation.author": "Michelangelo",
     "painting.nyakomod.bobomb.title": "Bob-omb Battlefield",
     "painting.nyakomod.bobomb.author": "Nintendo",
-    "painting.nyakomod.lawnmower.title": "21 in. Variable Speed 4-in-1 Gas Walk Behind Self Propelled Lawn Mower with Select Drive Control",
-    "painting.nyakomod.lawnmower.author": "Honda",
     "painting.nyakomod.marisad.title": "Marisad",
     "painting.nyakomod.marisad.author": "Memories of Phantasm",
-    "painting.nyakomod.oreo.title": "Oreo",
-    "painting.nyakomod.oreo.author": "Madeon",
+    "painting.nyakomod.funny_fish.title": "Funny Fish",
+    "painting.nyakomod.funny_fish.author": "Ocean",
+    "painting.nyakomod.soggy_cat.title": "Soggy Cat",
+    "painting.nyakomod.soggy_cat.author": "Water",
+    "painting.nyakomod.eye_of_horus.title": "Eye of Horus",
+    "painting.nyakomod.eye_of_horus.author": "Ancient Egypt",
+    "painting.nyakomod.two_hands.title": "Two Hands",
+    "painting.nyakomod.two_hands.author": "Grandma",
+    "painting.nyakomod.hedgehog_echidna.title": "Hedgehog & Echidna",
+    "painting.nyakomod.hedgehog_echidna.author": "Sonic Team",
+    "painting.nyakomod.knowledge.title": "Knowledge",
+    "painting.nyakomod.knowledge.author": "Mojang",
+    "painting.nyakomod.roots.title": "Roots",
+    "painting.nyakomod.roots.author": "Mojang",
+    "painting.nyakomod.pack.title": "Pack",
+    "painting.nyakomod.pack.author": "Mojang",
+    "painting.nyakomod.geometry.title": "Geometry",
+    "painting.nyakomod.geometry.author": "Robert Topala",
 
     "container.fletching_table": "Fletching Table",
 
@@ -393,5 +416,6 @@
     "stickers.nyakomod.sticker.funny/waits_faster.title": "Waits Faster",
     "stickers.nyakomod.sticker.funny/wrong.title": "Wrong",
 
-    "stickers.nyakomod.sticker_tooltip": "%s\nFrom %s"
+    "stickers.nyakomod.sticker_tooltip": "%s\nFrom %s",
+    "category.nyakomod.fletching": "Fletching"
 }

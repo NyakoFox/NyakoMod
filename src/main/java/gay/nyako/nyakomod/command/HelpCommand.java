@@ -9,12 +9,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.CommandNode;
-import eu.pb4.placeholders.api.TextParserUtils;
-import gay.nyako.nyakomod.ChatPrefixes;
-import net.minecraft.client.font.TextRenderer;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 

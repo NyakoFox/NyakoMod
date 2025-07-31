@@ -1,8 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
 import com.google.common.collect.Lists;
-import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.Sticker;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

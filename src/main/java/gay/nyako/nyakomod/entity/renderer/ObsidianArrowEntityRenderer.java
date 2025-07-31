@@ -21,4 +21,3 @@ public class ObsidianArrowEntityRenderer extends ProjectileEntityRenderer<Obsidi
         return TEXTURE;
     }
 }
-

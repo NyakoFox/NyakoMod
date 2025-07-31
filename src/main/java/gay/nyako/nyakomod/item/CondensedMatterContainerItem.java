@@ -1,10 +1,6 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.ChatPrefixes;
-import gay.nyako.nyakomod.NyakoItems;
-import gay.nyako.nyakomod.NyakoSoundEvents;
-import gay.nyako.nyakomod.StickerPackCollection;
-import gay.nyako.nyakomod.access.PlayerEntityAccess;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.utils.ChatUtils;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +15,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;

@@ -36,6 +36,7 @@ public class NyakoEntities {
     public static final EntityType<HerobrineEntity> HEROBRINE = register("herobrine", FabricEntityTypeBuilder.<HerobrineEntity>create(SpawnGroup.MONSTER, HerobrineEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
     public static final EntityType<DecayedEntity> DECAYED = register("decayed", FabricEntityTypeBuilder.<DecayedEntity>create(SpawnGroup.MONSTER, DecayedEntity::new).dimensions(EntityDimensions.changing(0.6f, 1.95f)).trackRangeBlocks(32).build());
     public static final EntityType<ObsidianArrowEntity> OBSIDIAN_ARROW = register("obsidian_arrow", FabricEntityTypeBuilder.<ObsidianArrowEntity>create(SpawnGroup.MISC, ObsidianArrowEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
+    public static final EntityType<FireArrowEntity> FIRE_ARROW = register("fire_arrow", FabricEntityTypeBuilder.<FireArrowEntity>create(SpawnGroup.MISC, FireArrowEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
 
     public static final EntityType<BombEntity> BOMB = register(
             "bomb",
@@ -43,7 +44,7 @@ public class NyakoEntities {
     );
 
     public static final EntityType<SafetyBombEntity> SAFETY_BOMB = register(
-            "fire_bomb",
+            "safety_bomb",
             FabricEntityTypeBuilder.<SafetyBombEntity>create(SpawnGroup.MISC, SafetyBombEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build()
     );
 

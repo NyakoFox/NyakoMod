@@ -183,6 +183,7 @@ public class NyakoItems {
     public static final Item STICKER_PACK               = register("sticker_pack",              new StickerPackItem(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item CONDENSED_MATTER_CONTAINER = register("condensed_matter_container",new CondensedMatterContainerItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item OBSIDIAN_ARROW             = register("obsidian_arrow", new ObsidianArrowItem(new FabricItemSettings().maxCount(64)));
+    public static final Item FIRE_ARROW                 = register("fire_arrow", new FireArrowItem(new FabricItemSettings().maxCount(64)));
     public static final Item CHARGED_IRON_BLOCK         = register("charged_iron_block", new BlockItem(NyakoBlocks.CHARGED_IRON_BLOCK, new FabricItemSettings().rarity(Rarity.EPIC)));
     public static final Item WOODEN_CRATE               = register("wooden_crate", new FishingCrateBlockItem(NyakoBlocks.WOODEN_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.WOODEN_CRATE_LOOT_TABLE));
     public static final Item IRON_CRATE                 = register("iron_crate", new FishingCrateBlockItem(NyakoBlocks.IRON_CRATE, new FabricItemSettings().maxCount(16), NyakoLoot.IRON_CRATE_LOOT_TABLE));

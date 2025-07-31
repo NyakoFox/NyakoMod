@@ -1,9 +1,8 @@
 package gay.nyako.nyakomod;
 
-import gay.nyako.nyakomod.feature.EchoDungeonFeature;
+import gay.nyako.nyakomod.worldgen.feature.EchoDungeonFeature;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;

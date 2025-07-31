@@ -1,0 +1,16 @@
+{
+  "type": "nyakomod:fletching",
+  "head": {
+    "item": "minecraft:flint"
+  },
+  "shaft": {
+    "item": "minecraft:blaze_rod"
+  },
+  "fletching": {
+    "tag": "nyakomod:arrow_fletchings"
+  },
+  "result": {
+    "item": "nyakomod:fire_arrow",
+    "count": 4
+  }
+}

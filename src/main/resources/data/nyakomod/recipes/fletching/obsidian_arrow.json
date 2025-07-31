@@ -1,0 +1,16 @@
+{
+  "type": "nyakomod:fletching",
+  "head": {
+    "item": "minecraft:obsidian"
+  },
+  "shaft": {
+    "tag": "nyakomod:arrow_shafts"
+  },
+  "fletching": {
+    "tag": "nyakomod:arrow_fletchings"
+  },
+  "result": {
+    "item": "nyakomod:obsidian_arrow",
+    "count": 4
+  }
+}

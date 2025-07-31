@@ -6,6 +6,7 @@ import gay.nyako.nyakomod.entity.model.PetDragonModel;
 import gay.nyako.nyakomod.item.MagnetItem;
 import gay.nyako.nyakomod.screens.*;
 import gay.nyako.nyakomod.utils.NyakoUtils;
+import gay.nyako.nyakomod.worldgen.EchoLandsDimensionEffects;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
 import it.unimi.dsi.fastutil.io.FastByteArrayOutputStream;
@@ -27,7 +28,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -42,7 +42,6 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
@@ -111,6 +110,7 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockEntityRendererFactories.register(NyakoEntities.CUSTOM_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
 
 		EntityRendererRegistry.register(NyakoEntities.OBSIDIAN_ARROW, ObsidianArrowEntityRenderer::new);
+		EntityRendererRegistry.register(NyakoEntities.FIRE_ARROW, FireArrowEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.BOMB, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.SAFETY_BOMB, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.GRENADE, FlyingItemEntityRenderer::new);

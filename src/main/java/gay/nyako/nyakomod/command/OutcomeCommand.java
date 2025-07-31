@@ -1,8 +1,7 @@
 package gay.nyako.nyakomod.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import gay.nyako.nyakomod.ChatPrefixes;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.CunkShop;
 import gay.nyako.nyakomod.data.CondensedMatterOutcomes;
 import gay.nyako.nyakomod.outcomes.OutcomeContext;

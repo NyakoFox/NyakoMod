@@ -171,6 +171,7 @@ public class NyakoItemGroups {
 
                 entries.add(NyakoItems.ELYTRA_BLOCK);
                 entries.add(NyakoItems.OBSIDIAN_ARROW);
+                entries.add(NyakoItems.FIRE_ARROW);
                 entries.add(NyakoItems.CHARGED_IRON_BLOCK);
                 entries.add(StickerPackItem.of("cat"));
                 entries.add(StickerPackItem.of("funny"));
