@@ -115,7 +115,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
     public void playerTick(CallbackInfo info) {
         var player = ((ServerPlayerEntity) (Object) this);
         var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
-        player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, ScoreHolder.fromName(player.getNameForScoreboard()), score -> score.setScore(count));
+        player.getScoreboard().forEachScore(NyakoMod.COIN_CRITERIA, ScoreHolder.fromName(player.getNameForScoreboard()), score -> score.setScore((int) count));
     }
 
     @Redirect(method = "trySleep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/dimension/DimensionType;natural()Z"))

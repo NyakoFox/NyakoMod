@@ -2,6 +2,8 @@ package gay.nyako.nyakomod.utils;
 
 import dev.emi.trinkets.api.TrinketsApi;
 import gay.nyako.nyakomod.NyakoItems;
+import gay.nyako.nyakomod.data.CunkCoinData;
+import gay.nyako.nyakomod.data.CunkCoinDataValues;
 import gay.nyako.nyakomod.item.BagOfCoinsItem;
 import gay.nyako.nyakomod.item.CoinItem;
 import net.minecraft.entity.EntityType;
@@ -11,141 +13,26 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class CunkCoinUtils {
-
-    public static Map<EntityType<?>, Integer> coinMap = new HashMap<>();
-
-    public static Integer getCoinValue(EntityType<?> entity) {
-        return coinMap.get(entity);
+    public static CunkCoinData getCoinData(EntityType<?> entity) {
+        Identifier id = Registries.ENTITY_TYPE.getId(entity);
+        return CunkCoinDataValues.get(id);
     }
 
-    public static void registerCoinAmounts() {
-        // Basic hostile mobs
-        registerCoinAmount(EntityType.SKELETON, 80, 0, 0, 0,0);
-        registerCoinAmount(EntityType.STRAY,    0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.CREEPER,  50, 1, 0, 0,0);
-
-        // Zombies
-        registerCoinAmount(EntityType.ZOMBIE,          60, 0, 0, 0,0);
-        registerCoinAmount(EntityType.DROWNED,         90,  0, 0, 0,0);
-        registerCoinAmount(EntityType.ZOMBIE_VILLAGER, 90, 0, 0, 0,0);
-
-        // "Medium difficulty" hostile mobs
-        registerCoinAmount(EntityType.WITHER_SKELETON, 0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.WITCH,           0, 1, 0, 0,0);
-        // Endermen only get 25 copper because of farms
-        registerCoinAmount(EntityType.ENDERMAN,    25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.BLAZE,       50, 3, 0, 0,0);
-        registerCoinAmount(EntityType.SPIDER,      80, 0, 0, 0,0);
-        registerCoinAmount(EntityType.CAVE_SPIDER, 0,  1, 0, 0,0);
-        registerCoinAmount(EntityType.ENDERMITE,   50, 0, 0, 0,0);
-
-        // Hard hostile mobs
-        registerCoinAmount(EntityType.HOGLIN,       0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.ZOGLIN,       0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.GHAST,        0, 3, 0, 0,0);
-        registerCoinAmount(EntityType.GUARDIAN,     0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.MAGMA_CUBE,   0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.PHANTOM,      0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.PIGLIN,       0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.PIGLIN_BRUTE, 0, 6, 0, 0,0);
-        registerCoinAmount(EntityType.PILLAGER,     0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.RAVAGER, 	    0, 6, 0, 0,0);
-        registerCoinAmount(EntityType.SLIME,        50, 0, 0, 0,0);
-        registerCoinAmount(EntityType.VINDICATOR,   0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.VEX,          50, 0, 0, 0,0);
-        registerCoinAmount(EntityType.SHULKER,      0, 1, 0, 0,0);
-        registerCoinAmount(EntityType.SILVERFISH,   20, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.ILLUSIONER, 0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.EVOKER,     0, 2, 0, 0,0);
-
-        // Minibosses
-        registerCoinAmount(EntityType.IRON_GOLEM, 0, 2, 0, 0, 0);
-
-        // Bosses
-        registerCoinAmount(EntityType.WITHER,         0, 0,  4,  0,0);
-        registerCoinAmount(EntityType.ELDER_GUARDIAN, 0, 50, 0,  0,0);
-        // She spawns coins herself, so don't register
-        //registerCoinAmount(EntityType.ENDER_DRAGON,   0, 0,  4, 0,0);
-
-        // Passive mobs you'd normally kill
-        registerCoinAmount(EntityType.CHICKEN,   20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.PIG,       30, 0, 0, 0,0);
-        registerCoinAmount(EntityType.SHEEP,     30, 0, 0, 0,0);
-        registerCoinAmount(EntityType.RABBIT,    40, 0, 0, 0,0);
-        registerCoinAmount(EntityType.COW,       40, 0, 0, 0,0);
-        registerCoinAmount(EntityType.MOOSHROOM, 40, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.SALMON,        5, 0, 0, 0,0);
-        registerCoinAmount(EntityType.COD,           5, 0, 0, 0,0);
-        registerCoinAmount(EntityType.TROPICAL_FISH, 5, 0, 0, 0,0);
-        registerCoinAmount(EntityType.PUFFERFISH,    5, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.SQUID, 20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.GLOW_SQUID, 40, 0, 0, 0,0);
-        registerCoinAmount(EntityType.GIANT, 0, 50, 0, 0,0);
-
-        // Horses and horse-likes
-        registerCoinAmount(EntityType.HORSE,   20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.DONKEY,  20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.MULE,    20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.SKELETON_HORSE, 0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.ZOMBIE_HORSE,   0, 2, 0, 0,0);
-        registerCoinAmount(EntityType.LLAMA,        20, 0, 0, 0,0);
-        registerCoinAmount(EntityType.TRADER_LLAMA, 20, 0, 0, 0,0);
-
-
-        // Passive mobs you wouldn't normally kill
-        registerCoinAmount(EntityType.AXOLOTL, 25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.BAT,     0,  4, 0, 0,0);
-        registerCoinAmount(EntityType.BEE,     50, 0, 0, 0,0);
-        registerCoinAmount(EntityType.CAT,     25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.DOLPHIN, 50, 0, 0, 0,0);
-        registerCoinAmount(EntityType.FOX,     25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.GOAT,    25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.OCELOT,  25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.PANDA,   25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.PARROT,  25, 0, 0, 0,0);
-        registerCoinAmount(EntityType.POLAR_BEAR, 50, 1, 0, 0,0);
-        registerCoinAmount(EntityType.SNOW_GOLEM, 25, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.STRIDER, 60, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.TURTLE, 40, 0, 0, 0,0);
-        registerCoinAmount(EntityType.VILLAGER, 60, 0, 0, 0,0);
-        registerCoinAmount(EntityType.WANDERING_TRADER, 60, 5, 0, 0,0);
-        registerCoinAmount(EntityType.WOLF, 25, 0, 0, 0,0);
-
-        registerCoinAmount(EntityType.ZOMBIFIED_PIGLIN, 50, 1, 0, 0,0);
-    }
-
-    public static void registerCoinAmount(EntityType<?> type, int copper, int gold, int emerald, int diamond, int netherite) {
-        int total = splitToValue(copper, gold, emerald, diamond, netherite);
-        coinMap.put(type, total);
-    }
-
-    public static int splitToValue(int copper, int gold, int emerald, int diamond, int netherite) {
-        int total = copper
-                + (gold * 100)
-                + (int) (emerald * Math.pow(100, 2))
-                + (int) (diamond * Math.pow(100, 3))
-                + (int) (netherite * Math.pow(100, 4));
-        return total;
-    }
-
-    public static Map<CoinValue, Integer> valueToSplit(int total) {
+    public static Map<CoinValue, Integer> valueToSplit(long total) {
         Map<CoinValue, Integer> splitMap = new HashMap<>();
-        splitMap.put(CoinValue.COPPER,    total % 100);
-        splitMap.put(CoinValue.GOLD,      (total / 100) % 100);
-        splitMap.put(CoinValue.EMERALD,   (total / (int) Math.pow(100, 2)) % 100);
-        splitMap.put(CoinValue.DIAMOND,   (total / (int) Math.pow(100, 3)) % 100);
-        splitMap.put(CoinValue.NETHERITE, (total / (int) Math.pow(100, 4)));
+        splitMap.put(CoinValue.COPPER,    Math.toIntExact(total % 100));
+        splitMap.put(CoinValue.GOLD,      Math.toIntExact((total / 100) % 100));
+        splitMap.put(CoinValue.EMERALD,   Math.toIntExact((total / (int) Math.pow(100, 2)) % 100));
+        splitMap.put(CoinValue.DIAMOND,   Math.toIntExact((total / (int) Math.pow(100, 3)) % 100));
+        splitMap.put(CoinValue.NETHERITE, Math.toIntExact((total / (int) Math.pow(100, 4))));
         return splitMap;
     }
 
@@ -154,7 +41,7 @@ public class CunkCoinUtils {
     }
 
     public static void giveCoins(Inventory inventory, long amount) {
-        Map<CoinValue, Integer> map = valueToSplit((int) amount);
+        Map<CoinValue, Integer> map = valueToSplit(amount);
 
         Integer copper = map.get(CoinValue.COPPER);
         Integer gold = map.get(CoinValue.GOLD);
@@ -281,21 +168,21 @@ public class CunkCoinUtils {
         return removed;
     }
 
-    public static int countInventoryCoins(Inventory inventory) {
-        int total = 0;
+    public static long countInventoryCoins(Inventory inventory) {
+        long total = 0;
         for (int i = 0; i < inventory.size(); ++i) {
             var stack = inventory.getStack(i);
             var item = stack.getItem();
 
             if (item instanceof CoinItem) {
-                total += stack.getCount() * ((CoinItem) item).getCoinValue();
+                total += (long) stack.getCount() * ((CoinItem) item).getCoinValue();
             } else if (item instanceof BagOfCoinsItem) {
                 NbtCompound tag = stack.getOrCreateNbt();
                 total += tag.getInt("copper");
-                total += tag.getInt("gold") * 100;
-                total += tag.getInt("emerald") * 10000;
-                total += tag.getInt("diamond") * 1000000;
-                total += tag.getInt("netherite") * 100000000;
+                total += tag.getInt("gold") * 100L;
+                total += tag.getInt("emerald") * 10000L;
+                total += tag.getInt("diamond") * 1000000L;
+                total += tag.getInt("netherite") * 100000000L;
             }
         }
 
@@ -304,10 +191,10 @@ public class CunkCoinUtils {
             if (trinketBag != null) {
                 NbtCompound tag = trinketBag.getOrCreateNbt();
                 total += tag.getInt("copper");
-                total += tag.getInt("gold") * 100;
-                total += tag.getInt("emerald") * 10000;
-                total += tag.getInt("diamond") * 1000000;
-                total += tag.getInt("netherite") * 100000000;
+                total += tag.getInt("gold") * 100L;
+                total += tag.getInt("emerald") * 10000L;
+                total += tag.getInt("diamond") * 1000000L;
+                total += tag.getInt("netherite") * 100000000L;
             }
         }
 

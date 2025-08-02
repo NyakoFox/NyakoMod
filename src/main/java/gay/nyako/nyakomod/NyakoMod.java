@@ -134,6 +134,7 @@ public class NyakoMod implements ModInitializer {
         Milk.enableAllMilkBottles();
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ShopDataResourceReloadListener());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CoinDataResourceReloadListener());
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CondensedMatterBlockResourceReloadListener());
 
         NyakoNetworking.registerGlobalReceivers();
@@ -199,7 +200,6 @@ public class NyakoMod implements ModInitializer {
 
         NyakoPotions.registerPotionsRecipes();
 
-        CunkCoinUtils.registerCoinAmounts();
         registerCommands();
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
