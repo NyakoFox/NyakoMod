@@ -4,6 +4,7 @@ import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.access.LivingEntityAccess;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
+import gay.nyako.nyakomod.data.CunkCoinData;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -22,11 +23,16 @@ import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -171,30 +177,30 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 
 		EntityType<?> type = getType();
 
+		if (this.isPlayer()) return;
+
 		// get the amount of coins to give based off of the entity type
-		Integer coinValue = CunkCoinUtils.getCoinValue(type);
+		CunkCoinData coinData = CunkCoinUtils.getCoinData(type);
 
-		if (coinValue == null) {
-			if (this.isPlayer()) return;
-			coinValue = getXpToDrop() * 1000 / 10;
-
-			if (coinValue == 0) return;
+		if (coinData == null)
+		{
+			return;
 		}
 
-		double baseCoinAmount = coinValue.doubleValue();
+		long coinValue = coinData.getValue();
 
-		if (type == EntityType.SLIME || type == EntityType.MAGMA_CUBE) {
-			SlimeEntity slime = (SlimeEntity) (Object) this;
+		if (coinValue == 0) return;
+
+		double baseCoinAmount = coinValue;
+
+		if ((Object) this instanceof SlimeEntity slime) {
 			baseCoinAmount *= (slime.getSize() / 5d);
 		}
 
-		if (type == EntityType.ENDERMAN) {
-			if (this.getWorld().getRegistryKey() == World.END) {
-				baseCoinAmount *= 0.1;
-			} else if (this.getWorld().getRegistryKey() == World.NETHER) {
-				baseCoinAmount *= 0.5;
-			}
+		Identifier dimensionId = getWorld().getDimensionKey().getValue();
+		baseCoinAmount *= coinData.getMultiplier(dimensionId);
 
+		if (type == EntityType.ENDERMAN) {
 			if (this.getWorld().getRegistryKey() != World.END) {
 				if (random.nextBetween(1, 100) == 1) {
 					this.dropItem(NyakoItems.ROD_OF_DISCORD);

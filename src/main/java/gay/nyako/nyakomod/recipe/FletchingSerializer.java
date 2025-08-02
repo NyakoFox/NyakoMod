@@ -10,8 +10,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
 public class FletchingSerializer implements RecipeSerializer<FletchingRecipe> {
-    public static final FletchingSerializer INSTANCE = new FletchingSerializer();
-
     @Override
     public FletchingRecipe read(Identifier id, JsonObject json) {
         String group = JsonHelper.getString(json, "group", "");

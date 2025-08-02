@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, CunkShopScreenHandler> {
     public int selectedEntry = 0;
     public int purchaseAmount = 1;
-    public int oldValue = 0;
+    public long oldValue = 0;
     public FlowLayout layout;
 
     public CunkShopHandledScreen(CunkShopScreenHandler handler, PlayerInventory inventory, Text title) {
