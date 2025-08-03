@@ -23,14 +23,18 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.*;
@@ -46,6 +50,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPointer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -195,6 +202,83 @@ public class NyakoMod implements ModInitializer {
             @Override
             protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
                 return Util.make(new MossBombEntity(world, position.getX(), position.getY(), position.getZ()), entity -> entity.setItem(stack));
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.WITHER, new ItemDispenserBehavior() {
+            @Override
+            protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+                World world = pointer.getWorld();
+                Position position = DispenserBlock.getOutputLocation(pointer);
+                Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+                WitherEntity witherEntity = EntityType.WITHER.create(world);
+                float rotation = direction.asRotation();
+
+                double spawnX = position.getX() + 0.5 * direction.getOffsetX();
+                double spawnY = position.getY();
+                double spawnZ = position.getZ() + 0.5 * direction.getOffsetZ();
+
+                switch (direction) {
+                    case DOWN:
+                        spawnY -= 3;
+                        break;
+                    case UP:
+                        break;
+                    default:
+                        spawnY -= 0.5;
+                        break;
+                }
+
+                witherEntity.refreshPositionAndAngles(
+                        spawnX, spawnY, spawnZ, rotation, 0.0F
+                );
+                witherEntity.setHeadYaw(rotation);
+                witherEntity.setBodyYaw(rotation);
+                witherEntity.onSummoned();
+
+                for (ServerPlayerEntity serverPlayerEntity : world.getNonSpectatingEntities(ServerPlayerEntity.class, witherEntity.getBoundingBox().expand(50.0))) {
+                    Criteria.SUMMONED_ENTITY.trigger(serverPlayerEntity, witherEntity);
+                }
+
+                world.spawnEntity(witherEntity);
+                stack.decrement(1);
+                return stack;
+            }
+        });
+
+        DispenserBlock.registerBehavior(NyakoItems.CREEPER, new ItemDispenserBehavior() {
+            @Override
+            protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+                World world = pointer.getWorld();
+                Position position = DispenserBlock.getOutputLocation(pointer);
+                Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+                CreeperEntity creeperEntity = EntityType.CREEPER.create(world);
+                float rotation = direction.asRotation();
+
+                double spawnX = position.getX() + 0.5 * direction.getOffsetX();
+                double spawnY = position.getY();
+                double spawnZ = position.getZ() + 0.5 * direction.getOffsetZ();
+
+                switch (direction) {
+                    case DOWN:
+                        spawnY -= 1.5;
+                        break;
+                    case UP:
+                        break;
+                    default:
+                        spawnY -= 0.5;
+                        break;
+                }
+
+                creeperEntity.refreshPositionAndAngles(
+                        spawnX, spawnY, spawnZ, rotation, 0.0F
+                );
+                creeperEntity.setHeadYaw(rotation);
+                creeperEntity.setBodyYaw(rotation);
+
+                world.spawnEntity(creeperEntity);
+                stack.decrement(1);
+                return stack;
             }
         });
 

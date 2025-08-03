@@ -42,6 +42,11 @@ public class PresentItem extends Item {
     }
 
     @Override
+    public boolean canBeNested() {
+        return false;
+    }
+
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (world.isClient()) return TypedActionResult.success(itemStack);

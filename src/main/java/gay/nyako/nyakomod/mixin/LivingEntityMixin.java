@@ -170,7 +170,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 		this.serverBossBar.setName(this.getDisplayName());
 	}
 
-	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V")
+	@Inject(at = @At("HEAD"), method = "dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V", cancellable = true)
 	private void injected(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		if (!causedByPlayer) return;
 		if (attackingPlayer == null) return;
@@ -178,6 +178,32 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 		EntityType<?> type = getType();
 
 		if (this.isPlayer()) return;
+
+		if (type == EntityType.ENDERMAN) {
+			if (this.getWorld().getRegistryKey() != World.END) {
+				if (random.nextBetween(1, 100) == 1) {
+					dropItem(NyakoItems.ROD_OF_DISCORD);
+				}
+			}
+		}
+		else if (type == EntityType.CREEPER)
+		{
+			if (EnchantmentHelper.hasSilkTouch(attackingPlayer.getMainHandStack()))
+			{
+				dropItem(NyakoItems.CREEPER);
+				ci.cancel();
+				return;
+			}
+		}
+		else if (type == EntityType.WITHER)
+		{
+			if (EnchantmentHelper.hasSilkTouch(attackingPlayer.getMainHandStack()))
+			{
+				dropItem(NyakoItems.WITHER);
+				ci.cancel();
+				return;
+			}
+		}
 
 		// get the amount of coins to give based off of the entity type
 		CunkCoinData coinData = CunkCoinUtils.getCoinData(type);
@@ -199,14 +225,6 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 
 		Identifier dimensionId = getWorld().getDimensionKey().getValue();
 		baseCoinAmount *= coinData.getMultiplier(dimensionId);
-
-		if (type == EntityType.ENDERMAN) {
-			if (this.getWorld().getRegistryKey() != World.END) {
-				if (random.nextBetween(1, 100) == 1) {
-					this.dropItem(NyakoItems.ROD_OF_DISCORD);
-				}
-			}
-		}
 
 		// pick a random number between 0.8 and 1.2
 		double randomRange = ((Math.random() * (1.2 - 0.8)) + 0.8);
