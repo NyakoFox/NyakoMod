@@ -140,6 +140,10 @@ public class PresentWrapperScreenHandler extends ScreenHandler {
         for (int i = 0; i < 6; i++) {
             var stack = inventory.getStack(i);
             if (!stack.isEmpty()) {
+                if (!stack.getItem().canBeNested()) {
+                    output.setStack(0, ItemStack.EMPTY);
+                    return;
+                }
                 PresentItem.addToPresent(newStack, stack.copy());
             }
         }
