@@ -25,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class CunkShop {
+
+
     public static void openShop(PlayerEntity player, World world, Identifier shop) {
         player.openHandledScreen(new ExtendedScreenHandlerFactory() {
             @Override
@@ -38,7 +40,7 @@ public class CunkShop {
 
             @Override
             public Text getDisplayName() {
-                return Text.literal("Icon Selector");
+                return Text.literal("Shop");
             }
 
             @Override
@@ -53,6 +55,7 @@ public class CunkShop {
     }
 
     public static void loadShopModelFromJson(JsonObject shopJson, ShopData shopData) {
+        shopData.name = Text.Serializer.fromJson(shopJson.get("name"));
         shopJson.getAsJsonArray("entries").forEach(entry -> {
             JsonObject entryJson = entry.getAsJsonObject();
             var stacks = new ArrayList<ItemStack>();
@@ -80,8 +83,8 @@ public class CunkShop {
                     new ShopEntry(
                             stacks,
                             entryJson.get("price").getAsInt(),
-                            Text.of(entryJson.get("name").getAsString()),
-                            Text.of(entryJson.get("description").getAsString()),
+                            Text.Serializer.fromJson(entryJson.get("name")),
+                            Text.Serializer.fromJson(entryJson.get("description")),
                             entryJson.get("pack") == null ? null : entryJson.get("pack").getAsString()
                     )
             );

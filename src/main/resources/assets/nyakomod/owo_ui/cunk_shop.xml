@@ -24,8 +24,8 @@
                                 <all>2</all>
                             </padding>
                         </scroll>
-                        <label>
-                            <text>The CunkShop™</text>
+                        <label id="shop_title">
+                            <text></text>
                             <color>dark-gray</color>
                             <margins>
                                 <bottom>4</bottom>

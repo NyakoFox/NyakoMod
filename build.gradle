@@ -84,6 +84,10 @@ dependencies {
 
 	// Only include in dev environment:
 	modRuntimeOnly("maven.modrinth:here-be-no-dragons:1.0.0")
+	modRuntimeOnly("maven.modrinth:continuity:${continuity_version}")
+	modRuntimeOnly("maven.modrinth:itemrename:${itemrename_version}")
+	modRuntimeOnly("maven.modrinth:veindigging:${veindigging_version}")
+	modRuntimeOnly("maven.modrinth:accurate-block-placement-reborn:${accurate_block_placement_version}")
 	modRuntimeOnly(include("com.terraformersmc:modmenu:${mod_menu_version}"))
 	modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
 

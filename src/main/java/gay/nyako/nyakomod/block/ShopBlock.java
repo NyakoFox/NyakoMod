@@ -19,8 +19,8 @@ import static net.minecraft.state.property.Properties.HORIZONTAL_FACING;
 public class ShopBlock extends Block {
 
     public final Identifier shopId;
-    public ShopBlock(Identifier shopIdentifier) {
-        super(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool());
+    public ShopBlock(Settings settings, Identifier shopIdentifier) {
+        super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HORIZONTAL_FACING, Direction.NORTH));
         shopId = shopIdentifier;
     }

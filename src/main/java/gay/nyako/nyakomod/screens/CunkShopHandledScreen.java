@@ -40,8 +40,12 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         this.playerInventoryTitleY = 69420;
     }
 
+    public ShopData getData() {
+        return ShopEntries.getShop(handler.shopId);
+    }
+
     public List<ShopEntry> getEntries() {
-        return ShopEntries.getShop(handler.shopId).entries;
+        return getData().entries;
     }
 
     @Override
@@ -60,6 +64,9 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
     @Override
     protected void build(FlowLayout rootComponent) {
         layout = rootComponent;
+
+        rootComponent.childById(LabelComponent.class, "shop_title").text(getData().name);
+
         var shopEntries = getEntries();
 
         for (ShopEntry entry : shopEntries) {
@@ -90,6 +97,10 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         });
 
         rootComponent.childById(ButtonComponent.class, "buy").onPress(button -> {
+            if (selectedEntry < 0 || selectedEntry >= shopEntries.size()) {
+                return; // Invalid entry, do nothing
+            }
+
             var entry = shopEntries.get(selectedEntry);
             var amount = entry.price() * purchaseAmount;
             if (amount < 0) {
@@ -115,6 +126,9 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
 
     public void changePurchaseAmount(FlowLayout rootComponent, int amount) {
         var shopEntries = getEntries();
+        if (selectedEntry < 0 || selectedEntry >= shopEntries.size()) {
+            return; // Invalid entry, do nothing
+        }
         purchaseAmount = Math.max(Math.min(purchaseAmount + amount, 128), 1);
         ShopEntry shopEntry = shopEntries.get(selectedEntry);
         // Prevent overflows
@@ -132,6 +146,17 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         var shopEntries = getEntries();
         purchaseAmount = 1;
         selectedEntry = entry;
+        if (entry < 0 || entry >= shopEntries.size()) {
+            rootComponent.childById(LabelComponent.class, "purchase-header").text(Text.of("Invalid entry"));
+            rootComponent.childById(LabelComponent.class,"entry-description").text(Text.of("Invalid entry"));
+            rootComponent.childById(FlowLayout.class, "result-list").clearChildren();
+
+            var price = rootComponent.childById(FlowLayout.class,"price-display");
+            price.clearChildren();
+
+            return; // Invalid entry, do nothing
+        }
+
         ShopEntry shopEntry = shopEntries.get(entry);
 
         rootComponent.childById(FlowLayout.class, "result-list").clearChildren();

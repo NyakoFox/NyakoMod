@@ -26,6 +26,7 @@ public class NyakoItems {
     public static final Item BRICKUS_SLAB               = register("brickus_slab",              new BlockItem(NyakoBlocks.BRICKUS_SLAB, new FabricItemSettings()));
     public static final Item BRICKUS_WALL               = register("brickus_wall",              new BlockItem(NyakoBlocks.BRICKUS_WALL, new FabricItemSettings()));
     public static final Item MAIN_SHOP                  = register("main_shop",                 new BlockItem(NyakoBlocks.MAIN_SHOP, new FabricItemSettings().rarity(Rarity.RARE)));
+    public static final Item GENERIC_SHOP               = register("generic_shop",              new BlockItem(NyakoBlocks.GENERIC_SHOP, new FabricItemSettings().rarity(Rarity.RARE)));
     public static final Item DRAFTING_TABLE             = register("drafting_table",            new BlockItem(NyakoBlocks.DRAFTING_TABLE, new FabricItemSettings()));
     public static final Item PLASTEEL_CASING            = register("plasteel_casing",           new BlockItem(NyakoBlocks.PLASTEEL_CASING, new FabricItemSettings()));
     public static final Item PLASTEEL_SMOOTH_CASING     = register("plasteel_smooth_casing",    new BlockItem(NyakoBlocks.PLASTEEL_SMOOTH_CASING, new FabricItemSettings()));
