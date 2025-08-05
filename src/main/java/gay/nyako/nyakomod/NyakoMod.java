@@ -208,9 +208,9 @@ public class NyakoMod implements ModInitializer {
         DispenserBlock.registerBehavior(NyakoItems.WITHER, new ItemDispenserBehavior() {
             @Override
             protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-                World world = pointer.getWorld();
+                World world = pointer.world();
                 Position position = DispenserBlock.getOutputLocation(pointer);
-                Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+                Direction direction = pointer.state().get(DispenserBlock.FACING);
                 WitherEntity witherEntity = EntityType.WITHER.create(world);
                 float rotation = direction.asRotation();
 
@@ -249,9 +249,9 @@ public class NyakoMod implements ModInitializer {
         DispenserBlock.registerBehavior(NyakoItems.CREEPER, new ItemDispenserBehavior() {
             @Override
             protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-                World world = pointer.getWorld();
+                World world = pointer.world();
                 Position position = DispenserBlock.getOutputLocation(pointer);
-                Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+                Direction direction = pointer.state().get(DispenserBlock.FACING);
                 CreeperEntity creeperEntity = EntityType.CREEPER.create(world);
                 float rotation = direction.asRotation();
 

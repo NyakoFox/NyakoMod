@@ -26,6 +26,7 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.BRICKUS_SLAB);
                 entries.add(NyakoItems.BRICKUS_WALL);
                 entries.add(NyakoItems.MAIN_SHOP);
+                entries.add(NyakoItems.GENERIC_SHOP);
                 entries.add(NyakoItems.DRAFTING_TABLE);
                 entries.add(NyakoItems.PLASTEEL_CASING);
                 entries.add(NyakoItems.PLASTEEL_SMOOTH_CASING);

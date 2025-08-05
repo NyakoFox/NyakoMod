@@ -1,5 +1,6 @@
 package gay.nyako.nyakomod.screens;
 
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 public class ShopData {
     public List<ShopEntry> entries;
     public Identifier id;
+    public Text name;
 
     public ShopData(Identifier id) {
         this.entries = new ArrayList<>();

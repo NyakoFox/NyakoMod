@@ -27,10 +27,9 @@ public class ShopDataResourceReloadListener implements SimpleSynchronousResource
                         resourceId.getPath().substring(6, resourceId.getPath().length() - 5)
                 );
 
-                var shopData = new ShopData(shopId);
-
                 // Use GSon to parse the JSON file into a JsonObject
                 JsonObject shopJson = JsonParser.parseReader(new InputStreamReader(resource.getInputStream())).getAsJsonObject();
+                var shopData = new ShopData(shopId);
                 CunkShop.loadShopModelFromJson(shopJson, shopData);
                 CunkShop.storeShopModelJson(shopJson, shopId);
             } catch (Exception e) {

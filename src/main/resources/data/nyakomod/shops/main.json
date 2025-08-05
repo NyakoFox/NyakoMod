@@ -1,10 +1,11 @@
 {
+  "name": "The CunkShop™",
   "entries": [
     {
       "items": [
         {
           "id": "nyakomod:bag_of_coins",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Bag of Coins",
@@ -15,7 +16,7 @@
       "items": [
         {
           "id": "minecraft:potion",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Potion:\"minecraft:luck\"}"
         }
       ],
@@ -27,7 +28,7 @@
       "items": [
         {
           "id": "minecraft:potion",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Potion:\"minecraft:unluck\"}"
         }
       ],
@@ -39,7 +40,7 @@
       "items": [
         {
           "id": "minecraft:potion",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Potion:\"minecraft:nausea\"}"
         }
       ],
@@ -51,7 +52,7 @@
       "items": [
         {
           "id": "nyakomod:sticker_pack",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Pack:\"adachi\"}"
         }
       ],
@@ -64,7 +65,7 @@
       "items": [
         {
           "id": "nyakomod:sticker_pack",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Pack:\"cat\"}"
         }
       ],
@@ -77,7 +78,7 @@
       "items": [
         {
           "id": "nyakomod:sticker_pack",
-          "Count": 1,
+          "count": 1,
           "nbt": "{Pack:\"funny\"}"
         }
       ],
@@ -90,7 +91,7 @@
       "items": [
         {
           "id": "nyakomod:pet_sprite_summon",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Pet Sprite",
@@ -101,7 +102,7 @@
       "items": [
         {
           "id": "nyakomod:pet_dragon_summon",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Pet Dragon",
@@ -112,7 +113,7 @@
       "items": [
         {
           "id": "nyakomod:dev_null",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "/dev/null",
@@ -123,7 +124,7 @@
       "items": [
         {
           "id": "nyakomod:plasteel_plating",
-          "Count": 32
+          "count": 32
         }
       ],
       "name": "Plasteel Plating",
@@ -134,18 +135,18 @@
       "items": [
         {
           "id": "nyakomod:titanstone",
-          "Count": 32
+          "count": 32
         }
       ],
       "name": "Titanstone",
-      "description": "Straight from another dimension, right to you. As a mix of stone and titanium ore, this block is really hard.",
+      "description": "Straight from another dimension, right to you! As a mix of stone and titanium ore, this block is really hard.",
       "price": 500
     },
     {
       "items": [
         {
           "id": "nyakomod:blue_starry_block",
-          "Count": 16
+          "count": 16
         }
       ],
       "name": "Blue Starry Block",
@@ -156,7 +157,7 @@
       "items": [
         {
           "id": "nyakomod:gold_starry_block",
-          "Count": 16
+          "count": 16
         }
       ],
       "name": "Gold Starry Block",
@@ -167,7 +168,7 @@
       "items": [
         {
           "id": "nyakomod:foam_zombie",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Foam Zombie",
@@ -178,7 +179,7 @@
       "items": [
         {
           "id": "nyakomod:condensed_matter_container",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "CMC",
@@ -189,7 +190,7 @@
       "items": [
         {
           "id": "nyakomod:vent",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Vent",
@@ -200,7 +201,7 @@
       "items": [
         {
           "id": "nyakomod:launcher",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Launcher",
@@ -211,7 +212,7 @@
       "items": [
         {
           "id": "minecraft:slime_ball",
-          "Count": 1,
+          "count": 1,
           "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"
         }
       ],
@@ -223,7 +224,7 @@
       "items": [
         {
           "id": "nyakomod:staff_of_smiting",
-          "Count": 1
+          "count": 1
         }
       ],
       "name": "Staff of Smiting",

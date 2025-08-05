@@ -26,6 +26,7 @@ public class NyakoEntities {
     public static final BlockEntityType<CustomSignBlockEntity> CUSTOM_SIGN_BLOCK_ENTITY = register("custom_sign", FabricBlockEntityTypeBuilder.create(CustomSignBlockEntity::new, NyakoBlocks.ECHO_SIGN, NyakoBlocks.ECHO_WALL_SIGN, NyakoBlocks.BENTHIC_SIGN, NyakoBlocks.BENTHIC_WALL_SIGN).build(null));
     public static final BlockEntityType<CustomHangingSignBlockEntity> CUSTOM_HANGING_SIGN_BLOCK_ENTITY = register("custom_hanging_sign", FabricBlockEntityTypeBuilder.create(CustomHangingSignBlockEntity::new, NyakoBlocks.ECHO_HANGING_SIGN, NyakoBlocks.ECHO_WALL_HANGING_SIGN, NyakoBlocks.BENTHIC_HANGING_SIGN, NyakoBlocks.BENTHIC_WALL_HANGING_SIGN).build(null));
     public static final BlockEntityType<FanBlockEntity> FAN_BLOCK_ENTITY = register("fan", FabricBlockEntityTypeBuilder.create(FanBlockEntity::new, NyakoBlocks.FAN).build(null));
+    public static final BlockEntityType<GenericShopBlockEntity> GENERIC_SHOP_ENTITY = register("generic_shop", FabricBlockEntityTypeBuilder.create(GenericShopBlockEntity::new, NyakoBlocks.GENERIC_SHOP).build(null));
 
     public static final EntityType<TickerEntity> TICKER = register("ticker", FabricEntityTypeBuilder.create(SpawnGroup.MISC, TickerEntity::new).dimensions(EntityDimensions.fixed(1F, 1F)).build());
     public static final EntityType<PetSpriteEntity> PET_SPRITE = register("petsprite", FabricEntityTypeBuilder.create(SpawnGroup.MISC, PetSpriteEntity::new).dimensions(EntityDimensions.changing(0.1f, 0.9f)).trackRangeBlocks(32).build());

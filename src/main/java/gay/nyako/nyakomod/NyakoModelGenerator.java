@@ -38,6 +38,7 @@ public class NyakoModelGenerator extends FabricModelProvider {
 
         // Shop block
         blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoBlocks.MAIN_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(NyakoBlocks.GENERIC_SHOP, TexturedModel.ORIENTABLE_WITH_BOTTOM);
 
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.PLASTEEL_CASING);
         blockStateModelGenerator.registerSimpleCubeAll(NyakoBlocks.PLASTEEL_SMOOTH_CASING);

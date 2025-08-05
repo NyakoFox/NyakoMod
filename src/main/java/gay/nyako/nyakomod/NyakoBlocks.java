@@ -14,7 +14,8 @@ import net.minecraft.util.DyeColor;
 public class NyakoBlocks {
     public static final Block SPUNCH_BLOCK              = register("spunch_block",              new SoundBlock(FabricBlockSettings.copy(Blocks.STONE).sounds(NyakoSoundEvents.SPUNCH_BLOCK_SOUND_GROUP).requiresTool(), NyakoSoundEvents.SPUNCH_BLOCK));
     public static final Block LAUNCHER                  = register("launcher",                  new LauncherBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
-    public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(NyakoMod.id("main")));
+    public static final Block MAIN_SHOP                 = register("main_shop",                 new ShopBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool(), NyakoMod.id("main")));
+    public static final Block GENERIC_SHOP              = register("generic_shop",              new GenericShopBlock(FabricBlockSettings.copy(Blocks.COPPER_BLOCK).requiresTool()));
     public static final Block BLUEPRINT_WORKBENCH       = register("blueprint_workbench",       new BlueprintWorkbenchBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));
     public static final Block MATTER_VORTEX             = register("matter_vortex",             new MatterVortexBlock(FabricBlockSettings.copy(Blocks.STONE).requiresTool()));
     public static final Block DRAFTING_TABLE            = register("drafting_table",            new DraftingTableBlock(FabricBlockSettings.copy(Blocks.CARTOGRAPHY_TABLE)));

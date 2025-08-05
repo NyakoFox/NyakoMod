@@ -199,7 +199,8 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 		{
 			if (EnchantmentHelper.hasSilkTouch(attackingPlayer.getMainHandStack()))
 			{
-				dropItem(NyakoItems.WITHER);
+				//dropItem(NyakoItems.WITHER);
+				// Check WitherEntityMixin instead
 				ci.cancel();
 				return;
 			}

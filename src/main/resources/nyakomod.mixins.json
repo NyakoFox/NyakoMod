@@ -48,6 +48,7 @@
     "TntEntityMixin",
     "VillagerEntityMixin",
     "WanderingTraderEntityMixin",
+    "WitherEntityMixin",
     "ZombieEntityMixin"
   ],
   "client": [
