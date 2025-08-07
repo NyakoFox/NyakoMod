@@ -376,49 +376,50 @@ public class NyakoMod implements ModInitializer {
                 }
             }
 
-            for (ServerPlayerEntity player : world.getPlayers()) {
-                if (player.abilities.invulnerable) continue;
-                if (player.isDead()) continue;
+            if (world.getServer().getTickManager().shouldTick()) {
+                for (ServerPlayerEntity player : world.getPlayers()) {
+                    if (player.abilities.invulnerable) continue;
+                    if (player.isDead()) continue;
 
-                var access = (PlayerEntityAccess) player;
+                    var access = (PlayerEntityAccess) player;
 
-                int increase = 1;
-                if (player.isSprinting()) increase += 1;
-                access.setMilkTimer(access.getMilkTimer() + increase);
+                    int increase = 1;
+                    if (player.isSprinting()) increase += 1;
+                    access.setMilkTimer(access.getMilkTimer() + increase);
 
-                if (access.getMilkTimer() >= (10 * 60 * 20)) { // every 10 minutes (unless u sprint
-                    access.setMilkTimer(0);
-                    if (access.getMilkSaturation() > 0) {
-                        access.setMilkSaturation(access.getMilkSaturation() - 1);
-                        continue;
-                    }
-                    if (access.getMilk() > 0) {
-                        access.setMilk(access.getMilk() - 1);
-                    }
-                }
-            }
-
-            // Loop through all entities in all loaded worlds
-            for (ServerWorld serverWorld : world.getServer().getWorlds()) {
-                for (ItemEntity entity : serverWorld.getEntitiesByType(EntityType.ITEM, entity -> entity instanceof ItemEntity)) {
-                    if (entity.isSubmergedInWater())
-                    {
-                        ItemStack stack = entity.getStack();
-                        if (stack.getItem() == NyakoItems.FOAM_ZOMBIE) {
-                            // Change the item to a grown foam zombie
-                            ItemStack newStack = new ItemStack(NyakoItems.GROWN_FOAM_ZOMBIE);
-                            newStack.setCount(stack.getCount());
-                            newStack.setNbt(stack.getNbt());
-                            entity.setStack(newStack);
+                    if (access.getMilkTimer() >= (10 * 60 * 20)) { // every 10 minutes (unless u sprint
+                        access.setMilkTimer(0);
+                        if (access.getMilkSaturation() > 0) {
+                            access.setMilkSaturation(access.getMilkSaturation() - 1);
+                            continue;
+                        }
+                        if (access.getMilk() > 0) {
+                            access.setMilk(access.getMilk() - 1);
                         }
                     }
                 }
-            }
 
-            if (world.getRegistryKey() == World.OVERWORLD) {
-                if (SLIME_SKY_MANAGER == null) return;
+                // Loop through all entities in all loaded worlds
+                for (ServerWorld serverWorld : world.getServer().getWorlds()) {
+                    for (ItemEntity entity : serverWorld.getEntitiesByType(EntityType.ITEM, entity -> entity instanceof ItemEntity)) {
+                        if (entity.isSubmergedInWater()) {
+                            ItemStack stack = entity.getStack();
+                            if (stack.getItem() == NyakoItems.FOAM_ZOMBIE) {
+                                // Change the item to a grown foam zombie
+                                ItemStack newStack = new ItemStack(NyakoItems.GROWN_FOAM_ZOMBIE);
+                                newStack.setCount(stack.getCount());
+                                newStack.setNbt(stack.getNbt());
+                                entity.setStack(newStack);
+                            }
+                        }
+                    }
+                }
 
-                SLIME_SKY_MANAGER.tick();
+                if (world.getRegistryKey() == World.OVERWORLD) {
+                    if (SLIME_SKY_MANAGER == null) return;
+
+                    SLIME_SKY_MANAGER.tick();
+                }
             }
         });
     }
