@@ -19,7 +19,7 @@ public class CoinDataResourceReloadListener implements SimpleSynchronousResource
 
     @Override
     public void reload(ResourceManager manager) {
-        ShopEntries.shops.clear();
+        CunkCoinDataValues.clear();
 
         manager.findResources("coin_values", identifier -> identifier.getPath().endsWith(".json")).forEach((resourceId, resource) -> {
             try {
