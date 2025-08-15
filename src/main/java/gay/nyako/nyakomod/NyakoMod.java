@@ -100,40 +100,8 @@ public class NyakoMod implements ModInitializer {
     //@Environment(EnvType.SERVER)
     public static ModelManager MODEL_MANAGER = new ModelManager();
 
-    public static final TrackedDataHandler<StickerPackCollection> STICKER_PACK_COLLECTION_DATA = new TrackedDataHandler<>(){
-
-        @Override
-        public void write(PacketByteBuf packetByteBuf, StickerPackCollection stickerPackCollection) {
-            packetByteBuf.writeInt(stickerPackCollection.size());
-            for (String string : stickerPackCollection) {
-                packetByteBuf.writeString(string);
-            }
-        }
-
-        @Override
-        public StickerPackCollection read(PacketByteBuf packetByteBuf) {
-            int size = packetByteBuf.readInt();
-            StickerPackCollection collection = new StickerPackCollection();
-            for (int i = 0; i < size; i++) {
-                collection.add(packetByteBuf.readString());
-            }
-            return collection;
-        }
-
-        @Override
-        public StickerPackCollection copy(StickerPackCollection stickerPackCollection) {
-            StickerPackCollection newCollection = new StickerPackCollection();
-            newCollection.addAll(stickerPackCollection);
-            return newCollection;
-        }
-
-    };
-
     @Override
     public void onInitialize() {
-
-        TrackedDataHandlerRegistry.register(STICKER_PACK_COLLECTION_DATA);
-
         Milk.enableMilkFluid();
         //Milk.enableCauldron();
         Milk.enableMilkPlacing();

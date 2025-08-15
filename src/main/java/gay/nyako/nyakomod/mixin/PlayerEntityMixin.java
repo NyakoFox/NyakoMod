@@ -2,7 +2,6 @@ package gay.nyako.nyakomod.mixin;
 
 import gay.nyako.nyakomod.NyakoCriteria;
 import gay.nyako.nyakomod.NyakoMod;
-import gay.nyako.nyakomod.StickerPackCollection;
 import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.inventory.ShulkerBoxInventory;
 import gay.nyako.nyakomod.utils.NyakoUtils;
@@ -13,7 +12,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
@@ -51,8 +49,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     private static final TrackedData<Integer> MILK = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_SATURATION = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MILK_TIMER = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
-
-    private static final TrackedData<StickerPackCollection> STICKER_PACK_COLLECTION = DataTracker.registerData(PlayerEntity.class, NyakoMod.STICKER_PACK_COLLECTION_DATA);
 
     @Shadow
     public ScreenHandler currentScreenHandler;
@@ -99,20 +95,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         return this.dataTracker.get(MILK_TIMER);
     }
 
-    public StickerPackCollection getStickerPackCollection() {
-        return this.dataTracker.get(STICKER_PACK_COLLECTION);
-    }
-
-    public void setStickerPackCollection(StickerPackCollection stickerPackCollection) {
-        this.dataTracker.set(STICKER_PACK_COLLECTION, stickerPackCollection);
-    }
-
     @Inject(at = @At("TAIL"), method = "initDataTracker()V")
     private void initDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(MILK, 10);
         this.dataTracker.startTracking(MILK_SATURATION, 2);
         this.dataTracker.startTracking(MILK_TIMER, 0);
-        this.dataTracker.startTracking(STICKER_PACK_COLLECTION, new StickerPackCollection());
     }
 
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V")
@@ -120,7 +107,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         nbt.putInt("Milk", this.dataTracker.get(MILK));
         nbt.putInt("MilkSaturation", this.dataTracker.get(MILK_SATURATION));
         nbt.putInt("MilkTimer", this.dataTracker.get(MILK_TIMER));
-        nbt.put("StickerCollection", this.dataTracker.get(STICKER_PACK_COLLECTION).toNbt());
     }
 
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V")
@@ -142,12 +128,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             milkTimer = nbt.getInt("MilkTimer");
         }
         this.dataTracker.set(MILK_TIMER, milkTimer);
-
-        StickerPackCollection stickerPackCollection = new StickerPackCollection();
-        if (nbt.contains("StickerCollection")) {
-            stickerPackCollection.fromNbt(nbt.get("StickerCollection"));
-        }
-        this.dataTracker.set(STICKER_PACK_COLLECTION, stickerPackCollection);
     }
 
     @Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;")

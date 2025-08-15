@@ -1,11 +1,11 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.stickers.access.PlayerEntityAccess; // Specifically from stickers
 import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoSoundEvents;
-import gay.nyako.nyakomod.StickerPackCollection;
-import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import gay.nyako.nyakomod.utils.ChatUtils;
+import gay.nyako.stickers.StickerPackCollection;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -41,7 +40,6 @@ public class StickerPackItem extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         if (!world.isClient()) {
             user.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
-            user.playSound(NyakoSoundEvents.STICKER, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
         }
         user.setStackInHand(hand, ItemStack.EMPTY);
 
@@ -49,6 +47,7 @@ public class StickerPackItem extends Item {
         if (!itemStack.getNbt().contains("Pack")) return TypedActionResult.fail(itemStack);
 
         String pack = itemStack.getNbt().getString("Pack");
+
         if (!((PlayerEntityAccess) user).getStickerPackCollection().hasStickerPack(pack))
         {
             StickerPackCollection collection = ((PlayerEntityAccess) user).getStickerPackCollection();

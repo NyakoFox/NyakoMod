@@ -47,12 +47,6 @@
             "nyakomod:samsung"
         ]
     },
-    "sticker": {
-        "subtitle": "subtitles.nyakomod.sticker",
-        "sounds": [
-            "nyakomod:sticker"
-        ]
-    },
     "unlock": {
         "subtitle": "subtitles.nyakomod.unlock",
         "sounds": [

@@ -1,7 +1,5 @@
 package gay.nyako.nyakomod.item;
 
-import gay.nyako.nyakomod.StickerPackCollection;
-import gay.nyako.nyakomod.access.PlayerEntityAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,9 +14,6 @@ public class TestItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        var access = (PlayerEntityAccess) user;
-        access.setStickerPackCollection(new StickerPackCollection());
-
         return TypedActionResult.success(user.getStackInHand(hand));
     }
 

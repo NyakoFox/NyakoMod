@@ -1,7 +1,5 @@
 package gay.nyako.nyakomod.access;
 
-import gay.nyako.nyakomod.StickerPackCollection;
-
 public interface PlayerEntityAccess {
     int getMilk();
     void setMilk(int milk);
@@ -11,7 +9,4 @@ public interface PlayerEntityAccess {
     void addMilkSaturation(int milk);
     void setMilkTimer(int time);
     int getMilkTimer();
-
-    StickerPackCollection getStickerPackCollection();
-    void setStickerPackCollection(StickerPackCollection stickerPackCollection);
 }
