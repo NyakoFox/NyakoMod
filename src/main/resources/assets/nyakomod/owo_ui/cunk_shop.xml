@@ -93,11 +93,10 @@
                                                         </margins>
                                                         <max-width>154</max-width>
                                                     </label>
-                                                    <grid-layout rows="4" columns="4" id="stickers">
+                                                    <flow-layout direction="vertical" id="description-dynamic">
                                                         <children>
-
                                                         </children>
-                                                    </grid-layout>
+                                                    </flow-layout>
                                                 </children>
                                             </flow-layout>
                                             <sizing>

@@ -97,6 +97,9 @@ dependencies {
 
 	// Compile with immersive portals for compatibility
 	modCompileOnly("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:${immptl_version}")
+
+	// Stickers
+	modImplementation files("libs/stickers-${stickers_version}.jar")
 }
 
 processResources {

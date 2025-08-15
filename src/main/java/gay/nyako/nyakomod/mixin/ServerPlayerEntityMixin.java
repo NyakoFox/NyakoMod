@@ -26,11 +26,6 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityAcces
     private GameMode joinPreviousGameMode = GameMode.SURVIVAL;
     private GameMode joinGameMode = GameMode.SURVIVAL;
 
-    @Inject(method = "copyFrom(Lnet/minecraft/server/network/ServerPlayerEntity;Z)V", at = @At("HEAD"))
-    private void injected(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
-        ((PlayerEntityAccess) (PlayerEntity) (Object) this).setStickerPackCollection(((PlayerEntityAccess) oldPlayer).getStickerPackCollection());
-    }
-
     @Override
     public void setSafeMode(boolean bool) {
         inSafeMode = bool;

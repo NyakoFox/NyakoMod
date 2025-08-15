@@ -4,10 +4,15 @@ import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import gay.nyako.nyakomod.NyakoItems;
 import gay.nyako.nyakomod.NyakoNetworking;
+import gay.nyako.stickers.Sticker;
+import gay.nyako.stickers.StickerPack;
+import gay.nyako.stickers.StickerSystem;
+import gay.nyako.stickers.StickersMod;
 import io.netty.buffer.Unpooled;
 import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.*;
+import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.GridLayout;
 import io.wispforest.owo.ui.core.*;
@@ -19,6 +24,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -26,6 +32,7 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, CunkShopScreenHandler> {
@@ -146,51 +153,73 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
         var shopEntries = getEntries();
         purchaseAmount = 1;
         selectedEntry = entry;
+
+        rootComponent.childById(FlowLayout.class, "description-dynamic").clearChildren();
+        rootComponent.childById(FlowLayout.class, "result-list").clearChildren();
+
         if (entry < 0 || entry >= shopEntries.size()) {
             rootComponent.childById(LabelComponent.class, "purchase-header").text(Text.of("Invalid entry"));
             rootComponent.childById(LabelComponent.class,"entry-description").text(Text.of("Invalid entry"));
-            rootComponent.childById(FlowLayout.class, "result-list").clearChildren();
-
-            var price = rootComponent.childById(FlowLayout.class,"price-display");
-            price.clearChildren();
+            rootComponent.childById(FlowLayout.class,"price-display").clearChildren();
 
             return; // Invalid entry, do nothing
         }
 
         ShopEntry shopEntry = shopEntries.get(entry);
 
-        rootComponent.childById(FlowLayout.class, "result-list").clearChildren();
-
         for (ItemStack item : shopEntry.stacks()) {
             addItem(item, rootComponent);
         }
 
+        FlowLayout descriptionDynamic = rootComponent.childById(FlowLayout.class, "description-dynamic");
+
         rootComponent.childById(LabelComponent.class, "purchase-header").text(shopEntry.name());
 
         rootComponent.childById(LabelComponent.class,"entry-description").text(shopEntry.description());
-        var gridLayout = rootComponent.childById(GridLayout.class,"stickers");
-        List<Component> children = new ArrayList<>(gridLayout.children());
-        children.forEach(
-                gridLayout::removeChild
-        );
 
         if (shopEntry.pack() != null)
         {
-            gridLayout.sizing(Sizing.content(2));
-            List<Identifier> stickers = new ArrayList<>();
-            MinecraftClient.getInstance().getResourceManager()
-                    .findAllResources("textures/sticker/" + shopEntry.pack(), id -> id.getPath().endsWith(".png")).forEach(
-                            (resourceID, resource) -> {
-                                stickers.add(resourceID);
-                            }
-                    );
-            for (int i = 0; i < stickers.size(); i++)
+            Map<String, StickerPack> packs = StickersMod.STICKER_MANAGER.stickerPacks;
+            if (!packs.containsKey(shopEntry.pack()))
+            {
+                descriptionDynamic.child(
+                        Components.label(
+                                Text.of("Invalid sticker pack: " + shopEntry.pack())
+                        )
+                );
+                return;
+            }
+
+            StickerPack currentPack = packs.get(shopEntry.pack());
+            List<Sticker> stickers = currentPack.getStickers();
+            if (stickers.isEmpty())
+            {
+                descriptionDynamic.child(
+                        Components.label(
+                                Text.of("No stickers in this pack: " + shopEntry.pack())
+                        )
+                );
+                return;
+            }
+
+            GridLayout gridLayout = Containers.grid(
+                    Sizing.fill(100),
+                    Sizing.content(2),
+                    Math.max((int) Math.floor(stickers.size() / 4.0), 0) + 1,
+                    4
+            );
+
+            descriptionDynamic.child(gridLayout);
+
+            int i = 0;
+            for (Sticker sticker : stickers)
             {
                 int x = i % 4;
                 int y = i / 4;
+                i++;
                 gridLayout.child(
                         Components.texture(
-                                stickers.get(i),
+                                sticker.identifier,
                                 0, 0,
                                 32, 32,
                                 32, 32
@@ -199,10 +228,6 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
                         x
                 );
             }
-        }
-        else
-        {
-            gridLayout.verticalSizing(Sizing.fixed(0));
         }
 
         updatePurchaseAmount(rootComponent);

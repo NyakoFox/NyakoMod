@@ -196,34 +196,6 @@ public class NyakoClientMod implements ClientModInitializer {
 
 		DimensionEffects.BY_IDENTIFIER.put(NyakoMod.id("echolands"), new EchoLandsDimensionEffects());
 
-		ClientTickEvents.START_CLIENT_TICK.register(StickerSystem::tick);
-		HudRenderCallback.EVENT.register(StickerSystem::render);
-
-		KeyBinding stickerBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-				"key.nyakomod.sticker", // The translation key of the keybinding's name
-				InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
-				GLFW.GLFW_KEY_H, // The keycode of the key
-				"category.nyakomod.binds" // The translation key of the keybinding's category.
-		));
-
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (stickerBind.wasPressed()) {
-				client.setScreen(new StickerScreen());
-			}
-		});
-
-		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.SEND_STICKER_TO_CLIENT,
-				(client, handler, buffer, sender) -> {
-					var name = buffer.readString();
-					var playerName = buffer.readText();
-					var uuid = buffer.readUuid();
-					client.execute(() -> {
-								StickerSystem.addSticker(playerName, name, uuid);
-							}
-					);
-				}
-		);
-
 		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.FLASHBANG,
 				(client, handler, buffer, sender) -> {
 					double distance = buffer.readDouble();
