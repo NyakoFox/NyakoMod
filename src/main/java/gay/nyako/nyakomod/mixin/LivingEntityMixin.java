@@ -23,6 +23,7 @@ import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -40,6 +41,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -226,6 +228,21 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 
 		Identifier dimensionId = getWorld().getDimensionKey().getValue();
 		baseCoinAmount *= coinData.getMultiplier(dimensionId);
+
+		// NBT conditions
+		List<CunkCoinData.NBTMultiplierCondition> conditions = coinData.getNBTConditions();
+
+		// get our NBT
+		NbtCompound entityNBT = this.writeNbt(new NbtCompound());
+
+		for (CunkCoinData.NBTMultiplierCondition condition : conditions) {
+			if (entityNBT.contains(condition.key())) {
+				NbtElement element = entityNBT.get(condition.key());
+				if (element != null && element.asString().equals(condition.value())) {
+					baseCoinAmount *= condition.multiplier();
+				}
+			}
+		}
 
 		// pick a random number between 0.8 and 1.2
 		double randomRange = ((Math.random() * (1.2 - 0.8)) + 0.8);
