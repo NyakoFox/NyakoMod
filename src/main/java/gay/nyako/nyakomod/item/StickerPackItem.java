@@ -1,5 +1,7 @@
 package gay.nyako.nyakomod.item;
 
+import gay.nyako.stickers.StickerPack;
+import gay.nyako.stickers.StickersMod;
 import gay.nyako.stickers.access.PlayerEntityAccess; // Specifically from stickers
 import gay.nyako.nyakomod.utils.ChatPrefixes;
 import gay.nyako.nyakomod.NyakoItems;
@@ -12,7 +14,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -21,6 +25,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Map;
 
 public class StickerPackItem extends Item {
 
@@ -39,7 +44,8 @@ public class StickerPackItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (!world.isClient()) {
-            user.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
+            user.playSound(NyakoSoundEvents.COIN_COLLECT, SoundCategory.MASTER, 0.6f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
+            user.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.MASTER, 0.2f, ((user.getRandom().nextFloat() - user.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
         }
         user.setStackInHand(hand, ItemStack.EMPTY);
 
@@ -66,10 +72,25 @@ public class StickerPackItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        if (itemStack.getNbt() == null || !itemStack.getNbt().contains("Pack")) {
+            tooltip.add(Text.translatable("item.nyakomod.sticker_pack.invalid_pack")
+                    .setStyle(Style.EMPTY.withColor(Formatting.RED)));
+            return;
+        }
+
         String pack = itemStack.getNbt().getString("Pack");
 
+        Map<String, StickerPack> stickerPacks = StickersMod.STICKER_MANAGER.stickerPacks;
+        if (!stickerPacks.containsKey(pack)) {
+            tooltip.add(Text.translatable("item.nyakomod.sticker_pack.invalid_pack")
+                    .setStyle(Style.EMPTY.withColor(Formatting.RED)));
+            return;
+        }
+
+        StickerPack stickerPack = stickerPacks.get(pack);
+
         tooltip.add(Text.translatable("item.nyakomod.sticker_pack.pack_tooltip",
-                Text.translatable("stickers.nyakomod.pack." + pack + ".title")
+                Text.literal(stickerPack.getName())
                         .setStyle(Style.EMPTY.withColor(Formatting.LIGHT_PURPLE).withBold(true)))
                 .setStyle(Style.EMPTY.withColor(Formatting.GRAY)));
         tooltip.add(Text.translatable("item.nyakomod.sticker_pack.open_tooltip")

@@ -201,6 +201,7 @@
     "item.nyakomod.sticker_pack.open": "You have opened the %s sticker pack!",
     "item.nyakomod.sticker_pack.open_tooltip": "Right-click to open this sticker pack!",
     "item.nyakomod.sticker_pack.pack_tooltip": "%s",
+    "item.nyakomod.sticker_pack.invalid_pack": "Invalid sticker pack!",
     "item.nyakomod.condensed_matter_container": "Condensed Matter Container",
     "item.nyakomod.condensed_matter_container.open": "The matter shifted into %s!",
     "item.nyakomod.condensed_matter_container.open_tooltip": "Right-click to open this condensed matter container!",
