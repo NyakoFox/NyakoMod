@@ -32,6 +32,7 @@ public class NyakoDiscs {
     public static final DiscGroup SKIBIDI_REAL = register("skibidi_real", toSeconds(2, 7));
     public static final DiscGroup DONT_TAP_THE_GLASS = register("dont_tap_the_glass", toSeconds(0, 46));
     public static final DiscGroup ICEMAN = register("iceman", toSeconds(3, 16));
+    public static final DiscGroup GAMERS_DELIGHT = register("gamers_delight", toSeconds(3, 0));
 
     public static DiscGroup register(String name, int length) {
         var soundId = NyakoMod.id("music_disc." + name);

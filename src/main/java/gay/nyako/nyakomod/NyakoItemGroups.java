@@ -119,6 +119,7 @@ public class NyakoItemGroups {
                 entries.add(NyakoItems.MUSIC_DISC_SKIBIDI_REAL);
                 entries.add(NyakoItems.MUSIC_DISC_ICEMAN);
                 entries.add(NyakoItems.MUSIC_DISC_DONT_TAP_THE_GLASS);
+                entries.add(NyakoItems.MUSIC_DISC_GAMERS_DELIGHT);
                 entries.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(NyakoMod.CUNKLESS_CURSE_ENCHANTMENT, 1)));
                 entries.add(NyakoItems.ECHO_DIRT);
                 entries.add(NyakoItems.ECHO_STONE);

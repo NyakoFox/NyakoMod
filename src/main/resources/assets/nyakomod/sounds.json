@@ -180,6 +180,14 @@
       }
     ]
   },
+  "music_disc.gamers_delight": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/gamers_delight",
+        "stream": true
+      }
+    ]
+  },
 
 
   "entity.decayed.ambient": {

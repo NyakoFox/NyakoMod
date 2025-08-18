@@ -120,18 +120,19 @@ public class NyakoItems {
     public static final Item ENDER_GEM                  = register("ender_gem",                 new Item(new FabricItemSettings().rarity(Rarity.EPIC)));
     public static final Item ECHO_PEARL                 = register("echo_pearl",                new EchoPearlItem(new FabricItemSettings().rarity(Rarity.EPIC).maxCount(16)));
 
-    public static final Item MUSIC_DISC_WOLVES          = NyakoDiscs.WOLVES.item();
-    public static final Item MUSIC_DISC_MASK            = NyakoDiscs.MASK.item();
-    public static final Item MUSIC_DISC_CLUNK           = NyakoDiscs.CLUNK.item();
-    public static final Item MUSIC_DISC_MERRY           = NyakoDiscs.MERRY.item();
-    public static final Item MUSIC_DISC_WEEZED          = NyakoDiscs.WEEZED.item();
-    public static final Item MUSIC_DISC_MOONLIGHT       = NyakoDiscs.MOONLIGHT.item();
-    public static final Item MUSIC_DISC_WELCOME         = NyakoDiscs.WELCOME.item();
-    public static final Item MUSIC_DISC_SKIBIDI         = NyakoDiscs.SKIBIDI.item();
-    public static final Item MUSIC_DISC_MERRY2          = NyakoDiscs.MERRY2.item();
-    public static final Item MUSIC_DISC_SKIBIDI_REAL    = NyakoDiscs.SKIBIDI_REAL.item();
-    public static final Item MUSIC_DISC_ICEMAN          = NyakoDiscs.ICEMAN.item();
+    public static final Item MUSIC_DISC_WOLVES             = NyakoDiscs.WOLVES.item();
+    public static final Item MUSIC_DISC_MASK               = NyakoDiscs.MASK.item();
+    public static final Item MUSIC_DISC_CLUNK              = NyakoDiscs.CLUNK.item();
+    public static final Item MUSIC_DISC_MERRY              = NyakoDiscs.MERRY.item();
+    public static final Item MUSIC_DISC_WEEZED             = NyakoDiscs.WEEZED.item();
+    public static final Item MUSIC_DISC_MOONLIGHT          = NyakoDiscs.MOONLIGHT.item();
+    public static final Item MUSIC_DISC_WELCOME            = NyakoDiscs.WELCOME.item();
+    public static final Item MUSIC_DISC_SKIBIDI            = NyakoDiscs.SKIBIDI.item();
+    public static final Item MUSIC_DISC_MERRY2             = NyakoDiscs.MERRY2.item();
+    public static final Item MUSIC_DISC_SKIBIDI_REAL       = NyakoDiscs.SKIBIDI_REAL.item();
+    public static final Item MUSIC_DISC_ICEMAN             = NyakoDiscs.ICEMAN.item();
     public static final Item MUSIC_DISC_DONT_TAP_THE_GLASS = NyakoDiscs.DONT_TAP_THE_GLASS.item();
+    public static final Item MUSIC_DISC_GAMERS_DELIGHT     = NyakoDiscs.GAMERS_DELIGHT.item();
 
     public static final Item ECHO_DIRT                  = register("echo_dirt",                 new BlockItem(NyakoBlocks.ECHO_DIRT, new FabricItemSettings()));
     public static final Item ECHO_STONE                 = register("echo_stone",                new BlockItem(NyakoBlocks.ECHO_STONE, new FabricItemSettings()));

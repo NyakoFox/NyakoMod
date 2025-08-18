@@ -270,6 +270,7 @@ public class NyakoLoot {
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_SKIBIDI_REAL).weight(1))
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_ICEMAN).weight(1))
                                 .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_DONT_TAP_THE_GLASS).weight(1))
+                                .with(ItemEntry.builder(NyakoItems.MUSIC_DISC_GAMERS_DELIGHT).weight(1))
                                 .build()
                         );
             }
