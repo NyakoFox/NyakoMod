@@ -35,6 +35,8 @@ public class NyakoSoundEvents {
     public static final SoundEvent MUSIC_DISC_SKIBIDI   = NyakoDiscs.SKIBIDI.soundEvent();
     public static final SoundEvent MUSIC_DISC_MERRY2    = NyakoDiscs.MERRY2.soundEvent();
     public static final SoundEvent MUSIC_DISC_SKIBIDI_REAL = NyakoDiscs.SKIBIDI_REAL.soundEvent();
+    public static final SoundEvent MUSIC_DISC_DONT_TAP_THE_GLASS = NyakoDiscs.DONT_TAP_THE_GLASS.soundEvent();
+    public static final SoundEvent MUSIC_DISC_ICEMAN = NyakoDiscs.ICEMAN.soundEvent();
 
 
     public static final BlockSoundGroup SPUNCH_BLOCK_SOUND_GROUP = new BlockSoundGroup(1.0f, 1.2f, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_STEP, SPUNCH_BLOCK, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
