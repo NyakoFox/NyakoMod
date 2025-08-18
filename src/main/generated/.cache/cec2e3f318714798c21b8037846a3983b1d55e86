@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-04T02:09:03.7338695	NyakoMod/Block Loot Tables
+// 1.20.1	2025-08-18T00:31:04.1405314	NyakoMod/Block Loot Tables
 b3d0416225265cf19d5d6884a47b5c8420b1b016 data\nyakomod\loot_tables\blocks\echo_roots.json
 4c8b4b1f3ca52b87206dbd022c6d0ad31043fe26 data\nyakomod\loot_tables\blocks\echo_hanging_sign.json
 90cfbe9b693274e7b00b3addf3cb83776ca15c86 data\nyakomod\loot_tables\blocks\echo_growth.json
@@ -37,8 +37,8 @@ a8c0fa28ecad0a81838add63c0c825e33613fe7b data\nyakomod\loot_tables\blocks\wooden
 3ae4a582bc59203bee0e49b12325bceacbc58157 data\nyakomod\loot_tables\blocks\echo_door.json
 2b8af341dfa19030c35c553f606245016b309589 data\nyakomod\loot_tables\blocks\benthic_hanging_sign.json
 60a276f848469a102df0b8baee8872bedca631d8 data\nyakomod\loot_tables\blocks\gold_coin.json
-fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json
 b4383558cd73589babcfdd13ed6c4389b771e3c9 data\nyakomod\loot_tables\blocks\echo_stairs.json
+fb24a926e0b6cbf09acb9e5a874890f2ac115a4d data\nyakomod\loot_tables\blocks\netherite_coin.json
 55b2fc5dfd20ab83b232b720e57165655ea151a3 data\nyakomod\loot_tables\blocks\stripped_benthic_spine.json
 bb6114b260aa8f0e239052e7ec137905415e4056 data\nyakomod\loot_tables\blocks\echo_sign.json
 e339a4135d6a980f61496a02aea5a10d5f8c557b data\nyakomod\loot_tables\blocks\benthic_button.json

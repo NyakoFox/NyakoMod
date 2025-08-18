@@ -164,6 +164,22 @@
       }
     ]
   },
+  "music_disc.dont_tap_the_glass": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/dont_tap_the_glass",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.iceman": {
+    "sounds": [
+      {
+        "name": "nyakomod:music_disc/iceman",
+        "stream": true
+      }
+    ]
+  },
 
 
   "entity.decayed.ambient": {
