@@ -322,16 +322,16 @@ public class NyakoMod implements ModInitializer {
             };
 
             // Pick a random array from the pool
-            String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
+            /*String[] randomTextArray = randomText[(int) (Math.random() * randomText.length)];
 
-            //if (server.getServerIp() != null && server.getServerIp().equals("51.222.14.126"))
-            //{
+            if (server.getServerIp() != null && server.getServerIp().equals("51.222.14.126"))
+            {
                 ChatUtils.send(handler.player, "Welcome back to <gradient:aqua:light_purple>Allybox</gradient>!", ChatPrefixes.INFO);
 
                 for (String string : randomTextArray) {
                     ChatUtils.send(handler.player, string, ChatPrefixes.INFO);
                 }
-            //}
+            }*/
         }));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
