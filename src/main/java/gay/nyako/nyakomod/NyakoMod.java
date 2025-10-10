@@ -14,6 +14,8 @@ import gay.nyako.nyakomod.mixin.ScoreboardCriterionMixin;
 import gay.nyako.nyakomod.utils.CunkCoinUtils;
 import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -39,6 +41,7 @@ import net.minecraft.item.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -54,6 +57,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -330,13 +334,21 @@ public class NyakoMod implements ModInitializer {
             SLIME_SKY_MANAGER = SlimeSkyManager.forWorld(server.getWorld(World.OVERWORLD));
         });
 
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
+                GenerationStep.Feature.UNDERGROUND_DECORATION,
+                RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("cave_coins")));
+
+        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
+                GenerationStep.Feature.UNDERGROUND_DECORATION,
+                RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("nether_coins")));
+
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             for (ServerPlayerEntity player : world.getPlayers()) {
                 var access = (ServerPlayerEntityAccess) player;
                 if (access.isInSafeMode()) {
                     if (!access.getJoinPos().equals(player.getPos())) {
                         access.setSafeMode(false);
-                    }
+                    } 
                 }
             }
 
