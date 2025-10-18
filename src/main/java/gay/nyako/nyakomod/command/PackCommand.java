@@ -8,6 +8,7 @@ import eu.pb4.placeholders.api.TextParserUtils;
 import gay.nyako.nyakomod.CachedResourcePack;
 import gay.nyako.nyakomod.NyakoMod;
 import gay.nyako.nyakomod.PackUpdateNotifier;
+import gay.nyako.nyakomod.utils.ChatPrefixes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -32,21 +33,39 @@ public final class PackCommand {
     }
 
     public static int reloadCommand(CommandContext<ServerCommandSource> context) {
+        if (!NyakoMod.CONFIG.resourcePackEnabled())
+        {
+            context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>The pack feature is disabled in the config.</white>"));
+            return 0;
+        }
+
         ServerCommandSource source = context.getSource();
         CachedResourcePack.setPlayerResourcePack(source.getPlayer());
         return 1;
     }
 
     public static int publishCommand(CommandContext<ServerCommandSource> context) {
+        if (!NyakoMod.CONFIG.resourcePackEnabled())
+        {
+            context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>The pack feature is disabled in the config.</white>"));
+            return 0;
+        }
+
         ServerCommandSource source = context.getSource();
         NyakoMod.CACHED_RESOURCE_PACK.zipResourcePack();
         NyakoMod.CACHED_RESOURCE_PACK.cacheResourcePack();
         PackUpdateNotifier.causePackUpdate(source.getPlayer());
-        source.sendFeedback(() -> TextParserUtils.formatText("<green>[✔]</green> <bold>>></bold> Published the pack!"), false);
+        source.sendFeedback(() -> ChatPrefixes.SUCCESS.apply("Published the pack!"), false);
         return 1;
     }
 
     public static int remindCommand(CommandContext<ServerCommandSource> context) {
+        if (!NyakoMod.CONFIG.resourcePackEnabled())
+        {
+            context.getSource().sendError(ChatPrefixes.ERROR.apply("<white>The pack feature is disabled in the config.</white>"));
+            return 0;
+        }
+
         ServerCommandSource source = context.getSource();
         PackUpdateNotifier.notifyUnackedPlayers(source.getServer());
         return 1;

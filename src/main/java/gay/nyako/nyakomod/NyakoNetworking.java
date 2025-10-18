@@ -35,8 +35,13 @@ public class NyakoNetworking {
     public static final Identifier MONITOR_MOVE = NyakoMod.id("monitor_move");
     // Creating a model
     public static final Identifier MODEL_CREATE = NyakoMod.id("create_model");
+    // Opening the model screen (requested from the server)
+    public static final Identifier OPEN_MODELS = NyakoMod.id("open_models");
+    // Saving using the NBP
     public static final Identifier NOTE_BLOCK_PLUS_SAVE = NyakoMod.id("note_block_plus_save");
+    // Right clicking an item in the inventory
     public static final Identifier RIGHT_CLICK_INVENTORY = NyakoMod.id("right_click_inventory");
+    // Flashbang effect
     public static final Identifier FLASHBANG = NyakoMod.id("flashbang");
 
     public static void registerGlobalReceivers() {
@@ -161,7 +166,7 @@ public class NyakoNetworking {
                         var cost = currentEntry.price() * amount;
 
                         var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
-                        if (count < cost) {
+                        if ((count < cost) && !player.isCreative()) {
                             return;
                         }
 

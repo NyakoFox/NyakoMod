@@ -117,7 +117,7 @@ public class CunkShopHandledScreen extends BaseUIModelHandledScreen<FlowLayout, 
             var player = client.player;
             var count = CunkCoinUtils.countInventoryCoins(player.getInventory()) + CunkCoinUtils.countInventoryCoins(player.getEnderChestInventory());
 
-            if (count < amount) {
+            if ((count < amount) && !client.player.isCreative()) {
                 return;
             }
 

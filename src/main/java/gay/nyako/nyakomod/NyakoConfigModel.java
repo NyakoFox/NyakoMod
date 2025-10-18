@@ -8,4 +8,5 @@ import io.wispforest.owo.config.annotation.Modmenu;
 public class NyakoConfigModel {
     public String packURL = "http://localhost:8080/pack.zip";
     public int webserverPort = 8080;
+    public boolean resourcePackEnabled = false;
 }

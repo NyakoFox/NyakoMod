@@ -87,6 +87,11 @@ public class NyakoClientMod implements ClientModInitializer {
 					client.player.addVelocity(0D, 5D, 0D);
 				}));
 
+		ClientPlayNetworking.registerGlobalReceiver(NyakoNetworking.OPEN_MODELS,
+				(client, handler, buffer, sender) -> client.execute(() -> {
+					client.setScreen(new ModelScreen());
+				}));
+
 		EntityRendererRegistry.register(NyakoEntities.TICKER, TickerEntityRenderer::new);
 		EntityRendererRegistry.register(NyakoEntities.PET_DRAGON, PetDragonRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_DRAGON_LAYER, PetDragonModel::getTexturedModelData);
@@ -169,14 +174,6 @@ public class NyakoClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.BENTHIC_SAPLING, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_ECHO_SAPLING, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(NyakoBlocks.POTTED_BENTHIC_SAPLING, RenderLayer.getCutout());
-
-		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-			dispatcher.register(ClientCommandManager.literal("models").executes(context -> {
-				var client = context.getSource().getClient();
-				client.send(() -> client.setScreen(new ModelScreen()));
-				return 1;
-			}));
-		});
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 4159204, NyakoItems.WATER);
 

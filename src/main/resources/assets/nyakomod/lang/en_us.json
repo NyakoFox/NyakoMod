@@ -386,5 +386,11 @@
 
     "container.fletching_table": "Fletching Table",
 
-    "category.nyakomod.fletching": "Fletching"
+    "category.nyakomod.fletching": "Fletching",
+
+    "text.config.nyako-config.title": "NyakoMod Configuration",
+
+    "text.config.nyako-config.option.packURL": "Resource Pack URL",
+    "text.config.nyako-config.option.webserverPort": "Webserver Port",
+    "text.config.nyako-config.option.resourcePackEnabled": "Enable server resource pack"
 }

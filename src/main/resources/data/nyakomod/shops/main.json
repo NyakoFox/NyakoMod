@@ -211,6 +211,17 @@
     {
       "items": [
         {
+          "id": "nyakomod:fan",
+          "count": 4
+        }
+      ],
+      "name": "Fan",
+      "description": "This powerful block will \"blow\" you away! Using the latest in 3d math technology, the Fan's velocity is 0.15 * (1 - min(1, sqrt(distSquared(pos) / 5)).",
+      "price": 20000
+    },
+    {
+      "items": [
+        {
           "id": "minecraft:slime_ball",
           "count": 1,
           "nbt": "{AttributeModifiers:[{Amount:5,AttributeName:\"generic.attack_knockback\",Name:\"generic.attack_knockback\",Slot:\"mainhand\",UUID:[I;-122823,13409,3943,-26818]}],Enchantments:[{id:\"knockback\",lvl:255}],HideFlags:3,display:{Lore:['[{\"text\":\"Knockback ∞\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When in Main Hand:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"+∞ Attack Knockback\",\"italic\":false,\"color\":\"blue\"}]'],Name:'[{\"text\":\"Knockback Slimeball\",\"italic\":false}]'}}"

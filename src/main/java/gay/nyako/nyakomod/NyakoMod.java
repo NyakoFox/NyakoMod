@@ -255,7 +255,10 @@ public class NyakoMod implements ModInitializer {
         registerCommands();
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-            CachedResourcePack.setPlayerResourcePack(handler.player);
+            if (CONFIG.resourcePackEnabled()) {
+                CachedResourcePack.setPlayerResourcePack(handler.player);
+            }
+
             ((ServerPlayerEntityAccess)handler.player).setSafeMode(true);
 
             // Pool of strings:
@@ -413,6 +416,7 @@ public class NyakoMod implements ModInitializer {
             DumpNbtCommand.register(dispatcher);
             HelpCommand.register(dispatcher);
             IconsCommand.register(dispatcher);
+            ModelsCommand.register(dispatcher);
         });
     }
 
